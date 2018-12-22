@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'stretch',
-        backgroundColor: 'rgba(179, 206, 249, 1)'
+        //backgroundColor: 'rgba(179, 206, 249, 1)'
     },
     subContainerStyle: {
         flex: 0.6,
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
         paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5
+        paddingRight: 15
     }
 })
 

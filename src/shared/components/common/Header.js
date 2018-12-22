@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, Platform } from 'react-native';
 
 //import { strings } from '../../../i18n';
 
 
 const Header = (props) => (
-        <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}> {props.headerText} </Text>
+        <View >
+            <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
+                <Text style={styles.textStyle}> {props.headerText} </Text>
         </View>
     );
 
@@ -15,11 +16,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     viewStyle: {
-        backgroundColor: '#F8F8F8',
+        backgroundColor: Platform.OS === "ios" ? "#F8F8F8" : "#3F51B5",
         justifyContent: 'center',
         alignItems: 'center',
         height: 60,
-        paddingTop: 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
