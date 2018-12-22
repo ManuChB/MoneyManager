@@ -8,7 +8,14 @@ export const initialState: ILoginState = {
     userName: '',
     password: '',
     formMode: appConstans.loginMode.register,
-    errorMessage: ''
+    errorMessage: '',
+    screenMode: {
+        buttonLabel: '',
+        buttonOnPress: null,
+        leftTextOnPress: null,
+        leftTextLabel: '',
+        rightTextOnPress: null,
+        rightTextLabel: null}
 };
 
 export default function login(state: ILoginState = initialState, action: AnyAction) {
@@ -40,7 +47,8 @@ export default function login(state: ILoginState = initialState, action: AnyActi
             console.log(`[login][reducer][LOGIN_MODE]`);
             return {
                 ...state,
-                formMode: action.value
+                formMode: action.value.formMode,
+                screenMode: action.value.screenMode
             };
         case ERROR_MESSAGE:
             console.log(`[login][reducer][ERROR_MESSAGE]`, action.value);

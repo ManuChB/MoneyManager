@@ -12,7 +12,7 @@ export interface ILoginAction {
     loginInitializeFinish?: () => Action;
     loginSetUserName?: (userName: string) => Action;
     loginSetPassword?: (password: string) => Action;
-    setFormMode?: (formMode: string) => Action;
+    setFormMode?: (formMode: string, screenMode: object) => Action;
     registerSubmit?: (userName: string, password: string) => Action;
     loginSubmit?: (userName: string, password: string) => Action;
     errorMessage?: (message: string) => Action;
@@ -25,4 +25,14 @@ export interface ILoginState {
     password?: string;
     formMode?: string;
     errorMessage?: string;
+    screenMode?: IScreenModeState;
+}
+
+export interface IScreenModeState {
+    buttonLabel?: string,
+    buttonOnPress?: () => void,
+    leftTextOnPress?: () => void,
+    leftTextLabel?: string,
+    rightTextOnPress?: () => void,
+    rightTextLabel?: string
 }

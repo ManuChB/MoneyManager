@@ -31,11 +31,11 @@ const splashAction: ILoginAction = {
             value: userName
         }
     },
-    setFormMode(formMode) {
+    setFormMode(formMode, screenMode) {
         console.log(`[login][action][setFormMode]`);
         return {
             type: LOGIN_MODE,
-            value: formMode
+            value: { formMode, screenMode }
         }
     },
     registerSubmit(userName, password) {

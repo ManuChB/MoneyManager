@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     subContainerStyle: {
         flex: 0.6,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
         borderRadius: 5,
         margin: 20
 
@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 15,
         paddingRight: 15
+    },
+    modelTextStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10
     }
 })
 

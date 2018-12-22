@@ -31,7 +31,7 @@ export class Input extends Component<IImputProp> {
             }),
             color: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['#D0CDD6', '#909090'],
+                outputRange: ['#818084', '#909090'],
             }),
             opacity: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
@@ -113,6 +113,6 @@ export interface IImputProp {
     capitalize?: string,
     returnKeyType?: string,
     blurOnSubmit?: boolean,
-    onSubmitEditing? ,
-    inputRef?
+    onSubmitEditing?: () => void,
+    inputRef?: (ref: string) => void
 }
