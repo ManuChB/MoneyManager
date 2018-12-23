@@ -5,6 +5,7 @@ import { Button, Input, Header } from '../shared/components/common';
 import appConstans from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo';
+import I18n from '../i18n';
 
 export default class Login extends Component<ILoginProp> {
 
@@ -17,22 +18,22 @@ export default class Login extends Component<ILoginProp> {
         switch (mode) {
             case appConstans.loginMode.register:
                 view = {
-                    buttonLabel:'Register',
+                    buttonLabel: I18n.t('register'),
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => {this.props.actions.setFormMode(appConstans.loginMode.logIn, this.setMode(appConstans.loginMode.logIn))},
-                    leftTextLabel: 'Log In',
+                    leftTextLabel: `Already register ? ${'\n'}LognIn`,
                     rightTextOnPress: null,
                     rightTextLabel: null
                 }
                 break;
             case appConstans.loginMode.logIn:
                 view = {
-                    buttonLabel: 'LognIn',
+                    buttonLabel: `LognIn`,
                     buttonOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.forgotPassword, this.setMode(appConstans.loginMode.forgotPassword)),
-                    leftTextLabel: 'Forgot Password',
+                    leftTextLabel: `Forgot Password ?${'\n'}Recover`,
                     rightTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.register, this.setMode(appConstans.loginMode.register)),
-                    rightTextLabel: 'Creact Account'
+                    rightTextLabel: `New here ?${'\n'}Register`
                 }
                 break;
             case appConstans.loginMode.forgotPassword:
@@ -40,7 +41,7 @@ export default class Login extends Component<ILoginProp> {
                     buttonLabel: 'Recover',
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.register, this.setMode(appConstans.loginMode.register)),
-                    leftTextLabel: 'Creact Account',
+                    leftTextLabel: `New here ?${'\n'}Register`,
                     rightTextOnPress: null,
                     rightTextLabel: null
                 }
