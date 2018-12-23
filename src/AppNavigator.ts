@@ -5,6 +5,9 @@ import appConstants from './appConstants';
 // import AcountScreen from './auth/acount/acount.screen';
 import LoginScreen from './login/login.screen';
 import SplashScreen from './splash/splash.screen';
+import AccountScreen from './account/account.screen';
+import TransactionScreen from './transaction/transaction.screen';
+
 // import SettingsScreen from './assignment-list/settings/settings.screen';
 
 const TransitionConfiguration = () => {
@@ -22,33 +25,27 @@ const TransitionConfiguration = () => {
     };
 };
 
-// const TabScreen: NavigationContainer = TabNavigator(
-//     {
-//         AcountScreen: { screen: AcountScreen }
-//     },
-//     {
-//         animationEnabled: true,
-//         tabBarOptions: {
-//             activeTintColor: '#3f51b5',
-//             inactiveTintColor: 'gray',
-//             inactiveBackgroundColor: 'white',
-//             activeBackgroundColor: 'white'
-//         },
-//         tabBarPosition: 'bottom'
-//     }
-// );
+const TabScreen: NavigationContainer = TabNavigator(
+    {
+        AccountScreen: { screen: AccountScreen},
+        TransactionScreen: {
+            screen: TransactionScreen
+        },
+
+    }
+);
 
 const AppNavigator: NavigationContainer = StackNavigator(
     {
         Splash: { screen: SplashScreen },
         Login: { screen: LoginScreen },
-        // Tab: { screen: TabScreen },
+        Tab: { screen: TabScreen }
         // Settings: { screen: SettingsScreen }
     },
     {
         initialRouteName: appConstants.routName.splash,
         navigationOptions: { header: null, gesturesEnabled: false },
-        transitionConfig: TransitionConfiguration
+       // transitionConfig: TransitionConfiguration
     }
 );
 

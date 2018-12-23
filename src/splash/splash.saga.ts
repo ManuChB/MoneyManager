@@ -13,7 +13,7 @@ export function* initialize() {
     try {
         console.log(`[splash][saga][initialize]`);
         yield call(FirebaseService.init);
-        yield call(NavigationService.navigateTo, appConstants.routName.login);
+        yield call(NavigationService.navigateTo, appConstants.routName.tabs);
         yield put(splashAction.initializeFinish());
     } catch (e) {
         console.log(`[error][splash][saga][initialize]>>> ${e}`);

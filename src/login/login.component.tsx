@@ -28,7 +28,7 @@ export default class Login extends Component<ILoginProp> {
                 break;
             case appConstans.loginMode.logIn:
                 view = {
-                    buttonLabel: `LognIn`,
+                    buttonLabel: `Log In`,
                     buttonOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.forgotPassword, this.setMode(appConstans.loginMode.forgotPassword)),
                     leftTextLabel: `Forgot Password ?${'\n'}Recover`,
@@ -66,7 +66,7 @@ export default class Login extends Component<ILoginProp> {
                 <View style={styles.containerStyle}>
                     <View style={styles.subContainerStyle}>
                         <Input 
-                            label={'UserName'} 
+                            label={'Username'} 
                             value={this.props.state.userName} 
                             onChangeText={(text) => this.props.actions.loginSetUserName(text)}
                             keyboard={'email-address'}
@@ -77,7 +77,7 @@ export default class Login extends Component<ILoginProp> {
                         />
                         <Input 
                             inputRef={ref => this.passwordInput = ref}
-                            label={'Pasword'} 
+                            label={'Password'} 
                             value={this.props.state.password} 
                             secureTextEntry={true} 
                             onChangeText={(text) => this.props.actions.loginSetPassword(text)}

@@ -1,0 +1,18 @@
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import { IAccountProp } from './account.model';
+import { Button, Input, Header } from '../shared/components/common';
+import appConstans from '../appConstants';
+import styles from './account.component.style';
+import { LinearGradient } from 'expo';
+import I18n from '../i18n';
+
+export default class Account extends Component<IAccountProp> {
+    render() {
+        return (
+            <View style={{ flex: 1 }}>
+                <Text> asfafafadfasfa </Text>
+            </View>
+        )
+    }
+}

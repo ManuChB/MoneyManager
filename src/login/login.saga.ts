@@ -8,7 +8,7 @@ import appConstants from '../appConstants';
 export default [
     takeLatest(LOGIN_INITIALIZE_START, initialize),
     takeLatest(REGISTER_SUBMIT, registerNewUser),
-    takeLatest(LOGIN_SUBMIT, logInNewUser)
+    takeLatest(LOGIN_SUBMIT, logInUser)
 ];
 
 export function* initialize() {
@@ -25,7 +25,7 @@ export function* registerNewUser(action) {
     const {userName, password } = action.value;
     try {
         const response = yield call(FirebaseService.newUser, userName, password);
-        console.log(`[login][saga][registerNewUser]`, response);
+        console.log(`[login][saga][registerNewUser]`, response.user.uid);
         yield put(loginAction.errorMessage(''));
 
     } catch (e) {
@@ -34,15 +34,15 @@ export function* registerNewUser(action) {
     }
 }
 
-export function* logInNewUser(action) {
+export function* logInUser(action) {
     const {userName, password } = action.value;
     try {
         const response = yield call(FirebaseService.logIn, userName, password);
-        console.log(`[login][saga][logInNewUser]`, response);
+        console.log(`[login][saga][logInUser]`, response.uid);
         yield put(loginAction.errorMessage(''));
 
     } catch (e) {
         yield put(loginAction.errorMessage(e.message));
-        console.log(`[error][login][saga][logInNewUser]>>> ${e}`);
+        console.log(`[error][login][saga][logInUser]>>> ${e}`);
     }
 }

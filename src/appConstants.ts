@@ -3,7 +3,7 @@ const constants = {
     routName: {
         splash: 'Splash',
         login: 'Login',
-        settings: 'Settings'
+        tabs: 'Tab'
     },
     loginMode:{
         register: 'Register',

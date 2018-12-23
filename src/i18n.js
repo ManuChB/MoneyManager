@@ -28,14 +28,11 @@
 //     return I18n.t(name, params);
 // }
 
-export function changeLanguage() {
-    const language = getLanguage() === 'en' ? 'es' : 'en';
+export function changeLanguage(language) {
+    console.log(`[i18n][changeLanguage]-> ${language}`);
     I18n.locale = language;
 }
 
-export function getLanguage() {
-    return I18n.locale;
-}
 
 // export default I18n;
 
@@ -47,8 +44,6 @@ I18n.fallbacks = true;
 // export const getLanguages = () => Promise.resolve(['en']);
 I18n.translations = {
     'en': require('../translations/en'),
-    'fr': require('../translations/fr'),
-    'ca': require('../translations/ca'),
     'es': require('../translations/es'),
 };
 
