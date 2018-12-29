@@ -6,13 +6,13 @@ import moment from 'moment';
 export class DatePickerHeader extends Component<IDatePickerProps> {
 
     render() {
-        const { date } = this.props.state;
+        const { state: {date}, actions: {changeDay} } = this.props;
         console.log('datee', date);
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
                     <TouchableOpacity 
-                        onPress={() => { this.props.actions.changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day')) }}
+                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day')) }}
                         style={{ padding: 15 }}>
                         <Text>{'<'}</Text>
                     </TouchableOpacity>
@@ -30,10 +30,10 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                                 borderWidth: 0
                             }
                         }}
-                        onDateChange={(date) => { this.props.actions.changeDay(date) }}
+                        onDateChange={(date) => { changeDay(date) }}
                     />
                     <TouchableOpacity 
-                        onPress={() => { this.props.actions.changeDay(moment(date, "DD-MM-YYYY").add(1, 'day'))}} 
+                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day'))}} 
                         style={{ padding: 15 }}>
                         <Text>{'>'}</Text>
                     </TouchableOpacity>
