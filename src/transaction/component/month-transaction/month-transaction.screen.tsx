@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
-import Transaction from './transaction.component';
-import  transactionAction from './transaction.action';
-import { ITransactionProp } from './transaction.model';
+import MonthTransaction from './month-transaction.component';
+import monthTransactionAction from './month-transaction.action';
+import { IMonthTransactionProp } from './month-transaction.model';
 
-export class TransactionScreenComponent extends Component<ITransactionProp, {}> {
+export class MonthTransactionScreenComponent extends Component<IMonthTransactionProp, {}> {
     constructor(props: any) {
         super(props);
     }
@@ -20,24 +20,22 @@ export class TransactionScreenComponent extends Component<ITransactionProp, {}> 
     };
 
     render() {
-        console.log(`[transaction][render]`, this.props);
-
         return (
-            <Transaction {...this.props } />
+            <MonthTransaction {...this.props} />
         );
     }
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.transaction };
+    return { state: state.monthTransaction };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
-            ...bindActionCreators<any>(transactionAction, dispatch)
+            ...bindActionCreators<any>(monthTransactionAction, dispatch)
         }
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransactionScreenComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(MonthTransactionScreenComponent);

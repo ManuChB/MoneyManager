@@ -8,9 +8,12 @@ export interface ITransactionProp {
 }
 
 export interface ITransactionAction {
-
+    transactionInitializeStart?: () => Action;
+    transactionInitializeFinish?: () => Action;
+    changeTimeFormat?: (mode: string) => Action;
 }
 
 export interface ITransactionState {
     isInitialized?: boolean;
+    timeMode?: string;
 }

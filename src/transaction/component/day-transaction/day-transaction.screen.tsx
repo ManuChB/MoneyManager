@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
-import Transaction from './transaction.component';
-import  transactionAction from './transaction.action';
-import { ITransactionProp } from './transaction.model';
+import DayTransaction from './day-transaction.component';
+import dayTransactionAction from './day-transaction.action';
+import { IDayTransactionProp } from './day-transaction.model';
 
-export class TransactionScreenComponent extends Component<ITransactionProp, {}> {
+export class DayTransactionScreenComponent extends Component<IDayTransactionProp, {}> {
     constructor(props: any) {
         super(props);
     }
@@ -20,24 +20,22 @@ export class TransactionScreenComponent extends Component<ITransactionProp, {}> 
     };
 
     render() {
-        console.log(`[transaction][render]`, this.props);
-
         return (
-            <Transaction {...this.props } />
+            <DayTransaction {...this.props} />
         );
     }
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.transaction };
+    return { state: state.dayTransaction };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
-            ...bindActionCreators<any>(transactionAction, dispatch)
+            ...bindActionCreators<any>(dayTransactionAction, dispatch)
         }
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransactionScreenComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DayTransactionScreenComponent);

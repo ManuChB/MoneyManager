@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
-import Transaction from './transaction.component';
-import  transactionAction from './transaction.action';
-import { ITransactionProp } from './transaction.model';
+import YearTransaction from './year-transaction.component';
+import yearTransactionAction from './year-transaction.action';
+import { IYearTransactionProp } from './year-transaction.model';
 
-export class TransactionScreenComponent extends Component<ITransactionProp, {}> {
+export class YearTransactionScreenComponent extends Component<IYearTransactionProp, {}> {
     constructor(props: any) {
         super(props);
     }
@@ -20,24 +20,22 @@ export class TransactionScreenComponent extends Component<ITransactionProp, {}> 
     };
 
     render() {
-        console.log(`[transaction][render]`, this.props);
-
         return (
-            <Transaction {...this.props } />
+            <YearTransaction {...this.props} />
         );
     }
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.transaction };
+    return { state: state.yearTransaction };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
-            ...bindActionCreators<any>(transactionAction, dispatch)
+            ...bindActionCreators<any>(yearTransactionAction, dispatch)
         }
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransactionScreenComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(YearTransactionScreenComponent);

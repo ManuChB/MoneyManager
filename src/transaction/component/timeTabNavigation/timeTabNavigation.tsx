@@ -1,19 +1,33 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import NavigationService from '../../shared/service/navigation/navigation.service';
-import appConstans from '../../appConstants';
+import NavigationService from '../../../shared/service/navigation/navigation.service';
+import appConstans from '../../../appConstants';
+import { LinearGradient } from 'expo';
 
 export class TimeTabNavigation extends Component<ITimeTabNavProp> {
+    isSelectedTab(timeMode: string) {
+        if(this.props.state.timeMode === timeMode) {
+            return styles.selectedTab;
+        } else { 
+            return null;
+        }
 
+        
+    }
     render() {
         console.log('[[TimeTabNavigation]]', this.props);
 
         return (
-            <View style={styles.mainViewStyle}>
+                <LinearGradient
+                    start={{ x: 0.0, y: 0.2 }}
+                    end={{ x: 0.75, y: 1.0 }}
+                    locations={[0, 0.5, 0.9]}
+                    colors={['#3D1C47C5', '#1C47C5', '#B93434']}
+                    style={styles.mainViewStyle}>
                 <TouchableOpacity
-                    style={styles.touchableStyle}
-                    onPress={() => console.log('Day') }>
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstans.timeMode.day)]}
+                    onPress={() => this.props.actions.changeTimeFormat(appConstans.timeMode.day) }>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -22,8 +36,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle}
-                    onPress={() => console.log('Week')}>
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstans.timeMode.week)]}
+                    onPress={() => this.props.actions.changeTimeFormat(appConstans.timeMode.week)}>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -32,8 +46,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle} 
-                    onPress={() => console.log('Month')}>
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstans.timeMode.month)]} 
+                    onPress={() => this.props.actions.changeTimeFormat(appConstans.timeMode.month)}>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -42,16 +56,16 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle}>
-                    <View style={styles.touchableViewStyle}
-                        onPress={() => console.log('Year')}>
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstans.timeMode.year)]} 
+                    onPress={() => this.props.actions.changeTimeFormat(appConstans.timeMode.year)}>
+                    <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
                             Year
                         </Text>
                     </View>
                 </TouchableOpacity>  
-            </View>
+                </LinearGradient>
         );
 
 
@@ -64,7 +78,6 @@ const styles = {
     mainViewStyle: {
         height: 50,
         flexDirection: 'row',
-        backgroundColor: 'white',
         shadowOpacity: 0.6,
         shadowOffset: { height: 4, width: 0 },
 
@@ -74,8 +87,7 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
-        backgroundColor: '#c2e2ef',
-        borderTopColor: '#1379a3',
+        
         borderTopWidth: 1
     },
     touchableViewStyle: {
@@ -86,6 +98,13 @@ const styles = {
         textAlign: 'center',
         color: 'white',
         marginTop: 5
+    },
+    linearGradient: {
+        flex: 1
+    },
+    selectedTab: {
+        borderBottomColor: 'red',
+        borderBottomWidth: 5
     }
 
 };

@@ -16,6 +16,12 @@ const constants = {
     tabMode: {
         account: 'Account',
         transaction: 'Transaction'        
+    },
+    timeMode: {
+        day: 'Day',
+        week: 'Week',
+        month: 'Month',
+        year: 'Year'
     }
 }
 
