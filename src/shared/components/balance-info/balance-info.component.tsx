@@ -17,7 +17,7 @@ export class BalanceInfo extends Component<IBalanceInfoProps> {
                 </View>
                 <View style={styles.textViewStyle}>
                     <Text style={styles.textStyle}>{'balance'} </Text>
-                    <Text style={[styles.textStyle, parseFloat(balance) > 0 ? { color: 'green' } : { color: 'red' }]}>{balance} </Text>
+                    <Text style={[styles.textStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>{balance} </Text>
                 </View>
             </View>
         )
@@ -53,8 +53,8 @@ const styles = {
 };
 
 export interface IBalanceInfoProps {
-    income?: string,
-    expense?: string,
-    balance?: string
+    income?: Number,
+    expense?: Number,
+    balance?: Number
 
 }

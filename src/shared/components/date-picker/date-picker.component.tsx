@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
-export class DatePicker extends Component<IDatePickerProps> {
+export class DatePickerHeader extends Component<IDatePickerProps> {
 
     render() {
-        const { income, expense, balance } = this.props;
+        const { date } = this.props.state;
+        console.log('datee', date);
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
-                    <Text style={styles.textStyle}>{'income'} </Text>
-                    <Text style={[styles.textStyle, { color: 'green' }]}>{income} </Text>
-                </View>
-                <View style={styles.textViewStyle}>
-                    <Text style={styles.textStyle}>{'expense'} </Text>
-                    <Text style={[styles.textStyle, { color: 'red' }]}>{expense} </Text>
-                </View>
-                <View style={styles.textViewStyle}>
-                    <Text style={styles.textStyle}>{'balance'} </Text>
-                    <Text style={[styles.textStyle, parseFloat(balance) > 0 ? { color: 'green' } : { color: 'red' }]}>{balance} </Text>
+                    <TouchableOpacity 
+                        onPress={() => { this.props.actions.changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day')) }}
+                        style={{ padding: 15 }}>
+                        <Text>{'<'}</Text>
+                    </TouchableOpacity>
+                    <DatePicker
+                    style= {{width: 80}}
+                        date={date}
+                        mode="date"
+                        placeholder="select date"
+                        showIcon={false}
+                        format="DD-MM-YYYY"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateInput: {
+                                borderWidth: 0
+                            }
+                        }}
+                        onDateChange={(date) => { this.props.actions.changeDay(date) }}
+                    />
+                    <TouchableOpacity 
+                        onPress={() => { this.props.actions.changeDay(moment(date, "DD-MM-YYYY").add(1, 'day'))}} 
+                        style={{ padding: 15 }}>
+                        <Text>{'>'}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -28,9 +47,9 @@ export class DatePicker extends Component<IDatePickerProps> {
 const styles = {
     textViewStyle: {
         flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'stretch',
     },
     textStyle: {
         color: 'black',
@@ -41,14 +60,14 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'stretch',
         backgroundColor: 'white',
         height: 40,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         elevation: 2,
-        position: 'relative'
+        position: 'relative',
+        borderBottomWidth: 1
     }
 };
 

@@ -78,6 +78,7 @@
     "native-base": "^2.9.3",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^0.24.3",
     "react-native-dotenv": "^0.2.0",
     "react-native-firebase": "^5.1.1",

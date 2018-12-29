@@ -1,4 +1,4 @@
-import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START } from './day-transaction.constant';
+import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, CHANGE_DATE } from './day-transaction.constant';
 import { IDayTransactionAction } from './day-transaction.model';
 
 const splashAction: IDayTransactionAction = {
@@ -14,8 +14,15 @@ const splashAction: IDayTransactionAction = {
         return {
             type: DAY_TRANSACTION_INITIALIZE_START
         }
-    }
+    },
 
+    changeDay(newDate) {
+        console.log(`[day-transaction][action][changeDay]`);
+        return {
+            type: CHANGE_DATE,
+            value: newDate
+        }
+    }
 }
 
 export default splashAction;
