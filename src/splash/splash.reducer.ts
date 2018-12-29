@@ -17,6 +17,7 @@ export default function splash(state: ISplashState = initialState , action: AnyA
         case INITIALIZE_FINISH: 
             console.log(`[splash][reducer][initializeFinish]`);
             return {
+                ...state,
                 isInitialized: true
             };
         default:

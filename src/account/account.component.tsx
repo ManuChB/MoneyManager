@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { IAccountProp } from './account.model';
-import { Button, Input, Header } from '../shared/components/common';
+import { Input, Header } from '../shared/components/common';
 import appConstans from '../appConstants';
 import styles from './account.component.style';
 import { LinearGradient } from 'expo';
@@ -11,7 +11,10 @@ export default class Account extends Component<IAccountProp> {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Text> asfafafadfasfa </Text>
+                <Header></Header>
+                <ScrollView>
+                    <Text>sasas!</Text>
+                </ScrollView>
             </View>
         )
     }

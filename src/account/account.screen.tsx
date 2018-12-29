@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import  Account from './account.component';
 import  accountAction from './account.action';
 import { IAccountProp } from './account.model';
@@ -21,9 +21,7 @@ export class AccountScreenComponent extends Component<IAccountProp, {}> {
 
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>sasas!</Text>
-            </View>
+            <Account {...this.props } />
         );
     }
 }

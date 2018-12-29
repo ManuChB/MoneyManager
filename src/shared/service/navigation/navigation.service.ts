@@ -7,6 +7,7 @@ class NavigationService {
         config.navigator = navigator;
     }
     navigateTo(routeName: string, params = {}) {
+        console.log(`[NavigationService][navigateTo][routeName]-> ${routeName}`);
         config.navigator.navigate({ routeName: routeName, params });
         return;
     }

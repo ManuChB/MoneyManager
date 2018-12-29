@@ -29,6 +29,7 @@ export default function login(state: ILoginState = initialState, action: AnyActi
         case LOGIN_INITIALIZE_FINISH:
             console.log(`[login][reducer][initializeFinish]`);
             return {
+                ...state,
                 isInitialized: true
             };
         case LOGIN_SET_PASSWORD:

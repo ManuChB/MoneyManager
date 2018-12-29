@@ -7,6 +7,7 @@ import LoginScreen from './login/login.screen';
 import SplashScreen from './splash/splash.screen';
 import AccountScreen from './account/account.screen';
 import TransactionScreen from './transaction/transaction.screen';
+import MoneyManagerScreen from './money-manager/money-manager.screen';
 
 // import SettingsScreen from './assignment-list/settings/settings.screen';
 
@@ -25,27 +26,20 @@ const TransitionConfiguration = () => {
     };
 };
 
-const TabScreen: NavigationContainer = TabNavigator(
-    {
-        AccountScreen: { screen: AccountScreen},
-        TransactionScreen: {
-            screen: TransactionScreen
-        },
-
-    }
-);
 
 const AppNavigator: NavigationContainer = StackNavigator(
     {
         Splash: { screen: SplashScreen },
         Login: { screen: LoginScreen },
-        Tab: { screen: TabScreen }
+        MoneyManager: { screen: MoneyManagerScreen },
+        Accounts: { screen: AccountScreen },
+        Transactions: { screen: TransactionScreen },
         // Settings: { screen: SettingsScreen }
     },
     {
         initialRouteName: appConstants.routName.splash,
         navigationOptions: { header: null, gesturesEnabled: false },
-       // transitionConfig: TransitionConfiguration
+        transitionConfig: TransitionConfiguration
     }
 );
 
