@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 import { BalanceInfo } from '../../../shared/components/balance-info/balance-info.component';
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
+import Transaction from '../transaction/transaction.component';
 
 export default class DayTransaction extends Component<IDayTransactionProp> {
     render() {
@@ -16,8 +17,22 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
             <View style={{ flex: 1 }}>
                 <DatePickerHeader {...this.props} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance}></BalanceInfo>
-                <ScrollView>
-                    <Text>Day!</Text>
+                <ScrollView style={{marginTop: 5}}>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
+                    <Transaction></Transaction>
                 </ScrollView>
             </View>
         )

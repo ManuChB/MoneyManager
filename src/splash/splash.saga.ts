@@ -4,6 +4,8 @@ import { INITIALIZE_START } from './splash.constant';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import FirebaseService from '../shared/service/firebase/firebase.service';
+//import LocalStorageService from '../shared/service/local-storage/local-storage.service';
+
 export default [
     takeLatest(INITIALIZE_START, initialize)
 ];
@@ -12,6 +14,9 @@ export default [
 export function* initialize() {
     try {
         console.log(`[splash][saga][initialize]`);
+        // yield call(LocalStorageService.initStorage);
+        // yield call(LocalStorageService.insert, 'data');
+        // yield call(LocalStorageService.get);
         yield call(FirebaseService.init);
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         yield put(splashAction.initializeFinish());

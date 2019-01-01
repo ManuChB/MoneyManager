@@ -4,7 +4,7 @@ import navigation from './navigationReducer';
 import splash from '../splash/splash.reducer';
 import login from '../login/login.reducer';
 import moneyManager from '../money-manager/money-manager.reducer';
-import transaction from '../transaction/transaction.reducer';
+import transactionList from '../transaction/transaction-list.reducer';
 import dayTransaction from '../transaction/component/day-transaction/day-transaction.reducer';
 
 export interface State {
@@ -12,7 +12,7 @@ export interface State {
     splash: any;
     login: any;
     moneyManager: any;
-    transaction: any;
+    transactionList: any;
     dayTransaction: any;
 }
 
@@ -21,7 +21,7 @@ const rootReducer = combineReducers<State>({
     splash,
     login,
     moneyManager,
-    transaction,
+    transactionList,
     dayTransaction
 
 });

@@ -6,7 +6,7 @@ import appConstants from './appConstants';
 import LoginScreen from './login/login.screen';
 import SplashScreen from './splash/splash.screen';
 import AccountScreen from './account/account.screen';
-import TransactionScreen from './transaction/transaction.screen';
+import TransactionListScreen from './transaction/transaction-list.screen';
 import MoneyManagerScreen from './money-manager/money-manager.screen';
 
 // import SettingsScreen from './assignment-list/settings/settings.screen';
@@ -33,7 +33,7 @@ const AppNavigator: NavigationContainer = StackNavigator(
         Login: { screen: LoginScreen },
         MoneyManager: { screen: MoneyManagerScreen },
         Accounts: { screen: AccountScreen },
-        Transactions: { screen: TransactionScreen },
+        Transactions: { screen: TransactionListScreen },
         // Settings: { screen: SettingsScreen }
     },
     {

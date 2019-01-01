@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { ITransactionProp } from './transaction.model';
+import { ITransactionListProp } from './transaction-list.model';
 import { Input, Header } from '../shared/components/common';
 import appConstans from '../appConstants';
-import styles from './transaction.component.style';
+import styles from './transaction-list.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../i18n';
 import { TimeTabNavigation } from './component/timeTabNavigation/timeTabNavigation';
@@ -12,7 +12,7 @@ import MonthTransactionScreen from './component/month-transaction/month-transact
 import WeekTransactionScreen from './component/week-transaction/week-transaction.screen';
 import YearTransactionScreen from './component/year-transaction/year-transaction.screen';
 
-export default class Transaction extends Component<ITransactionProp> {
+export default class TransactionList extends Component<ITransactionListProp> {
 
     setTimeMode() {
         let mode;
@@ -40,11 +40,8 @@ export default class Transaction extends Component<ITransactionProp> {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Header></Header>
                 <TimeTabNavigation {...this.props}></TimeTabNavigation>
-                <ScrollView>
-                    {this.setTimeMode()}
-                </ScrollView>
+                {this.setTimeMode()}
             </View>
         )
     }

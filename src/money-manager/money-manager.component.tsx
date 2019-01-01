@@ -7,7 +7,7 @@ import styles from './money-manager.component.style';
 import I18n from '../i18n';
 import { MainTabNavigation } from './component/mainTabNavigation';
 import AccountScreen from '../account/account.screen';
-import TransactionScreen from '../transaction/transaction.screen';
+import TransactionListScreen from '../transaction/transaction-list.screen';
 
 export default class MoneyManager extends Component<IMoneyManagerProp> {
 componentDidMount(){
@@ -19,11 +19,9 @@ componentDidMount(){
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>
-                <ScrollView>
                     {this.props.state.tabMode === appConstans.tabMode.account &&
                         <AccountScreen></AccountScreen>}
-                    {this.props.state.tabMode === appConstans.tabMode.transaction && <TransactionScreen></TransactionScreen>}
-                </ScrollView>
+                    {this.props.state.tabMode === appConstans.tabMode.transaction && <TransactionListScreen></TransactionListScreen>}
                 <MainTabNavigation {...this.props}></MainTabNavigation>
             </View>
         )
