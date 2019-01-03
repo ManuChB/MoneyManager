@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
+import { ITransactionDataProp } from '../transaction/transaction.component';
 
 export interface IDayTransactionProp {
     navigation?: NavigationScreenProp<any, any>;
@@ -11,6 +12,7 @@ export interface IDayTransactionAction {
     dayTransactionInitializeStart?: () => Action;
     dayTransactionInitializeFinish?: () => Action;
     changeDay?: (newDate: string) => Action;
+    setDayTransactions?: (transactions: Array<ITransactionDataProp>) => Action;
 }
 
 export interface IDayTransactionState {
@@ -18,5 +20,6 @@ export interface IDayTransactionState {
     date?: string;
     income: Number,
     expense: Number,
-    balance: Number
+    balance: Number,
+    transactions: Array<ITransactionDataProp>
 }

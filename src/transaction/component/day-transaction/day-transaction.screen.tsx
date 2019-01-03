@@ -12,7 +12,7 @@ export class DayTransactionScreenComponent extends Component<IDayTransactionProp
     }
 
     componentDidMount() {
-        //this.props.actions.transactionInitializeStart();
+    this.props.actions.dayTransactionInitializeStart();
     }
 
     static navigationOptions = {

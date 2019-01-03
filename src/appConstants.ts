@@ -22,6 +22,21 @@ const constants = {
         week: 'Week',
         month: 'Month',
         year: 'Year'
+    },
+
+    transactionIcons: {
+        cash: { 
+            id: 'CASH',
+            value: require('../assets/images/cash-filled-64.png')
+        } ,
+        credit: {
+            id: 'CREDIT',
+            value: require('../assets/images/credit-card-64.png')
+        }, 
+        default: {
+            id: 'DEFAULT',
+            value: require('../assets/images/icons8-cash-filled-64.png')
+        },
     }
 }
 

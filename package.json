@@ -33,7 +33,7 @@
     "react-native-i18n": "^2.0.10",
     "react-native-level-fs": "^3.0.1",
     "react-native-maps": "^0.19.0",
-    "react-native-modal": "^5.0.0",
+    "react-native-modal": "^5.4.0",
     "react-native-os": "^1.2.1",
     "react-native-randombytes": "^3.5.0",
     "react-native-tcp": "^3.3.0",
