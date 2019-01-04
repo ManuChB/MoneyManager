@@ -28,7 +28,7 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
                 isInitialized: true
             };
         case CHANGE_DATE:
-            console.log(`[dayTransaction][reducer][CHANGE_DATE]`);
+            console.log(`[dayTransaction][reducer][CHANGE_DATE]`, action);
             return {
                 ...state,
                 date: action.value

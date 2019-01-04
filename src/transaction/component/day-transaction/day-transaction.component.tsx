@@ -17,7 +17,7 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         const  { income, expense, balance, transactions } = this.props.state;
         return (
             <View style={{ flex: 1 }}>
-                <DatePickerHeader {...this.props} ></DatePickerHeader>
+                <DatePickerHeader date= {this.props.state.date} changeDay={this.props.actions.changeDay} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
                     {transactions.map(data =>{

@@ -68,4 +68,5 @@ export interface ITransactionDataProp {
     image?: string,
     type?: string,
     description?: string
+    date?: string;
 }

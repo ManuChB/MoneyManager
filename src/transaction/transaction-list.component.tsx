@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import moment from 'moment';
+import { LinearGradient } from 'expo';
+
 import { ITransactionListProp } from './transaction-list.model';
 import { Button } from '../shared/components/common';
 import appConstans from '../appConstants';
 import styles from './transaction-list.component.style';
-import { LinearGradient } from 'expo';
 import I18n from '../i18n';
 import { TimeTabNavigation } from './component/timeTabNavigation/timeTabNavigation';
 import DayTransactionScreen from './component/day-transaction/day-transaction.screen';
 import MonthTransactionScreen from './component/month-transaction/month-transaction.screen';
 import WeekTransactionScreen from './component/week-transaction/week-transaction.screen';
 import YearTransactionScreen from './component/year-transaction/year-transaction.screen';
-import TransactionDetail from './component/new-transaction-modal/new-transaction-modal.component';
+import NewTransactionScreen from './component/new-transaction-modal/new-transaction-modal.screen';
 
 export default class TransactionList extends Component<ITransactionListProp> {
 
@@ -54,32 +56,21 @@ export default class TransactionList extends Component<ITransactionListProp> {
                 {this.setTimeMode()}
                 
                 {this.props.state.showDetailModal && 
-                    <View style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    backgroundColor: 'white',
-                    width: '100%',
-                    height: '100%',
-                    elevation: 4,
-                    position: 'absolute'
-                }}>
-                        <View style={{
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            shadowOpacity: 2,
-                        }}>
-                        </View>
-                        <TransactionDetail 
-                            data={{}} 
-                            onClose={() => this.props.actions.showDetailModal(false)}
-                            onSave={() => this.props.actions.showDetailModal(false)}
-                            >
-                        </TransactionDetail>
-                        
-                    </View>}
+                    <NewTransactionScreen
+                        data={{
+                            id: '11',
+                            value: 234,
+                            account: 'Cash',
+                            image: 'CASH',
+                            type: 'Food',
+                            description: 'Example for a description that will be add by the user',
+                            date: moment().format('DD-MM-YYYY').toString()
+                        }}
+                        onClose={() => this.props.actions.showDetailModal(false)}
+                        onSave={() => this.props.actions.showDetailModal(false)}
+                        >
+                    </NewTransactionScreen>
+                }
             </View>
         )
     }

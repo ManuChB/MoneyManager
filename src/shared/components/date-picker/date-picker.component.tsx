@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 export class DatePickerHeader extends Component<IDatePickerProps> {
 
     render() {
-        const { state: {date}, actions: {changeDay} } = this.props;
-        console.log('datee', date);
+        const { date, changeDay } = this.props;
+        console.log('DATE: ', date, ' CHANGE: ', changeDay)
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
@@ -30,7 +30,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                                 borderWidth: 0
                             }
                         }}
-                        onDateChange={(date) => { changeDay(date) }}
+                        onDateChange={(date) => { changeDay(date.toString()) }}
                     />
                     <TouchableOpacity 
                         onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day'))}} 
@@ -72,6 +72,7 @@ const styles = {
 };
 
 export interface IDatePickerProps {
-    currentDate?: string,
+    date?: string,
     dateMode?: string,
+    changeDay?: (date: any) => void
 }

@@ -1,52 +1,57 @@
-import React, { StatelessComponent } from 'react';
-import { Modal, View, Text, TouchableOpacity } from 'react-native';
-import { Button } from '../../../shared/components/common';
+import React, { Component } from 'react';
+import { Modal, View, Text, ScrollView } from 'react-native';
+import { Button, Input } from '../../../shared/components/common';
 import appConstans from '../../../appConstants';
 import styles from './new-transaction-modal.component.style';
 import I18n from '../../../i18n';
-import { ITransactionDataProp } from '../transaction/transaction.component';
+import { ITransactionDetailProp } from './new-transaction-modal.model';
+import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 
-const TransactionDetail: StatelessComponent<ITransactiondetailProp> = ({ data, onClose, onSave }) => {
+export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
+    changeDay(date) {
+        console.log('------------------changeDay----------------------', this.props);
 
-    return (
-        <View style={{
-            backgroundColor: 'white',
-            width: '90%',
-            height: '90%',
-            shadowColor: 'red',
-            shadowOpacity: 10,
-            elevation: 5,
-            position: 'absolute'}}>
-                <View style={{ }}>
-                    <Text>Hello!</Text>
-                </View>
-                <View style={{ flexDirection: 'row'}}>
-                    <Button customButtonStyle={{
-                        flex: 1, shadowOffset: { width: 100, height: 100, },
-                        shadowColor: 'black',
-                        shadowOpacity: 1.0,}} onPress={onClose} label={'Cancel'}>
-                    </Button>
-                    <Button customButtonStyle={{flex: 1}} onPress={onSave} label={'Save'}></Button>
-                </View>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
-        </View>
-    )
+        this.props.actions.changeData({ ...this.props.state.data, date })
+    }
+    render() {
+        const { data, onClose, onSave } = this.props.state;
+        return (
+            <View style={styles.mainView}>
+                <View style={styles.screenBlocker}></View>
+                <ScrollView style={styles.modalStyle}>
+                    <View style={{ }}>
+                        <DatePickerHeader date={data.date} changeDay={this.changeDay.bind(this)} ></DatePickerHeader>
+                        <Text>Account!</Text>
+                        <Text>ExpenceType!</Text>
+                        <Input
+                            inputRef={ref => this.descriptionInput = ref}
+                            label={'Description'}
+                            value={data.description}
+                            onChangeText={(text) => {data.description = text;}}
+                            returnKeyType={"next"}
+                            blurOnSubmit={false}
+                            onSubmitEditing={() => this.valueInput.focus()}
+                        />
+                        <Input
+                            inputRef={ref => this.valueInput = ref}
+                            label={'Value'}
+                            value={data.value ? data.value.toString() : null}
+                            onChangeText={(value) => this.props.actions.changeData({ ...data, value})}
+                            returnKeyType={"next"}
+                            keyboard={'numeric'}
+                            blurOnSubmit={true}
+                        />
+
+                    </View>
+                    <View style={{ flexDirection: 'row'}}>
+                        <Button customButtonStyle={{flex: 1}} onPress={onClose} label={'Cancel'}></Button>
+                        <Button customButtonStyle={{flex: 1}} onPress={onSave} label={'Save'}></Button>
+                    </View>
+                </ScrollView>
+            </View>
+        )
+    }
 
 }
-export default TransactionDetail;
 
-export interface ITransactiondetailProp {
-    data: ITransactionDataProp;
-    onClose: () => void;
-    onSave: () => void;
-
-}
