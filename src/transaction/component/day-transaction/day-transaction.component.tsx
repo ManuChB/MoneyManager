@@ -15,12 +15,10 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
     render() {
 
         const  { income, expense, balance, transactions } = this.props.state;
-        console.log('[[tras', transactions);
         return (
             <View style={{ flex: 1 }}>
                 <DatePickerHeader {...this.props} ></DatePickerHeader>
-                <BalanceInfo income={income} expense={expense} balance={balance}></BalanceInfo>
-                <Button customButtonStyle={styles.customButtonStyle} customLabelStyle={styles.customLabelStyle} label={'+'}></Button>
+                <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
                     {transactions.map(data =>{
                         return ( <Transaction data={data} key={data.id}></Transaction>)

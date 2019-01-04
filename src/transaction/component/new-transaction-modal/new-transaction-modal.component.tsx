@@ -1,24 +1,52 @@
-/*const DispatcherAcceptModal: StatelessComponent<IAssignDriverProp> = (
-    { state: { assignment, acceptResultSuccess }, actions }
-) => {
+import React, { StatelessComponent } from 'react';
+import { Modal, View, Text, TouchableOpacity } from 'react-native';
+import { Button } from '../../../shared/components/common';
+import appConstans from '../../../appConstants';
+import styles from './new-transaction-modal.component.style';
+import I18n from '../../../i18n';
+import { ITransactionDataProp } from '../transaction/transaction.component';
+
+const TransactionDetail: StatelessComponent<ITransactiondetailProp> = ({ data, onClose, onSave }) => {
 
 
     return (
-        <View style={[styles.container]}>
-            <Modal
-                isVisible={true}
-                backdropOpacity={0.5}>
-                <View style={[styles.modalContent]}>
-                    <Image source={iconSource} style={{ width: 70, height: 70 }} resizeMode='contain' />
-                    <CustomText style={[styles.modalText, typoStyles.large]}>
-                        {i18n.t(showText)}
-                    </CustomText>
-                    {btnRender}
+        <View style={{
+            backgroundColor: 'white',
+            width: '90%',
+            height: '90%',
+            shadowColor: 'red',
+            shadowOpacity: 10,
+            elevation: 5,
+            position: 'absolute'}}>
+                <View style={{ }}>
+                    <Text>Hello!</Text>
                 </View>
-            </Modal>
+                <View style={{ flexDirection: 'row'}}>
+                    <Button customButtonStyle={{
+                        flex: 1, shadowOffset: { width: 100, height: 100, },
+                        shadowColor: 'black',
+                        shadowOpacity: 1.0,}} onPress={onClose} label={'Cancel'}>
+                    </Button>
+                    <Button customButtonStyle={{flex: 1}} onPress={onSave} label={'Save'}></Button>
+                </View>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
+            <Button customButtonStyle={{ flex: 1 }} onPress={onSave} label={'Save'}></Button>
         </View>
     )
 
 }
+export default TransactionDetail;
 
-export default DispatcherAcceptModal;*/
+export interface ITransactiondetailProp {
+    data: ITransactionDataProp;
+    onClose: () => void;
+    onSave: () => void;
+
+}

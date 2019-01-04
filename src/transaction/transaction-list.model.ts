@@ -11,9 +11,11 @@ export interface ITransactionListAction {
     transactionListInitializeStart?: () => Action;
     transactionListInitializeFinish?: () => Action;
     changeTimeFormat?: (mode: string) => Action;
+    showDetailModal?: (showModal: boolean) => Action;
 }
 
 export interface ITransactionListState {
     isInitialized?: boolean;
     timeMode?: string;
+    showDetailModal?: boolean;
 }
