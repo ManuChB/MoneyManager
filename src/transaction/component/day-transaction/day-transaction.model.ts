@@ -13,13 +13,17 @@ export interface IDayTransactionAction {
     dayTransactionInitializeFinish?: () => Action;
     changeDay?: (newDate: string) => Action;
     setDayTransactions?: (transactions: Array<ITransactionDataProp>) => Action;
+    saveNewTransaction?: (transaction: ITransactionDataProp) => Action;
+    showDetailModal?: (showModal: boolean) => Action;
 }
 
 export interface IDayTransactionState {
     isInitialized?: boolean;
     date?: string;
-    income: Number,
-    expense: Number,
-    balance: Number,
-    transactions: Array<ITransactionDataProp>
+    income: Number;
+    expense: Number;
+    balance: Number;
+    transactions: Array<ITransactionDataProp>;
+    showDetailModal?: boolean;
+
 }

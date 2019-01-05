@@ -10,8 +10,6 @@ import { DatePickerHeader}  from '../../../shared/components/date-picker/date-pi
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
     changeDay(date) {
-        console.log('------------------changeDay----------------------', this.props);
-
         this.props.actions.changeData({ ...this.props.state.data, date })
     }
     render() {
@@ -28,7 +26,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                             inputRef={ref => this.descriptionInput = ref}
                             label={'Description'}
                             value={data.description}
-                            onChangeText={(text) => {data.description = text;}}
+                            onChangeText={(description) => this.props.actions.changeData({ ...data, description })}
                             returnKeyType={"next"}
                             blurOnSubmit={false}
                             onSubmitEditing={() => this.valueInput.focus()}

@@ -1,12 +1,11 @@
-import { TRANSACTION_LIST_INITIALIZE_FINISH, TRANSACTION_LIST_INITIALIZE_START, CHANGE_TIME_SCREEN, SHOW_DETAIL_MODAL } from './transaction-list.constant';
+import { TRANSACTION_LIST_INITIALIZE_FINISH, TRANSACTION_LIST_INITIALIZE_START, CHANGE_TIME_SCREEN } from './transaction-list.constant';
 import { AnyAction } from 'redux';
 import { ITransactionListState } from './transaction-list.model';
 import appConstans from '../appConstants';
 
 export const initialState: ITransactionListState = {
     isInitialized: false,
-    timeMode: appConstans.timeMode.day,
-    showDetailModal: false
+    timeMode: appConstans.timeMode.day
 };
 
 export default function transactionList(state: ITransactionListState = initialState, action: AnyAction) {
@@ -28,12 +27,6 @@ export default function transactionList(state: ITransactionListState = initialSt
             return {
                 ...state,
                 timeMode: action.value
-            };
-        case SHOW_DETAIL_MODAL:
-            console.log(`[transactionList][reducer][SHOW_DETAIL_MODAL]`);
-            return {
-                ...state,
-                showDetailModal: action.value
             };
         default:
             console.log(`[transactionList][reducer][default]`, state);

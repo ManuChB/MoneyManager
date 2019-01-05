@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo';
 
 export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     isSelectedTab(timeMode: string) {
-        if(this.props.state.timeMode === timeMode) {
+        if(this.props.timeMode === timeMode) {
             return styles.selectedTab;
         } else { 
             return null;
@@ -17,7 +17,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     }
     render() {
         console.log('[[TimeTabNavigation]]', this.props);
-        const { changeTimeFormat } = this.props.actions;
+        const { changeTimeFormat } = this.props;
         return (
                 <LinearGradient
                     start={{ x: 0.0, y: 0.2 }}
@@ -67,11 +67,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                 </TouchableOpacity>  
                 </LinearGradient>
         );
-
-
     }
-
-
 }
 
 const styles = {
@@ -110,5 +106,6 @@ const styles = {
 };
 
 export interface ITimeTabNavProp {
-
+    timeMode: string;
+    changeTimeFormat: (timeMode: string) => void;
 }

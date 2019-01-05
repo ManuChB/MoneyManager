@@ -1,4 +1,4 @@
-import { TRANSACTION_LIST_INITIALIZE_FINISH, TRANSACTION_LIST_INITIALIZE_START, CHANGE_TIME_SCREEN, SHOW_DETAIL_MODAL } from './transaction-list.constant';
+import { TRANSACTION_LIST_INITIALIZE_FINISH, TRANSACTION_LIST_INITIALIZE_START, CHANGE_TIME_SCREEN } from './transaction-list.constant';
 import { ITransactionListAction } from './transaction-list.model';
 
 const transactionListAction: ITransactionListAction = {
@@ -20,13 +20,6 @@ const transactionListAction: ITransactionListAction = {
         return {
             type: CHANGE_TIME_SCREEN,
             value: time
-        }
-    },
-    showDetailModal(showModal) {
-        console.log(`[transactionList][action][showDetailModal]`);
-        return {
-            type: SHOW_DETAIL_MODAL,
-            value: showModal
         }
     }
 

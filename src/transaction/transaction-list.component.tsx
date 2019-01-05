@@ -13,7 +13,6 @@ import DayTransactionScreen from './component/day-transaction/day-transaction.sc
 import MonthTransactionScreen from './component/month-transaction/month-transaction.screen';
 import WeekTransactionScreen from './component/week-transaction/week-transaction.screen';
 import YearTransactionScreen from './component/year-transaction/year-transaction.screen';
-import NewTransactionScreen from './component/new-transaction-modal/new-transaction-modal.screen';
 
 export default class TransactionList extends Component<ITransactionListProp> {
 
@@ -41,36 +40,11 @@ export default class TransactionList extends Component<ITransactionListProp> {
 
 
     render() {
+        const { state: {timeMode }, actions:{changeTimeFormat}} = this.props;
         return (
-            <View style={{ flex: 1 }}>
-                
-                <TimeTabNavigation {...this.props}></TimeTabNavigation>
-                {
-                    !this.props.state.showDetailModal && 
-                    <Button 
-                        customButtonStyle={styles.customButtonStyle} 
-                        customLabelStyle={styles.customLabelStyle} onPress={() => this.props.actions.showDetailModal(true)} 
-                        label={'+'}>
-                    </Button>
-                }
-                {this.setTimeMode()}
-                
-                {this.props.state.showDetailModal && 
-                    <NewTransactionScreen
-                        data={{
-                            id: '11',
-                            value: 234,
-                            account: 'Cash',
-                            image: 'CASH',
-                            type: 'Food',
-                            description: 'Example for a description that will be add by the user',
-                            date: moment().format('DD-MM-YYYY').toString()
-                        }}
-                        onClose={() => this.props.actions.showDetailModal(false)}
-                        onSave={() => this.props.actions.showDetailModal(false)}
-                        >
-                    </NewTransactionScreen>
-                }
+            <View style={{ flex: 1 }}>                
+                <TimeTabNavigation timeMode={timeMode} changeTimeFormat={changeTimeFormat}></TimeTabNavigation>                
+                {this.setTimeMode()}               
             </View>
         )
     }
