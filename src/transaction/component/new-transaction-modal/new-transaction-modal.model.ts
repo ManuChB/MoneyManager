@@ -18,6 +18,6 @@ export interface ITransactionDetailState {
     isInitialized?: boolean;
     data: ITransactionDataProp;
     onClose: () => void;
-    onSave: () => void;
+    onSave: (data: ITransactionDataProp) => void;
 
 }

@@ -1,4 +1,6 @@
-import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, CHANGE_DATE, SET_DAY_TRANSACTIONS, SAVE_NEW_TRANSACTION, SHOW_DETAIL_MODAL } from './day-transaction.constant';
+import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, 
+    CHANGE_DATE, SET_DAY_TRANSACTIONS, SAVE_NEW_TRANSACTION, SHOW_DETAIL_MODAL,
+    UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL } from './day-transaction.constant';
 import { IDayTransactionAction } from './day-transaction.model';
 
 const dayTransactionAction: IDayTransactionAction = {
@@ -32,11 +34,11 @@ const dayTransactionAction: IDayTransactionAction = {
         }
     },
 
-    saveNewTransaction(transactions) {
+    saveNewTransaction(transaction) {
         console.log(`[day-transaction][action][saveNewTransaction]`);
         return {
             type: SAVE_NEW_TRANSACTION,
-            value: transactions
+            value: transaction
         }
     },
     showDetailModal(showModal) {
@@ -44,6 +46,20 @@ const dayTransactionAction: IDayTransactionAction = {
         return {
             type: SHOW_DETAIL_MODAL,
             value: showModal
+        }
+    },
+    updateTransaction(transaction) {
+        console.log(`[day-transaction][action][updateTransaction]`);
+        return {
+            type: UPDATE_TRANSACTION,
+            value: transaction
+        }
+    },
+    setTransactionToDetail(transaction) {
+        console.log(`[day-transaction][action][setTransactionToDetail]`);
+        return {
+            type: SET_TRANSACTION_TO_DETAIL,
+            value: transaction
         }
     }
 }

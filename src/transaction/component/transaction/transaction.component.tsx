@@ -6,7 +6,7 @@ import styles from './transaction.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 
-const Transaction: StatelessComponent<ITransactionProp> = ({data}) => {
+const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const { value, account, image, type, description } = data;
 
     const getIcon = (image) => {
@@ -31,7 +31,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data}) => {
 
 
     return (
-        <TouchableOpacity style={styles.infoStyle}>
+        <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
             <View style={styles.dataViewStyle}>
                 <View style={{
                     flex: 2, justifyContent: 'center',
@@ -58,6 +58,7 @@ export default Transaction;
 
 export interface ITransactionProp {
     data: ITransactionDataProp;
+    onPress: ()=> void;
     
 }
 

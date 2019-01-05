@@ -44,7 +44,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                     </View>
                     <View style={{ flexDirection: 'row'}}>
                         <Button customButtonStyle={{flex: 1}} onPress={onClose} label={'Cancel'}></Button>
-                        <Button customButtonStyle={{flex: 1}} onPress={onSave} label={'Save'}></Button>
+                        <Button customButtonStyle={{ flex: 1 }} onPress={() => onSave(this.props.state.data)} label={'Save'}></Button>
                     </View>
                 </ScrollView>
             </View>
