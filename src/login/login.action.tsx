@@ -1,4 +1,5 @@
-import { LOGIN_INITIALIZE_FINISH, LOGIN_INITIALIZE_START, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE, REGISTER_SUBMIT, LOGIN_SUBMIT, ERROR_MESSAGE } from './login.constant';
+import { LOGIN_INITIALIZE_FINISH, LOGIN_INITIALIZE_START, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE,
+    REGISTER_SUBMIT, LOGIN_SUBMIT, ERROR_MESSAGE, SHOW_SPINNER } from './login.constant';
 import { ILoginAction } from './login.model';
 
 const splashAction: ILoginAction = {
@@ -57,6 +58,13 @@ const splashAction: ILoginAction = {
         return {
             type: ERROR_MESSAGE,
             value: error
+        }
+    },
+    showSpinner(show) {
+        console.log(`[login][action][errorMessage]`);
+        return {
+            type: SHOW_SPINNER,
+            value: show
         }
     }
 }

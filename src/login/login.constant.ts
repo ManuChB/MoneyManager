@@ -6,3 +6,4 @@ export const LOGIN_MODE = 'LOGIN_MODE';
 export const REGISTER_SUBMIT = 'REGISTER_SUBMIT';
 export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+export const SHOW_SPINNER = 'SHOW_SPINNER';

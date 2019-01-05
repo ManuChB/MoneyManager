@@ -1,4 +1,4 @@
-import { LOGIN_INITIALIZE_START, LOGIN_INITIALIZE_FINISH, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE, ERROR_MESSAGE } from './login.constant';
+import { LOGIN_INITIALIZE_START, LOGIN_INITIALIZE_FINISH, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE, ERROR_MESSAGE, SHOW_SPINNER } from './login.constant';
 import { AnyAction } from 'redux';
 import { ILoginState } from './login.model';
 import appConstans from '../appConstants';
@@ -15,7 +15,9 @@ export const initialState: ILoginState = {
         leftTextOnPress: null,
         leftTextLabel: '',
         rightTextOnPress: null,
-        rightTextLabel: null}
+        rightTextLabel: null
+    },
+    showSpinner: false
 };
 
 export default function login(state: ILoginState = initialState, action: AnyAction) {
@@ -56,6 +58,12 @@ export default function login(state: ILoginState = initialState, action: AnyActi
             return {
                 ...state,
                 errorMessage: action.value
+            };
+        case SHOW_SPINNER:
+            console.log(`[login][reducer][SHOW_SPINNER]`);
+            return {
+                ...state,
+                showSpinner: action.value
             };
         default:
             return state

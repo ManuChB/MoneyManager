@@ -26,7 +26,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
     }
 
     onPressTransaction(transactionToShow) {
-        console.log('[[transactionToShow', transactionToShow);
         this.props.actions.setTransactionToDetail(transactionToShow);
         this.props.actions.showDetailModal(true);
     }

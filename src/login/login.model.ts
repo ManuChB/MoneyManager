@@ -16,7 +16,7 @@ export interface ILoginAction {
     registerSubmit?: (userName: string, password: string) => Action;
     loginSubmit?: (userName: string, password: string) => Action;
     errorMessage?: (message: string) => Action;
-
+    showSpinner?: (show: boolean) => Action;
 }
 
 export interface ILoginState {
@@ -26,6 +26,7 @@ export interface ILoginState {
     formMode?: string;
     errorMessage?: string;
     screenMode?: IScreenModeState;
+    showSpinner?: boolean;
 }
 
 export interface IScreenModeState {

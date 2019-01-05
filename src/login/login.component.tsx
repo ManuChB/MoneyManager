@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { ILoginProp } from './login.model';
-import { Button, Input, Header } from '../shared/components/common';
+import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstans from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo';
@@ -55,6 +55,7 @@ export default class Login extends Component<ILoginProp> {
     render() {
         return (
             <View style={{flex:1}}>
+                {this.props.state.showSpinner && <Spinner></Spinner>}
                 <Header ></Header>
                 <LinearGradient 
                     start={{ x: 0.0, y: 0.2 }} 
