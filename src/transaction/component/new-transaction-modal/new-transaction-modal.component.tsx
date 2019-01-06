@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, View, Text, ScrollView } from 'react-native';
+import moment from 'moment';
+
 import { Button, Input } from '../../../shared/components/common';
 import appConstans from '../../../appConstants';
 import styles from './new-transaction-modal.component.style';
@@ -9,7 +11,7 @@ import { DatePickerHeader}  from '../../../shared/components/date-picker/date-pi
 
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
-    changeDay(date) {
+    changeDay(date: string) {
         this.props.actions.changeData({ ...this.props.state.data, date })
     }
     render() {
@@ -19,7 +21,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                 <View style={styles.screenBlocker}></View>
                 <ScrollView style={styles.modalStyle}>
                     <View style={{ }}>
-                        <DatePickerHeader date={data.date} changeDay={this.changeDay.bind(this)} ></DatePickerHeader>
+                        <DatePickerHeader date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} changeDay={this.changeDay.bind(this)} ></DatePickerHeader>
                         <Text>Account!</Text>
                         <Text>ExpenceType!</Text>
                         <Input

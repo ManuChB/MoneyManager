@@ -7,12 +7,12 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
 
     render() {
         const { date, changeDay } = this.props;
-        console.log('DATE: ', date, ' CHANGE: ', changeDay)
+        console.log('DATE: ', date)
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day')) }}
+                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day').format("DD-MM-YYYY").toString()) }}
                         style={{ padding: 15 }}>
                         <Text>{'<'}</Text>
                     </TouchableOpacity>
@@ -30,10 +30,10 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                                 borderWidth: 0
                             }
                         }}
-                        onDateChange={(date) => { changeDay(date.toString()) }}
+                        onDateChange={(date) => changeDay(date.toString()) }
                     />
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day'))}} 
+                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day').format("DD-MM-YYYY").toString())}} 
                         style={{ padding: 15 }}>
                         <Text>{'>'}</Text>
                     </TouchableOpacity>
