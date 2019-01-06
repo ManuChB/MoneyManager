@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View} from 'react-native';
 import { LinearGradient } from 'expo';
 import moment from 'moment';
 import _ from 'lodash';
 import { IDayTransactionProp } from './day-transaction.model';
-import { Button } from '../../../shared/components/common';
+import { Button, Spinner  } from '../../../shared/components/common';
 import appConstans from '../../../appConstants';
 import styles from './day-transaction.component.style';
 import I18n from '../../../i18n';
@@ -16,7 +16,7 @@ import NewTransactionScreen from '../new-transaction-modal/new-transaction-modal
 export default class DayTransaction extends Component<IDayTransactionProp> {
 
     onSaveNewTransaction(transaction) {
-        this.props.actions.saveNewTransaction(transaction);
+        this.props.actions.saveNewTransaction({...transaction, id: _.uniqueId('transaction_')});
         this.props.actions.showDetailModal(false);
     }
 
@@ -41,6 +41,7 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         console.log('[[transactions]]', transactions);
         return (
             <View style={{ flex: 1 }}>
+                {!this.props.state.isInitialized && <Spinner></Spinner>}
                 {
                     true &&
                     <Button
@@ -52,8 +53,8 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
                 <DatePickerHeader date= {this.props.state.date} changeDay={this.props.actions.changeDay} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
-                    {transactions.map(data =>{
-                        return (<Transaction data={data} key={data.id} onPress={() => this.onPressTransaction(data)}></Transaction>)
+                    {transactions && transactions.map((data, key) =>{
+                        return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)
                     })}
                     <View style={{ height: 80}}></View>
                 </ScrollView>

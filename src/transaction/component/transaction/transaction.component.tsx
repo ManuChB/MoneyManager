@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
-    const { value, account, image, type, description } = data;
+    const { value, accountId, imageId, typeId, description } = data;
 
     const getIcon = (image) => {
         var icon;
@@ -27,7 +27,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
         }
         return icon;
     }
-    const img = getIcon(image);
+    const img = getIcon(imageId);
 
 
     return (
@@ -37,10 +37,10 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
                     flex: 2, justifyContent: 'center',
                     alignItems: 'center' }}>
                     <Image style={{ width: 35, height: 35 }} source={img} />
-                    <Text>{account}</Text>
+                    <Text>{accountId}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
-                    <Text>{type}</Text>
+                    <Text>{typeId}</Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{
@@ -63,11 +63,11 @@ export interface ITransactionProp {
 }
 
 export interface ITransactionDataProp {
-    id?: string,
+    id?: string;
     value?: Number,
-    account?: string,
-    image?: string,
-    type?: string,
+    accountId?: string,
+    imageId?: string,
+    typeId?: string,
     description?: string
     date?: string;
 }

@@ -23,13 +23,13 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
             console.log(`[dayTransaction][reducer][DAY_TRANSACTION_INITIALIZE_FINISH]`);
             return {
                 ...state,
-                isInitialized: false
+                isInitialized: true
             };
         case DAY_TRANSACTION_INITIALIZE_START:
             console.log(`[dayTransaction][reducer][DAY_TRANSACTION_INITIALIZE_START]`);
             return {
                 ...state,
-                isInitialized: true
+                isInitialized: false
             };
         case CHANGE_DATE:
             console.log(`[dayTransaction][reducer][CHANGE_DATE]`, action);
@@ -44,7 +44,7 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
                 transactions: action.value
             };
         case SAVE_NEW_TRANSACTION:
-            console.log(`[dayTransaction][reducer][SAVE_NEW_TRANSACTION]`);
+            console.log(`[dayTransaction][reducer][SAVE_NEW_TRANSACTION]`, action);
             return {
                 ...state,
                 transactions: [...state.transactions, action.value]

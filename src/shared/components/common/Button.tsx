@@ -35,7 +35,7 @@ const styles = {
         backgroundColor: '#F38266',
         borderRadius: 30,
         borderWidth: 1,
-        borderColor: '#F13203',
+        borderColor: '#F38266',
         marginLeft: 20,
         marginRight: 20,
         height: 60,

@@ -5,21 +5,20 @@ import { View, StyleSheet, Text, StatusBar, Platform } from 'react-native';
 
 
 const Header = (props) => (
-        <View >
-            <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
-                <Text style={styles.textStyle}> {props.headerText} </Text>
+        <View style={styles.viewStyle}>
+            <StatusBar barStyle="light-content" hidden={false} translucent={false} />
         </View>
     );
 
 const styles = StyleSheet.create({
     textStyle: {
-        fontSize: 20,
+        fontSize: 22,
     },
     viewStyle: {
-        backgroundColor: Platform.OS === "ios" ? "#F8F8F8" : "#3F51B5",
+        backgroundColor: "white",
         justifyContent: 'center',
         alignItems: 'center',
-        height: 60,
+        height: 24,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,

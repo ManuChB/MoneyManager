@@ -6,14 +6,14 @@ const splashAction: ILoginAction = {
     loginInitializeStart() {
         console.log(`[login][action][initializeStart]`);
         return {
-            type: LOGIN_INITIALIZE_FINISH
+            type: LOGIN_INITIALIZE_START
         }
     },
 
     loginInitializeFinish() {
         console.log(`[login][action][initializeFinish]`);
         return {
-            type: LOGIN_INITIALIZE_START
+            type: LOGIN_INITIALIZE_FINISH
         }
     },
 

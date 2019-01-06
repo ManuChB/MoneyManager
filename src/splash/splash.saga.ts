@@ -19,6 +19,8 @@ export function* initialize() {
         // yield call(LocalStorageService.insert, 'data');
         // yield call(LocalStorageService.get);
         yield call(FirebaseService.init);
+        //yield call(FirebaseService.writeUserData, 'email0', 'fname', 'adfsadf');
+
         const uid = yield call(AsyncStorageSevice.getItem, 'USER_ID');
         if(uid) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);

@@ -15,7 +15,6 @@ export default [
 export function* initialize() {
     try {
         console.log(`[login][saga][initialize]`);
-        yield call(NavigationService.navigateTo, appConstants.routName.splash);
         yield put(loginAction.loginInitializeFinish());
     } catch (e) {
         console.log(`[error][login][saga][initialize]>>> ${e}`);
@@ -31,6 +30,8 @@ export function* registerNewUser(action) {
         console.log(`[login][saga][registerNewUser]`, response.user.uid);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
+        yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
+
     } catch (e) {
         yield put(loginAction.showSpinner(false));
         yield put(loginAction.errorMessage(e.message));
@@ -44,12 +45,10 @@ export function* logInUser(action) {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
         yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid)
-        const id = yield call(AsyncStorageService.getItem, 'USER_ID');
-
-       console.log(`[login][saga][logInUser]`, id);
-
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
+        yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
+
     } catch (e) {
         yield put(loginAction.showSpinner(false));
         yield put(loginAction.errorMessage(e.message));

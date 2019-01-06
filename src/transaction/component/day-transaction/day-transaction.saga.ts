@@ -1,21 +1,33 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import moment from "moment";
 import dayTransactionAction from './day-transaction.action';
-import { DAY_TRANSACTION_INITIALIZE_START } from './day-transaction.constant';
+import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION } from './day-transaction.constant';
 import appConstants from '../../../appConstants';
+import FirebaseService from '../../../shared/service/firebase/firebase.service';
 
 export default [
-    takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize)
+    takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
+    takeLatest(SAVE_NEW_TRANSACTION, newTransaction)
+
 ];
 
 export function* initialize() {
     try {
         console.log(`[dayTransactions][saga][initialize]`, arrayData);
-
-        yield put(dayTransactionAction.setDayTransactions(arrayData));
+        const transactions = yield call(FirebaseService.getTransactions);
+        yield put(dayTransactionAction.setDayTransactions(transactions));
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
     } catch (e) {
-        console.log(`[error][login][saga][initialize]>>> ${e}`);
+        console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
+    }
+}
+
+export function* newTransaction(action) {
+    try {
+        console.log(`[dayTransactions][saga][newTransaction]`, action.value);
+        yield call(FirebaseService.addToCollection, 'transactions', action.value);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
 }
 
