@@ -9,27 +9,23 @@ export class CustomPicker extends Component<IPickerProps> {
     }
 
     getMode() {
-        const { data } = this.props;
+        const { data, onSelect } = this.props;
 
         const mode = !this.state.showModal ?
             <TouchableOpacity onPress={() => this.setState({ showModal: true })}><Text>PIKER</Text></TouchableOpacity> :
             <Modal onRequestClose={() => this.setState({ showModal: false })}>
-                {data && data.map((data, key) => {
+                {data && data.map((subdata, key) => {
                     return (
                         <View key={key} >
-                            <Text key={key}>{`Category: ${data.id}`}</Text>
-                            <View style={{
-                                flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center',
-                                alignItems: 'center'}}>
-                                {data.types.map((element, key) => {
+                            <Text key={key}>{`Category: ${subdata.id}`}</Text>
+                            <View style={styles.subCategoryView}>
+                                {Object.keys(subdata).map((key) => {
                                     return (
                                         <TouchableOpacity
-                                            style={{
-                                                height: 100, width: 100, borderWidth: 2, borderColor: 'black', justifyContent: 'center',
-                                                alignItems: 'center', margin: 5, borderRadius: 10,}}
-                                            key={key}
-                                            onPress={() => this.setState({ showModal: false })}>
-                                            <Text>{element}</Text>
+                                            style={styles.subCategory}
+                                            key={subdata[key].id}
+                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata.id, subdata[key])}}>
+                                            <Text>{subdata[key].value}</Text>
                                         </TouchableOpacity>)
                                 })}
                             </View>
@@ -48,14 +44,29 @@ export class CustomPicker extends Component<IPickerProps> {
 }
 
 const styles = StyleSheet.create({
-   
+    subCategoryView: {
+        flexDirection: 'row', 
+        flexWrap: 'wrap', 
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    subCategory: {
+        height: 100, 
+        width: 100, 
+        borderWidth: 2, 
+        borderColor: 'black', 
+        justifyContent: 'center',
+        alignItems: 'center', 
+        margin: 5, 
+        borderRadius: 10
+    }
 });
 
 export interface IPickerProps {
     label?: string,
     customPickerStyle?: Object,
     customLabelStyle?: Object,
-    onSelect?: () => void,
+    onSelect?: (categoryId: string, subCategory: object) => void,
     ref?: (ref: string) => void,
     data: Array<any>,
     showModal: boolean

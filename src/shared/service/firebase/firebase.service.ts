@@ -39,20 +39,11 @@ class FirebaseService {
         });
     }
 
-    async getCategories() {
-        console.log('[FirebaseService][getCategories]');
-        const snapshot = await db.collection('categories').get();
-        console.log('[FirebaseService][getCategories]snapshot>>>> ', snapshot);
-        return snapshot.docs.map(doc => {
-            return { ...doc.data(), id: doc.id };
-        });
-    }
-
     async getAllFromCollection(collection) {
         console.log('[FirebaseService][getAllFromCollection]', collection);
         const snapshot = await db.collection(collection).get();
         return snapshot.docs.map(doc => {
-            return { ...doc.data(), id: doc.id };
+            return { ...doc.data() };
         });
     }
 

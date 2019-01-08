@@ -32,7 +32,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
-                    <CustomPicker data={categories}></CustomPicker>
+                    <CustomPicker data={categories} onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}></CustomPicker>
                     
                     <Text>Account!</Text>
                     <Input

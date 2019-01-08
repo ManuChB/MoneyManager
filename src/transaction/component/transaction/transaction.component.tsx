@@ -5,10 +5,11 @@ import appConstans from '../../../appConstants';
 import styles from './transaction.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
+import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
-    const { value, accountId, imageId, typeId, description } = data;
-
+    const { value, accountId, imageId, categoryId, subCategory, description } = data;
+    
     const getIcon = (image) => {
         var icon;
         switch (image) {
@@ -29,7 +30,6 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     }
     const img = getIcon(imageId);
 
-
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
             <View style={styles.dataViewStyle}>
@@ -40,7 +40,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
                     <Text>{accountId}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
-                    <Text>{typeId}</Text>
+                    <Text>{categoryId}: {subCategory.value}</Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{
@@ -64,10 +64,11 @@ export interface ITransactionProp {
 
 export interface ITransactionDataProp {
     id?: string;
-    value?: Number,
+    value?: number,
     accountId?: string,
     imageId?: string,
-    typeId?: string,
+    categoryId?: string,
+    subCategory?: {id: number, value: string},
     description?: string
     date?: string;
 }

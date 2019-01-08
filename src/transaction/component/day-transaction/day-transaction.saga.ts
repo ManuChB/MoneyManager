@@ -7,6 +7,7 @@ import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, SET_TRANSACTION
 import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
+import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 
 export default [
     takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
