@@ -1,4 +1,4 @@
-import { NEW_TRANSACTION_INITIALIZE_START, NEW_TRANSACTION_INITIALIZE_FINISH, CHANGE_DATA } from './new-transaction-modal.constant';
+import { NEW_TRANSACTION_INITIALIZE_START, NEW_TRANSACTION_INITIALIZE_FINISH, CHANGE_DATA, SET_CATEGORIES } from './new-transaction-modal.constant';
 import { AnyAction } from 'redux';
 import { ITransactionDetailState } from './new-transaction-modal.model';
 
@@ -6,7 +6,9 @@ export const initialState: ITransactionDetailState = {
     isInitialized: false,
     data: {},
     onClose: null,
-    onSave: null
+    onSave: null,
+    categories: []
+
 };
 
 export default function newTransaction(state: ITransactionDetailState = initialState, action: AnyAction) {
@@ -31,6 +33,12 @@ export default function newTransaction(state: ITransactionDetailState = initialS
             return {
                 ...state,
                 data: action.value
+            };
+        case SET_CATEGORIES:
+            console.log(`[newTransaction][reducer][SET_CATEGORIES]`, action);
+            return {
+                ...state,
+                categories: action.value
             };
         default:
             return state

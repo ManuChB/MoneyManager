@@ -6,7 +6,8 @@ const constants = {
         tabs: 'Tab',
         moneyManager: 'MoneyManager',
         accounts: 'Accounts',
-        transactions: 'Transactions'
+        transactions: 'Transactions',
+        newTransaction: 'NewTransaction'
     },
     loginMode:{
         register: 'Register',

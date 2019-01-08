@@ -12,14 +12,14 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
     }
 
     componentWillMount() {
-        const { data, onClose, onSave } = this.props;
+        const { data, onClose, onSave } = this.props.navigation.state.params;
         this.props.actions.newTransactionInitializeStart({ data, onClose, onSave });
     }
 
 
     render() {
         return (
-            <TransactionDetail actions={this.props.actions} state={this.props.state} {...this.props.navigation} />
+            <TransactionDetail {...this.props} />
         );
     }
 }

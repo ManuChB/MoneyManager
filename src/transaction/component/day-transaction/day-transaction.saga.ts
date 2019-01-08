@@ -1,13 +1,18 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import moment from "moment";
+import _ from 'lodash';
+
 import dayTransactionAction from './day-transaction.action';
-import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION } from './day-transaction.constant';
+import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION } from './day-transaction.constant';
 import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
+import NavigationService from '../../../shared/service/navigation/navigation.service';
 
 export default [
     takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
-    takeLatest(SAVE_NEW_TRANSACTION, newTransaction)
+    takeLatest(SAVE_NEW_TRANSACTION, newTransaction),
+    takeLatest(SET_TRANSACTION_TO_DETAIL, transactionToDetail),
+    takeLatest(UPDATE_TRANSACTION, updateTransaction)
 
 ];
 
@@ -30,6 +35,31 @@ export function* newTransaction(action) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
 }
+
+export function* transactionToDetail(action) {
+    try {
+        console.log(`[dayTransactions][saga][transactionToDetail]`, action.value);
+        yield call(NavigationService.navigateTo, appConstants.routName.newTransaction, 
+            { data: action.value.transaction, 
+                onClose:NavigationService.navigateBack,
+                onSave: action.value.onSave
+            }
+        );
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
+    }
+}
+
+
+export function* updateTransaction(action) {
+    try {
+        console.log(`[dayTransactions][saga][updateTransaction]`, action.value);
+        yield call(FirebaseService.updateDocumentInCollection, 'transactions', action.value);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
+    }
+}
+
 
 const arrayData = [
     {

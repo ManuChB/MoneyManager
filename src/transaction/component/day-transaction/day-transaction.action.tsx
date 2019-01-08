@@ -35,7 +35,7 @@ const dayTransactionAction: IDayTransactionAction = {
     },
 
     saveNewTransaction(transaction) {
-        console.log(`[day-transaction][action][saveNewTransaction]`);
+        console.log(`[day-transaction][action][saveNewTransaction]`, transaction);
         return {
             type: SAVE_NEW_TRANSACTION,
             value: transaction
@@ -49,17 +49,17 @@ const dayTransactionAction: IDayTransactionAction = {
         }
     },
     updateTransaction(transaction) {
-        console.log(`[day-transaction][action][updateTransaction]`);
+        console.log(`[day-transaction][action][updateTransaction]`, transaction);
         return {
             type: UPDATE_TRANSACTION,
             value: transaction
         }
     },
-    setTransactionToDetail(transaction) {
+    setTransactionToDetail(transaction, onSave) {
         console.log(`[day-transaction][action][setTransactionToDetail]`);
         return {
             type: SET_TRANSACTION_TO_DETAIL,
-            value: transaction
+            value: {transaction, onSave}
         }
     }
 }

@@ -19,9 +19,8 @@ export function* initialize() {
         // yield call(LocalStorageService.insert, 'data');
         // yield call(LocalStorageService.get);
         yield call(FirebaseService.init);
-        //yield call(FirebaseService.writeUserData, 'email0', 'fname', 'adfsadf');
-
         const uid = yield call(AsyncStorageSevice.getItem, 'USER_ID');
+        yield call(getEsentialData);
         if(uid) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         }
@@ -32,4 +31,13 @@ export function* initialize() {
     } catch (e) {
         console.log(`[error][splash][saga][initialize]>>> ${e}`);
     }
+}
+
+function* getEsentialData() {
+    console.log(`[splash][saga][getEsentialData]`);
+
+    const categories = yield call(FirebaseService.getAllFromCollection, 'categories');
+    console.log(`[splash][saga][getEsentialData]>>>>`, categories);
+
+    yield call(AsyncStorageSevice.setItem, 'CATEGORIES', categories);
 }

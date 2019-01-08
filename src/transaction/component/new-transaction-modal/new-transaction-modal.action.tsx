@@ -1,4 +1,4 @@
-import { NEW_TRANSACTION_INITIALIZE_FINISH, NEW_TRANSACTION_INITIALIZE_START, CHANGE_DATA } from './new-transaction-modal.constant';
+import { NEW_TRANSACTION_INITIALIZE_FINISH, NEW_TRANSACTION_INITIALIZE_START, CHANGE_DATA, SET_CATEGORIES } from './new-transaction-modal.constant';
 import { ITransactionDetailAction } from './new-transaction-modal.model';
 
 const newTransactionAction: ITransactionDetailAction = {
@@ -22,6 +22,14 @@ const newTransactionAction: ITransactionDetailAction = {
         return {
             type: CHANGE_DATA,
             value: newData
+        }
+    },
+
+    setCategories(categores) {
+        console.log(`[new-transaction][action][changeData]`, categores);
+        return {
+            type: SET_CATEGORIES,
+            value: categores
         }
     }
 }

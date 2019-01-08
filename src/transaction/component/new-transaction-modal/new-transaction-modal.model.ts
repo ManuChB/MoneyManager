@@ -12,6 +12,7 @@ export interface ITransactionDetailAction {
     newTransactionInitializeStart?: (initialState: ITransactionDetailState) => Action;
     newTransactionInitializeFinish?: () => Action;
     changeData?: (data: ITransactionDataProp) => Action;
+    setCategories?: (categories: Array<any>) => Action;
 }
 
 export interface ITransactionDetailState {
@@ -19,5 +20,6 @@ export interface ITransactionDetailState {
     data: ITransactionDataProp;
     onClose: () => void;
     onSave: (data: ITransactionDataProp) => void;
+    categories?: Array<any>;
 
 }

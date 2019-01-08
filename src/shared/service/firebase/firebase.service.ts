@@ -39,19 +39,21 @@ class FirebaseService {
         });
     }
 
-    getAllFromCollection(collection) {
+    async getCategories() {
+        console.log('[FirebaseService][getCategories]');
+        const snapshot = await db.collection('categories').get();
+        console.log('[FirebaseService][getCategories]snapshot>>>> ', snapshot);
+        return snapshot.docs.map(doc => {
+            return { ...doc.data(), id: doc.id };
+        });
+    }
+
+    async getAllFromCollection(collection) {
         console.log('[FirebaseService][getAllFromCollection]', collection);
-        db.collection(collection).get()
-            .then(function (querySnapshot) {
-                return querySnapshot;
-                // querySnapshot.forEach(function (doc) {
-                //     // doc.data() is never undefined for query doc snapshots
-                //     console.log(doc.id, " => ", doc.data());
-                // });
-            }).catch(function (error) {
-                console.log(`[FirebaseService][getAllFromCollection][error] ${error}`);
-                return null;
-            });
+        const snapshot = await db.collection(collection).get();
+        return snapshot.docs.map(doc => {
+            return { ...doc.data(), id: doc.id };
+        });
     }
 
 
@@ -83,10 +85,14 @@ class FirebaseService {
             });
     }
 
-
     addToCollection(collection, data) {
         console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
         db.collection(collection).add(data);
+    }
+
+    updateDocumentInCollection(collection, data) {
+        console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
+        db.collection(collection).doc(data.id).update(data);
     }
 }
 

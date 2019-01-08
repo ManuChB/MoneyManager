@@ -18,6 +18,8 @@ export const initialState: IDayTransactionState = {
 };
 
 export default function dayTransaction(state: IDayTransactionState = initialState, action: AnyAction) {
+    console.log(`[dayTransaction][reducer]`, action);
+
     switch (action.type) {
         case DAY_TRANSACTION_INITIALIZE_FINISH:
             console.log(`[dayTransaction][reducer][DAY_TRANSACTION_INITIALIZE_FINISH]`);
@@ -68,7 +70,7 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
             console.log(`[dayTransaction][reducer][SET_TRANSACTION_TO_DETAIL]`);
             return {
                 ...state,
-                transactionToDetail: action.value
+                transactionToDetail: action.value.transaction
             };
         default:
             return state

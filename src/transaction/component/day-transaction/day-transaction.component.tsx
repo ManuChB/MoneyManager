@@ -12,27 +12,28 @@ import BalanceInfo from '../../../shared/components/balance-info/balance-info.co
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
 import Transaction from '../transaction/transaction.component';
 import NewTransactionScreen from '../new-transaction-modal/new-transaction-modal.screen';
+import NavigationService from '../../../shared/service/navigation/navigation.service';
 
 export default class DayTransaction extends Component<IDayTransactionProp> {
 
     onSaveNewTransaction(transaction) {
-        this.props.actions.saveNewTransaction({...transaction, id: _.uniqueId('transaction_')});
-        this.props.actions.showDetailModal(false);
+        this.props.actions.saveNewTransaction(transaction);
+        NavigationService.navigateBack();
     }
 
     onUpdateTransaction(transaction) {
         this.props.actions.updateTransaction(transaction);
-        this.props.actions.showDetailModal(false);
+        NavigationService.navigateBack();
+
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setTransactionToDetail(transactionToShow);
-        this.props.actions.showDetailModal(true);
+        this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this) );
+
     }
 
     onPressNewTransaction() {
-        this.props.actions.setTransactionToDetail({});
-        this.props.actions.showDetailModal(true);
+        this.props.actions.setTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
     }
 
 
@@ -42,14 +43,11 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         return (
             <View style={{ flex: 1 }}>
                 {!this.props.state.isInitialized && <Spinner></Spinner>}
-                {
-                    true &&
                     <Button
                         customButtonStyle={styles.customButtonStyle}
                         customLabelStyle={styles.customLabelStyle} onPress={() => this.onPressNewTransaction()}
                         label={'+'}>
                     </Button>
-                }
                 <DatePickerHeader date= {this.props.state.date} changeDay={this.props.actions.changeDay} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
@@ -58,14 +56,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
                     })}
                     <View style={{ height: 80}}></View>
                 </ScrollView>
-                {this.props.state.showDetailModal &&
-                    <NewTransactionScreen
-                        data={this.props.state.transactionToDetail}
-                        onClose={() => this.props.actions.showDetailModal(false)}
-                    onSave={_.isEmpty(this.props.state.transactionToDetail) ? this.onSaveNewTransaction.bind(this) : this.onUpdateTransaction.bind(this)}
-                    >
-                    </NewTransactionScreen>
-                }
             </View>
         )
     }
