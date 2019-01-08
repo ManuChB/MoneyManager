@@ -10,22 +10,24 @@ export class CustomPicker extends Component<IPickerProps> {
 
     getMode() {
         const { data, onSelect } = this.props;
-
+        console.log('------------------------', data);
         const mode = !this.state.showModal ?
             <TouchableOpacity onPress={() => this.setState({ showModal: true })}><Text>PIKER</Text></TouchableOpacity> :
             <Modal onRequestClose={() => this.setState({ showModal: false })}>
                 {data && data.map((subdata, key) => {
                     return (
                         <View key={key} >
-                            <Text key={key}>{`Category: ${subdata.id}`}</Text>
+                            <View style={styles.categoryView} key={key} >
+                                <Text style={styles.categoryText} key={key}>{`Category: ${subdata.id}`}</Text>
+                            </View>
                             <View style={styles.subCategoryView}>
-                                {Object.keys(subdata).map((key) => {
+                                {Object.keys(subdata.data).map((key) => {
                                     return (
                                         <TouchableOpacity
                                             style={styles.subCategory}
-                                            key={subdata[key].id}
-                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata.id, subdata[key])}}>
-                                            <Text>{subdata[key].value}</Text>
+                                            key={subdata.data[key].id}
+                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata.id, subdata.data[key])}}>
+                                            <Text>{subdata.data[key].value}</Text>
                                         </TouchableOpacity>)
                                 })}
                             </View>
@@ -44,6 +46,15 @@ export class CustomPicker extends Component<IPickerProps> {
 }
 
 const styles = StyleSheet.create({
+    categoryView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 30,
+        backgroundColor: 'grey',
+        borderBottomWidth: 1,
+        borderBottomColor: 'black'
+
+    },
     subCategoryView: {
         flexDirection: 'row', 
         flexWrap: 'wrap', 
@@ -59,6 +70,11 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         margin: 5, 
         borderRadius: 10
+    },
+    categoryText: {
+        color: 'black',
+        fontSize: 12,
+
     }
 });
 

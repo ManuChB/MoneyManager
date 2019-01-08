@@ -43,7 +43,7 @@ class FirebaseService {
         console.log('[FirebaseService][getAllFromCollection]', collection);
         const snapshot = await db.collection(collection).get();
         return snapshot.docs.map(doc => {
-            return { ...doc.data() };
+            return { data: doc.data(), id:doc.id };
         });
     }
 
@@ -77,7 +77,7 @@ class FirebaseService {
     }
 
     addToCollection(collection, data) {
-        console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
+        console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
         db.collection(collection).add(data);
     }
 
