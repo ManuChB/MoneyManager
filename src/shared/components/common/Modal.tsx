@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         elevation: 4,
-        position: 'absolute'
+        position: 'absolute',
+        zIndex: 100
     },
     screenBlocker: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',

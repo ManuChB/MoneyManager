@@ -22,14 +22,14 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
         return (
             <View style={{flex: 1}}>
                 <Header></Header>
-                <ScrollView style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     <DatePickerHeader 
                         date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
                     <CustomPicker data={categories}></CustomPicker>
                     
-                    <Text>ExpenceType!</Text>
+                    <Text>Account!</Text>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
                         label={'Description'}
@@ -48,13 +48,15 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         keyboard={'numeric'}
                         blurOnSubmit={true}
                     />
-                </ScrollView>
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',     
-                    marginBottom: 20}}>
-                    <Button customButtonStyle={{flex: 1}} onPress={() => onClose()} label={'Cancel'}></Button>
-                    <Button customButtonStyle={{ flex: 1 }} onPress={() => onSave({id: _.uniqueId('transaction_'),...this.props.state.data})} label={'Save'}></Button>
+                
+                    <View style={{
+                        position: 'absolute',
+                        flexDirection: 'row',
+                        bottom: 0, 
+                        marginBottom: 20}}>
+                        <Button customButtonStyle={{flex: 1}} onPress={() => onClose()} label={'Cancel'}></Button>
+                        <Button customButtonStyle={{ flex: 1 }} onPress={() => onSave({id: _.uniqueId('transaction_'),...this.props.state.data})} label={'Save'}></Button>
+                    </View>
                 </View>
             </View>
         )

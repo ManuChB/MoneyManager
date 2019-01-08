@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Button } from './';
+import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Modal } from './';
 
 export class CustomPicker extends Component<IPickerProps> {
     constructor(props) {
@@ -12,9 +12,8 @@ export class CustomPicker extends Component<IPickerProps> {
         const { data } = this.props;
 
         const mode = !this.state.showModal ?
-            <TouchableOpacity onPress={() => this.setState({ showModal: true })}></TouchableOpacity> :
+            <TouchableOpacity onPress={() => this.setState({ showModal: true })}><Text>PIKER</Text></TouchableOpacity> :
             <Modal onRequestClose={() => this.setState({ showModal: false })}>
-                <View style={{height: 100, width: '100%', backgroundColor:'rgba(0,0,0, 0.4)'}}></View>
                 {data && data.map((data, key) => {
                     return (
                         <View key={key} >
