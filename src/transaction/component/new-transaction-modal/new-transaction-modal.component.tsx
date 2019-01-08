@@ -17,6 +17,11 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
         this.props.actions.changeData({ ...this.props.state.data, date })
     }
 
+    checkEmpty() {
+        const {data} = this.props.state;
+        return _.isEmpty(data) || !data.value;
+    }
+
     render() {
         const { data, onClose, onSave, categories } = this.props.state;
         return (
@@ -54,8 +59,17 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         flexDirection: 'row',
                         bottom: 0, 
                         marginBottom: 20}}>
-                        <Button customButtonStyle={{flex: 1}} onPress={() => onClose()} label={'Cancel'}></Button>
-                        <Button customButtonStyle={{ flex: 1 }} onPress={() => onSave({id: _.uniqueId('transaction_'),...this.props.state.data})} label={'Save'}></Button>
+                        <Button 
+                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266'}} 
+                            onPress={() => onClose()} 
+                            label={'Cancel'}>
+                        </Button>
+                        <Button 
+                            customButtonStyle={{ flex: 1 }} 
+                            onPress={() => onSave({id: _.uniqueId('transaction_'),...this.props.state.data})} 
+                            label={'Save'}
+                            disabled={this.checkEmpty()}>
+                        </Button>
                     </View>
                 </View>
             </View>
