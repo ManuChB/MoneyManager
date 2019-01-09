@@ -1,13 +1,13 @@
 import React, { StatelessComponent } from 'react';
-import {  View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 
 const Modal: StatelessComponent = (props) => {
     return (
         <View style={styles.mainView}>
             <View style={styles.screenBlocker}></View>
-            <View style={styles.modalStyle}>
+            <ScrollView style={styles.modalStyle}>
                 {props.children}
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '90%',
         height: '90%',
-        shadowColor: 'red',
         shadowOpacity: 10,
         elevation: 5,
         position: 'absolute'

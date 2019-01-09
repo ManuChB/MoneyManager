@@ -32,9 +32,18 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
-                    <CustomPicker data={categories} onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}></CustomPicker>
-                    
-                    <Text>Account!</Text>
+                    <CustomPicker 
+                        label={'Category'}
+                        value={data.subCategory ? data.subCategory.value : ''}
+                        data={categories} 
+                        onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
+                    </CustomPicker>
+                    <CustomPicker
+                        label={'Account'}
+                        value={data.subCategory ? data.subCategory.value: ''}
+                        data={categories}
+                        onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
+                    </CustomPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
                         label={'Description'}

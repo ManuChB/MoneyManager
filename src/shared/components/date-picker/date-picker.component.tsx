@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import moment, { Moment } from 'moment';
 
@@ -14,7 +14,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                     <TouchableOpacity 
                         onPress={() => { changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day').format("DD-MM-YYYY").toString()) }}
                         style={{ padding: 15 }}>
-                        <Text>{'<'}</Text>
+                        <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/left-50.png')} />
                     </TouchableOpacity>
                     <DatePicker
                     style= {{width: 80}}
@@ -35,7 +35,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                     <TouchableOpacity 
                         onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day').format("DD-MM-YYYY").toString())}} 
                         style={{ padding: 15 }}>
-                        <Text>{'>'}</Text>
+                        <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/right-50.png')} />
                     </TouchableOpacity>
                 </View>
             </View>
