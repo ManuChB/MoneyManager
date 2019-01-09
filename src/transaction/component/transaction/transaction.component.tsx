@@ -40,7 +40,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
                     <Text>{accountId}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
-                    <Text>{categoryId}: {subCategory.value}</Text>
+                    <Text>{subCategory ? subCategory.value : ''}</Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{
@@ -71,4 +71,5 @@ export interface ITransactionDataProp {
     subCategory?: {id: number, value: string},
     description?: string
     date?: string;
+    isExpense?: boolean;
 }

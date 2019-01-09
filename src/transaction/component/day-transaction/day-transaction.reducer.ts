@@ -1,6 +1,7 @@
 import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, 
     CHANGE_DATE, SET_DAY_TRANSACTIONS, SAVE_NEW_TRANSACTION, 
-    SHOW_DETAIL_MODAL, UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL } from './day-transaction.constant';
+    SHOW_DETAIL_MODAL, UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL, 
+    SET_BALANCE_INFO, REMOVE_TRANSACTION } from './day-transaction.constant';
 import { AnyAction } from 'redux';
 import { IDayTransactionState } from './day-transaction.model';
 import appConstans from '../../../appConstants';
@@ -71,6 +72,22 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
             return {
                 ...state,
                 transactionToDetail: action.value.transaction
+            };
+        case SET_BALANCE_INFO:
+            console.log(`[dayTransaction][reducer][SET_BALANCE_INFO]`);
+            return {
+                ...state,
+                income: action.value.income,
+                expense: action.value.expense,
+                balance: action.value.balance,
+            };
+        case REMOVE_TRANSACTION:
+            console.log(`[dayTransaction][reducer][REMOVE_TRANSACTION]`, action);
+            return {
+                ...state,
+                transactions: state.transactions.filter(
+                    (transaction) => transaction.id !== action.value.id
+                )
             };
         default:
             return state

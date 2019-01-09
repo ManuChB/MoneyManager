@@ -15,7 +15,7 @@ import NewTransactionScreen from '../new-transaction-modal/new-transaction-modal
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 
 export default class DayTransaction extends Component<IDayTransactionProp> {
-
+    
     onSaveNewTransaction(transaction) {
         this.props.actions.saveNewTransaction(transaction);
         NavigationService.navigateBack();

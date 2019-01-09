@@ -17,6 +17,8 @@ export interface IDayTransactionAction {
     showDetailModal?: (showModal: boolean) => Action;
     updateTransaction?: (transaction: ITransactionDataProp) => Action;
     setTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
+    setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
+    removeTransaction?: (transaction: ITransactionDataProp) => Action;
 }
 
 export interface IDayTransactionState {

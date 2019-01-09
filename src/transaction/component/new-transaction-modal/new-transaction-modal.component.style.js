@@ -26,6 +26,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 10,
         elevation: 5,
         position: 'absolute'
+    },
+    checkBoxStyle: {
+        flex: 1, 
+        height: 60, 
+        justifyContent: 'center', 
+        alignItems: 'center'
     }
 });
 

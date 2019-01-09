@@ -1,6 +1,7 @@
 import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, 
     CHANGE_DATE, SET_DAY_TRANSACTIONS, SAVE_NEW_TRANSACTION, SHOW_DETAIL_MODAL,
-    UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL } from './day-transaction.constant';
+    UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL, SET_BALANCE_INFO, 
+    REMOVE_TRANSACTION } from './day-transaction.constant';
 import { IDayTransactionAction } from './day-transaction.model';
 
 const dayTransactionAction: IDayTransactionAction = {
@@ -61,7 +62,22 @@ const dayTransactionAction: IDayTransactionAction = {
             type: SET_TRANSACTION_TO_DETAIL,
             value: {transaction, onSave}
         }
+    },
+    setBalanceInfo(income, expense, balance) {
+        console.log(`[day-transaction][action][setBalanceInfo]`);
+        return {
+            type: SET_BALANCE_INFO,
+            value: { income, expense, balance }
+        }
+    },
+    removeTransaction(transaction) {
+        console.log(`[day-transaction][action][setBalanceInfo]`);
+        return {
+            type: REMOVE_TRANSACTION,
+            value: transaction
+        }
     }
+
 }
 
 export default dayTransactionAction;

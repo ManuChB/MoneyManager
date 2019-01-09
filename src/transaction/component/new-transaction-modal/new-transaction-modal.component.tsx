@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -32,6 +32,18 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
+                    <View style={{ flexDirection: 'row'}}>
+                        <TouchableOpacity 
+                            style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: 'green' }]} 
+                            onPress={() => this.props.actions.changeData({ ...data, isExpense: false })}>
+                            <Text>Income</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: 'red' }: null]}
+                            onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
+                            <Text>Expence</Text>
+                        </TouchableOpacity>
+                    </View>
                     <CustomPicker 
                         label={'Category'}
                         value={data.subCategory ? data.subCategory.value : ''}
@@ -57,7 +69,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         inputRef={ref => this.valueInput = ref}
                         label={'Value'}
                         value={data.value ? data.value.toString() : null}
-                        onChangeText={(value) => this.props.actions.changeData({ ...data, value})}
+                        onChangeText={(value) => this.props.actions.changeData({ ...data, value: parseFloat(value) })}
                         returnKeyType={"next"}
                         keyboard={'numeric'}
                         blurOnSubmit={true}

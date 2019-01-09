@@ -76,9 +76,9 @@ class FirebaseService {
             });
     }
 
-    addToCollection(collection, data) {
+    async addToCollection(collection, data) {
         console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
-        db.collection(collection).add(data);
+        return await db.collection(collection).add(data);
     }
 
     updateDocumentInCollection(collection, data) {
