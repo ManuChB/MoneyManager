@@ -8,10 +8,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'relative'
     },
-    textStyle: {
+    valueStyle: {
         color: 'black',
-        fontSize: 12
-
+        fontSize: 16,
+        fontWeight: '600'
+    },
+    textStyle: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#d3d3d3'
     },
     infoStyle: {
         flexDirection: 'row',
@@ -28,7 +32,15 @@ const styles = StyleSheet.create({
     },
     textValue: { 
        margin: 10
+    },
+
+    expense: {
+        color: 'red'
+    },
+    income: {
+        color: 'green'
     }
+
 })
 
 export default styles;

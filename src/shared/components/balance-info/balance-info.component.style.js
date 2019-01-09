@@ -9,7 +9,12 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: 'black',
-        fontSize: 12
+        fontSize: 14,
+    },
+    valueStyle: {
+        color: 'black',
+        fontSize: 14,
+        fontWeight: '600'
 
     },
     infoStyle: {

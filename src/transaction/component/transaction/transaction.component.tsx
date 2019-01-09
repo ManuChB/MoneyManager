@@ -8,7 +8,7 @@ import I18n from '../../../i18n';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
-    const { value, accountId, imageId, categoryId, subCategory, description } = data;
+    const { value, accountId, imageId, categoryId, subCategory, description, isExpense } = data;
     
     const getIcon = (image) => {
         var icon;
@@ -40,14 +40,14 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
                     <Text>{accountId}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
-                    <Text>{subCategory ? subCategory.value : ''}</Text>
+                    <Text style={styles.textStyle}>{subCategory ? subCategory.value : ''}</Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{
                         flex: 1, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                    <Text>{value}</Text>
+                    <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>{value}</Text>
                 </View>
             </View>
         </TouchableOpacity>
