@@ -21,8 +21,10 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[dayTransactions][saga][initialize]`, arrayData);
+        console.log(`[dayTransactions][saga][initialize]`);
         const transactions = yield call(FirebaseService.getTransactions);
+        console.log(`[dayTransactions][saga][transactions]`, transactions);
+
         yield put(dayTransactionAction.setDayTransactions(transactions));
         yield call(calculateBalance);
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
@@ -51,7 +53,7 @@ export function* newTransaction(action) {
     try {
         console.log(`[dayTransactions][saga][newTransaction]`, action.value);
         if (action.value.id.includes('transaction_')){
-            const data = yield call(FirebaseService.addToCollection, 'transactions', action.value);
+            const data = yield call(FirebaseService.addToCollection, 'transactions', { ...action.value, date: action.value.date.toDate() });
             if (data.id) {
                 yield put(dayTransactionAction.removeTransaction(action.value))
                 yield put(dayTransactionAction.saveNewTransaction({ ...action.value, id: data.id }))
@@ -87,69 +89,10 @@ export function* updateTransaction(action) {
         if (action.value.id.includes('transaction_')) {
             yield call(newTransaction, action);
         } else {
-            yield call(FirebaseService.updateDocumentInCollection, 'transactions', action.value);
+            yield call(FirebaseService.updateDocumentInCollection, 'transactions', { ...action.value, date: action.value.date.toDate() });
             yield call(calculateBalance);
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
     }
 }
-
-
-const arrayData = [
-    {
-        id: '0',
-        value: 234,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '1',
-        value: 67,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '2',
-        value: 8,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '3',
-        value: 12,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '4',
-        value: 532,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '5',
-        value: 586,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-]
-

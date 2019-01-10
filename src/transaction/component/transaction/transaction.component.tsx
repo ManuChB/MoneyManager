@@ -6,6 +6,7 @@ import styles from './transaction.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
+import { Moment } from 'moment';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const { value, accountId, imageId, categoryId, subCategory, description, isExpense } = data;
@@ -70,6 +71,6 @@ export interface ITransactionDataProp {
     categoryId?: string,
     subCategory?: {id: number, value: string},
     description?: string
-    date?: string;
+    date?: Moment;
     isExpense?: boolean;
 }

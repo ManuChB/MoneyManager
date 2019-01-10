@@ -9,7 +9,7 @@ import moment from 'moment';
 
 export const initialState: IDayTransactionState = {
     isInitialized: false,
-    date: moment().format('DD-MM-YYYY').toString(),
+    date: moment(),
     income: 100.00,
     expense: 40.00,
     balance: 60.00,

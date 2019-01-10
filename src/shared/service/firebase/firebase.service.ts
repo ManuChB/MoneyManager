@@ -1,3 +1,4 @@
+import moment from 'moment';
 import firebase from "firebase";
 require("firebase/firestore");
 
@@ -35,7 +36,7 @@ class FirebaseService {
         console.log('[FirebaseService][getTransactions]');
         const snapshot = await db.collection('transactions').get()
         return snapshot.docs.map(doc => {
-            return { ...doc.data(), id: doc.id };
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
         });
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
 import { Button, Input, Header, CustomPicker } from '../../../shared/components/common';
@@ -13,7 +13,7 @@ import asyncStorageService from '../../../shared/service/async-storage/async-sto
 
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
-    changeDay(date: string) {
+    changeDay(date: Moment) {
         this.props.actions.changeData({ ...this.props.state.data, date })
     }
 
@@ -23,13 +23,19 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
     }
 
     render() {
-        const { data, onClose, onSave, categories } = this.props.state;
+        const { data, onClose, onSave, categories, isInitialized } = this.props.state;
+        console.log('-----------------------------', this.props.state)
+
+        if (isInitialized && !data.date) {
+            this.changeDay(moment())
+        }
+
         return (
             <View style={{flex: 1}}>
                 <Header></Header>
                 <View style={{ flex: 1 }}>
                     <DatePickerHeader 
-                        date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
+                        date={data.date} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
                     <View style={{ flexDirection: 'row'}}>

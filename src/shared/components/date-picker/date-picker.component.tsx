@@ -12,7 +12,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").subtract(1, 'day').format("DD-MM-YYYY").toString()) }}
+                        onPress={() => { changeDay(moment(date).subtract(1, 'day')) }}
                         style={{ padding: 15 }}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/left-50.png')} />
                     </TouchableOpacity>
@@ -30,10 +30,10 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                                 borderWidth: 0
                             }
                         }}
-                        onDateChange={(date) => changeDay(date.toString()) }
+                        onDateChange={(date) => changeDay(moment(date, 'DD-MM-YYYY')) }  
                     />
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date, "DD-MM-YYYY").add(1, 'day').format("DD-MM-YYYY").toString())}} 
+                        onPress={() => { changeDay(moment(date).add(1, 'day')) }} 
                         style={{ padding: 15 }}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/right-50.png')} />
                     </TouchableOpacity>
@@ -72,7 +72,7 @@ const styles = {
 };
 
 export interface IDatePickerProps {
-    date?: string,
+    date?: Moment,
     dateMode?: string,
     changeDay?: (date: any) => void
 }
