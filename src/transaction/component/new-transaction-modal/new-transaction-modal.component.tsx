@@ -24,10 +24,6 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
 
     render() {
         const { data, onClose, onSave, categories, isInitialized } = this.props.state;
-        if (isInitialized && !data.date) {
-            this.changeDay(moment())
-        }
-        console.log('.......................data------¡', data.date);
         return (
             <View style={{flex: 1}}>
                 <Header></Header>

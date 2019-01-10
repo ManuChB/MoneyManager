@@ -5,6 +5,12 @@ import moment, { Moment } from 'moment';
 
 export class DatePickerHeader extends Component<IDatePickerProps> {
 
+    componentWillUpdate() {
+        const { date, changeDay } = this.props;
+        if ( !date ) {
+            changeDay(moment())
+        }
+    }
     render() {
         const { date, changeDay } = this.props;
         console.log('DATE: ', date)
