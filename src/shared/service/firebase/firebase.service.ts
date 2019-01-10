@@ -16,10 +16,12 @@ var db;
 class FirebaseService {
 
     async init() {
-        const appFirebase = await firebase.initializeApp(firebaseConfi);
-        db = appFirebase.firestore();
-        const settings = {/* your settings... */ timestampsInSnapshots: true };
-        db.settings(settings);
+        if (!firebase.apps.length) {
+            const appFirebase = await firebase.initializeApp(firebaseConfi);
+            db = appFirebase.firestore();
+            const settings = {/* your settings... */ timestampsInSnapshots: true };
+            db.settings(settings);
+        }        
     }
 
     async newUser(userName, password){

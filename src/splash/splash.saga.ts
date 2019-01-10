@@ -14,9 +14,6 @@ export default [
 export function* initialize() {
     try {
         console.log(`[splash][saga][initialize]`);
-
-        yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
-/*
         yield call(FirebaseService.init);
         const uid = yield call(AsyncStorageSevice.getItem, 'USER_ID');
         yield call(getEsentialData);
@@ -26,7 +23,6 @@ export function* initialize() {
         else {
             yield call(NavigationService.navigateTo, appConstants.routName.login);
         }
-        */
         yield put(splashAction.initializeFinish());
     } catch (e) {
         console.log(`[error][splash][saga][initialize]>>> ${e}`);
