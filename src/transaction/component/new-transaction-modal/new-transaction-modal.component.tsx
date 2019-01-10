@@ -14,7 +14,7 @@ import asyncStorageService from '../../../shared/service/async-storage/async-sto
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
     changeDay(date: Moment) {
-        this.props.actions.changeData({ ...this.props.state.data, date })
+        this.props.actions.changeData({ ...this.props.state.data, date: date.startOf('day') })
     }
 
     checkEmpty() {
@@ -27,7 +27,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
         if (isInitialized && !data.date) {
             this.changeDay(moment())
         }
-
+        console.log('.......................data------¡', data.date);
         return (
             <View style={{flex: 1}}>
                 <Header></Header>

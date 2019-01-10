@@ -39,7 +39,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
 
     render() {
         const  { income, expense, balance, transactions } = this.props.state;
-        console.log('[[transactions]]', transactions);
         return (
             <View style={{ flex: 1 }}>
                 {!this.props.state.isInitialized && <Spinner></Spinner>}

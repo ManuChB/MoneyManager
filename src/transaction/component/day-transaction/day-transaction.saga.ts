@@ -15,7 +15,7 @@ export default [
     takeLatest(SAVE_NEW_TRANSACTION, newTransaction),
     takeLatest(SET_TRANSACTION_TO_DETAIL, transactionToDetail),
     takeLatest(UPDATE_TRANSACTION, updateTransaction),
-    takeLatest(CHANGE_DATE, onDateChange)
+    takeLatest(CHANGE_DATE, getTransactionByDate)
 
 ];
 
@@ -24,11 +24,8 @@ export default [
 export function* initialize() {
     try {
         console.log(`[dayTransactions][saga][initialize]`);
-        const transactions = yield call(FirebaseService.getTransactions);
-        console.log(`[dayTransactions][saga][transactions]`, transactions);
-
         const today = moment();
-        yield call(onDateChange, { value: today })
+        yield call(getTransactionByDate, { value: today })
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
@@ -57,14 +54,11 @@ export function* newTransaction(action) {
         if (action.value.id.includes('transaction_')){
             const data = yield call(FirebaseService.addToCollection, 'transactions', { ...action.value, date: action.value.date.toDate() });
             if (data.id) {
-                yield put(dayTransactionAction.removeTransaction(action.value))
                 yield put(dayTransactionAction.saveNewTransaction({ ...action.value, id: data.id }))
             }
         } else {
             yield call(updateTransaction, action);
         }
-        
-        yield call(calculateBalance);
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
@@ -92,20 +86,21 @@ export function* updateTransaction(action) {
             yield call(newTransaction, action);
         } else {
             yield call(FirebaseService.updateDocumentInCollection, 'transactions', { ...action.value, date: action.value.date.toDate() });
-            yield call(calculateBalance);
+            const day = yield select(selectors.getDayTransaction);
+            yield call(getTransactionByDate, {value: day });
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
     }
 }
 
-export function* onDateChange(action) {
+export function* getTransactionByDate(action) {
     try {
         console.log(`[dayTransactions][saga][onDateChange]`);
         const date = action.value.toDate();
         date.setHours(0, 0, 0, 0);
 
-        const transactionsDay = yield call(FirebaseService.getAllFromCollectionWhere, 'transactions', ["date", "==", date]);
+        const transactionsDay = yield call(FirebaseService.getTransactionsByDate, date);
         console.log(`[dayTransactions][saga][onDateChange][transactionsDay]`, date, '....', transactionsDay);
 
         yield put(dayTransactionAction.setDayTransactions(transactionsDay));

@@ -32,9 +32,9 @@ class FirebaseService {
         return response;
     }
 
-    async getTransactions() {
+    async getTransactionsByDate(date) {
         console.log('[FirebaseService][getTransactions]');
-        const snapshot = await db.collection('transactions').get()
+        const snapshot = await db.collection('transactions').where('date', '==', date).get(); // "capital", "==", true
         return snapshot.docs.map(doc => {
             return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
         });
@@ -53,7 +53,7 @@ class FirebaseService {
         console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
         const snapshot = await db.collection(collection).where(query[0], query[1], query[2]).get(); // "capital", "==", true
         return snapshot.docs.map(doc => {
-            return  doc.data() ;
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
         });
     }
 

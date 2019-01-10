@@ -46,12 +46,6 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
                 ...state,
                 transactions: action.value
             };
-        case SAVE_NEW_TRANSACTION:
-            console.log(`[dayTransaction][reducer][SAVE_NEW_TRANSACTION]`, action);
-            return {
-                ...state,
-                transactions: [...state.transactions, action.value]
-            };
         case SHOW_DETAIL_MODAL:
             console.log(`[dayTransaction][reducer][SHOW_DETAIL_MODAL]`);
             return {
