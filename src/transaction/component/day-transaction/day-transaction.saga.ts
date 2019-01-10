@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import dayTransactionAction from './day-transaction.action';
 import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, 
-    SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION } from './day-transaction.constant';
+    SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION, CHANGE_DATE } from './day-transaction.constant';
 import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
@@ -14,7 +14,9 @@ export default [
     takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
     takeLatest(SAVE_NEW_TRANSACTION, newTransaction),
     takeLatest(SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(UPDATE_TRANSACTION, updateTransaction)
+    takeLatest(UPDATE_TRANSACTION, updateTransaction),
+    takeLatest(CHANGE_DATE, onDateChange)
+
 ];
 
 
@@ -25,8 +27,8 @@ export function* initialize() {
         const transactions = yield call(FirebaseService.getTransactions);
         console.log(`[dayTransactions][saga][transactions]`, transactions);
 
-        yield put(dayTransactionAction.setDayTransactions(transactions));
-        yield call(calculateBalance);
+        const today = moment();
+        yield call(onDateChange, { value: today })
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
@@ -94,5 +96,21 @@ export function* updateTransaction(action) {
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
+    }
+}
+
+export function* onDateChange(action) {
+    try {
+        console.log(`[dayTransactions][saga][onDateChange]`);
+        const date = action.value.toDate();
+        date.setHours(0, 0, 0, 0);
+
+        const transactionsDay = yield call(FirebaseService.getAllFromCollectionWhere, 'transactions', ["date", "==", date]);
+        console.log(`[dayTransactions][saga][onDateChange][transactionsDay]`, date, '....', transactionsDay);
+
+        yield put(dayTransactionAction.setDayTransactions(transactionsDay));
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][onDateChange]>>> ${e}`);
     }
 }

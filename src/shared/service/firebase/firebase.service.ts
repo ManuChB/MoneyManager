@@ -49,17 +49,12 @@ class FirebaseService {
     }
 
 
-    getAllFromCollectionWhere(collection, query) {
+    async getAllFromCollectionWhere(collection, query) {
         console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
-        db.collection(collection).where(query) // "capital", "==", true
-            .get()
-            .then(function (querySnapshot) {
-                return querySnapshot;
-            })
-            .catch(function (error) {
-                console.log(`[FirebaseService][getAllFromCollectionWhere][error] ${error}`);
-                return null;
-            });
+        const snapshot = await db.collection(collection).where(query[0], query[1], query[2]).get(); // "capital", "==", true
+        return snapshot.docs.map(doc => {
+            return  doc.data() ;
+        });
     }
 
     getCollectionDocument(collection, document) {
