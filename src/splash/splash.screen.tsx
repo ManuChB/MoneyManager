@@ -13,13 +13,9 @@ export class SplashScreenComponent extends Component<ISplashProp, {}> {
 
     componentDidMount() {
         NavigationService.setNavigator(this.props.navigation);
-        //this.props.actions.initializeStart();
+        this.props.actions.initializeStart();
     }
-
-    static navigationOptions = {
-        tabBarVisible: false
-    };
-
+    
     render() {
         return (
             <Splash {...this.props} />
