@@ -23,7 +23,8 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
     }
 
     render() {
-        const { data, onClose, onSave, categories, isInitialized } = this.props.state;
+        const { data, onClose, onSave, categories, accounts, isInitialized } = this.props.state;
+        console.log('-----------------------', accounts);
         return (
             <View style={{flex: 1}}>
                 <Header></Header>
@@ -52,9 +53,9 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                     </CustomPicker>
                     <CustomPicker
                         label={'Account'}
-                        value={data.subCategory ? data.subCategory.value: ''}
-                        data={categories}
-                        onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
+                        value={data.account ? data.account.name: ''}
+                        data={accounts}
+                        onSelect={(account) => this.props.actions.changeData({ ...data, account })}>
                     </CustomPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}

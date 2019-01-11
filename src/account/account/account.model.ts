@@ -13,4 +13,20 @@ export interface IAccountAction {
 
 export interface IAccountState {
     isInitialized?: boolean;
+    account?: IAccountProp;
+}
+
+export interface IAccountProp {
+    data: IAccountData;
+    onPress: () => void;
+
+}
+
+export interface IAccountData {
+    id?: string;
+    name?: string;
+    value?: number;
+    description?: string;
+    type?: {id: string, value: string};
+    currency?: string;
 }

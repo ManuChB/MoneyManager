@@ -7,7 +7,8 @@ const constants = {
         moneyManager: 'MoneyManager',
         accounts: 'Accounts',
         transactions: 'Transactions',
-        newTransaction: 'NewTransaction'
+        newTransaction: 'NewTransaction',
+        accountDetail: 'AccountDetail'
     },
     loginMode:{
         register: 'Register',

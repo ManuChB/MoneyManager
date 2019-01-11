@@ -7,9 +7,10 @@ import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import { Moment } from 'moment';
+import { IAccountData } from '../../../account/account/account.model';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
-    const { value, accountId, imageId, categoryId, subCategory, description, isExpense } = data;
+    const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
     
     const getIcon = (image) => {
         var icon;
@@ -35,20 +36,20 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
             <View style={styles.dataViewStyle}>
                 <View style={{
-                    flex: 2, justifyContent: 'center',
+                    flex: 1, justifyContent: 'center',
                     alignItems: 'center' }}>
                     <Image style={{ width: 35, height: 35 }} source={img} />
-                    <Text>{accountId}</Text>
+                    <Text>{account ? account.name : ''}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
                     <Text style={styles.textStyle}>{subCategory ? subCategory.value : ''}</Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{
-                        flex: 1, justifyContent: 'center',
+                        flex: 2, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                    <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>{value}</Text>
+                    <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>{value.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -66,7 +67,7 @@ export interface ITransactionProp {
 export interface ITransactionDataProp {
     id?: string;
     value?: number,
-    accountId?: string,
+    account?: IAccountData,
     imageId?: string,
     categoryId?: string,
     subCategory?: {id: number, value: string},

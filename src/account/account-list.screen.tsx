@@ -12,7 +12,7 @@ export class AccountListScreenComponent extends Component<IAccountListProp, {}> 
     }
 
     componentDidMount() {
-        //this.props.actions.accountInitializeStart();
+        this.props.actions.accountListInitializeStart();
     }
 
     static navigationOptions = {

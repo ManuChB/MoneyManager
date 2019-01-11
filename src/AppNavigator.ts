@@ -9,6 +9,7 @@ import AccountListScreen from './account/account-list.screen';
 import TransactionListScreen from './transaction/transaction-list.screen';
 import MoneyManagerScreen from './money-manager/money-manager.screen';
 import NewTransactionScreen from './transaction/component/new-transaction-modal/new-transaction-modal.screen';
+import accountDetailScreen from './account/account-detail/account-detail.screen';
 
 // import SettingsScreen from './assignment-list/settings/settings.screen';
 
@@ -35,7 +36,8 @@ const AppNavigator: NavigationContainer = StackNavigator(
         MoneyManager: { screen: MoneyManagerScreen },
         Accounts: { screen: AccountListScreen },
         Transactions: { screen: TransactionListScreen },
-        NewTransaction: { screen: NewTransactionScreen }
+        NewTransaction: { screen: NewTransactionScreen },
+        AccountDetail: { screen: accountDetailScreen}
         // Settings: { screen: SettingsScreen }
     },
     {

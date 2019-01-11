@@ -1,21 +1,32 @@
-import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import React, { StatelessComponent } from 'react';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { IAccountProp } from './account.model';
-import { Input, Header } from '../shared/components/common';
-import appConstans from '../appConstants';
+import { Input, Header } from '../../shared/components/common';
+import appConstans from '../../appConstants';
 import styles from './account.component.style';
 import { LinearGradient } from 'expo';
-import I18n from '../i18n';
+import I18n from '../../i18n';
+// import CountryCurrencyPicker from 'react-native-country-currency-picker';
 
-export default class Account extends Component<IAccountProp> {
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <Header></Header>
-                <ScrollView>
-                    <Text>sasas!</Text>
-                </ScrollView>
+const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
+    const { value, name, type, currency, description} = data;
+
+    return (
+        <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
+            <View style={styles.dataViewStyle}>
+                <View style={ {flex: 1, justifyContent: 'center', alignItems: 'center'} }>
+                    <Text>{name }</Text>
+                </View>
+                <View style={{ flex: 5 }}></View>
+                <View style={{
+                    flex: 2, justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text style={styles.valueStyle}>{value ? value.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0}</Text>
+                </View>
             </View>
-        )
-    }
+        </TouchableOpacity>
+    )
 }
+
+export default Account;
