@@ -1,11 +1,11 @@
 import { MONEY_MANAGER_INITIALIZE_START, MONEY_MANAGER_INITIALIZE_FINISH, MONEY_MANAGER_TAB_MODE_CHANGE } from './money-manager.constant';
 import { AnyAction } from 'redux';
 import { IMoneyManagerState } from './money-manager.model';
-import appConstans from '../appConstants';
+import appConstants from '../appConstants';
 
 export const initialState: IMoneyManagerState = {
     isInitialized: false,
-    tabMode: appConstans.tabMode.account
+    tabMode: appConstants.tabMode.account
 };
 
 export default function moneyManager(state: IMoneyManagerState = initialState, action: AnyAction) {

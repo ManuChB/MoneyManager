@@ -5,7 +5,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { IDayTransactionProp } from './day-transaction.model';
 import { Button, Spinner  } from '../../../shared/components/common';
-import appConstans from '../../../appConstants';
+import appConstants from '../../../appConstants';
 import styles from './day-transaction.component.style';
 import I18n from '../../../i18n';
 import BalanceInfo from '../../../shared/components/balance-info/balance-info.component';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { IAccountDetailProp } from './account-detail.model';
 import { Header, Button, Input } from '../../shared/components/common';
-import appConstans from '../../appConstants';
+import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
 import I18n from '../../i18n';
 import _ from 'lodash';
@@ -69,7 +69,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     </Button>
                     <Button
                         customButtonStyle={{ flex: 1 }}
-                        onPress={() => onSave({ id: _.uniqueId('account_'), ...account })}
+                        onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account })}
                         label={'Save'}
                         disabled={this.checkEmpty()}>
                     </Button>

@@ -2,7 +2,7 @@ import React, { StatelessComponent } from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { IAccountProp } from './account.model';
 import { Input, Header } from '../../shared/components/common';
-import appConstans from '../../appConstants';
+import appConstants from '../../appConstants';
 import styles from './account.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../../i18n';

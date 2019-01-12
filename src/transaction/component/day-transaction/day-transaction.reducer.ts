@@ -4,7 +4,7 @@ import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START,
     SET_BALANCE_INFO, REMOVE_TRANSACTION } from './day-transaction.constant';
 import { AnyAction } from 'redux';
 import { IDayTransactionState } from './day-transaction.model';
-import appConstans from '../../../appConstants';
+import appConstants from '../../../appConstants';
 import moment from 'moment';
 
 export const initialState: IDayTransactionState = {

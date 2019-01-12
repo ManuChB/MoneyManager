@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { Input, Header } from '../../../shared/components/common';
-import appConstans from '../../../appConstants';
+import appConstants from '../../../appConstants';
 import styles from './transaction.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
@@ -15,17 +15,17 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const getIcon = (image) => {
         var icon;
         switch (image) {
-            case appConstans.transactionIcons.cash.id:
-                icon = appConstans.transactionIcons.cash.value;
+            case appConstants.transactionIcons.cash.id:
+                icon = appConstants.transactionIcons.cash.value;
                 break;
-            case appConstans.transactionIcons.credit.id:
-                icon = appConstans.transactionIcons.credit.value;
+            case appConstants.transactionIcons.credit.id:
+                icon = appConstants.transactionIcons.credit.value;
                 break; 
-            case appConstans.transactionIcons.default.id:
-                icon = appConstans.transactionIcons.default.value;
+            case appConstants.transactionIcons.default.id:
+                icon = appConstants.transactionIcons.default.value;
                 break;
             default:
-                icon = appConstans.transactionIcons.default.value;
+                icon = appConstants.transactionIcons.default.value;
                 break;
         }
         return icon;

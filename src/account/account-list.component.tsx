@@ -3,7 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { IAccountListProp } from './account-list.model';
 import BalanceInfo from '../shared/components/balance-info/balance-info.component';
 import { Button } from '../shared/components/common';
-import appConstans from '../appConstants';
+import appConstants from '../appConstants';
 import styles from './account-list.component.style';
 import I18n from '../i18n';
 import Account from './account/account.component';

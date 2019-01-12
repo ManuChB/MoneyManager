@@ -3,7 +3,7 @@ import {
 } from './week-transaction.constant';
 import { AnyAction } from 'redux';
 import { IWeekTransactionState } from './week-transaction.model';
-import appConstans from '../../../appConstants';
+import appConstants from '../../../appConstants';
 import moment from 'moment';
 
 export const initialState: IWeekTransactionState = {

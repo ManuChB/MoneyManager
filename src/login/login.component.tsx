@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { ILoginProp } from './login.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
-import appConstans from '../appConstants';
+import appConstants from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo';
 import I18n from '../i18n';
@@ -10,37 +10,37 @@ import I18n from '../i18n';
 export default class Login extends Component<ILoginProp> {
 
     componentDidMount() {
-        this.props.actions.setFormMode(appConstans.loginMode.register, this.setMode(this.props.state.formMode));
+        this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(this.props.state.formMode));
     }
 
     setMode = (mode: string) => {
         let view = null;
         switch (mode) {
-            case appConstans.loginMode.register:
+            case appConstants.loginMode.register:
                 view = {
                     buttonLabel: I18n.t('register'),
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
-                    leftTextOnPress: () => {this.props.actions.setFormMode(appConstans.loginMode.logIn, this.setMode(appConstans.loginMode.logIn))},
+                    leftTextOnPress: () => {this.props.actions.setFormMode(appConstants.loginMode.logIn, this.setMode(appConstants.loginMode.logIn))},
                     leftTextLabel: `Already register ? ${'\n'}LognIn`,
                     rightTextOnPress: null,
                     rightTextLabel: null
                 }
                 break;
-            case appConstans.loginMode.logIn:
+            case appConstants.loginMode.logIn:
                 view = {
                     buttonLabel: `Log In`,
                     buttonOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
-                    leftTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.forgotPassword, this.setMode(appConstans.loginMode.forgotPassword)),
+                    leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.forgotPassword, this.setMode(appConstants.loginMode.forgotPassword)),
                     leftTextLabel: `Forgot Password ?${'\n'}Recover`,
-                    rightTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.register, this.setMode(appConstans.loginMode.register)),
+                    rightTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
                     rightTextLabel: `New here ?${'\n'}Register`
                 }
                 break;
-            case appConstans.loginMode.forgotPassword:
+            case appConstants.loginMode.forgotPassword:
                 view = {
                     buttonLabel: 'Recover',
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
-                    leftTextOnPress: () => this.props.actions.setFormMode(appConstans.loginMode.register, this.setMode(appConstans.loginMode.register)),
+                    leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
                     leftTextLabel: `New here ?${'\n'}Register`,
                     rightTextOnPress: null,
                     rightTextLabel: null

@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
 import { Button, Input, Header, CustomPicker } from '../../../shared/components/common';
-import appConstans from '../../../appConstants';
+import appConstants from '../../../appConstants';
 import styles from './new-transaction-modal.component.style';
 import I18n from '../../../i18n';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
@@ -88,7 +88,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         </Button>
                         <Button 
                             customButtonStyle={{ flex: 1 }} 
-                            onPress={() => onSave({id: _.uniqueId('transaction_'),...this.props.state.data})} 
+                            onPress={() => onSave({ id: _.uniqueId(appConstants.localId.transaction),...this.props.state.data})} 
                             label={'Save'}
                             disabled={this.checkEmpty()}>
                         </Button>

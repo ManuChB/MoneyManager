@@ -9,6 +9,7 @@ import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 import * as selectors from './selectors';
+import TransactionsService from '../../../shared/service/transactions/transactions.service';
 
 export default [
     takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
@@ -35,17 +36,7 @@ export function* initialize() {
 export function* calculateBalance() {
     try {
         const transactions = yield select(selectors.getTransactions);
-        var income = 0;
-        var expense = 0;
-        var balance = 0;
-        transactions.forEach(element => {
-            if(element.isExpense){
-                expense+=element.value;
-            }else{
-                income+=element.value;
-            }
-        });
-        balance = income - expense;
+        const {income, expense, balance } = TransactionsService.calculateBalance(transactions);
         yield put(dayTransactionAction.setBalanceInfo(income, expense, balance))
     } catch (e) {
         console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);
@@ -54,12 +45,9 @@ export function* calculateBalance() {
 
 export function* newTransaction(action) {
     try {
-        console.log(`[dayTransactions][saga][newTransaction]`, action.value);
-        if (action.value.id.includes('transaction_')){
-            const data = yield call(FirebaseService.addToCollection, 'transactions', 
-                { ...action.value, date: action.value.date.toDate(), account: action.value.account.id });
-            yield call(updateTransaction, { value: { ...action.value, id: data.id }});
-        }
+        const data = yield call(TransactionsService.newTransaction, action.value);
+        yield call(updateTransaction, {value:{ ...action.value, id: data.id }});
+
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
@@ -82,16 +70,10 @@ export function* transactionToDetail(action) {
 
 export function* updateTransaction(action) {
     try {
-        console.log(`[dayTransactions][saga][updateTransaction]`, action.value);
-        if (action.value.id.includes('transaction_')) {
-            yield call(newTransaction, action);
-        } else {
-            yield call(updateAccountValue, action.value);
-            yield call(FirebaseService.updateDocumentInCollection, 'transactions', 
-            { ...action.value, date: action.value.date.toDate(), account: action.value.account.id, oldValue: 0 });
-            const day = yield select(selectors.getDayTransaction);
-            yield call(getTransactionByDate, {value: day });
-        }
+        const day = yield select(selectors.getDayTransaction);
+        yield call(TransactionsService.updateTransaction, action.value, day);
+        yield call(getTransactionByDate, { value: day });
+        
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
     }
@@ -99,26 +81,7 @@ export function* updateTransaction(action) {
 
 export function* updateAccountValue(transaction) {
     try {
-        console.log(`[dayTransactions][saga][updateAccountValue]`);
-        let { oldValue, value, account, isExpense, wasExpense } = transaction;
-
-        if(!oldValue) { oldValue = 0};
-        if (_.isNil(wasExpense)) { wasExpense = isExpense };
-
-        let newValue = 0;
-        if(isExpense && wasExpense) {
-            newValue = account.value + oldValue - value;
-        } 
-        else if (!isExpense && !wasExpense) {
-            newValue = account.value - oldValue + value;
-        } 
-        else if (!isExpense && wasExpense) {
-            newValue = account.value + oldValue + value;
-        } 
-        else if (isExpense && !wasExpense) {
-            newValue = account.value - oldValue - value;
-        }
-        yield call(FirebaseService.updateDocumentInCollection, 'accounts', { ...account, value: newValue})
+        yield call(TransactionsService.updateAccountValue, transaction);
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateAccountValue]>>> ${e}`);
     }
@@ -126,11 +89,8 @@ export function* updateAccountValue(transaction) {
 
 export function* getTransactionByDate(action) {
     try {
-        console.log(`[dayTransactions][saga][getTransactionByDate]`);
-        const date = action.value.toDate();
-        date.setHours(0, 0, 0, 0);
 
-        const transactionsDay = yield call(FirebaseService.getTransactionsByDate, date);
+        const transactionsDay = yield call(TransactionsService.getTransactionByDate, action.value);
         yield put(dayTransactionAction.setDayTransactions(transactionsDay));
         yield call(calculateBalance);
     } catch (e) {

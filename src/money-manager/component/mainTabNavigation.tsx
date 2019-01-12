@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import NavigationService from '../../shared/service/navigation/navigation.service';
-import appConstans from '../../appConstants';
+import appConstants from '../../appConstants';
 
 export class MainTabNavigation extends Component<IMainTabNavProp> {
 
@@ -13,7 +13,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
             <View style={styles.mainViewStyle}>
                 <TouchableOpacity
                     style={styles.touchableStyle}
-                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstans.tabMode.account)}>
+                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account)}>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -23,7 +23,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.touchableStyle}
-                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstans.tabMode.account)}>
+                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account)}>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -33,7 +33,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.touchableStyle} 
-                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstans.tabMode.transaction)}>
+                    onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.transaction)}>
                     <View style={styles.touchableViewStyle}>
                         <Text
                             style={styles.touchableTextStyle}>
@@ -44,7 +44,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                 <TouchableOpacity
                     style={styles.touchableStyle}>
                     <View style={styles.touchableViewStyle}
-                        onPress={() => this.props.actions.moneyManagerTabModeChange(appConstans.tabMode.transaction)}>
+                        onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.transaction)}>
                         <Text
                             style={styles.touchableTextStyle}>
                             Report

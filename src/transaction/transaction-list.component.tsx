@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo';
 
 import { ITransactionListProp } from './transaction-list.model';
 import { Button } from '../shared/components/common';
-import appConstans from '../appConstants';
+import appConstants from '../appConstants';
 import styles from './transaction-list.component.style';
 import I18n from '../i18n';
 import { TimeTabNavigation } from './component/timeTabNavigation/timeTabNavigation';
@@ -19,16 +19,16 @@ export default class TransactionList extends Component<ITransactionListProp> {
     setTimeMode() {
         let mode;
         switch (this.props.state.timeMode) {
-            case appConstans.timeMode.day:
+            case appConstants.timeMode.day:
                 mode = <DayTransactionScreen></DayTransactionScreen>
                 break;
-            case appConstans.timeMode.week:
+            case appConstants.timeMode.week:
                 mode = <WeekTransactionScreen></WeekTransactionScreen>
                 break;
-            case appConstans.timeMode.month:
+            case appConstants.timeMode.month:
                 mode = <MonthTransactionScreen></MonthTransactionScreen>
                 break;
-            case appConstans.timeMode.year:
+            case appConstants.timeMode.year:
                 mode = <YearTransactionScreen></YearTransactionScreen>
                 break;
             default:

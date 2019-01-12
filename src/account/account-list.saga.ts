@@ -50,7 +50,7 @@ export function* accountToDetail(action) {
 export function* saveNewAccount(action) {
     try {
         console.log(`[accountList][saga][saveNewAccount]`, action.value);
-        if (action.value.id.includes('account_')) {
+        if (action.value.id.includes(appConstants.localId.account)) {
             const data = yield call(FirebaseService.addToCollection, 'accounts', action.value);
             if (data.id) {
                 yield put(accountListAction.saveNewAccount({ ...action.value, id: data.id }))
@@ -67,7 +67,7 @@ export function* saveNewAccount(action) {
 export function* updateAccount(action) {
     try {
         console.log(`[accountList][saga][updateAccount]`, action.value);
-        if (action.value.id.includes('account_')) {
+        if (action.value.id.includes(appConstants.localId.account)) {
             yield call(saveNewAccount, action);
         } else {
             yield call(FirebaseService.updateDocumentInCollection, 'accounts', action.value);

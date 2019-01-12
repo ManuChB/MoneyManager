@@ -26,6 +26,11 @@ const constants = {
         year: 'Year'
     },
 
+    localId: {
+        transaction: 'transaction_',
+        account: 'account_'
+    },
+
     transactionIcons: {
         cash: { 
             id: 1,
