@@ -14,4 +14,7 @@ export interface IWeekTransactionAction {
 
 export interface IWeekTransactionState {
     isInitialized?: boolean;
+    income: Number;
+    expense: Number;
+    balance: Number;
 }

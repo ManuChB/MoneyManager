@@ -12,7 +12,7 @@ export class WeekTransactionScreenComponent extends Component<IWeekTransactionPr
     }
 
     componentDidMount() {
-        //this.props.actions.transactionInitializeStart();
+        this.props.actions.weekTransactionInitializeStart();
     }
 
     static navigationOptions = {
