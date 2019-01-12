@@ -25,7 +25,6 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
 
     render() {
         const { data, onClose, onSave, categories, accounts, isInitialized } = this.props.state;
-        console.log('-----------------------', accounts);
         return (
             <View style={{flex: 1}}>
                 <Header></Header>

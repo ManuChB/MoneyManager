@@ -67,6 +67,7 @@ export interface ITransactionProp {
 export interface ITransactionDataProp {
     id?: string;
     value?: number,
+    oldValue?: number,
     account?: IAccountData,
     imageId?: string,
     categoryId?: string,
@@ -74,4 +75,5 @@ export interface ITransactionDataProp {
     description?: string
     date?: Moment;
     isExpense?: boolean;
+    wasExpense?: boolean;
 }
