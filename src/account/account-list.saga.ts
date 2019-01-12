@@ -19,7 +19,7 @@ export default [
 export function* initialize() {
     try {
         console.log(`[accountList][saga][initialize]`);
-        const accounts = yield call(FirebaseService.getAllFromCollection, 'accounts');
+        const accounts = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accounts);
         
         const accountList = accounts.map(element => {
             return ({ ...element.data, id: element.id })
@@ -51,7 +51,7 @@ export function* saveNewAccount(action) {
     try {
         console.log(`[accountList][saga][saveNewAccount]`, action.value);
         if (action.value.id.includes(appConstants.localId.account)) {
-            const data = yield call(FirebaseService.addToCollection, 'accounts', action.value);
+            const data = yield call(FirebaseService.addToCollection, appConstants.collection.accounts, action.value);
             if (data.id) {
                 yield put(accountListAction.saveNewAccount({ ...action.value, id: data.id }))
             }
@@ -70,7 +70,7 @@ export function* updateAccount(action) {
         if (action.value.id.includes(appConstants.localId.account)) {
             yield call(saveNewAccount, action);
         } else {
-            yield call(FirebaseService.updateDocumentInCollection, 'accounts', action.value);
+            yield call(FirebaseService.updateDocumentInCollection, appConstants.collection.accounts, action.value);
             yield call(initialize);
         }
     } catch (e) {

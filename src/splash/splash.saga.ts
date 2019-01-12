@@ -32,11 +32,11 @@ export function* initialize() {
 function* getEsentialData() {
     console.log(`[splash][saga][getEsentialData]`);
 
-    const categories = yield call(FirebaseService.getAllFromCollection, 'categories');
-    const currencies = yield call(FirebaseService.getAllFromCollection, 'currency');
-    const accountTypes = yield call(FirebaseService.getAllFromCollection, 'accountTypes');
-    yield call(AsyncStorageSevice.setItem, 'CATEGORIES', categories);
-    yield call(AsyncStorageSevice.setItem, 'CURRENCIES', currencies);
-    yield call(AsyncStorageSevice.setItem, 'ACCOUNT_TYPES', accountTypes);
+    const categories = yield call(FirebaseService.getAllFromCollection, appConstants.collection.categories);
+    const currencies = yield call(FirebaseService.getAllFromCollection, appConstants.collection.currency);
+    const accountTypes = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes);
+    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CATEGORIES, categories);
+    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies);
+    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes);
 
 }

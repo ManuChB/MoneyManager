@@ -2,6 +2,9 @@ import moment from 'moment';
 import firebase from "firebase";
 require("firebase/firestore");
 
+import appConstants from '../../../appConstants';
+
+
 var firebaseConfi = {
     apiKey: "AIzaSyCvPnuTbLCkIsfsZLS4QLzO_itPQaDOfJE",
     authDomain: "moneymanager-6d989.firebaseapp.com",
@@ -36,11 +39,11 @@ class FirebaseService {
 
     async getTransactionsByDate(date) {
         console.log('[FirebaseService][getTransactions]');
-        const snapshot = await db.collection('transactions').where('date', '==', date).get(); // "capital", "==", true
+        const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).get(); // "capital", "==", true
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
             if (doc.data().account){
-                const accountList = await db.collection('accounts').where('id', '==', account).get();
+                const accountList = await db.collection(appConstants.collection.accounts).where('id', '==', account).get();
                 account = accountList.docs.map(doc => {
                     return doc.data();
                 })[0];

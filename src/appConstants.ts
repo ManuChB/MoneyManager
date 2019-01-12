@@ -31,6 +31,20 @@ const constants = {
         account: 'account_'
     },
 
+    collection: {
+        transactions: 'transactions',
+        accounts: 'accounts',
+        categories: 'categories',
+        currency: 'currency',
+        accountTypes: 'accountTypes'
+    },
+
+    asyncStorageItem: {
+        CATEGORIES: 'CATEGORIES',
+        CURRENCIES: 'CURRENCIES',
+        ACCOUNT_TYPES: 'ACCOUNT_TYPES'
+    },
+
     transactionIcons: {
         cash: { 
             id: 1,

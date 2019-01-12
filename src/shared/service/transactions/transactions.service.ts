@@ -31,7 +31,7 @@ class TransactionService {
     async newTransaction(transaction) {
         try {
             if (transaction.id.includes(appConstants.localId.transaction)) {
-                return await FirebaseService.addToCollection( 'transactions',
+                return await FirebaseService.addToCollection(appConstants.collection.transactions,
                     { ...transaction, date: transaction.date.toDate(), account: transaction.account.id });
             }
         } catch (e) {
@@ -45,7 +45,7 @@ class TransactionService {
                 await _this.newTransaction(transaction);
             } else {
                 await _this.updateAccountValue(transaction);
-                await FirebaseService.updateDocumentInCollection( 'transactions',
+                await FirebaseService.updateDocumentInCollection(appConstants.collection.transactions,
                     { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, oldValue: 0 });
             }
         } catch (e) {
@@ -85,7 +85,7 @@ class TransactionService {
             else if (isExpense && !wasExpense) {
                 newValue = account.value - oldValue - value;
             }
-            await FirebaseService.updateDocumentInCollection( 'accounts', { ...account, value: newValue })
+            await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, { ...account, value: newValue })
         } catch (e) {
             console.log(`[error][TransactionService][updateAccountValue]>>> ${e}`);
         }
