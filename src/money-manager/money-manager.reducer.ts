@@ -5,7 +5,7 @@ import appConstans from '../appConstants';
 
 export const initialState: IMoneyManagerState = {
     isInitialized: false,
-    tabMode: appConstans.tabMode.transaction
+    tabMode: appConstans.tabMode.account
 };
 
 export default function moneyManager(state: IMoneyManagerState = initialState, action: AnyAction) {

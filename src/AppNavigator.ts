@@ -5,10 +5,11 @@ import appConstants from './appConstants';
 // import AcountScreen from './auth/acount/acount.screen';
 import LoginScreen from './login/login.screen';
 import SplashScreen from './splash/splash.screen';
-import AccountScreen from './account/account.screen';
+import AccountListScreen from './account/account-list.screen';
 import TransactionListScreen from './transaction/transaction-list.screen';
 import MoneyManagerScreen from './money-manager/money-manager.screen';
 import NewTransactionScreen from './transaction/component/new-transaction-modal/new-transaction-modal.screen';
+import accountDetailScreen from './account/account-detail/account-detail.screen';
 
 // import SettingsScreen from './assignment-list/settings/settings.screen';
 
@@ -33,9 +34,10 @@ const AppNavigator: NavigationContainer = StackNavigator(
         Splash: { screen: SplashScreen },
         Login: { screen: LoginScreen },
         MoneyManager: { screen: MoneyManagerScreen },
-        Accounts: { screen: AccountScreen },
+        Accounts: { screen: AccountListScreen },
         Transactions: { screen: TransactionListScreen },
-        NewTransaction: { screen: NewTransactionScreen }
+        NewTransaction: { screen: NewTransactionScreen },
+        AccountDetail: { screen: accountDetailScreen}
         // Settings: { screen: SettingsScreen }
     },
     {

@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import dayTransactionAction from './day-transaction.action';
 import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, 
-    SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION } from './day-transaction.constant';
+    SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION, CHANGE_DATE } from './day-transaction.constant';
 import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
@@ -14,17 +14,18 @@ export default [
     takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
     takeLatest(SAVE_NEW_TRANSACTION, newTransaction),
     takeLatest(SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(UPDATE_TRANSACTION, updateTransaction)
+    takeLatest(UPDATE_TRANSACTION, updateTransaction),
+    takeLatest(CHANGE_DATE, getTransactionByDate)
+
 ];
 
 
 
 export function* initialize() {
     try {
-        console.log(`[dayTransactions][saga][initialize]`, arrayData);
-        const transactions = yield call(FirebaseService.getTransactions);
-        yield put(dayTransactionAction.setDayTransactions(transactions));
-        yield call(calculateBalance);
+        console.log(`[dayTransactions][saga][initialize]`);
+        const today = moment();
+        yield call(getTransactionByDate, { value: today })
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
@@ -32,35 +33,33 @@ export function* initialize() {
 }
 
 export function* calculateBalance() {
-    const transactions = yield select(selectors.getTransactions);
-    var income = 0;
-    var expense = 0;
-    var balance = 0;
-    transactions.forEach(element => {
-        if(element.isExpense){
-            expense+=element.value;
-        }else{
-            income+=element.value;
-        }
-    });
-    balance = income - expense;
-    yield put(dayTransactionAction.setBalanceInfo(income, expense, balance))
+    try {
+        const transactions = yield select(selectors.getTransactions);
+        var income = 0;
+        var expense = 0;
+        var balance = 0;
+        transactions.forEach(element => {
+            if(element.isExpense){
+                expense+=element.value;
+            }else{
+                income+=element.value;
+            }
+        });
+        balance = income - expense;
+        yield put(dayTransactionAction.setBalanceInfo(income, expense, balance))
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);
+    }
 }
 
 export function* newTransaction(action) {
     try {
         console.log(`[dayTransactions][saga][newTransaction]`, action.value);
         if (action.value.id.includes('transaction_')){
-            const data = yield call(FirebaseService.addToCollection, 'transactions', action.value);
-            if (data.id) {
-                yield put(dayTransactionAction.removeTransaction(action.value))
-                yield put(dayTransactionAction.saveNewTransaction({ ...action.value, id: data.id }))
-            }
-        } else {
-            yield call(updateTransaction, action);
+            const data = yield call(FirebaseService.addToCollection, 'transactions', 
+                { ...action.value, date: action.value.date.toDate(), account: action.value.account.id });
+            yield call(updateTransaction, { value: { ...action.value, id: data.id }});
         }
-        
-        yield call(calculateBalance);
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
@@ -87,69 +86,54 @@ export function* updateTransaction(action) {
         if (action.value.id.includes('transaction_')) {
             yield call(newTransaction, action);
         } else {
-            yield call(FirebaseService.updateDocumentInCollection, 'transactions', action.value);
-            yield call(calculateBalance);
+            yield call(updateAccountValue, action.value);
+            yield call(FirebaseService.updateDocumentInCollection, 'transactions', 
+            { ...action.value, date: action.value.date.toDate(), account: action.value.account.id, oldValue: 0 });
+            const day = yield select(selectors.getDayTransaction);
+            yield call(getTransactionByDate, {value: day });
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
     }
 }
 
+export function* updateAccountValue(transaction) {
+    try {
+        console.log(`[dayTransactions][saga][updateAccountValue]`);
+        let { oldValue, value, account, isExpense, wasExpense } = transaction;
 
-const arrayData = [
-    {
-        id: '0',
-        value: 234,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '1',
-        value: 67,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '2',
-        value: 8,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '3',
-        value: 12,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '4',
-        value: 532,
-        account: 'CREDIT',
-        image: 'CREDIT',
-        type: 'Food',
-        description: 'Example ',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-    {
-        id: '5',
-        value: 586,
-        account: 'Cash',
-        image: 'CASH',
-        type: 'Food',
-        description: 'Example for a description that will be add by the user',
-        date: moment().format('DD-MM-YYYY').toString()
-    },
-]
+        if(!oldValue) { oldValue = 0};
+        if (_.isNil(wasExpense)) { wasExpense = isExpense };
 
+        let newValue = 0;
+        if(isExpense && wasExpense) {
+            newValue = account.value + oldValue - value;
+        } 
+        else if (!isExpense && !wasExpense) {
+            newValue = account.value - oldValue + value;
+        } 
+        else if (!isExpense && wasExpense) {
+            newValue = account.value + oldValue + value;
+        } 
+        else if (isExpense && !wasExpense) {
+            newValue = account.value - oldValue - value;
+        }
+        yield call(FirebaseService.updateDocumentInCollection, 'accounts', { ...account, value: newValue})
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][updateAccountValue]>>> ${e}`);
+    }
+}
+
+export function* getTransactionByDate(action) {
+    try {
+        console.log(`[dayTransactions][saga][getTransactionByDate]`);
+        const date = action.value.toDate();
+        date.setHours(0, 0, 0, 0);
+
+        const transactionsDay = yield call(FirebaseService.getTransactionsByDate, date);
+        yield put(dayTransactionAction.setDayTransactions(transactionsDay));
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
+    }
+}

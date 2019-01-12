@@ -5,7 +5,6 @@ import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageSevice from '../shared/service/async-storage/async-storage.service';
-//import LocalStorageService from '../shared/service/local-storage/local-storage.service';
 
 export default [
     takeLatest(INITIALIZE_START, initialize)
@@ -15,9 +14,6 @@ export default [
 export function* initialize() {
     try {
         console.log(`[splash][saga][initialize]`);
-        // yield call(LocalStorageService.initStorage);
-        // yield call(LocalStorageService.insert, 'data');
-        // yield call(LocalStorageService.get);
         yield call(FirebaseService.init);
         const uid = yield call(AsyncStorageSevice.getItem, 'USER_ID');
         yield call(getEsentialData);
@@ -37,7 +33,10 @@ function* getEsentialData() {
     console.log(`[splash][saga][getEsentialData]`);
 
     const categories = yield call(FirebaseService.getAllFromCollection, 'categories');
-    console.log(`[splash][saga][getEsentialData]>>>>`, categories);
-
+    const currencies = yield call(FirebaseService.getAllFromCollection, 'currency');
+    const accountTypes = yield call(FirebaseService.getAllFromCollection, 'accountTypes');
     yield call(AsyncStorageSevice.setItem, 'CATEGORIES', categories);
+    yield call(AsyncStorageSevice.setItem, 'CURRENCIES', currencies);
+    yield call(AsyncStorageSevice.setItem, 'ACCOUNT_TYPES', accountTypes);
+
 }

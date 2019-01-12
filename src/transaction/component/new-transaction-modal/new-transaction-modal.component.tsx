@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
 import { Button, Input, Header, CustomPicker } from '../../../shared/components/common';
@@ -10,11 +10,12 @@ import I18n from '../../../i18n';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
 import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 import asyncStorageService from '../../../shared/service/async-storage/async-storage.service';
+import { DataPicker } from '../../../shared/components/common/DataPicker';
 
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
-    changeDay(date: string) {
-        this.props.actions.changeData({ ...this.props.state.data, date })
+    changeDay(date: Moment) {
+        this.props.actions.changeData({ ...this.props.state.data, date: date.startOf('day') })
     }
 
     checkEmpty() {
@@ -23,13 +24,13 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
     }
 
     render() {
-        const { data, onClose, onSave, categories } = this.props.state;
+        const { data, onClose, onSave, categories, accounts, isInitialized } = this.props.state;
         return (
             <View style={{flex: 1}}>
                 <Header></Header>
                 <View style={{ flex: 1 }}>
                     <DatePickerHeader 
-                        date={data.date ? data.date : moment().format('DD-MM-YYYY').toString()} 
+                        date={data.date} 
                         changeDay={this.changeDay.bind(this)} >
                     </DatePickerHeader>
                     <View style={{ flexDirection: 'row'}}>
@@ -50,12 +51,12 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         data={categories} 
                         onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
                     </CustomPicker>
-                    <CustomPicker
+                    <DataPicker
                         label={'Account'}
-                        value={data.subCategory ? data.subCategory.value: ''}
-                        data={categories}
-                        onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
-                    </CustomPicker>
+                        value={data.account ? data.account.name: ''}
+                        data={accounts}
+                        onSelect={(account) => this.props.actions.changeData({ ...data, account })}>
+                    </DataPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
                         label={'Description'}

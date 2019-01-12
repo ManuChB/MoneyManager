@@ -9,7 +9,7 @@ import moment from 'moment';
 
 export const initialState: IDayTransactionState = {
     isInitialized: false,
-    date: moment().format('DD-MM-YYYY').toString(),
+    date: moment(),
     income: 100.00,
     expense: 40.00,
     balance: 60.00,
@@ -45,12 +45,6 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
             return {
                 ...state,
                 transactions: action.value
-            };
-        case SAVE_NEW_TRANSACTION:
-            console.log(`[dayTransaction][reducer][SAVE_NEW_TRANSACTION]`, action);
-            return {
-                ...state,
-                transactions: [...state.transactions, action.value]
             };
         case SHOW_DETAIL_MODAL:
             console.log(`[dayTransaction][reducer][SHOW_DETAIL_MODAL]`);

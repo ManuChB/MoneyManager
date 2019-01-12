@@ -6,7 +6,7 @@ import appConstans from '../appConstants';
 import styles from './money-manager.component.style';
 import I18n from '../i18n';
 import { MainTabNavigation } from './component/mainTabNavigation';
-import AccountScreen from '../account/account.screen';
+import AccountListScreen from '../account/account-list.screen';
 import TransactionListScreen from '../transaction/transaction-list.screen';
 
 export default class MoneyManager extends Component<IMoneyManagerProp> {
@@ -20,7 +20,7 @@ componentDidMount(){
             <View style={{ flex: 1 }}>
                 <Header></Header>
                     {this.props.state.tabMode === appConstans.tabMode.account &&
-                        <AccountScreen></AccountScreen>}
+                        <AccountListScreen></AccountListScreen>}
                     {this.props.state.tabMode === appConstans.tabMode.transaction && <TransactionListScreen></TransactionListScreen>}
                 <MainTabNavigation {...this.props}></MainTabNavigation>
             </View>

@@ -8,15 +8,21 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
         <View style={styles.infoStyle}>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>{'INCOME'} </Text>
-                <Text style={[styles.valueStyle, {color:'green'}]}>{income} </Text>
+                <Text style={[styles.valueStyle, { color: 'green' }]}>
+                    {income ? income.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                </Text>
             </View>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>{'EXPENSE'} </Text>
-                <Text style={[styles.valueStyle, {color:'red'}]}>{expense} </Text>
+                <Text style={[styles.valueStyle, { color: 'red' }]}>
+                    {expense ? expense.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                </Text>
             </View>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>{'BALANCE'} </Text>
-                <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>{balance} </Text>
+                <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>
+                    {balance ? balance.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                </Text>
             </View>
         </View>
     )

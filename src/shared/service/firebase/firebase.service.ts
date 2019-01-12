@@ -1,3 +1,4 @@
+import moment from 'moment';
 import firebase from "firebase";
 require("firebase/firestore");
 
@@ -15,10 +16,12 @@ var db;
 class FirebaseService {
 
     async init() {
-        const appFirebase = await firebase.initializeApp(firebaseConfi);
-        db = appFirebase.firestore();
-        const settings = {/* your settings... */ timestampsInSnapshots: true };
-        db.settings(settings);
+        if (!firebase.apps.length) {
+            const appFirebase = await firebase.initializeApp(firebaseConfi);
+            db = appFirebase.firestore();
+            const settings = {/* your settings... */ timestampsInSnapshots: true };
+            db.settings(settings);
+        }        
     }
 
     async newUser(userName, password){
@@ -31,12 +34,20 @@ class FirebaseService {
         return response;
     }
 
-    async getTransactions() {
+    async getTransactionsByDate(date) {
         console.log('[FirebaseService][getTransactions]');
-        const snapshot = await db.collection('transactions').get()
-        return snapshot.docs.map(doc => {
-            return { ...doc.data(), id: doc.id };
-        });
+        const snapshot = await db.collection('transactions').where('date', '==', date).get(); // "capital", "==", true
+        return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
+            let account = doc.data().account;
+            if (doc.data().account){
+                const accountList = await db.collection('accounts').where('id', '==', account).get();
+                account = accountList.docs.map(doc => {
+                    return doc.data();
+                })[0];
+            }
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account  };
+        }));
+
     }
 
     async getAllFromCollection(collection) {
@@ -48,17 +59,12 @@ class FirebaseService {
     }
 
 
-    getAllFromCollectionWhere(collection, query) {
+    async getAllFromCollectionWhere(collection, query) {
         console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
-        db.collection(collection).where(query) // "capital", "==", true
-            .get()
-            .then(function (querySnapshot) {
-                return querySnapshot;
-            })
-            .catch(function (error) {
-                console.log(`[FirebaseService][getAllFromCollectionWhere][error] ${error}`);
-                return null;
-            });
+        const snapshot = await db.collection(collection).where(query[0], query[1], query[2]).get(); // "capital", "==", true
+        return snapshot.docs.map(doc => {
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
+        });
     }
 
     getCollectionDocument(collection, document) {
