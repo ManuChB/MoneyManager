@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
 import { ITransactionDataProp } from '../transaction/transaction.component';
+import { IAccountData } from '../../../account/account/account.model';
 
 export interface ITransactionDetailProp {
     navigation?: NavigationScreenProp<any, any>;
@@ -13,6 +14,8 @@ export interface ITransactionDetailAction {
     newTransactionInitializeFinish?: () => Action;
     changeData?: (data: ITransactionDataProp) => Action;
     setCategories?: (categories: Array<any>) => Action;
+    setAccounts?: (accounts: Array<any>) => Action;
+
 }
 
 export interface ITransactionDetailState {
@@ -21,5 +24,6 @@ export interface ITransactionDetailState {
     onClose: () => void;
     onSave: (data: ITransactionDataProp) => void;
     categories?: Array<any>;
+    accounts?: Array<IAccountData>;
 
 }

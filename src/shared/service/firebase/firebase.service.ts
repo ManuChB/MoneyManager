@@ -37,9 +37,17 @@ class FirebaseService {
     async getTransactionsByDate(date) {
         console.log('[FirebaseService][getTransactions]');
         const snapshot = await db.collection('transactions').where('date', '==', date).get(); // "capital", "==", true
-        return snapshot.docs.map(doc => {
-            return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
-        });
+        return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
+            let account = doc.data().account;
+            if (doc.data().account){
+                const accountList = await db.collection('accounts').where('id', '==', account).get();
+                account = accountList.docs.map(doc => {
+                    return doc.data();
+                })[0];
+            }
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account  };
+        }));
+
     }
 
     async getAllFromCollection(collection) {

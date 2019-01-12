@@ -27,6 +27,6 @@ export interface IAccountData {
     name?: string;
     value?: number;
     description?: string;
-    type?: {id: string, value: string};
-    currency?: string;
+    type?: {id: string, name: string};
+    currency?: { id: string, name: string };
 }

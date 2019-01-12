@@ -12,6 +12,7 @@ export interface IAccountDetailAction {
     accountDetailInitializeStart?: (initialState: IAccountDetailState) => Action;
     accountDetailInitializeFinish?: () => Action;
     accountDetailDataChange?: (account: IAccountData) => Action;
+    setPickersData?: (currencyList: Array<{ id: number, name: string }>, accountTypeList: Array<{ id: number, name: string }>) => Action;
 }
 
 export interface IAccountDetailState {
@@ -19,4 +20,7 @@ export interface IAccountDetailState {
     account?: IAccountData;
     onClose: () => void;
     onSave: (data: IAccountData) => void;
+    currencyList?: Array<{id: number, name: string}>;
+    accountTypeList?: Array<{ id: number, name: string }>;
+
 }

@@ -13,7 +13,6 @@ export class AccountDetailScreen extends Component<IAccountDetailProp, {}> {
 
     componentWillMount() {
         const { account, onClose, onSave } = this.props.navigation.state.params;
-        console.log('mmmmmmmmmmmmmmmmmmmmmmmm,,,,,,,,,,', account, onClose, onSave);
         this.props.actions.accountDetailInitializeStart({ account, onClose, onSave });
     }
 

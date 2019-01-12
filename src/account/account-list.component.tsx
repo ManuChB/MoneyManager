@@ -12,13 +12,13 @@ import NavigationService from '../shared/service/navigation/navigation.service';
 export default class AccountList extends Component<IAccountListProp> {
 
 
-    onSaveNewAccount(account) {
+    onSaveAccount(account) {
         this.props.actions.saveNewAccount(account);
         NavigationService.navigateBack();
     }
 
     onPressNewAccount() {
-        this.props.actions.setAccountToDetail({}, this.onSaveNewAccount.bind(this));
+        this.props.actions.setAccountToDetail({}, this.onSaveAccount.bind(this));
     }
 
     render() {
@@ -34,8 +34,7 @@ export default class AccountList extends Component<IAccountListProp> {
                 </Button>
                 <ScrollView>
                     {accountList.map((account, key) => {
-                        console.log('aaaaaaaaaaa', account);
-                        return(<Account key={key} data={account} onPress={()=>console.log('ACCOUNT PRESS')} ></Account>)
+                        return (<Account key={key} data={account} onPress={() => this.props.actions.setAccountToDetail(account, this.onSaveAccount.bind(this)) } ></Account>)
                     })}
                 </ScrollView>
             </View>

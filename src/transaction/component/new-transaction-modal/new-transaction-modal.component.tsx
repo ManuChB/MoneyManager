@@ -10,6 +10,7 @@ import I18n from '../../../i18n';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
 import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 import asyncStorageService from '../../../shared/service/async-storage/async-storage.service';
+import { DataPicker } from '../../../shared/components/common/DataPicker';
 
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
@@ -51,12 +52,12 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         data={categories} 
                         onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
                     </CustomPicker>
-                    <CustomPicker
+                    <DataPicker
                         label={'Account'}
                         value={data.account ? data.account.name: ''}
                         data={accounts}
                         onSelect={(account) => this.props.actions.changeData({ ...data, account })}>
-                    </CustomPicker>
+                    </DataPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
                         label={'Description'}

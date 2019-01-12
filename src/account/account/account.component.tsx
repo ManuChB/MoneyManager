@@ -22,7 +22,7 @@ const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
                     flex: 2, justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={styles.valueStyle}>{value ? value.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0}</Text>
+                    <Text style={styles.valueStyle}>{value ? value.toLocaleString('en-UK', { style: 'currency', currency: currency.name }) : 0}</Text>
                 </View>
             </View>
         </TouchableOpacity>

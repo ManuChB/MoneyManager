@@ -1,4 +1,5 @@
-import { ACCOUNT_DETAIL_INITIALIZE_FINISH, ACCOUNT_DETAIL_INITIALIZE_START, ACCOUNT_DETAIL_DATA_CHANGE } from './account-detail.constant';
+import { ACCOUNT_DETAIL_INITIALIZE_FINISH, ACCOUNT_DETAIL_INITIALIZE_START, 
+    ACCOUNT_DETAIL_DATA_CHANGE, ACCOUNT_DETAIL_SET_PICKER_DATA } from './account-detail.constant';
 import { IAccountDetailAction } from './account-detail.model';
 
 const accountDetailAction: IAccountDetailAction = {
@@ -22,6 +23,14 @@ const accountDetailAction: IAccountDetailAction = {
         return {
             type: ACCOUNT_DETAIL_DATA_CHANGE,
             value: account
+        }
+    },
+
+    setPickersData(currencyList, accountTypeList) {
+        console.log(`[accountDetail][action][setCurrencyList]`);
+        return {
+            type: ACCOUNT_DETAIL_SET_PICKER_DATA,
+            value: { currencyList, accountTypeList}
         }
     }
 

@@ -4,6 +4,7 @@ import loginSaga from '../login/login.saga';
 import dayTransactionSaga from '../transaction/component/day-transaction/day-transaction.saga';
 import newTransactionSaga from '../transaction/component/new-transaction-modal/new-transaction-modal.saga';
 import accountListSaga from '../account/account-list.saga';
+import accountDetailSaga from '../account/account-detail/account-detail.saga';
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
         ...loginSaga,
         ...dayTransactionSaga,
         ...newTransactionSaga,
-        ...accountListSaga
+        ...accountListSaga,
+        ...accountDetailSaga
     ]);
 }

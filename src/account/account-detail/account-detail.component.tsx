@@ -6,6 +6,7 @@ import appConstans from '../../appConstants';
 import styles from './account-detail.component.style';
 import I18n from '../../i18n';
 import _ from 'lodash';
+import { DataPicker } from '../../shared/components/common/DataPicker';
 
 export default class AccountDetail extends Component<IAccountDetailProp> {
 
@@ -14,11 +15,15 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
     
     }
     render() {
-        console.log('----------------------------------------------------', this.props);
-        const { account, onClose, onSave } = this.props.state;
+        const { account, onClose, onSave, currencyList, accountTypeList } = this.props.state;
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>
+                <DataPicker label={'Type'}
+                    value={account.type ? account.type.name : ''}
+                    data={accountTypeList}
+                    onSelect={(type) => this.props.actions.accountDetailDataChange({ ...account, type })}>
+                </DataPicker>
                 <Input
                     inputRef={ref => this.nameInput = ref}
                     label={'Name'}
@@ -46,6 +51,11 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     keyboard={'numeric'}
                     blurOnSubmit={true}
                 />
+                <DataPicker label={'Currency'}
+                    value={account.currency ? account.currency.name : ''}
+                    data={currencyList}
+                    onSelect={(currency) => this.props.actions.accountDetailDataChange({ ...account, currency })}>
+                </DataPicker>
                 <View style={{
                     position: 'absolute',
                     flexDirection: 'row',
