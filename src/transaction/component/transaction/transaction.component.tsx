@@ -30,7 +30,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
         }
         return icon;
     }
-    const img = getIcon(imageId);
+    const img = getIcon(account.type.id);
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>

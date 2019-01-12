@@ -28,11 +28,11 @@ const constants = {
 
     transactionIcons: {
         cash: { 
-            id: 'CASH',
+            id: 1,
             value: require('../assets/images/cash-filled-64.png')
         } ,
         credit: {
-            id: 'CREDIT',
+            id: 0,
             value: require('../assets/images/credit-card-64.png')
         }, 
         default: {

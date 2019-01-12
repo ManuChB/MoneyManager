@@ -66,7 +66,7 @@ export function* saveNewAccount(action) {
 
 export function* updateAccount(action) {
     try {
-        console.log(`[accountList][saga][updateTransaction]`, action.value);
+        console.log(`[accountList][saga][updateAccount]`, action.value);
         if (action.value.id.includes('account_')) {
             yield call(saveNewAccount, action);
         } else {
@@ -74,6 +74,6 @@ export function* updateAccount(action) {
             yield call(initialize);
         }
     } catch (e) {
-        console.log(`[error][accountList][saga][updateTransaction]>>> ${e}`);
+        console.log(`[error][accountList][saga][updateAccount]>>> ${e}`);
     }
 }

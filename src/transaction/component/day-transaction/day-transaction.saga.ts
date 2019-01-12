@@ -38,7 +38,6 @@ export function* calculateBalance() {
         var income = 0;
         var expense = 0;
         var balance = 0;
-        console.log('ffffffffffffffff-calculateBalance-------', transactions);
         transactions.forEach(element => {
             if(element.isExpense){
                 expense+=element.value;
@@ -58,12 +57,8 @@ export function* newTransaction(action) {
         console.log(`[dayTransactions][saga][newTransaction]`, action.value);
         if (action.value.id.includes('transaction_')){
             const data = yield call(FirebaseService.addToCollection, 'transactions', 
-            { ...action.value, date: action.value.date.toDate(), account: action.value.account.id });
-            if (data.id) {
-                yield put(dayTransactionAction.saveNewTransaction({ ...action.value, id: data.id }))
-            }
-        } else {
-            yield call(updateTransaction, action);
+                { ...action.value, date: action.value.date.toDate(), account: action.value.account.id });
+            yield call(updateTransaction, { value: { ...action.value, id: data.id }});
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
@@ -93,11 +88,21 @@ export function* updateTransaction(action) {
         } else {
             yield call(FirebaseService.updateDocumentInCollection, 'transactions', 
             { ...action.value, date: action.value.date.toDate(), account: action.value.account.id });
+            yield call(updateAccountValue, action);
             const day = yield select(selectors.getDayTransaction);
             yield call(getTransactionByDate, {value: day });
         }
     } catch (e) {
         console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
+    }
+}
+
+export function* updateAccountValue(action) {
+    try {
+        console.log(`[dayTransactions][saga][updateAccountValue]`, action.value);
+        
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][updateAccountValue]>>> ${e}`);
     }
 }
 
