@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
+import { ITransactionDataProp } from '../transaction/transaction.component';
 
 export interface IWeekTransactionProp {
     navigation?: NavigationScreenProp<any, any>;
@@ -10,6 +11,9 @@ export interface IWeekTransactionProp {
 export interface IWeekTransactionAction {
     weekTransactionInitializeStart?: () => Action;
     weekTransactionInitializeFinish?: () => Action;
+    weekTransactionNewTransaction?: (transaction: ITransactionDataProp) => Action;
+    weekTransactionSetTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
+
 }
 
 export interface IWeekTransactionState {

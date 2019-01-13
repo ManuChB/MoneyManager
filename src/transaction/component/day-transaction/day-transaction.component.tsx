@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo';
 import moment from 'moment';
 import _ from 'lodash';
 import { IDayTransactionProp } from './day-transaction.model';
-import { Button, Spinner  } from '../../../shared/components/common';
+import { AddButton, Spinner  } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './day-transaction.component.style';
 import I18n from '../../../i18n';
@@ -42,11 +42,7 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         return (
             <View style={{ flex: 1 }}>
                 {!this.props.state.isInitialized && <Spinner></Spinner>}
-                    <Button
-                        customButtonStyle={styles.customButtonStyle}
-                        customLabelStyle={styles.customLabelStyle} onPress={() => this.onPressNewTransaction()}
-                        label={'+'}>
-                    </Button>
+                <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader date= {this.props.state.date} changeDay={this.props.actions.changeDay} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>

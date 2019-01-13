@@ -20,7 +20,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
 
     checkEmpty() {
         const {data} = this.props.state;
-        return _.isEmpty(data) || !data.value;
+        return _.isEmpty(data) || !data.value || !data.account || !data.subCategory;
     }
 
     render() {

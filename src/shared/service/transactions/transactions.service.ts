@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { ITransactionDataProp } from '../../../transaction/component/transaction/transaction.component';
 import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
+import NavigationService from '../navigation/navigation.service';
 
 let _this;
 class TransactionService {
@@ -91,6 +92,20 @@ class TransactionService {
         }
     }
 
+    
+    async transactionToDetail(transaction, onSave) {
+    try {
+        await NavigationService.navigateTo(appConstants.routName.newTransaction,
+            {
+                data: transaction,
+                onClose: NavigationService.navigateBack,
+                onSave: onSave
+            }
+        );
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
+    }
+}
 }
 
 export default new TransactionService();

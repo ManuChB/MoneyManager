@@ -55,13 +55,9 @@ export function* newTransaction(action) {
 
 export function* transactionToDetail(action) {
     try {
-        console.log(`[dayTransactions][saga][transactionToDetail]`, action.value);
-            yield call(NavigationService.navigateTo, appConstants.routName.newTransaction, 
-                { data: action.value.transaction, 
-                    onClose:NavigationService.navigateBack,
-                    onSave: action.value.onSave
-                }
-            );
+        const { transaction, onSave } = action.value;
+        yield call(TransactionsService.transactionToDetail, transaction, onSave);
+
     } catch (e) {
         console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
     }
