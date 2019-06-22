@@ -28,23 +28,23 @@
 //     return I18n.t(name, params);
 // }
 
-export function changeLanguage(language) {
-    console.log(`[i18n][changeLanguage]-> ${language}`);
-    I18n.locale = language;
-}
+// export function changeLanguage(language) {
+//     console.log(`[i18n][changeLanguage]-> ${language}`);
+//     I18n.locale = language;
+// }
 
 
-// export default I18n;
+// // export default I18n;
 
-'use strict';
-import I18n from 'react-native-i18n';
+// 'use strict';
+// import I18n from 'react-native-i18n';
 
-I18n.locale = 'en';
-I18n.fallbacks = true;
-// export const getLanguages = () => Promise.resolve(['en']);
-I18n.translations = {
-    'en': require('../translations/en'),
-    'es': require('../translations/es'),
-};
-
+// I18n.locale = 'en';
+// I18n.fallbacks = true;
+// // export const getLanguages = () => Promise.resolve(['en']);
+// I18n.translations = {
+//     'en': require('../translations/en'),
+//     'es': require('../translations/es'),
+// };
+const I18n = null;
 export default I18n;

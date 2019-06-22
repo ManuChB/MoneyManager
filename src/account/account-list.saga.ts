@@ -18,7 +18,6 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[accountList][saga][initialize]`);
         const accounts = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accounts);
         
         const accountList = accounts.map(element => {
@@ -34,7 +33,6 @@ export function* initialize() {
 
 export function* accountToDetail(action) {
     try {
-        console.log(`[accountList][saga][accountToDetail]`, action.value);
         yield call(NavigationService.navigateTo, appConstants.routName.accountDetail,
             {
                 account: action.value.account,
@@ -49,7 +47,6 @@ export function* accountToDetail(action) {
 
 export function* saveNewAccount(action) {
     try {
-        console.log(`[accountList][saga][saveNewAccount]`, action.value);
         if (action.value.id.includes(appConstants.localId.account)) {
             const data = yield call(FirebaseService.addToCollection, appConstants.collection.accounts, action.value);
             if (data.id) {
@@ -66,7 +63,6 @@ export function* saveNewAccount(action) {
 
 export function* updateAccount(action) {
     try {
-        console.log(`[accountList][saga][updateAccount]`, action.value);
         if (action.value.id.includes(appConstants.localId.account)) {
             yield call(saveNewAccount, action);
         } else {

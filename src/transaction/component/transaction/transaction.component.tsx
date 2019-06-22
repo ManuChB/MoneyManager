@@ -3,7 +3,6 @@ import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { Input, Header } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './transaction.component.style';
-import { LinearGradient } from 'expo';
 import I18n from '../../../i18n';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import { Moment } from 'moment';

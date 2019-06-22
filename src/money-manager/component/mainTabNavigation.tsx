@@ -7,11 +7,10 @@ import appConstants from '../../appConstants';
 export class MainTabNavigation extends Component<IMainTabNavProp> {
 
     render() {
-        console.log('[[MainTabNavigations]]', this.props);
 
         return (
             <View style={styles.mainViewStyle}>
-                <TouchableOpacity
+                {false && <TouchableOpacity
                     style={styles.touchableStyle}
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account)}>
                     <View style={styles.touchableViewStyle}>
@@ -20,7 +19,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                             Budget
                         </Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> }
                 <TouchableOpacity
                     style={styles.touchableStyle}
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account)}>
@@ -41,7 +40,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
+                { false && <TouchableOpacity
                     style={styles.touchableStyle}>
                     <View style={styles.touchableViewStyle}
                         onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.transaction)}>
@@ -50,7 +49,7 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                             Report
                         </Text>
                     </View>
-                </TouchableOpacity>  
+                </TouchableOpacity>  }
             </View>
         );
 

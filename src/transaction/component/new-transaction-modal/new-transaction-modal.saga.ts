@@ -19,7 +19,6 @@ export function* initialize() {
             return ({ ...element.data, id: element.id })
         });
 
-        console.log(`[newTransactions][saga][initialize]`, accounts);
         yield put(dayTransactionAction.setAccounts(accounts));
         yield put(dayTransactionAction.setCategories(categories));
     } 

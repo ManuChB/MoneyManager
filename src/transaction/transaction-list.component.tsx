@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import moment from 'moment';
-import { LinearGradient } from 'expo';
 
 import { ITransactionListProp } from './transaction-list.model';
 import { Button } from '../shared/components/common';

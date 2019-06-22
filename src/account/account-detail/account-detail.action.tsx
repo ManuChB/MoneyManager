@@ -4,7 +4,6 @@ import { IAccountDetailAction } from './account-detail.model';
 
 const accountDetailAction: IAccountDetailAction = {
     accountDetailInitializeStart(initialState) {
-        console.log(`[accountDetail][action][initializeStart]`);
         return {
             type: ACCOUNT_DETAIL_INITIALIZE_START,
             value: initialState
@@ -12,14 +11,12 @@ const accountDetailAction: IAccountDetailAction = {
     },
 
     accountDetailInitializeFinish() {
-        console.log(`[accountDetail][action][initializeFinish]`);
         return {
             type: ACCOUNT_DETAIL_INITIALIZE_FINISH
         }
     },
 
     accountDetailDataChange(account) {
-        console.log(`[accountDetail][action][accountDetailDataChange]`);
         return {
             type: ACCOUNT_DETAIL_DATA_CHANGE,
             value: account
@@ -27,7 +24,6 @@ const accountDetailAction: IAccountDetailAction = {
     },
 
     setPickersData(currencyList, accountTypeList) {
-        console.log(`[accountDetail][action][setCurrencyList]`);
         return {
             type: ACCOUNT_DETAIL_SET_PICKER_DATA,
             value: { currencyList, accountTypeList}

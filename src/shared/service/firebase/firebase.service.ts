@@ -22,7 +22,7 @@ class FirebaseService {
         if (!firebase.apps.length) {
             const appFirebase = await firebase.initializeApp(firebaseConfi);
             db = appFirebase.firestore();
-            const settings = {/* your settings... */ timestampsInSnapshots: true };
+            const settings = {/* your settings... */  };
             db.settings(settings);
         }        
     }
@@ -38,7 +38,6 @@ class FirebaseService {
     }
 
     async getTransactionsByDate(date) {
-        console.log('[FirebaseService][getTransactions]');
         const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).get(); // "capital", "==", true
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
@@ -53,9 +52,31 @@ class FirebaseService {
 
     }
 
+    async getTransactionsByDateRange(dateStart, datEnd) {
+        const snapshot = await db.collection(appConstants.collection.transactions)
+            .where('date', '>=', dateStart)
+            .where('date', '<=', datEnd)
+            .get();
+        return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
+            let account = doc.data().account;
+            // console.log('[FirebaseService][getTransactionsByRange]doc', doc);
+
+            if (doc.data().account) {
+                const accountList = await db.collection(appConstants.collection.accounts).where('id', '==', account).get();
+                account = accountList.docs.map(doc => {
+                    return doc.data();
+                })[0];
+            }
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account };
+        }));
+
+    }
+
     async getAllFromCollection(collection) {
         console.log('[FirebaseService][getAllFromCollection]', collection);
         const snapshot = await db.collection(collection).get();
+        console.log('[FirebaseService][getAllFromCollection]snapshot');
+
         return snapshot.docs.map(doc => {
             return { data: doc.data(), id:doc.id };
         });
@@ -63,7 +84,7 @@ class FirebaseService {
 
 
     async getAllFromCollectionWhere(collection, query) {
-        console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
+        // console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
         const snapshot = await db.collection(collection).where(query[0], query[1], query[2]).get(); // "capital", "==", true
         return snapshot.docs.map(doc => {
             return { ...doc.data(), date: moment.unix(doc.data().date.seconds) };
@@ -71,7 +92,7 @@ class FirebaseService {
     }
 
     getCollectionDocument(collection, document) {
-        console.log(`[FirebaseService][getCollectionDocument] ${collection} [document] ${document}`);
+        // console.log(`[FirebaseService][getCollectionDocument] ${collection} [document] ${document}`);
         db.collection(collection).doc(document).get()
             .then(function (doc) {
                 if (doc.exists) {
@@ -86,12 +107,12 @@ class FirebaseService {
     }
 
     async addToCollection(collection, data) {
-        console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
+        // console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
         return await db.collection(collection).add(data);
     }
 
     updateDocumentInCollection(collection, data) {
-        console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
+        // console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
         db.collection(collection).doc(data.id).update(data);
     }
 }

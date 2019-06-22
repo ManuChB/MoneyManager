@@ -14,7 +14,6 @@ export class DataPicker extends Component<IPickerProps> {
 
     showModal() {
         const { data, onSelect } = this.props;
-        console.log('.,,,,,,,,,,,,,,...........dataPiker', data);
         return (
             <Modal>
                 {data && data.map((subdata, key) => {

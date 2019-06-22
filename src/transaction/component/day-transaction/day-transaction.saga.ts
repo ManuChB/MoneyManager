@@ -24,7 +24,6 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[dayTransactions][saga][initialize]`);
         const today = moment();
         yield call(getTransactionByDate, { value: today })
         yield put(dayTransactionAction.dayTransactionInitializeFinish());

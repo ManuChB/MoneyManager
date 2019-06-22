@@ -20,8 +20,6 @@ export class MoneyManagerScreenComponent extends Component<IMoneyManagerProp, {}
     };
 
     render() {
-        console.log(`[moneyManager][render]`, this.props);
-
         return (
             <MoneyManager {...this.props } />
         );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
-import { Modal } from './';
+import { Modal } from './Modal';
 
 export class CustomPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);

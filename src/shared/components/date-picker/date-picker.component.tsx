@@ -13,7 +13,6 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
     }
     render() {
         const { date, changeDay } = this.props;
-        console.log('DATE: ', date)
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>

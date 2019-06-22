@@ -4,7 +4,6 @@ import { ITransactionDetailAction } from './new-transaction-modal.model';
 
 const newTransactionAction: ITransactionDetailAction = {
     newTransactionInitializeStart(initialState) {
-        console.log(`[new-transaction][action][initializeStart]`, initialState);
         return {
             type: NEW_TRANSACTION_INITIALIZE_START,
             value: initialState
@@ -12,14 +11,12 @@ const newTransactionAction: ITransactionDetailAction = {
     },
 
     newTransactionInitializeFinish() {
-        console.log(`[new-transaction][action][initializeFinish]`);
         return {
             type: NEW_TRANSACTION_INITIALIZE_FINISH
         }
     },
 
     changeData(newData) {
-        console.log(`[new-transaction][action][changeData]`, newData);
         return {
             type: CHANGE_DATA,
             value: newData
@@ -27,7 +24,6 @@ const newTransactionAction: ITransactionDetailAction = {
     },
 
     setCategories(categores) {
-        console.log(`[new-transaction][action][changeData]`, categores);
         return {
             type: SET_CATEGORIES,
             value: categores
@@ -35,7 +31,6 @@ const newTransactionAction: ITransactionDetailAction = {
     },
 
     setAccounts(accounts) {
-        console.log(`[new-transaction][action][setAccounts]`, accounts);
         return {
             type: NEW_TRANSACTION_SET_ACCOUNTS,
             value: accounts

@@ -8,11 +8,14 @@ import appConstants from '../../../appConstants';
 import styles from './week-transaction.component.style';
 import I18n from '../../../i18n';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
+import moment from 'moment';
+import WeekSelector from 'react-native-week-selector';
+import Transaction from '../transaction/transaction.component';
 
 export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
     onSaveNewTransaction(transaction) {
-        this.props.actions.weekTransactionNewTransaction(transaction);
+        this.props.actions.weekTransactionNewTransaction(transaction, this.props.state.currentWeekStart, this.props.state.currentWeekEnd);
         NavigationService.navigateBack();
     }
 
@@ -20,15 +23,33 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
         this.props.actions.weekTransactionSetTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
     }
 
+    onWeekChanged(date) {
+        date = moment(date).add(6,'days');
+        const dateStart = moment(date).startOf('isoWeek');
+        const dateEnd = moment(date).endOf('isoWeek');
+        this.props.actions.changeWeek(dateStart, dateEnd);
+    }
+
     render() {
-        const { isInitialized, income, expense, balance } = this.props.state;
+        const { isInitialized, income, expense, balance, transactions } = this.props.state;
         return (
             <View style={{ flex: 1 }}>
                 {!isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
+                <View style={styles.section}>
+                    <WeekSelector
+                        dateContainerStyle={styles.date}
+                        dayFormat="DD"
+                        monthFormat="MMM"
+                        onWeekChanged={(date) =>this.onWeekChanged(date)}
+                    />
+                </View>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
-                <ScrollView>
-                    <Text>Week!</Text>
+                <ScrollView style={{ marginTop: 5 }}>
+                    {transactions && transactions.map((data, key) => {
+                        return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)
+                    })}
+                    <View style={{ height: 80 }}></View>
                 </ScrollView>
             </View>
         )

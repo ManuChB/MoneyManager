@@ -9,13 +9,11 @@ export const initialState: ISplashState = {
 export default function splash(state: ISplashState = initialState , action: AnyAction) {
     switch (action.type) {
         case INITIALIZE_START:
-            console.log(`[splash][reducer][initializeStart]`);
             return {
                 ...state,
                 isInitialized: false
             };
         case INITIALIZE_FINISH: 
-            console.log(`[splash][reducer][initializeFinish]`);
             return {
                 ...state,
                 isInitialized: true

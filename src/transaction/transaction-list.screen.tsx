@@ -20,8 +20,6 @@ export class TransactionListScreenComponent extends Component<ITransactionListPr
     };
 
     render() {
-        console.log(`[transaction][render]`, this.props);
-
         return (
             <TransactionList {...this.props } />
         );

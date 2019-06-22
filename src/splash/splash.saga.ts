@@ -1,4 +1,4 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 import splashAction from './splash.action';
 import { INITIALIZE_START } from './splash.constant';
 import NavigationService from '../shared/service/navigation/navigation.service';
@@ -17,7 +17,7 @@ export function* initialize() {
         yield call(FirebaseService.init);
         const uid = yield call(AsyncStorageSevice.getItem, 'USER_ID');
         yield call(getEsentialData);
-        if(uid) {
+        if( true) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         }
         else {
@@ -32,11 +32,15 @@ export function* initialize() {
 function* getEsentialData() {
     console.log(`[splash][saga][getEsentialData]`);
 
-    const categories = yield call(FirebaseService.getAllFromCollection, appConstants.collection.categories);
-    const currencies = yield call(FirebaseService.getAllFromCollection, appConstants.collection.currency);
-    const accountTypes = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes);
-    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CATEGORIES, categories);
-    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies);
-    yield call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes);
+    const { categories, currencies, accountTypes } = yield all([
+        call(FirebaseService.getAllFromCollection, appConstants.collection.categories),
+        call(FirebaseService.getAllFromCollection, appConstants.collection.currency),
+        call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes)
+    ]);
+    yield all([
+        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CATEGORIES, categories),
+        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies),
+        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
+    ]);
 
 }

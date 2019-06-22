@@ -10,11 +10,6 @@ import AccountListScreen from '../account/account-list.screen';
 import TransactionListScreen from '../transaction/transaction-list.screen';
 
 export default class MoneyManager extends Component<IMoneyManagerProp> {
-componentDidMount(){
-
-    console.log('MoneyManager[componentDidMount]', this.props);
-}
-
     render() {
         return (
             <View style={{ flex: 1 }}>

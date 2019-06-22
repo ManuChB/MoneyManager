@@ -16,7 +16,6 @@ export const initialState: ITransactionDetailState = {
 export default function newTransaction(state: ITransactionDetailState = initialState, action: AnyAction) {
     switch (action.type) {
         case NEW_TRANSACTION_INITIALIZE_START:
-            console.log(`[newTransaction][reducer][NEW_TRANSACTION_INITIALIZE_START]`, action);
             return {
                 ...state,
                 isInitialized: true,
@@ -25,25 +24,21 @@ export default function newTransaction(state: ITransactionDetailState = initialS
                 onSave: action.value.onSave
             };
         case NEW_TRANSACTION_INITIALIZE_FINISH:
-            console.log(`[newTransaction][reducer][NEW_TRANSACTION_INITIALIZE_FINISH]`);
             return {
                 ...state,
                 isInitialized: true
             };
         case CHANGE_DATA:
-            console.log(`[newTransaction][reducer][CHANGE_DATA]`,action);
             return {
                 ...state,
                 data: action.value
             };
         case SET_CATEGORIES:
-            console.log(`[newTransaction][reducer][SET_CATEGORIES]`, action);
             return {
                 ...state,
                 categories: action.value
             };
         case NEW_TRANSACTION_SET_ACCOUNTS:
-            console.log(`[newTransaction][reducer][NEW_TRANSACTION_SET_ACCOUNTS]`, action);
             return {
                 ...state,
                 accounts: action.value

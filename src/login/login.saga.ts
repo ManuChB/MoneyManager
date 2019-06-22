@@ -14,7 +14,6 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[login][saga][initialize]`);
         yield put(loginAction.loginInitializeFinish());
     } catch (e) {
         console.log(`[error][login][saga][initialize]>>> ${e}`);
@@ -27,7 +26,6 @@ export function* registerNewUser(action) {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.newUser, userName, password);
         yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
-        console.log(`[login][saga][registerNewUser]`, response.user.uid);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);

@@ -4,21 +4,18 @@ import { ILoginAction } from './login.model';
 
 const splashAction: ILoginAction = {
     loginInitializeStart() {
-        console.log(`[login][action][initializeStart]`);
         return {
             type: LOGIN_INITIALIZE_START
         }
     },
 
     loginInitializeFinish() {
-        console.log(`[login][action][initializeFinish]`);
         return {
             type: LOGIN_INITIALIZE_FINISH
         }
     },
 
     loginSetPassword(password) {
-        console.log(`[login][action][loginSetPassword]`);
         return {
             type: LOGIN_SET_PASSWORD,
             value: password
@@ -26,42 +23,36 @@ const splashAction: ILoginAction = {
     },
 
     loginSetUserName(userName) {
-        console.log(`[login][action][loginSetUserName]`);
         return {
             type: LOGIN_SET_USERNAME,
             value: userName
         }
     },
     setFormMode(formMode, screenMode) {
-        console.log(`[login][action][setFormMode]`);
         return {
             type: LOGIN_MODE,
             value: { formMode, screenMode }
         }
     },
     registerSubmit(userName, password) {
-        console.log(`[login][action][registerSubmit]`);
         return {
             type: REGISTER_SUBMIT,
             value: { userName, password }
         }
     },
     loginSubmit(userName, password) {
-        console.log(`[login][action][loginSubmit]`);
         return {
             type: LOGIN_SUBMIT,
             value: { userName, password }
         }
     },
     errorMessage(error) {
-        console.log(`[login][action][errorMessage]`);
         return {
             type: ERROR_MESSAGE,
             value: error
         }
     },
     showSpinner(show) {
-        console.log(`[login][action][errorMessage]`);
         return {
             type: SHOW_SPINNER,
             value: show

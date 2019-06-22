@@ -16,10 +16,8 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[accountDetailAction][saga][initialize]`);
         const currencyList = yield call(asyncStorageService.getItem, appConstants.asyncStorageItem.CURRENCIES);
         const accountTypeList = yield call(asyncStorageService.getItem, appConstants.asyncStorageItem.ACCOUNT_TYPES);
-        console.log(`[accountDetailAction][saga][initialize]`, currencyList, accountTypeList);
 
         yield put(accountDetailAction.setPickersData(currencyList, accountTypeList));
 

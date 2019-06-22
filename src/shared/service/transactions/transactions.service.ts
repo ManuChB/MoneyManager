@@ -50,21 +50,35 @@ class TransactionService {
                     { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, oldValue: 0 });
             }
         } catch (e) {
-            console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
+            console.log(`[error][transactionService][updateTransaction]>>> ${e}`);
         }
     }
 
     
     async getTransactionByDate(date) {
-    try {
-        const toDate = date.toDate();
-        toDate.setHours(0, 0, 0, 0);
-        return await FirebaseService.getTransactionsByDate(toDate);
+        try {
+            const toDate = date.toDate();
+            toDate.setHours(0, 0, 0, 0);
+            return await FirebaseService.getTransactionsByDate(toDate);
 
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
+        } catch (e) {
+            console.log(`[error][transactionService][getTransactionByDate]>>> ${e}`);
+        }
     }
-}
+
+    async getTransactionByDateRange(dateStart, dateEnd) {
+        try {
+            const toDateStart = dateStart.toDate();
+            const toDateEnd = dateEnd.toDate();
+            toDateStart.setHours(0, 0, 0, 0);
+            toDateEnd.setHours(0, 0, 0, 0);
+            return await FirebaseService.getTransactionsByDateRange(toDateStart, toDateEnd);
+
+        } catch (e) {
+            console.log(`[error][transactionService][getTransactionByDateRange]>>> ${e}`);
+        }
+    }
+
 
     async updateAccountValue(transaction) {
         try {
@@ -103,7 +117,7 @@ class TransactionService {
             }
         );
     } catch (e) {
-        console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
+        console.log(`[error][transactionService][transactionToDetail]>>> ${e}`);
     }
 }
 }

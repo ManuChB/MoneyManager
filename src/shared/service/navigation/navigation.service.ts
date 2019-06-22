@@ -9,7 +9,7 @@ class NavigationService {
         config.navigator = navigator;
     }
     navigateTo(routeName: string, params = {}) {
-        console.log(`[NavigationService][navigateTo][routeName]-> ${routeName}// [params]->${JSON.stringify(params)}`);
+        // console.log(`[NavigationService][navigateTo][routeName]-> ${routeName}// [params]->${JSON.stringify(params)}`);
         config.navigator.navigate({ routeName: routeName, params });
         return;
     }

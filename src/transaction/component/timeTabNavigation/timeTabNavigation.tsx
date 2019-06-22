@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 import appConstants from '../../../appConstants';
-import { LinearGradient } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     isSelectedTab(timeMode: string) {
@@ -16,7 +16,6 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
         
     }
     render() {
-        console.log('[[TimeTabNavigation]]', this.props);
         const { changeTimeFormat } = this.props;
         return (
                 <LinearGradient
@@ -55,7 +54,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {/**<TouchableOpacity
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.year)]} 
                     onPress={() => changeTimeFormat(appConstants.timeMode.year)}>
                     <View style={styles.touchableViewStyle}>
@@ -64,7 +63,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                             Year
                         </Text>
                     </View>
-                </TouchableOpacity>  
+                </TouchableOpacity>   */}
                 </LinearGradient>
         );
     }

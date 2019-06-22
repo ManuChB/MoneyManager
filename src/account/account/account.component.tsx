@@ -4,7 +4,6 @@ import { IAccountProp } from './account.model';
 import { Input, Header } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account.component.style';
-import { LinearGradient } from 'expo';
 import I18n from '../../i18n';
 // import CountryCurrencyPicker from 'react-native-country-currency-picker';
 

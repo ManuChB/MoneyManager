@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, View} from 'react-native';
-import { LinearGradient } from 'expo';
 import moment from 'moment';
 import _ from 'lodash';
 import { IDayTransactionProp } from './day-transaction.model';
@@ -29,7 +28,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
 
     onPressTransaction(transactionToShow) {
         this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this) );
-
     }
 
     onPressNewTransaction() {
