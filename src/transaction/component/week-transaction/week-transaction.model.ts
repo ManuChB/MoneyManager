@@ -17,6 +17,8 @@ export interface IWeekTransactionAction {
     setWeekTransactions?: (transactions: Array<ITransactionDataProp>) => Action;
     changeWeek?: (start: Moment, end: Moment) => Action;
     setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
+    updateWeekTransaction?: (transaction: ITransactionDataProp) => Action;
+    setWeekTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
 }
 
 export interface IWeekTransactionState {

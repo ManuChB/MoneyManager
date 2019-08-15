@@ -1,6 +1,7 @@
 import { WEEK_TRANSACTION_INITIALIZE_FINISH, WEEK_TRANSACTION_INITIALIZE_START, 
     WEEK_TRANSACTION_NEW_TRANSACTION, WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, 
-    SET_WEEK_TRANSACTIONS, CHANGE_WEEK, SET_WEEK_BALANCE_INFO } from './week-transaction.constant';
+    SET_WEEK_TRANSACTIONS, CHANGE_WEEK, SET_WEEK_BALANCE_INFO, UPDATE_WEEK_TRANSACTION,
+    SET_WEEK_TRANSACTION_TO_DETAIL } from './week-transaction.constant';
 import { IWeekTransactionAction } from './week-transaction.model';
 
 const weekTransactionAction: IWeekTransactionAction = {
@@ -46,7 +47,18 @@ const weekTransactionAction: IWeekTransactionAction = {
             value: { income, expense, balance }
         }
     },
-
+    updateWeekTransaction(transaction) {
+        return {
+            type: UPDATE_WEEK_TRANSACTION,
+            value: transaction
+        }
+    },
+    setWeekTransactionToDetail(transaction, onSave) {
+        return {
+            type: SET_WEEK_TRANSACTION_TO_DETAIL,
+            value: { transaction, onSave }
+        }
+    },
 }
 
 export default weekTransactionAction;

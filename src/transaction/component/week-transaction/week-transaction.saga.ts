@@ -4,7 +4,8 @@ import _ from 'lodash';
 
 import weekTransactionAction from './week-transaction.action';
 import {
-    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_NEW_TRANSACTION,  WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, CHANGE_WEEK
+    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_NEW_TRANSACTION,  WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, CHANGE_WEEK,
+    SET_WEEK_TRANSACTION_TO_DETAIL, UPDATE_WEEK_TRANSACTION
 } from './week-transaction.constant';
 import appConstants from '../../../appConstants';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
@@ -16,7 +17,9 @@ export default [
     takeLatest(WEEK_TRANSACTION_INITIALIZE_START, initialize),
     takeLatest(WEEK_TRANSACTION_NEW_TRANSACTION, newTransaction),
     takeLatest(WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(CHANGE_WEEK, getTransactionByDate)
+    takeLatest(CHANGE_WEEK, getTransactionByDate),
+    takeLatest(SET_WEEK_TRANSACTION_TO_DETAIL, transactionToDetail),
+    takeLatest(UPDATE_WEEK_TRANSACTION, updateTransaction),
 ];
 
 
@@ -26,8 +29,8 @@ export function* initialize() {
         const date = new Date();
         const weekStart = moment(date).startOf('isoWeek');
         const weekEnd = moment(date).endOf('isoWeek');
-
-        yield call(getTransactionByDate, { value: { weekStart, weekEnd}});
+        yield put(weekTransactionAction.changeWeek(weekStart, weekEnd));
+        yield call(getTransactionByDate );
         yield put(weekTransactionAction.weekTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][week-transaction][saga][initialize]>>> ${e}`);
@@ -44,10 +47,14 @@ export function* calculateBalance() {
     }
 }
 
-export function* getTransactionByDate(action) {
-    console.log(`[week-transaction][saga][getTransactionByDate]`,action);
+export function* getTransactionByDate() {
+    console.log(`[week-transaction][saga][getTransactionByDate]`);
     try {
-        const transactionsWeek = yield call(TransactionsService.getTransactionByDateRange, action.value.weekStart, action.value.weekEnd);
+        const currentWeekStart = yield select(selectors.getCurrentWeekStart);
+        const currentWeekEnd = yield select(selectors.getCurrentWeekEnd);
+
+        const transactionsWeek = yield call(TransactionsService.getTransactionByDateRange, currentWeekStart, currentWeekEnd);
+        console.log(`[week-transaction][saga][getTransactionByDate]`, transactionsWeek);
         yield put(weekTransactionAction.setWeekTransactions(transactionsWeek));
         yield call(calculateBalance);
     } catch (e) {
@@ -78,8 +85,10 @@ export function* transactionToDetail(action) {
 
 export function* updateTransaction(action) {
     try {
-//        yield call(TransactionsService.updateTransaction, action.value, week);
- //       yield call(getTransactionByDate, { value: day });
+        console.log(`[week-transaction][saga][updateTransaction]>>>day ${action}`,action);
+
+        yield call(TransactionsService.updateTransaction, action.value, action.date);
+        yield call(getTransactionByDate, { value: action.date });
 
     } catch (e) {
         console.log(`[error][week-transaction][saga][updateTransaction]>>> ${e}`);

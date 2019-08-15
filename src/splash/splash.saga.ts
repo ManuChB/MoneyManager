@@ -32,15 +32,27 @@ export function* initialize() {
 function* getEsentialData() {
     console.log(`[splash][saga][getEsentialData]`);
 
-    const { categories, currencies, accountTypes } = yield all([
-        call(FirebaseService.getAllFromCollection, appConstants.collection.categories),
-        call(FirebaseService.getAllFromCollection, appConstants.collection.currency),
-        call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes)
-    ]);
-    yield all([
-        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CATEGORIES, categories),
-        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies),
-        call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
-    ]);
+    const cat = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.CATEGORIES);
+    const cur = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.CURRENCIES);
+    const acc = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.ACCOUNT_TYPES);
+    console.log('--------------cat-------', cat)
+    console.log('--------------cur-------', cur)
+    console.log('--------------acc-------', acc)
 
+   
+
+    if(!cat  || !cur || !acc){ 
+        const categories = yield call(FirebaseService.getAllFromCollection, appConstants.collection.categories);
+        const currencies = yield call(FirebaseService.getAllFromCollection, appConstants.collection.currency);
+        const accountTypes = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes);
+        console.log('--------------categories-------', categories)
+        console.log('--------------currencies-------', currencies)
+        console.log('--------------accountTypes-------', accountTypes)
+
+        yield all([
+            call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CATEGORIES, categories),
+            call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies),
+            call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
+        ]);
+    }
 }

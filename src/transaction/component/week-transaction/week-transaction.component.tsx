@@ -23,6 +23,16 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
         this.props.actions.weekTransactionSetTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
     }
 
+    onUpdateTransaction(transaction) {
+        this.props.actions.updateWeekTransaction(transaction);
+        NavigationService.navigateBack();
+
+    }
+
+    onPressTransaction(transactionToShow) {
+        this.props.actions.setWeekTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this));
+    }
+
     onWeekChanged(date) {
         date = moment(date).add(6,'days');
         const dateStart = moment(date).startOf('isoWeek');

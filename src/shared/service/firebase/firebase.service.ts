@@ -47,7 +47,7 @@ class FirebaseService {
                     return doc.data();
                 })[0];
             }
-            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account  };
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account, id: doc.id  };
         }));
 
     }
@@ -67,19 +67,20 @@ class FirebaseService {
                     return doc.data();
                 })[0];
             }
-            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account };
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), account: account, id: doc.id  };
         }));
 
     }
 
     async getAllFromCollection(collection) {
-        console.log('[FirebaseService][getAllFromCollection]', collection);
+       // console.log('[FirebaseService][getAllFromCollection]start', collection);
         const snapshot = await db.collection(collection).get();
-        console.log('[FirebaseService][getAllFromCollection]snapshot');
-
-        return snapshot.docs.map(doc => {
-            return { data: doc.data(), id:doc.id };
+        const a = snapshot.docs.map(doc => {
+            return { data: doc.data(), id: doc.id };
         });
+        console.log('[FirebaseService][getAllFromCollection]snapshot', a);
+
+        return a
     }
 
 
@@ -107,12 +108,13 @@ class FirebaseService {
     }
 
     async addToCollection(collection, data) {
-        // console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
+        console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
+        delete data.id;
         return await db.collection(collection).add(data);
     }
 
     updateDocumentInCollection(collection, data) {
-        // console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
+        console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
         db.collection(collection).doc(data.id).update(data);
     }
 }

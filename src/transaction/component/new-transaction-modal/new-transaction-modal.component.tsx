@@ -69,8 +69,8 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                     <Input
                         inputRef={ref => this.valueInput = ref}
                         label={'Value'}
-                        value={data.value ? data.value.toString() : null}
-                        onChangeText={(value) => this.props.actions.changeData({ ...data, value: parseFloat(value) })}
+                        value={data.value ? data.account ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
+                        onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account.currency.name, "").replace(" ", "") })}
                         returnKeyType={"next"}
                         keyboard={'numeric'}
                         blurOnSubmit={true}
@@ -82,13 +82,19 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         bottom: 0, 
                         marginBottom: 20}}>
                         <Button 
-                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266'}} 
+                            customButtonStyle={{  flex: 1, borderColor: '#F38266', backgroundColor: '#F38266'}} 
                             onPress={() => onClose()} 
                             label={'Cancel'}>
                         </Button>
                         <Button 
                             customButtonStyle={{ flex: 1 }} 
-                            onPress={() => onSave({ id: _.uniqueId(appConstants.localId.transaction),...this.props.state.data})} 
+                            onPress={() => {
+                                onSave({ 
+                                    id: _.uniqueId(appConstants.localId.transaction), 
+                                    ...this.props.state.data, 
+                                    value: parseFloat(this.props.state.data.value.toString().replace(this.props.state.data.account.currency.name, "").replace(" ", "").replace(',', '.'))
+                                });
+                            }} 
                             label={'Save'}
                             disabled={this.checkEmpty()}>
                         </Button>

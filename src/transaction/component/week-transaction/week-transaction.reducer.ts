@@ -1,5 +1,6 @@
 import {
-    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_INITIALIZE_FINISH, CHANGE_WEEK, SET_WEEK_TRANSACTIONS, SET_WEEK_BALANCE_INFO
+    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_INITIALIZE_FINISH, CHANGE_WEEK, SET_WEEK_TRANSACTIONS, SET_WEEK_BALANCE_INFO,
+    SET_WEEK_TRANSACTION_TO_DETAIL, UPDATE_WEEK_TRANSACTION
 } from './week-transaction.constant';
 import { AnyAction } from 'redux';
 import { IWeekTransactionState } from './week-transaction.model';
@@ -49,6 +50,18 @@ export default function weekTransaction(state: IWeekTransactionState = initialSt
                 expense: action.value.expense,
                 balance: action.value.balance,
                 isInitialized: true
+            };
+        case UPDATE_WEEK_TRANSACTION:
+            return {
+                ...state,
+                transactions: state.transactions.map(
+                    (transaction) => transaction.id === action.value.id ? action.value : transaction
+                )
+            };
+        case SET_WEEK_TRANSACTION_TO_DETAIL:
+            return {
+                ...state,
+                transactionToDetail: action.value.transaction
             };
         default:
             return state
