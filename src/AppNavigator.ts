@@ -10,8 +10,8 @@ import TransactionListScreen from './transaction/transaction-list.screen';
 import MoneyManagerScreen from './money-manager/money-manager.screen';
 import NewTransactionScreen from './transaction/component/new-transaction-modal/new-transaction-modal.screen';
 import accountDetailScreen from './account/account-detail/account-detail.screen';
-
-// import SettingsScreen from './assignment-list/settings/settings.screen';
+import SettingsScreen from './settings/settings.screen';
+import ReportScreen from './report/report.screen';
 
 const TransitionConfiguration = () => {
     return {
@@ -37,8 +37,9 @@ const AppNavigator: NavigationContainer = StackNavigator(
         Accounts: { screen: AccountListScreen },
         Transactions: { screen: TransactionListScreen },
         NewTransaction: { screen: NewTransactionScreen },
-        AccountDetail: { screen: accountDetailScreen}
-        // Settings: { screen: SettingsScreen }
+        AccountDetail: { screen: accountDetailScreen},
+        Settings: { screen: SettingsScreen },
+        Report: { screen: ReportScreen }
     },
     {
         initialRouteName: appConstants.routName.splash,

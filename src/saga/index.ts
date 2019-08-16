@@ -7,6 +7,8 @@ import accountListSaga from '../account/account-list.saga';
 import accountDetailSaga from '../account/account-detail/account-detail.saga';
 import weekTransactionSaga from '../transaction/component/week-transaction/week-transaction.saga';
 import monthTransactionSaga from '../transaction/component/month-transaction/month-transaction.saga';
+import settingsSaga from '../settings/settings.saga';
+import reportSaga from '../report/report.saga';
 
 export default function* rootSaga() {
     yield all([
@@ -17,6 +19,8 @@ export default function* rootSaga() {
         ...accountListSaga,
         ...accountDetailSaga,
         ...weekTransactionSaga,
-        ...monthTransactionSaga
+        ...monthTransactionSaga,
+        ...settingsSaga,
+        ...reportSaga
     ]);
 }

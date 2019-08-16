@@ -17,7 +17,9 @@ const constants = {
     },
     tabMode: {
         account: 'Account',
-        transaction: 'Transaction'        
+        transaction: 'Transaction',
+        settings: 'Settings',
+        report: 'Report'         
     },
     timeMode: {
         day: 'Day',
