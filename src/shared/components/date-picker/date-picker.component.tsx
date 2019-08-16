@@ -12,12 +12,13 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
         }
     }
     render() {
-        const { date, changeDay } = this.props;
+        const { date, changeDay, dateMode, dateFormat } = this.props;
+        const month = dateMode == 'month' ?'month' : 'day';
         return (
             <View style={styles.infoStyle}>
                 <View style={styles.textViewStyle}>
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date).subtract(1, 'day')) }}
+                        onPress={() => { changeDay(moment(date).subtract(1, month)) }}
                         style={{ padding: 15 }}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/left-50.png')} />
                     </TouchableOpacity>
@@ -27,7 +28,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                         mode="date"
                         placeholder="select date"
                         showIcon={false}
-                        format="DD-MM-YYYY"
+                        format={dateFormat || 'DD-MM-YYYY' }
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
@@ -35,10 +36,10 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                                 borderWidth: 0
                             }
                         }}
-                        onDateChange={(date) => changeDay(moment(date, 'DD-MM-YYYY')) }  
+                        onDateChange={(date) => changeDay(moment(date, dateFormat || 'DD-MM-YYYY')) }  
                     />
                     <TouchableOpacity 
-                        onPress={() => { changeDay(moment(date).add(1, 'day')) }} 
+                        onPress={() => { changeDay(moment(date).add(1, month)) }} 
                         style={{ padding: 15 }}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/right-50.png')} />
                     </TouchableOpacity>
@@ -79,5 +80,6 @@ const styles = {
 export interface IDatePickerProps {
     date?: Moment,
     dateMode?: string,
-    changeDay?: (date: any) => void
+    changeDay?: (date: any) => void,
+    dateFormat?: string
 }

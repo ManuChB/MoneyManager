@@ -31,7 +31,8 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                 <View style={{ flex: 1 }}>
                     <DatePickerHeader 
                         date={data.date} 
-                        changeDay={this.changeDay.bind(this)} >
+                        changeDay={this.changeDay.bind(this)}
+                        dateMode={'day'} >
                     </DatePickerHeader>
                     <View style={{ flexDirection: 'row'}}>
                         <TouchableOpacity 
@@ -42,7 +43,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         <TouchableOpacity 
                             style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: 'red' }: null]}
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
-                            <Text>Expence</Text>
+                            <Text>Expense</Text>
                         </TouchableOpacity>
                     </View>
                     <CustomPicker 

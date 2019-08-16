@@ -10,6 +10,7 @@ import newTransaction from '../transaction/component/new-transaction-modal/new-t
 import accountList from '../account/account-list.reducer';
 import accountDetail from '../account/account-detail/account-detail.reducer';
 import weekTransaction from '../transaction/component/week-transaction/week-transaction.reducer';
+import monthTransaction from '../transaction/component/month-transaction/month-transaction.reducer';
 
 export interface State {
     navigation: any;
@@ -22,6 +23,7 @@ export interface State {
     accountList: any;
     accountDetail: any;
     weekTransaction: any;
+    monthTransaction: any;
 }
 
 const rootReducer = combineReducers<State>({
@@ -34,7 +36,8 @@ const rootReducer = combineReducers<State>({
     newTransaction,
     accountList,
     accountDetail,
-    weekTransaction
+    weekTransaction,
+    monthTransaction
 
 });
 

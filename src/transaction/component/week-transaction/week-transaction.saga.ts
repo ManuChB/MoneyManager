@@ -43,7 +43,7 @@ export function* calculateBalance() {
         const { income, expense, balance } = TransactionsService.calculateBalance(transactions);
         yield put(weekTransactionAction.setBalanceInfo(income, expense, balance))
     } catch (e) {
-        console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);
+        console.log(`[error][week-transaction][saga][calculateBalance]>>> ${e}`);
     }
 }
 

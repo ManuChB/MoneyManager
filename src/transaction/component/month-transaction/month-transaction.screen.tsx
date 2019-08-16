@@ -12,7 +12,7 @@ export class MonthTransactionScreenComponent extends Component<IMonthTransaction
     }
 
     componentDidMount() {
-        //this.props.actions.transactionInitializeStart();
+        this.props.actions.monthTransactionInitializeStart();
     }
 
     static navigationOptions = {
