@@ -4,7 +4,7 @@ import { IYearTransactionProp } from './year-transaction.model';
 import { Input, Header } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './year-transaction.component.style';
-import I18n from '../../../i18n';
+import I18n from '../../../shared/service/i18n/i18n';
 
 export default class YearTransaction extends Component<IYearTransactionProp> {
     render() {

@@ -6,7 +6,7 @@ import { IDayTransactionProp } from './day-transaction.model';
 import { AddButton, Spinner  } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './day-transaction.component.style';
-import I18n from '../../../i18n';
+import I18n from '../../../shared/service/i18n/i18n';
 import BalanceInfo from '../../../shared/components/balance-info/balance-info.component';
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
 import Transaction from '../transaction/transaction.component';

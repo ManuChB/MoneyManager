@@ -1,0 +1,16 @@
+{
+    "accountDetail": {
+        "type": "Type",
+        "name": "Name",
+        "description": "Description",
+        "value": "Value",
+        "currency": "Currency"
+    },
+    "settingsScreen": {
+        "settings": "Settings"
+    },
+    "language": {
+        "es": "Spanish",
+        "en": "English"
+    }
+}

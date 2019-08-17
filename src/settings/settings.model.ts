@@ -5,6 +5,7 @@ export interface ISettingsProp {
     navigation?: NavigationScreenProp<any, any>;
     state?: ISettingsState;
     actions?: ISettingsAction;
+    dispatch?: any;
 }
 
 export interface ISettingsAction {

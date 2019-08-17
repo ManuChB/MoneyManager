@@ -3,8 +3,12 @@ import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { reactNavigationMiddleware } from '../NavigationState';
 import rootReducer from '../reducers';
-import rootSaga from '../saga';;
-
+import rootSaga from '../saga';
+import {
+    actionsI18n,
+    dictionaries,
+    languages
+} from '../shared/service/i18n';
 
 export default () => {
     const sagaMiddleware = createSagaMiddleware();
@@ -25,5 +29,9 @@ export default () => {
         middlewares
     );
     sagaMiddleware.run(rootSaga);
+
+    store.dispatch(actionsI18n.setDictionaries(dictionaries));
+    store.dispatch(actionsI18n.setLanguages(languages));
+    store.dispatch(actionsI18n.setCurrentLanguage('es'));
     return store;
 }

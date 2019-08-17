@@ -92,6 +92,7 @@
     "redux-actions": "^2.2.1",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-logger": "^3.0.6",
+    "redux-react-native-i18n": "^1.2.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "typescript": "^3.2.2"

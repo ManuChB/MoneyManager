@@ -4,7 +4,6 @@ import { IAccountDetailProp } from './account-detail.model';
 import { Header, Button, Input } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
-import I18n from '../../i18n';
 import _ from 'lodash';
 import { DataPicker } from '../../shared/components/common/DataPicker';
 
@@ -16,17 +15,18 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
     }
     render() {
         const { account, onClose, onSave, currencyList, accountTypeList } = this.props.state;
+
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>
-                <DataPicker label={'Type'}
+                <DataPicker label={'accountDetail.type'}
                     value={account.type ? account.type.name : ''}
                     data={accountTypeList}
                     onSelect={(type) => this.props.actions.accountDetailDataChange({ ...account, type })}>
                 </DataPicker>
                 <Input
                     inputRef={ref => this.nameInput = ref}
-                    label={'Name'}
+                    label={'accountDetail.name'}
                     value={account.name}
                     onChangeText={(name) => this.props.actions.accountDetailDataChange({ ...account, name })}
                     returnKeyType={"next"}
@@ -35,7 +35,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                 />
                 <Input
                     inputRef={ref => this.descriptionInput = ref}
-                    label={'Description'}
+                    label={'accountDetail.description'}
                     value={account.description}
                     onChangeText={(description) => this.props.actions.accountDetailDataChange({ ...account, description })}
                     returnKeyType={"next"}
@@ -44,14 +44,14 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                 />
                 <Input
                     inputRef={ref => this.valueInput = ref}
-                    label={'Value'}
+                    label={'accountDetail.value'}
                     value={account.value ? account.value.toString() : null}
                     onChangeText={(value) => this.props.actions.accountDetailDataChange({ ...account, value: parseFloat(value) })}
                     returnKeyType={"next"}
                     keyboard={'numeric'}
                     blurOnSubmit={true}
                 />
-                <DataPicker label={'Currency'}
+                <DataPicker label={'accountDetail.currency'}
                     value={account.currency ? account.currency.name : ''}
                     data={currencyList}
                     onSelect={(currency) => this.props.actions.accountDetailDataChange({ ...account, currency })}>

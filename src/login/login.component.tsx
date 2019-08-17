@@ -5,7 +5,7 @@ import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo-linear-gradient';
-import I18n from '../i18n';
+import I18n from '../shared/service/i18n/i18n';
 
 export default class Login extends Component<ILoginProp> {
 

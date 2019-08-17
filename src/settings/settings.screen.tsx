@@ -32,6 +32,7 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
     return {
+        dispatch: dispatch,
         actions: {
             ...bindActionCreators<any>(settingsAction, dispatch)
         }

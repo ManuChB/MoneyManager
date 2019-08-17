@@ -1,4 +1,3 @@
-import store from '../../../store/configreStore';
 import { NavigationActions } from 'react-navigation';
 
 const config = { navigator: null};

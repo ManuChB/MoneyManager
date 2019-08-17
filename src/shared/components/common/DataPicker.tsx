@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from '.';
+import { Loc } from 'redux-react-native-i18n';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -64,7 +65,7 @@ export class DataPicker extends Component<IPickerProps> {
         return (
                 <View style={styles.containerStyle} >
                     <Animated.Text style={labelStyle}>
-                        {label}
+                        <Loc locKey={label}></Loc>
                     </Animated.Text>
                     <TextInput
                         placeholder={placeHolder}

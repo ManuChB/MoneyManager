@@ -4,7 +4,7 @@ import NavigationState from './src/NavigationState';
 import { AppRegistry, View } from 'react-native';
 import { Provider } from 'react-redux';
 //import DeviceInfo from 'react-native-device-info';
-import I18n, { changeLanguage } from './src/i18n';
+//import I18n, { changeLanguage } from './src/i18n';
 
 /********TEMPORARL FIX START*/
 // Timer error in JSTimers
