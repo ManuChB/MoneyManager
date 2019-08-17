@@ -16,15 +16,15 @@ export class DataPicker extends Component<IPickerProps> {
     showModal() {
         const { data, onSelect } = this.props;
         return (
-            <Modal>
-                {data && data.map((subdata, key) => {
+            <Modal >
+                {data && data.map((element, key) => {
                     return (
                         <TouchableOpacity
                             style={styles.subCategory}
                             key={key}
-                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata.data) }}>
+                            onPress={() => { this.setState({ showModal: false }); onSelect(element) }}>
                             <View style={styles.categoryView} key={key} >
-                                <Text style={styles.categoryText} key={key}>{subdata.data.name}</Text>
+                                <Text style={styles.categoryText} key={key}>{element.name}</Text>
                             </View>
                         </TouchableOpacity>)
                 })}
@@ -109,16 +109,17 @@ export class DataPicker extends Component<IPickerProps> {
 
 const styles = StyleSheet.create({
     categoryView: {
+        
         justifyContent: 'center',
         alignItems: 'center',
-        height: 50,
-        backgroundColor: '#a3bfed',
-        borderBottomWidth: 1,
-        borderBottomColor: '#749fe8',
-        shadowColor: '#000',
-        shadowOffset: { width: 10, height: 15 },
-        shadowOpacity: 0.2,
-        elevation: 10,
+        height: '90%',
+        width: '90%',
+        backgroundColor: '#99ccff',
+        borderWidth: 0,
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.5,
+        elevation: 15, 
+        borderRadius: 10
     },
     subCategoryView: {
         flexWrap: 'wrap', 
@@ -126,17 +127,20 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     subCategory: {
+        paddingTop: 20,
+        paddingBottom: 20,
         width: '100%',
         height: 100,
-        borderWidth: 1, 
-        borderColor: '#749fe8', 
+        borderWidth: 0, 
         justifyContent: 'center',
         alignItems: 'center'
-        },
+    },
     categoryText: {
-        color: 'black',
-        fontSize: 12,
-
+        color: 'white',
+        fontSize: 25,
+        textShadowColor: 'black',
+        textShadowOffset: { width: 1, height: 4 },
+        textShadowRadius: 0
     },
     inputStyle: {
         height: 25,

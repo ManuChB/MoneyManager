@@ -5,7 +5,7 @@ const Modal: StatelessComponent = (props) => {
     return (
         <View style={styles.mainView}>
             <View style={styles.screenBlocker}></View>
-            <ScrollView style={styles.modalStyle}>
+            <ScrollView style={styles.modalStyle} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} showsVerticalScrollIndicator={false}>
                 {props.children}
             </ScrollView>
         </View>
@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 2,
     },
     modalStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#f4fcc2',
         width: '90%',
         height: '90%',
         shadowOpacity: 10,
         elevation: 5,
-        position: 'absolute'
+        position: 'absolute',
+        borderRadius: 10
     }
 });
 

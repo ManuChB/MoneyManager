@@ -35,12 +35,6 @@ function* getEsentialData() {
     const cat = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.CATEGORIES);
     const cur = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.CURRENCIES);
     const acc = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.ACCOUNT_TYPES);
-    console.log('--------------cat-------', cat)
-    console.log('--------------cur-------', cur)
-    console.log('--------------acc-------', acc)
-
-   
-
     if(!cat  || !cur || !acc){ 
         const categories = yield call(FirebaseService.getAllFromCollection, appConstants.collection.categories);
         const currencies = yield call(FirebaseService.getAllFromCollection, appConstants.collection.currency);
@@ -55,4 +49,21 @@ function* getEsentialData() {
             call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
         ]);
     }
+    //setCategories(cat);
+
+}
+
+function setCategories(categories) {
+        let categoryList = [];
+        console.log('-------------categories------', categories);
+
+        categories && categories.map((category, key) => {
+            const _uid = category._uid;
+            categoryList.push(_uid);
+            console.log('-------------set------', category, key);
+            delete category['_uid'];
+            call(AsyncStorageSevice.setItem, _uid, category);
+        });
+    console.log('-------------categoryList------', categoryList);
+
 }

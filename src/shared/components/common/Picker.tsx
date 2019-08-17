@@ -14,23 +14,22 @@ export class CustomPicker extends Component<IPickerProps> {
 
     showModal() {
         const { data, onSelect } = this.props;
-
         return (
             <Modal>
                 {data && data.map((subdata, key) => {
                     return (
                         <View key={key} >
-                            <View style={styles.categoryView} key={key} >
-                                <Text style={styles.categoryText} key={key}>{subdata.id.toUpperCase()}</Text>
+                            <View style={styles.categoryView} key={'view_'+key} >
+                                <Text style={styles.categoryText} key={'text_'+key}>{subdata._uid.toUpperCase()}</Text>
                             </View>
-                            <View style={styles.subCategoryView}>
-                                {Object.keys(subdata.data).map((key) => {
+                            <View style={styles.subCategoryView} key={'subview_'+key} >
+                                {Object.keys(subdata).map((key) => {
                                     return (
                                         <TouchableOpacity
                                             style={styles.subCategory}
-                                            key={subdata.data[key].id}
-                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata.id, subdata.data[key]) }}>
-                                            <Text>{subdata.data[key].value}</Text>
+                                            key={'touch_'+subdata[key].id}
+                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata._uid, subdata[key]) }}>
+                                            <Text key={'touchtext_' + subdata[key].id} >{subdata[key].value}</Text>
                                         </TouchableOpacity>)
                                 })}
                             </View>

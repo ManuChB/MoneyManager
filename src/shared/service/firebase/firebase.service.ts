@@ -73,10 +73,9 @@ class FirebaseService {
     }
 
     async getAllFromCollection(collection) {
-       // console.log('[FirebaseService][getAllFromCollection]start', collection);
         const snapshot = await db.collection(collection).get();
         const a = snapshot.docs.map(doc => {
-            return { data: doc.data(), id: doc.id };
+            return {...doc.data(), _uid: doc.id};
         });
         console.log('[FirebaseService][getAllFromCollection]snapshot', a);
 

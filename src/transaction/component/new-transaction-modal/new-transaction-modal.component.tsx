@@ -36,31 +36,31 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                     </DatePickerHeader>
                     <View style={{ flexDirection: 'row'}}>
                         <TouchableOpacity 
-                            style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: 'green' }]} 
+                            style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: '#6ddbcc' }]} 
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: false })}>
-                            <Text>Income</Text>
+                            <Text style={data.isExpense ? null : { color: 'white' }} >Income</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
-                            style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: 'red' }: null]}
+                            style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: '#F38266' }: null]}
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
-                            <Text>Expense</Text>
+                            <Text style={data.isExpense ? { color: 'white' } : null} >Expense</Text>
                         </TouchableOpacity>
                     </View>
                     <CustomPicker 
-                        label={'Category'}
+                        label={'newTransaction.category'}
                         value={data.subCategory ? data.subCategory.value : ''}
                         data={categories} 
                         onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
                     </CustomPicker>
                     <DataPicker
-                        label={'Account'}
+                        label={'newTransaction.account'}
                         value={data.account ? data.account.name: ''}
                         data={accounts}
-                        onSelect={(account) => this.props.actions.changeData({ ...data, account })}>
+                        onSelect={(account) => { console.log('account', account); this.props.actions.changeData({ ...data, account }); } }>
                     </DataPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
-                        label={'Description'}
+                        label={'newTransaction.description'}
                         value={data.description}
                         onChangeText={(description) => this.props.actions.changeData({ ...data, description })}
                         returnKeyType={"next"}
@@ -69,7 +69,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                     />
                     <Input
                         inputRef={ref => this.valueInput = ref}
-                        label={'Value'}
+                        label={'newTransaction.value'}
                         value={data.value ? data.account ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
                         onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account.currency.name, "").replace(" ", "") })}
                         returnKeyType={"next"}
@@ -85,7 +85,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         <Button 
                             customButtonStyle={{  flex: 1, borderColor: '#F38266', backgroundColor: '#F38266'}} 
                             onPress={() => onClose()} 
-                            label={'Cancel'}>
+                            label={'common.button.cancel'}>
                         </Button>
                         <Button 
                             customButtonStyle={{ flex: 1 }} 
@@ -96,7 +96,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                                     value: parseFloat(this.props.state.data.value.toString().replace(this.props.state.data.account.currency.name, "").replace(" ", "").replace(',', '.'))
                                 });
                             }} 
-                            label={'Save'}
+                            label={'common.button.save'}
                             disabled={this.checkEmpty()}>
                         </Button>
                     </View>

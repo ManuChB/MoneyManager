@@ -12,5 +12,18 @@
     "language": {
         "es": "Español",
         "en": "Inglés"
+    },
+    "newTransaction": {
+        "account": "Cuenta",
+        "value": "Valor",
+        "category": "Categoría",
+        "description": "Descripción"
+    },
+    "comon": {
+        "button": {
+            "cancel": "CAncelar",
+            "accept": "Aceptar",
+            "save": "Guardar"
+        }
     }
 }

@@ -19,9 +19,8 @@ export default [
 export function* initialize() {
     try {
         const accounts = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accounts);
-        
         const accountList = accounts.map(element => {
-            return ({ ...element.data, id: element.id })
+            return element;
         });
 
         yield put(accountListAction.setAccounts(accountList));
