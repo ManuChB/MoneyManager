@@ -1,19 +1,28 @@
 
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
-import NavigationService from '../../shared/service/navigation/navigation.service';
+import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { IMoneyManagerProp } from '../money-manager.model';
 import appConstants from '../../appConstants';
 
-export class MainTabNavigation extends Component<IMainTabNavProp> {
+export class MainTabNavigation extends Component<IMoneyManagerProp> {
+    isSelectedTab(tabMode: string) {
+        if (this.props.state.tabMode === tabMode) {
+            console.log(tabMode, '-------------', this.props.state.tabMode);
+
+            return styles.selectedTab;
+        } else {
+            return null;
+        }
+    }
 
     render() {
-
         return (
             <View style={styles.mainViewStyle}>
                 <TouchableOpacity
-                    style={styles.touchableStyle}
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstants.tabMode.transaction) ]}
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.transaction)}>
                     <View style={styles.touchableViewStyle}>
+                        <Image style={styles.image} source={require('../../../assets/images/transaction-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
                             Transactions
@@ -21,9 +30,10 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle}
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstants.tabMode.report) ]}
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.report)}>
                     <View style={styles.touchableViewStyle}>
+                        <Image style={styles.image} source={require('../../../assets/images/report-80.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
                             Report
@@ -31,9 +41,10 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle} 
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstants.tabMode.account) ]} 
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account)}>
                     <View style={styles.touchableViewStyle}>
+                        <Image style={styles.image} source={require('../../../assets/images/account-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
                             Accounts
@@ -41,9 +52,10 @@ export class MainTabNavigation extends Component<IMainTabNavProp> {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.touchableStyle}
+                    style={[styles.touchableStyle, this.isSelectedTab(appConstants.tabMode.settings) ]}
                     onPress={() => this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.settings)}>
                     <View style={styles.touchableViewStyle}>
+                        <Image style={styles.image} source={require('../../../assets/images/settings-64.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
                             Settings
@@ -63,19 +75,16 @@ const styles = {
     mainViewStyle: {
         height: 50,
         flexDirection: 'row',
-        backgroundColor: 'white',
-        shadowOpacity: 0.6,
-        shadowOffset: { height: 4, width: 0 },
-
+        backgroundColor: 'white'
     },
     touchableStyle: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
-        backgroundColor: '#c2e2ef',
+        backgroundColor: '#9ad1ed',
         borderTopColor: '#1379a3',
-        borderTopWidth: 1
+        borderTopWidth: 0 
     },
     touchableViewStyle: {
         alignItems: 'center',
@@ -84,11 +93,27 @@ const styles = {
     touchableTextStyle: {
         textAlign: 'center',
         color: 'white',
-        marginTop: 5
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    selectedTab: {
+        borderTopColor: '#68bde8',
+        borderTopWidth: 5,
+        shadowOffset: {
+            width: 10,
+            height: 30,
+        },
+        shadowColor: 'black',
+        elevation: 30
+    },
+    image: { 
+        width: 20, 
+        height: 20, 
+        tintColor: 'white' 
     }
 
 };
 
 export interface IMainTabNavProp {
-
+    tabMode?: string
 }

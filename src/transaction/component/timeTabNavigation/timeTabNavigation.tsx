@@ -11,10 +11,9 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
             return styles.selectedTab;
         } else { 
             return null;
-        }
-
-        
+        }   
     }
+    
     render() {
         const { changeTimeFormat } = this.props;
         return (
