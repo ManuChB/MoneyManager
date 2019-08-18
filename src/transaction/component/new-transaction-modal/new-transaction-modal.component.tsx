@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { Button, Input, Header, CustomPicker } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './new-transaction-modal.component.style';
-import I18n from '../../../shared/service/i18n/i18n';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
 import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 import asyncStorageService from '../../../shared/service/async-storage/async-storage.service';

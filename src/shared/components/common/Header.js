@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, StatusBar, Platform } from 'react-native';
 
-//import { strings } from '../../../i18n';
-
-
 const Header = (props) => (
         <View style={styles.viewStyle}>
             <StatusBar barStyle="light-content" hidden={false} translucent={false} />

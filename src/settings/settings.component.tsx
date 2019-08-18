@@ -4,10 +4,7 @@ import { ISettingsProp } from './settings.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import { LinearGradient } from 'expo-linear-gradient';
-import I18n, {
-    languages,
-    defaultLanguage
-} from '../shared/service/i18n';
+import {languages } from '../shared/service/i18n';
 import { Loc, setLocale } from 'react-native-redux-i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
 

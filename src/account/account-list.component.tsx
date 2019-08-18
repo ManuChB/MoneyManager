@@ -5,7 +5,6 @@ import BalanceInfo from '../shared/components/balance-info/balance-info.componen
 import { Button } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './account-list.component.style';
-import I18n from '../shared/service/i18n/i18n';
 import Account from './account/account.component';
 import NavigationService from '../shared/service/navigation/navigation.service';
 

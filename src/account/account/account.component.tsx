@@ -4,8 +4,6 @@ import { IAccountProp } from './account.model';
 import { Input, Header } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account.component.style';
-import I18n from '../../shared/service/i18n/i18n';
-// import CountryCurrencyPicker from 'react-native-country-currency-picker';
 
 const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
     const { value, name, type, currency, description} = data;

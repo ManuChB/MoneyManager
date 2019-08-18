@@ -6,7 +6,6 @@ import BalanceInfo from '../../../shared/components/balance-info/balance-info.co
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
 import appConstants from '../../../appConstants';
 import styles from './week-transaction.component.style';
-import I18n from '../../../shared/service/i18n/i18n';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 import moment from 'moment';
 import WeekSelector from 'react-native-week-selector';

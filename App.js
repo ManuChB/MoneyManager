@@ -4,7 +4,6 @@ import NavigationState from './src/NavigationState';
 import { AppRegistry, View } from 'react-native';
 import { Provider } from 'react-redux';
 //import DeviceInfo from 'react-native-device-info';
-//import I18n, { changeLanguage } from './src/i18n';
 
 /********TEMPORARL FIX START*/
 // Timer error in JSTimers
@@ -17,6 +16,7 @@ import {
 import _ from 'lodash';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
+console.disableYellowBox = true;
 
 /*const _console = _.clone(console);
 console.warn = message => {

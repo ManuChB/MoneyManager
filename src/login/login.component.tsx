@@ -5,7 +5,6 @@ import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo-linear-gradient';
-import I18n from '../shared/service/i18n/i18n';
 
 export default class Login extends Component<ILoginProp> {
 
@@ -18,7 +17,7 @@ export default class Login extends Component<ILoginProp> {
         switch (mode) {
             case appConstants.loginMode.register:
                 view = {
-                    buttonLabel: I18n.t('register'),
+                    buttonLabel: 'register',
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => {this.props.actions.setFormMode(appConstants.loginMode.logIn, this.setMode(appConstants.loginMode.logIn))},
                     leftTextLabel: `Already register ? ${'\n'}LognIn`,

@@ -6,7 +6,6 @@ import { ITransactionListProp } from './transaction-list.model';
 import { Button } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './transaction-list.component.style';
-import I18n from '../i18n';
 import { TimeTabNavigation } from './component/timeTabNavigation/timeTabNavigation';
 import DayTransactionScreen from './component/day-transaction/day-transaction.screen';
 import MonthTransactionScreen from './component/month-transaction/month-transaction.screen';
