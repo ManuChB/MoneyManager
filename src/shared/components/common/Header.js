@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
     },
     viewStyle: {
-        backgroundColor: "white",
+        backgroundColor: "#68bde8",
         justifyContent: 'center',
         alignItems: 'center',
         height: 24,
