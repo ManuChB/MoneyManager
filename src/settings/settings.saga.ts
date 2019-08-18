@@ -5,10 +5,12 @@ import NavigationService from '../shared/service/navigation/navigation.service';
 import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import appConstants from '../appConstants';
+import moneyManagerAction from '../money-manager/money-manager.action';
 
 export default [
     takeLatest(settingsConstants.SETTINGS_INITIALIZE_START, initialize),
-    takeLatest(settingsConstants.SETTINGS_SET_CURRENT_LANGUAGE, updateLanguage)
+    takeLatest(settingsConstants.SETTINGS_SET_CURRENT_LANGUAGE, updateLanguage),
+    takeLatest(settingsConstants.SETTINGS_LOG_OUT, logOut)
 ];
 
 export function* initialize() {
@@ -29,4 +31,10 @@ export function* updateLanguage(action) {
     }
 }
 
+export function* logOut() {
+    yield call(AsyncStorageService.removeItem, 'USER_ID');
+    yield call(NavigationService.navigateTo, appConstants.routName.login);
+    yield put(moneyManagerAction.moneyManagerTabModeChange(appConstants.tabMode.transaction));
+
+}
 

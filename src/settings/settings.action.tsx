@@ -18,6 +18,11 @@ const settingsAction: ISettingsAction = {
             type: settinsConstans.SETTINGS_SET_CURRENT_LANGUAGE,
             value: uLanguage
         }
+    },
+    logOut() {
+        return {
+            type: settinsConstans.SETTINGS_LOG_OUT
+        }
     }
     
 }

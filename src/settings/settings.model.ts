@@ -12,6 +12,7 @@ export interface ISettingsAction {
     settingsInitializeStart?: () => Action;
     settingsInitializeFinish?: () => Action;
     settingsSetCurrentLanguage?: (uLanguage: string) => Action;
+    logOut?: () => Action;
 }
 
 export interface ISettingsState {

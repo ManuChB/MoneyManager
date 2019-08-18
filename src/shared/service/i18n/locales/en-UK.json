@@ -61,7 +61,7 @@
         "forgotPsw": "Forgotten password? \nRecover",
         "newRegister": "New here? \nSign Up",
         "recover": "Recover",
-        "username": "Username",
+        "email": "E-Mail",
         "password": "Password"
     },
     "mainTabNav": {
@@ -83,7 +83,8 @@
     },
     "settingsScreen": {
         "settings": "Settings",
-        "language": "Language"
+        "language": "Language",
+        "logOut": "Log Out"
     },
     "timeTab": {
         "day": "Day",

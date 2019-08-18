@@ -12,8 +12,11 @@ var firebaseConfi = {
     databaseURL: "https://moneymanager-6d989.firebaseio.com",
     projectId: "moneymanager-6d989",
     storageBucket: "moneymanager-6d989.appspot.com",
-    messagingSenderId: "842630312759"
+    messagingSenderId: "842630312759",
+    appId: "1:842630312759:web:8033ff6542c85e46"
+
 };
+
 
 var db;
 
@@ -30,11 +33,18 @@ class FirebaseService {
 
     async newUser(userName, password){
         const response = await firebase.auth().createUserWithEmailAndPassword(userName, password);
+        await firebase.auth()
+
         return response;
     }
 
     async logIn(userName, password) {
         const response = await firebase.auth().signInWithEmailAndPassword(userName, password);
+        return response;
+    }
+
+    async RecoverPassword(userName) {
+        const response = await firebase.auth().sendPasswordResetEmail(userName);
         return response;
     }
 

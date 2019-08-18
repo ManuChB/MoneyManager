@@ -39,11 +39,11 @@ export default class Login extends Component<ILoginProp> {
             case appConstants.loginMode.forgotPassword:
                 view = {
                     buttonLabel: 'loginScreen.recover',
-                    buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
+                    buttonOnPress: () => this.props.actions.recoverPassword(this.props.state.userName),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
                     leftTextLabel: 'loginScreen.newRegister',
-                    rightTextOnPress: null,
-                    rightTextLabel: null
+                    rightTextOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
+                    rightTextLabel: 'loginScreen.alreadyRegistered'
                 }
                 break;
             default:
@@ -67,7 +67,7 @@ export default class Login extends Component<ILoginProp> {
                 <View style={styles.containerStyle}>
                     <View style={styles.subContainerStyle}>
                         <Input 
-                            label={I18n.t('loginScreen.username')} 
+                            label={'loginScreen.email'} 
                             value={this.props.state.userName} 
                             onChangeText={(text) => this.props.actions.loginSetUserName(text)}
                             keyboard={'email-address'}
@@ -78,7 +78,7 @@ export default class Login extends Component<ILoginProp> {
                         />
                         <Input 
                             inputRef={ref => this.passwordInput = ref}
-                            label={I18n.t('loginScreen.password')} 
+                            label={'loginScreen.password'} 
                             value={this.props.state.password} 
                             secureTextEntry={true} 
                             onChangeText={(text) => this.props.actions.loginSetPassword(text)}

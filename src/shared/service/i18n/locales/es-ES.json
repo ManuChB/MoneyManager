@@ -62,7 +62,7 @@
         "forgotPsw": "Contraseña olvidada? \nRecuperar",
         "newRegister": "Nuevo aquí? \nRegístrate",
         "recover": "Recuperar",
-        "username": "Usuario",
+        "email": "Correo",
         "password": "Constraseña"
     },
     "mainTabNav": {
@@ -85,7 +85,8 @@
     },
     "settingsScreen": {
         "settings": "Configuración",
-        "language": "Idioma"
+        "language": "Idioma",
+        "logOut": "Cerrar Sesión"
     },
     "timeTab": {
         "day": "Dia",

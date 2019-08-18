@@ -15,6 +15,7 @@ export interface ILoginAction {
     setFormMode?: (formMode: string, screenMode: object) => Action;
     registerSubmit?: (userName: string, password: string) => Action;
     loginSubmit?: (userName: string, password: string) => Action;
+    recoverPassword?: (userName: string) => Action;
     errorMessage?: (message: string) => Action;
     showSpinner?: (show: boolean) => Action;
 }

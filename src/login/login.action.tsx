@@ -1,5 +1,5 @@
 import { LOGIN_INITIALIZE_FINISH, LOGIN_INITIALIZE_START, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE,
-    REGISTER_SUBMIT, LOGIN_SUBMIT, ERROR_MESSAGE, SHOW_SPINNER } from './login.constant';
+    REGISTER_SUBMIT, LOGIN_SUBMIT, ERROR_MESSAGE, SHOW_SPINNER, RECOVER_PASSWORD } from './login.constant';
 import { ILoginAction } from './login.model';
 
 const splashAction: ILoginAction = {
@@ -44,6 +44,12 @@ const splashAction: ILoginAction = {
         return {
             type: LOGIN_SUBMIT,
             value: { userName, password }
+        }
+    },
+    recoverPassword(userName) {
+        return {
+            type: RECOVER_PASSWORD,
+            value: { userName }
         }
     },
     errorMessage(error) {

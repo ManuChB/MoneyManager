@@ -15,16 +15,30 @@ export default class Settings extends Component<ISettingsProp> {
         this.props.dispatch(setLocale(language.code));
     }
     
+    logOut() {
+        this.props.actions.logOut();
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Loc locKey={'settingsScreen.settings'}></Loc>
                 <DataPicker label={'settingsScreen.language'}
                     value={this.props.state.currentLanguage.name}
                     data={languages}
                     onSelect={(lang) => this.setLanguage(lang)}>
                 </DataPicker>
-                
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+                    marginBottom: 20}}>
+                    <Button
+                        customButtonStyle={{
+                            height: 50,
+                            borderColor: '#F38266', backgroundColor: '#F38266' }}
+                        onPress={() => this.logOut()}
+                        label={'settingsScreen.logOut'}>
+                    </Button>
+                </View>
             </View>
         )
     }
