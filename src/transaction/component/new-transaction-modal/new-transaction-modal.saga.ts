@@ -4,6 +4,7 @@ import { NEW_TRANSACTION_INITIALIZE_START } from './new-transaction-modal.consta
 import AsyncStorageSevice from '../../../shared/service/async-storage/async-storage.service';
 import FirebaseService from '../../../shared/service/firebase/firebase.service';
 import appConstants from '../../../appConstants';
+import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 
 export default [
     takeLatest(NEW_TRANSACTION_INITIALIZE_START, initialize),
@@ -12,8 +13,9 @@ export default [
 
 export function* initialize() {
     try {
+        const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
         const categories = yield call(AsyncStorageSevice.getItem, appConstants.asyncStorageItem.CATEGORIES);
-        const accounts = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accounts);
+        const accounts = yield call(FirebaseService.getAllFromCollectionWhithUid, appConstants.collection.accounts, uid);
         
         const accountList = accounts.map(element => {
             return ({ ...element.data, id: element.id })

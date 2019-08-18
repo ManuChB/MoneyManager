@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { IMoneyManagerProp } from '../money-manager.model';
 import appConstants from '../../appConstants';
+import { Loc } from 'react-native-redux-i18n';
 
 export class MainTabNavigation extends Component<IMoneyManagerProp> {
     isSelectedTab(tabMode: string) {
@@ -23,7 +24,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/transaction-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            Transactions
+                            <Loc locKey={'mainTabNav.transactions'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -34,7 +35,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/report-80.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            Report
+                            <Loc locKey={'mainTabNav.report'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -45,7 +46,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/account-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            Accounts
+                            <Loc locKey={'mainTabNav.accounts'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -56,7 +57,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/settings-64.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            Settings
+                            <Loc locKey={'mainTabNav.settings'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>

@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { TextInput, View, Animated } from 'react-native';
+import { Loc } from 'react-native-redux-i18n';
 
 export class Input extends Component<IImputProp> {
     _animatedIsFocused = new Animated.Value(0);
@@ -42,7 +43,7 @@ export class Input extends Component<IImputProp> {
         return (
             <View style={styles.containerStyle} >
                 <Animated.Text style={labelStyle}>
-                    {label}
+                    <Loc locKey={label}></Loc>
                 </Animated.Text>
                 <TextInput
                     secureTextEntry={secureTextEntry}

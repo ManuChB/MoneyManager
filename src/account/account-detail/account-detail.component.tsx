@@ -6,6 +6,7 @@ import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
 import _ from 'lodash';
 import { DataPicker } from '../../shared/components/common/DataPicker';
+import I18n, { Loc } from 'react-native-redux-i18n';
 
 export default class AccountDetail extends Component<IAccountDetailProp> {
 
@@ -52,6 +53,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     blurOnSubmit={true}
                 />
                 <DataPicker label={'accountDetail.currency'}
+                    dontTranslate={true}
                     value={account.currency ? account.currency.name : ''}
                     data={currencyList}
                     onSelect={(currency) => this.props.actions.accountDetailDataChange({ ...account, currency })}>
@@ -65,12 +67,12 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     <Button
                         customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
                         onPress={() => onClose()}
-                        label={'Cancel'}>
+                        label={'common.button.cancel'}>
                     </Button>
                     <Button
                         customButtonStyle={{ flex: 1 }}
                         onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account })}
-                        label={'Save'}
+                        label={'common.button.save'}
                         disabled={this.checkEmpty()}>
                     </Button>
                 </View>

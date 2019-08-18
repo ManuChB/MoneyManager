@@ -14,7 +14,7 @@ export class DataPicker extends Component<IPickerProps> {
     
 
     showModal() {
-        const { data, onSelect } = this.props;
+        const { data, onSelect, dontTranslate } = this.props;
         return (
             <Modal >
                 {data && data.map((element, key) => {
@@ -24,7 +24,9 @@ export class DataPicker extends Component<IPickerProps> {
                             key={key}
                             onPress={() => { this.setState({ showModal: false }); onSelect(element) }}>
                             <View style={styles.categoryView} key={key} >
-                                <Text style={styles.categoryText} key={key}><Loc locKey={element.name}></Loc></Text>
+                                <Text style={styles.categoryText} key={key}>
+                                    {dontTranslate ? element.name : <Loc locKey={element.name}></Loc>}
+                                </Text>
                             </View>
                         </TouchableOpacity>)
                 })}
@@ -33,7 +35,7 @@ export class DataPicker extends Component<IPickerProps> {
     }
 
     showPicker() {
-        const { data, onSelect, placeHolder, value, label } = this.props;
+        const { dontTranslate, onSelect, placeHolder, value, label } = this.props;
         const conf = {
             labelFontSizeInactive: 16,
             labelFontSizeActive: 14,
@@ -71,7 +73,7 @@ export class DataPicker extends Component<IPickerProps> {
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={I18n.t(value)}
+                        value={value ? dontTranslate ? value : I18n.t(value): ''}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}
@@ -172,6 +174,8 @@ export interface IPickerProps {
     data: Array<any>,
     showModal?: boolean,
     placeHolder?: string,
-    value?: string
+    value?: string,
+    dontTranslate?: boolean
+
 }
 

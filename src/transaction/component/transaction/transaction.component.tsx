@@ -6,6 +6,7 @@ import styles from './transaction.component.style';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import { Moment } from 'moment';
 import { IAccountData } from '../../../account/account/account.model';
+import I18n, { Loc } from 'react-native-redux-i18n';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
@@ -40,7 +41,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
                     <Text>{account ? account.name : ''}</Text>
                 </View>
                 <View style={{ flex: 5 }}>
-                    <Text style={styles.textStyle}>{subCategory ? subCategory.value : ''}</Text>
+                    <Text style={styles.textStyle}> <Loc locKey={subCategory ? subCategory.value : ''}></Loc></Text>
                     <Text>{description}</Text>
                 </View>
                 <View style={{

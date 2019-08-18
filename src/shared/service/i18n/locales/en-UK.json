@@ -6,26 +6,90 @@
         "value": "Value",
         "currency": "Currency"
     },
-    "settingsScreen": {
-        "settings": "Settings",
-        "language": "Language"
+    "accountTypes": {
+        "cash": "Cash",
+        "creditCard": "Credit card"
     },
-    "language": {
-        "esES": "Spanish",
-        "enUK": "English"
+    "balanceInfo": {
+        "income": "INCOME",
+        "expense": "EXPENSE",
+        "balance": "BALANCE"
     },
-    "newTransaction": {
-        "account": "Account",
-        "value": "Value",
-        "category": "Category",
-        "description": "Description"
+    "categories": {
+        "hausing": {
+            "furnishing": "Furnishing",
+            "appliance": "Appliance",
+            "insurance": "Insurance",
+            "mortgage": "Mortgage",
+            "rent": "Rent",
+            "taxes": "Taxes",
+            "others": "Others"
+        },
+        "income": {
+            "dividend": "Dividend",
+            "gift": "Gift",
+            "interest": "Interest",
+            "wage": "Wage",
+            "others": "Others"
+        },
+        "savings": {
+            "investment": "Investment",
+            "emergency": "Emergency",
+            "retirement": "Retirement",
+            "vacation": "Vacation"
+        }
+    }, "categoriesIds": {
+        "hausing": "Hausing",
+        "income": "Income",
+        "savings": "Savings"
     },
-    "comon": {
+    "common": {
         "button": {
             "cancel": "Cancel",
             "accept": "Accept",
             "save": "Save"
         }
+    },
+    "language": {
+        "esES": "Spanish",
+        "enUK": "English"
+    },
+    "loginScreen": {
+        "register": "Sign Up",
+        "alreadyRegistered":"Already registered? \nLogn In",
+        "login": "Log In",
+        "forgotPsw": "Forgotten password? \nRecover",
+        "newRegister": "New here? \nSign Up",
+        "recover": "Recover",
+        "username": "Username",
+        "password": "Password"
+    },
+    "mainTabNav": {
+        "transactions": "Transactions",
+        "report": "Report",
+        "accounts": "Accounts",
+        "settings": "Settings"
+    },
+    "newTransaction": {
+        "account": "Account",
+        "value": "Value",
+        "category": "Category",
+        "description": "Description",
+        "income": "Income",
+        "expense": "expense"
+    },
+    "reportScreen": {
+        "report": "Report"
+    },
+    "settingsScreen": {
+        "settings": "Settings",
+        "language": "Language"
+    },
+    "timeTab": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "year": "Year"
     }
     
 }

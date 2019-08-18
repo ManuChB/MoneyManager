@@ -5,6 +5,7 @@ import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo-linear-gradient';
+import I18n, { Loc } from 'react-native-redux-i18n';
 
 export default class Login extends Component<ILoginProp> {
 
@@ -17,30 +18,30 @@ export default class Login extends Component<ILoginProp> {
         switch (mode) {
             case appConstants.loginMode.register:
                 view = {
-                    buttonLabel: 'register',
+                    buttonLabel: 'loginScreen.register',
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => {this.props.actions.setFormMode(appConstants.loginMode.logIn, this.setMode(appConstants.loginMode.logIn))},
-                    leftTextLabel: `Already register ? ${'\n'}LognIn`,
+                    leftTextLabel: 'loginScreen.alreadyRegistered',
                     rightTextOnPress: null,
                     rightTextLabel: null
                 }
                 break;
             case appConstants.loginMode.logIn:
                 view = {
-                    buttonLabel: `Log In`,
+                    buttonLabel: 'loginScreen.login',
                     buttonOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.forgotPassword, this.setMode(appConstants.loginMode.forgotPassword)),
-                    leftTextLabel: `Forgot Password ?${'\n'}Recover`,
+                    leftTextLabel: 'loginScreen.forgotPsw',
                     rightTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
-                    rightTextLabel: `New here ?${'\n'}Register`
+                    rightTextLabel: 'loginScreen.newRegister'
                 }
                 break;
             case appConstants.loginMode.forgotPassword:
                 view = {
-                    buttonLabel: 'Recover',
+                    buttonLabel: 'loginScreen.recover',
                     buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
-                    leftTextLabel: `New here ?${'\n'}Register`,
+                    leftTextLabel: 'loginScreen.newRegister',
                     rightTextOnPress: null,
                     rightTextLabel: null
                 }
@@ -66,7 +67,7 @@ export default class Login extends Component<ILoginProp> {
                 <View style={styles.containerStyle}>
                     <View style={styles.subContainerStyle}>
                         <Input 
-                            label={'Username'} 
+                            label={I18n.t('loginScreen.username')} 
                             value={this.props.state.userName} 
                             onChangeText={(text) => this.props.actions.loginSetUserName(text)}
                             keyboard={'email-address'}
@@ -77,7 +78,7 @@ export default class Login extends Component<ILoginProp> {
                         />
                         <Input 
                             inputRef={ref => this.passwordInput = ref}
-                            label={'Password'} 
+                            label={I18n.t('loginScreen.password')} 
                             value={this.props.state.password} 
                             secureTextEntry={true} 
                             onChangeText={(text) => this.props.actions.loginSetPassword(text)}
@@ -93,9 +94,11 @@ export default class Login extends Component<ILoginProp> {
                         <Text style={styles.errorStyle}>{this.props.state.errorMessage}</Text>
                     </View>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} >{this.props.state.screenMode.leftTextLabel}</Text>
+                            <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} ><Loc locKey={this.props.state.screenMode.leftTextLabel}></Loc></Text>
                             {this.props.state.screenMode.rightTextLabel && 
-                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.rightTextOnPress} >{this.props.state.screenMode.rightTextLabel}</Text>}
+                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.rightTextOnPress} >
+                                    <Loc locKey={this.props.state.screenMode.rightTextLabel}></Loc>
+                                </Text>} 
                         </View>
                 </View>
                 </LinearGradient>

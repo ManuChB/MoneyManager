@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { Loc } from 'react-native-redux-i18n';
 
 export class Button extends Component<IButtonProps> {
 
     render() {
-        const { onPress, label, buttonRef, customButtonStyle, customLabelStyle, disabled } = this.props;
+        const { onPress, label, buttonRef, customButtonStyle, customLabelStyle, disabled, dontTranslate } = this.props;
         return (
             <TouchableOpacity 
                 onPress={onPress} 
@@ -12,7 +13,9 @@ export class Button extends Component<IButtonProps> {
                 ref={buttonRef}
                 disabled={disabled}
             >
-                <Text style={[styles.textStyle, customLabelStyle]}>{label} </Text>
+                <Text style={[styles.textStyle, customLabelStyle]}>
+                    {dontTranslate ? label : <Loc locKey={label}></Loc>}
+                </Text>
             </TouchableOpacity>
         )
     }
@@ -56,6 +59,7 @@ export interface IButtonProps {
     customLabelStyle?: Object,
     onPress?: () => void,
     buttonRef?: (ref: string) => void,
-    disabled?: boolean
+    disabled?: boolean,
+    dontTranslate?: boolean
 
 }

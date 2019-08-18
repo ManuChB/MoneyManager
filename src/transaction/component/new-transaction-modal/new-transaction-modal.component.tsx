@@ -10,6 +10,7 @@ import { ITransactionDetailProp } from './new-transaction-modal.model';
 import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 import asyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import { DataPicker } from '../../../shared/components/common/DataPicker';
+import { Loc } from 'react-native-redux-i18n';
 
 export default class TransactionDetail extends Component<ITransactionDetailProp> {
 
@@ -37,12 +38,16 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         <TouchableOpacity 
                             style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: '#6ddbcc' }]} 
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: false })}>
-                            <Text style={data.isExpense ? null : { color: 'white' }} >Income</Text>
+                            <Text style={data.isExpense ? null : { color: 'white' }} >
+                                <Loc locKey={'newTransaction.income'}></Loc>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: '#F38266' }: null]}
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
-                            <Text style={data.isExpense ? { color: 'white' } : null} >Expense</Text>
+                            <Text style={data.isExpense ? { color: 'white' } : null} >
+                                <Loc locKey={'newTransaction.expense'}></Loc>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <CustomPicker 
@@ -52,6 +57,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
                     </CustomPicker>
                     <DataPicker
+                        dontTranslate={true}
                         label={'newTransaction.account'}
                         value={data.account ? data.account.name: ''}
                         data={accounts}

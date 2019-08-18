@@ -17,7 +17,7 @@ export function* initialize() {
         yield call(FirebaseService.init);
         const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
         yield call(getEsentialData);
-        if( uid) {
+        if(uid) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         }
         else {

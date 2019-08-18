@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from './Modal';
+import I18n, { Loc } from 'react-native-redux-i18n';
 
 export class CustomPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -20,17 +21,23 @@ export class CustomPicker extends Component<IPickerProps> {
                     return (
                         <View key={key} >
                             <View style={styles.categoryView} key={'view_'+key} >
-                                <Text style={styles.categoryText} key={'text_'+key}>{subdata._uid.toUpperCase()}</Text>
+                                <Text style={styles.categoryText} key={'text_' + key}>
+                                    <Loc locKey={"categoriesIds." + subdata._uid} customizer={text => text.toUpperCase()} ></Loc>
+                                </Text>
                             </View>
                             <View style={styles.subCategoryView} key={'subview_'+key} >
                                 {Object.keys(subdata).map((key) => {
-                                    return (
-                                        <TouchableOpacity
-                                            style={styles.subCategory}
-                                            key={'touch_'+subdata[key].id}
-                                            onPress={() => { this.setState({ showModal: false }); onSelect(subdata._uid, subdata[key]) }}>
-                                            <Text key={'touchtext_' + subdata[key].id} >{subdata[key].value}</Text>
-                                        </TouchableOpacity>)
+                                    if(key !== '_uid'){
+                                        return (
+                                            <TouchableOpacity
+                                                style={styles.subCategory}
+                                                key={'touch_'+subdata[key].id}
+                                                onPress={() => { this.setState({ showModal: false }); onSelect(subdata._uid, subdata[key]) }}>
+                                                <Text key={'touchtext_' + subdata[key].id} >
+                                                    <Loc locKey={subdata[key].value}></Loc>
+                                                </Text>
+                                            </TouchableOpacity>)
+                                    }
                                 })}
                             </View>
                         </View>
@@ -73,13 +80,13 @@ export class CustomPicker extends Component<IPickerProps> {
         return (
                 <View style={styles.containerStyle} >
                     <Animated.Text style={labelStyle}>
-                        {label}
+                        <Loc locKey={label}></Loc>
                     </Animated.Text>
                     <TextInput
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={value}
+                        value={I18n.t(value)}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}

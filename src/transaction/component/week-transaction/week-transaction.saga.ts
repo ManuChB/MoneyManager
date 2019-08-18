@@ -47,7 +47,6 @@ export function* calculateBalance() {
 }
 
 export function* getTransactionByDate() {
-    console.log(`[week-transaction][saga][getTransactionByDate]`);
     try {
         const currentWeekStart = yield select(selectors.getCurrentWeekStart);
         const currentWeekEnd = yield select(selectors.getCurrentWeekEnd);

@@ -6,25 +6,91 @@
         "value": "Valor",
         "currency": "Moneda"
     },
-    "settingsScreen": {
-        "settings": "Configuración",
-        "language": "Idioma"
+    "accountTypes":{
+        "cash": "Metalico",
+        "creditCard": "Tarjeta de credito"
+    },
+    "balanceInfo": {
+        "income": "BENEFICIOS",
+        "expense": "GASTOS",
+        "balance": "BALANCE"
+    },
+    "categories":{
+        "hausing":{
+            "furnishing": "Muebles",
+            "appliance": "Electrodomésticos",
+            "insurance": "Seguro",
+            "mortgage": "Hipoteca",
+            "rent": "Alquiler",
+            "taxes": "Inpuestos",
+            "others": "Otros"
+        },
+        "income": {
+            "dividend": "Dividendos",
+            "gift": "Regalo",
+            "interest": "Intereses",
+            "wage": "Salario",
+            "others": "Otros"
+        },
+        "savings": {
+            "investment": "Inversión",
+            "emergency": "Emergencias",
+            "retirement": "Jubilación",
+            "vacation": "Vacaciones"
+        }
+    },
+    "categoriesIds":{
+        "hausing": "Hogar",
+        "income": "Ingresos",
+        "savings": "Ahorros"
+    },
+    "common": {
+        "button": {
+            "cancel": "Cancelar",
+            "accept": "Aceptar",
+            "save": "Guardar"
+        }
     },
     "language": {
         "esES": "Español",
         "enUK": "Inglés"
     },
+    "loginScreen": {
+        "register": "Registrar",
+        "alreadyRegistered": "Ya registrado? \nEntrar",
+        "login": "Entrar",
+        "forgotPsw": "Contraseña olvidada? \nRecuperar",
+        "newRegister": "Nuevo aquí? \nRegístrate",
+        "recover": "Recuperar",
+        "username": "Usuario",
+        "password": "Constraseña"
+    },
+    "mainTabNav": {
+        "transactions": "Transacciones",
+        "report": "Resumen",
+        "accounts": "Cuentas",
+        "settings": "Configuración"
+    },
     "newTransaction": {
         "account": "Cuenta",
-        "value": "Valor",
+        "value": "Cantidad",
         "category": "Categoría",
-        "description": "Descripción"
+        "description": "Descripción",
+        "income": "Ingreso",
+        "expense": "Gasto"
+
     },
-    "comon": {
-        "button": {
-            "cancel": "CAncelar",
-            "accept": "Aceptar",
-            "save": "Guardar"
-        }
+    "reportScreen": {
+        "report": "Resumen"
+    },
+    "settingsScreen": {
+        "settings": "Configuración",
+        "language": "Idioma"
+    },
+    "timeTab": {
+        "day": "Dia",
+        "week": "Semana",
+        "month": "Mes",
+        "year": "Año"
     }
 }

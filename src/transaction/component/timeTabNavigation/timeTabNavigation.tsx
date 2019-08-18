@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import NavigationService from '../../../shared/service/navigation/navigation.service';
 import appConstants from '../../../appConstants';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Loc } from 'react-native-redux-i18n';
 
 export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     isSelectedTab(timeMode: string) {
@@ -27,9 +27,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.day)]}
                     onPress={() => changeTimeFormat(appConstants.timeMode.day) }>
                     <View style={styles.touchableViewStyle}>
-                        <Text
-                            style={styles.touchableTextStyle}>
-                            Day
+                        <Text style={styles.touchableTextStyle}>
+                            <Loc locKey={'timeTab.day'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -37,9 +36,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.week)]}
                     onPress={() => changeTimeFormat(appConstants.timeMode.week)}>
                     <View style={styles.touchableViewStyle}>
-                        <Text
-                            style={styles.touchableTextStyle}>
-                            Week
+                        <Text style={styles.touchableTextStyle}>
+                            <Loc locKey={'timeTab.week'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -47,9 +45,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.month)]} 
                     onPress={() => changeTimeFormat(appConstants.timeMode.month)}>
                     <View style={styles.touchableViewStyle}>
-                        <Text
-                            style={styles.touchableTextStyle}>
-                            Month
+                        <Text style={styles.touchableTextStyle}>
+                            <Loc locKey={'timeTab.month'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -57,9 +54,8 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.year)]} 
                     onPress={() => changeTimeFormat(appConstants.timeMode.year)}>
                     <View style={styles.touchableViewStyle}>
-                        <Text
-                            style={styles.touchableTextStyle}>
-                            Year
+                        <Text style={styles.touchableTextStyle}>
+                             <Loc locKey={'timeTab.year'}></Loc>
                         </Text>
                     </View>
                 </TouchableOpacity>   */}

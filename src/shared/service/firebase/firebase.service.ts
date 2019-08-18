@@ -64,8 +64,6 @@ class FirebaseService {
             .get();
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
-            console.log('[FirebaseService][getTransactionsByRange]doc', doc);
-
             if (doc.data().account) {
                 const accountList = await db.collection(appConstants.collection.accounts).where('id', '==', account).get();
                 account = accountList.docs.map(doc => {
@@ -79,14 +77,21 @@ class FirebaseService {
 
     async getAllFromCollection(collection) {
         const snapshot = await db.collection(collection).get();
-        const a = snapshot.docs.map(doc => {
+        const data = snapshot.docs.map(doc => {
             return {...doc.data(), _uid: doc.id};
         });
-        console.log('[FirebaseService][getAllFromCollection]snapshot', a);
 
-        return a
+        return data;
     }
 
+    async getAllFromCollectionWhithUid(collection, uuid) {
+        const snapshot = await db.collection(collection).where('uuid', '==', uuid).get();
+        const data = snapshot.docs.map(doc => {
+            return { ...doc.data(), _uid: doc.id };
+        });
+
+        return data;
+    }
 
     async getAllFromCollectionWhere(collection, query) {
         // console.log(`[FirebaseService][getAllFromCollectionWhere] ${collection} [query] ${query}`);
@@ -112,13 +117,13 @@ class FirebaseService {
     }
 
     async addToCollection(collection, data) {
-        console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
+       // console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
         delete data.id;
         return await db.collection(collection).add(data);
     }
 
     updateDocumentInCollection(collection, data) {
-        console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
+        //console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
         db.collection(collection).doc(data.id).update(data);
     }
 }

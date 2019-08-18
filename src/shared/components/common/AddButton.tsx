@@ -10,7 +10,8 @@ export class AddButton extends Component<IAddButtonProps> {
             <Button
                 customButtonStyle={styles.customButtonStyle}
                 customLabelStyle={styles.customLabelStyle} onPress={onPress}
-                label={'+'}>
+                label={'+'}
+                dontTranslate={true}>
             </Button>
         )
     }
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
         fontSize: 50,
         fontWeight: '900',
         textAlign: 'center',
-        marginLeft: 13,
+        marginLeft: 0,
         marginBottom: 5
     }
 })

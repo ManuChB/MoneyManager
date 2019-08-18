@@ -7,6 +7,7 @@ import {
 import FirebaseService from '../shared/service/firebase/firebase.service';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
+import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 
 export default [
     takeLatest(ACCOUNT_LIST_INITIALIZE_START, initialize),
@@ -18,15 +19,24 @@ export default [
 
 export function* initialize() {
     try {
-        const accounts = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accounts);
+        yield call(getAccounts);
+        yield put(accountListAction.accountListInitializeFinish());
+    } catch (e) {
+        console.log(`[error][accountList][saga][initialize]>>> ${e}`);
+    }
+}
+
+export function* getAccounts() {
+    try {
+        const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
+        const accounts = yield call(FirebaseService.getAllFromCollectionWhithUid, appConstants.collection.accounts, uid);
         const accountList = accounts.map(element => {
             return element;
         });
 
         yield put(accountListAction.setAccounts(accountList));
-        yield put(accountListAction.accountListInitializeFinish());
     } catch (e) {
-        console.log(`[error][accountList][saga][initialize]>>> ${e}`);
+        console.log(`[error][accountList][saga][getAccounts]>>> ${e}`);
     }
 }
 
@@ -47,13 +57,15 @@ export function* accountToDetail(action) {
 export function* saveNewAccount(action) {
     try {
         if (action.value.id.includes(appConstants.localId.account)) {
+            const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
             const data = yield call(FirebaseService.addToCollection, appConstants.collection.accounts, action.value);
             if (data.id) {
-                yield put(accountListAction.saveNewAccount({ ...action.value, id: data.id }))
+                yield put(accountListAction.saveNewAccount({ ...action.value, id: data.id, uuid: uid }));
             }
         } else {
             yield call(updateAccount, action);
         }
+        yield call(getAccounts);
     } catch (e) {
         console.log(`[error][accountList][saga][saveNewAccount]>>> ${e}`);
     }
