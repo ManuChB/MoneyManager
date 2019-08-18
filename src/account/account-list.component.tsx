@@ -21,11 +21,11 @@ export default class AccountList extends Component<IAccountListProp> {
     }
 
     render() {
-        const { accountList } = this.props.state;
+        const { income, expense, balance, accountList } = this.props.state;
 
         return (
             <View style={{ flex: 1 }}>
-                <BalanceInfo></BalanceInfo>
+                <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <AddButton onPress={() => this.onPressNewAccount()}></AddButton>
                 <ScrollView>
                     {accountList.map((account, key) => {

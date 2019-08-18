@@ -14,10 +14,15 @@ export interface IAccountListAction {
     setAccounts?: (accounts: Array<IAccountData>) => Action;
     setAccountToDetail?: (account: IAccountData, onSave: any) => Action;
     saveNewAccount?: (account: IAccountData) => Action;
+    setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
+
 }
 
 export interface IAccountListState {
     isInitialized?: boolean;
     accountList?: Array<IAccountData>;
     accountToDetail?: IAccountData;
+    income: Number;
+    expense: Number;
+    balance: Number;
 }

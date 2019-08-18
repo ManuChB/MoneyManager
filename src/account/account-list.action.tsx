@@ -1,4 +1,5 @@
-import { ACCOUNT_LIST_INITIALIZE_FINISH, ACCOUNT_LIST_INITIALIZE_START, SET_ACCOUNT_LIST, SET_ACCOUNT_TO_DETAIL, SAVE_NEW_ACCOUNT } from './account-list.constant';
+import { ACCOUNT_LIST_INITIALIZE_FINISH, ACCOUNT_LIST_INITIALIZE_START, SET_ACCOUNT_LIST, SET_ACCOUNT_TO_DETAIL, SAVE_NEW_ACCOUNT,
+    SET_ACCOUNTS_BALANCE_INFO } from './account-list.constant';
 import { IAccountListAction } from './account-list.model';
 
 const accountListAction: IAccountListAction = {
@@ -33,7 +34,15 @@ const accountListAction: IAccountListAction = {
             type: SAVE_NEW_ACCOUNT,
             value: account
         }
-    }
+    },
+    
+    setBalanceInfo(income, expense, balance) {
+        return {
+            type: SET_ACCOUNTS_BALANCE_INFO,
+            value: { income, expense, balance }
+        }
+    },
+
 
 }
 

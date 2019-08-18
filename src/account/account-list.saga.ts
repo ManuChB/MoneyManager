@@ -1,4 +1,4 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, select } from 'redux-saga/effects';
 
 import accountListAction from './account-list.action';
 import {
@@ -8,6 +8,8 @@ import FirebaseService from '../shared/service/firebase/firebase.service';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
+import * as selectors from './selectors';
+import TransactionsService from '../shared/service/transactions/transactions.service';
 
 export default [
     takeLatest(ACCOUNT_LIST_INITIALIZE_START, initialize),
@@ -33,8 +35,8 @@ export function* getAccounts() {
         const accountList = accounts.map(element => {
             return element;
         });
-
         yield put(accountListAction.setAccounts(accountList));
+        yield call(calculateBalance);
     } catch (e) {
         console.log(`[error][accountList][saga][getAccounts]>>> ${e}`);
     }
@@ -82,5 +84,15 @@ export function* updateAccount(action) {
         }
     } catch (e) {
         console.log(`[error][accountList][saga][updateAccount]>>> ${e}`);
+    }
+}
+
+export function* calculateBalance() {
+    try {
+        const accounts = yield select(selectors.getAccounts);
+        const { income, expense, balance } = TransactionsService.calculateBalance(accounts);
+        yield put(accountListAction.setBalanceInfo(income, expense, balance))
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);
     }
 }
