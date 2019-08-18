@@ -57,11 +57,6 @@ class FirebaseService {
 
     async getTransactionsByDateRange(dateStart, datEnd) {
         const uuid = await AsyncStorageService.getItem('USER_ID');
-        console.log('[FirebaseService][getTransactionsByRange]uuid', uuid);
-
-        console.log('[FirebaseService][getTransactionsByRange]dateStart', dateStart);
-        console.log('[FirebaseService][getTransactionsByRange]datEnd', datEnd);
-
         const snapshot = await db.collection(appConstants.collection.transactions)
             .where('uuid', '==', uuid)
             .where('date', '>=', dateStart)
