@@ -11,8 +11,8 @@
         "language": "Idioma"
     },
     "language": {
-        "es": "Español",
-        "en": "Inglés"
+        "esES": "Español",
+        "enUK": "Inglés"
     },
     "newTransaction": {
         "account": "Cuenta",

@@ -6,24 +6,20 @@ import locales from './locales';
 
 export const languages = [
     {
-        code: 'es',
-        name: 'language.es'
+        code: 'es-ES',
+        name: 'language.esES'
     },
     {
-        code: 'en',
-        name: 'language.en'
+        code: 'en-UK',
+        name: 'language.enUK'
     }
     /* ... */
     /* Other languages */
 ];
 
 export const defaultLanguage = {
-    code: 'es',
-    name: 'language.es'
+    code: 'en-UK',
+    name: 'language.enUK'
 };
-
-//export const dictionaries = locales;
-
-//export const actionsI18n = i18nActions;
 
 export default I18n;
