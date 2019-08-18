@@ -30,7 +30,6 @@ export function* initialize() {
         const weekStart = moment(date).startOf('isoWeek');
         const weekEnd = moment(date).endOf('isoWeek');
         yield put(weekTransactionAction.changeWeek(weekStart, weekEnd));
-        yield call(getTransactionByDate );
         yield put(weekTransactionAction.weekTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][week-transaction][saga][initialize]>>> ${e}`);

@@ -70,7 +70,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                         inputRef={ref => this.valueInput = ref}
                         label={'newTransaction.value'}
                         value={data.value ? data.account ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
-                        onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account.currency.name, "").replace(" ", "") })}
+                        onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account?data.account.currency.name:"", "").replace(" ", "") })}
                         returnKeyType={"next"}
                         keyboard={'numeric'}
                         blurOnSubmit={true}

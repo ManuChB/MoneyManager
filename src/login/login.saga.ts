@@ -42,7 +42,7 @@ export function* logInUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
-        yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid)
+        yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);

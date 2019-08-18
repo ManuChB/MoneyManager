@@ -3,6 +3,7 @@ import { ITransactionDataProp } from '../../../transaction/component/transaction
 import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
+import AsyncStorageService from '../async-storage/async-storage.service';
 
 let _this;
 class TransactionService {
@@ -32,8 +33,9 @@ class TransactionService {
     async newTransaction(transaction) {
         try {
             if (transaction.id.includes(appConstants.localId.transaction)) {
+                const uid = await AsyncStorageService.getItem('USER_ID');
                 return await FirebaseService.addToCollection(appConstants.collection.transactions,
-                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id });
+                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uuid: uid });
             }
         } catch (e) {
             console.log(`[error][TransactionService][newTransaction]>>> ${e}`);

@@ -3,6 +3,7 @@ import firebase from "firebase";
 require("firebase/firestore");
 
 import appConstants from '../../../appConstants';
+import AsyncStorageService from '../async-storage/async-storage.service';
 
 
 var firebaseConfi = {
@@ -38,7 +39,9 @@ class FirebaseService {
     }
 
     async getTransactionsByDate(date) {
-        const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).get(); // "capital", "==", true
+        const uuid = await AsyncStorageService.getItem('USER_ID');
+
+        const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).where('uuid', '==', uuid ).get(); // "capital", "==", true
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
             if (doc.data().account){
@@ -53,13 +56,20 @@ class FirebaseService {
     }
 
     async getTransactionsByDateRange(dateStart, datEnd) {
+        const uuid = await AsyncStorageService.getItem('USER_ID');
+        console.log('[FirebaseService][getTransactionsByRange]uuid', uuid);
+
+        console.log('[FirebaseService][getTransactionsByRange]dateStart', dateStart);
+        console.log('[FirebaseService][getTransactionsByRange]datEnd', datEnd);
+
         const snapshot = await db.collection(appConstants.collection.transactions)
+            .where('uuid', '==', uuid)
             .where('date', '>=', dateStart)
             .where('date', '<=', datEnd)
             .get();
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
-            // console.log('[FirebaseService][getTransactionsByRange]doc', doc);
+            console.log('[FirebaseService][getTransactionsByRange]doc', doc);
 
             if (doc.data().account) {
                 const accountList = await db.collection(appConstants.collection.accounts).where('id', '==', account).get();

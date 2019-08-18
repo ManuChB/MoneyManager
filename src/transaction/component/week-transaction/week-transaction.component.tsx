@@ -33,7 +33,6 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
     }
 
     onWeekChanged(date) {
-        date = moment(date).add(6,'days');
         const dateStart = moment(date).startOf('isoWeek');
         const dateEnd = moment(date).endOf('isoWeek');
         this.props.actions.changeWeek(dateStart, dateEnd);
