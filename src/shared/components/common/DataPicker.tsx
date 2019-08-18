@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from '.';
-import { Loc } from 'redux-react-native-i18n';
+import I18n, { Loc } from 'react-native-redux-i18n';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -24,7 +24,7 @@ export class DataPicker extends Component<IPickerProps> {
                             key={key}
                             onPress={() => { this.setState({ showModal: false }); onSelect(element) }}>
                             <View style={styles.categoryView} key={key} >
-                                <Text style={styles.categoryText} key={key}>{element.name}</Text>
+                                <Text style={styles.categoryText} key={key}><Loc locKey={element.name}></Loc></Text>
                             </View>
                         </TouchableOpacity>)
                 })}
@@ -71,7 +71,7 @@ export class DataPicker extends Component<IPickerProps> {
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={value}
+                        value={I18n.t(value)}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}

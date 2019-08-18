@@ -49,21 +49,5 @@ function* getEsentialData() {
             call(AsyncStorageSevice.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
         ]);
     }
-    //setCategories(cat);
-
 }
 
-function setCategories(categories) {
-        let categoryList = [];
-        console.log('-------------categories------', categories);
-
-        categories && categories.map((category, key) => {
-            const _uid = category._uid;
-            categoryList.push(_uid);
-            console.log('-------------set------', category, key);
-            delete category['_uid'];
-            call(AsyncStorageSevice.setItem, _uid, category);
-        });
-    console.log('-------------categoryList------', categoryList);
-
-}

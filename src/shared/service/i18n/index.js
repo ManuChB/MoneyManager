@@ -1,19 +1,29 @@
-import {
-    i18nActions
-} from 'redux-react-native-i18n'
+import I18n  from 'react-native-redux-i18n';
 import locales from './locales';
 
-export const languages = [{
+ I18n.fallbacks = true;
+ I18n.translations = locales;
+
+export const languages = [
+    {
         code: 'es',
-        name: 'language.spanish'
+        name: 'language.es'
     },
     {
         code: 'en',
-        name: 'language.english'
+        name: 'language.en'
     }
     /* ... */
     /* Other languages */
-]
-export const dictionaries = locales;
+];
 
-export const actionsI18n = i18nActions;
+export const defaultLanguage = {
+    code: 'es',
+    name: 'language.es'
+};
+
+//export const dictionaries = locales;
+
+//export const actionsI18n = i18nActions;
+
+export default I18n;

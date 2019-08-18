@@ -4,7 +4,11 @@ import { ISettingsState } from './settings.model';
 import appConstants from '../appConstants';
 
 export const initialState: ISettingsState = {
-    isInitialized: false
+    isInitialized: false,
+    currentLanguage: {
+        name: null,
+        code: null
+    }
 
 };
 
@@ -19,6 +23,11 @@ export default function settings(state: ISettingsState = initialState, action: A
             return {
                 ...state,
                 isInitialized: true
+            };
+        case settingsConstants.SETTINGS_SET_CURRENT_LANGUAGE:
+            return {
+                ...state,
+                currentLanguage: action.value
             };
 
         default:

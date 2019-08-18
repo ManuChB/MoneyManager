@@ -7,8 +7,6 @@ import appConstants from '../../appConstants';
 export class MainTabNavigation extends Component<IMoneyManagerProp> {
     isSelectedTab(tabMode: string) {
         if (this.props.state.tabMode === tabMode) {
-            console.log(tabMode, '-------------', this.props.state.tabMode);
-
             return styles.selectedTab;
         } else {
             return null;

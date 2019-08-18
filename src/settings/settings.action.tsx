@@ -13,7 +13,12 @@ const settingsAction: ISettingsAction = {
             type: settinsConstans.SETTINGS_INITIALIZE_FINISH
         }
     },
-
+    settingsSetCurrentLanguage(uLanguage: string) {
+        return {
+            type: settinsConstans.SETTINGS_SET_CURRENT_LANGUAGE,
+            value: uLanguage
+        }
+    }
     
 }
 

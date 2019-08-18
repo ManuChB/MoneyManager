@@ -13,7 +13,7 @@ import weekTransaction from '../transaction/component/week-transaction/week-tran
 import monthTransaction from '../transaction/component/month-transaction/month-transaction.reducer';
 import settings from '../settings/settings.reducer';
 import report from '../report/report.reducer';
-import { i18nReducer as i18n } from 'redux-react-native-i18n';
+import { reducer as i18n } from 'react-native-redux-i18n';
 
 
 export interface State {

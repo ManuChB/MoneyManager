@@ -4,11 +4,10 @@ import createSagaMiddleware from 'redux-saga';
 import { reactNavigationMiddleware } from '../NavigationState';
 import rootReducer from '../reducers';
 import rootSaga from '../saga';
-import {
-    actionsI18n,
-    dictionaries,
-    languages
-} from '../shared/service/i18n';
+import { defaultLanguage } from '../shared/service/i18n';
+import { setLocale } from 'react-native-redux-i18n';
+
+import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 
 export default () => {
     const sagaMiddleware = createSagaMiddleware();
@@ -30,8 +29,18 @@ export default () => {
     );
     sagaMiddleware.run(rootSaga);
 
-    store.dispatch(actionsI18n.setDictionaries(dictionaries));
-    store.dispatch(actionsI18n.setLanguages(languages));
-    store.dispatch(actionsI18n.setCurrentLanguage('es'));
+    //store.dispatch(actionsI18n.setDictionaries(dictionaries));
+    //store.dispatch(actionsI18n.setTranslations(languages));
+    AsyncStorageService.getItem('USER_LANGUAGE').then((uLanguage) => {
+        console.log('-----------', uLanguage);
+        if (uLanguage) {
+            store.dispatch(setLocale(uLanguage.code));
+        } else {
+            AsyncStorageService.setItem('USER_LANGUAGE', defaultLanguage);
+            store.dispatch(setLocale(defaultLanguage.code));
+
+        }
+    });
+    
     return store;
-}
+};

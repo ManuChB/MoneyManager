@@ -12,6 +12,8 @@ export default [
 
 export function* initialize() {
     try {
+        const uLanguage = yield call(AsyncStorageService.getItem, 'USER_LANGUAGE');
+        yield put(settingsAction.settingsSetCurrentLanguage(uLanguage));
         yield put(settingsAction.settingsInitializeFinish());
     } catch (e) {
         console.log(`[error][settings][saga][initialize]>>> ${e}`);

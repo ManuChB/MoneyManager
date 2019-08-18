@@ -11,12 +11,15 @@ export interface ISettingsProp {
 export interface ISettingsAction {
     settingsInitializeStart?: () => Action;
     settingsInitializeFinish?: () => Action;
-    
+    settingsSetCurrentLanguage?: (uLanguage: string) => Action;
 }
 
 export interface ISettingsState {
     isInitialized?: boolean;
-
+    currentLanguage?: {
+        name: string;
+        code: string;
+    }
 }
 
 export interface IScreenModeState {

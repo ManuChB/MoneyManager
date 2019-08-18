@@ -7,7 +7,8 @@
         "currency": "Moneda"
     },
     "settingsScreen": {
-        "settings": "Configuración"
+        "settings": "Configuración",
+        "language": "Idioma"
     },
     "language": {
         "es": "Español",
