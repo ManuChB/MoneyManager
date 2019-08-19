@@ -11,12 +11,14 @@ export class DataPicker extends Component<IPickerProps> {
         this.state = { showModal: false };
     }
 
-    
+    closeModal(){
+        this.setState({ showModal: false });
+    }
 
     showModal() {
         const { data, onSelect, dontTranslate } = this.props;
         return (
-            <Modal >
+            <Modal closeModal={ this.closeModal.bind(this) }>
                 {data && data.map((element, key) => {
                     return (
                         <TouchableOpacity

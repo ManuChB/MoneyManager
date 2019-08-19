@@ -30,7 +30,7 @@ export default class TransactionDetail extends Component<ITransactionDetailProp>
                 <Header></Header>
                 <View style={{ flex: 1 }}>
                     <DatePickerHeader 
-                        date={data.date} 
+                        dateStart={data.date || moment()} 
                         changeDay={this.changeDay.bind(this)}
                         dateMode={'day'} >
                     </DatePickerHeader>

@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         height: '100%',
         position: 'absolute',
         shadowOpacity: 2,
+        elevation: 10
     },
     modalStyle: {
         backgroundColor: 'white',

@@ -80,7 +80,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
         const month = dateMode == 'month' ? 'month' : 'day';
         const markers = this.getMarkers();
         return (
-            <Modal>
+            <Modal hideClose={true}>
                 <View style={{flex: 1 }}>
                     <Calendar
                         markedDates={markers}

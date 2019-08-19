@@ -11,12 +11,14 @@ export class CustomPicker extends Component<IPickerProps> {
         this.state = { showModal: false };
     }
 
-    
+    closeModal() {
+        this.setState({ showModal: false });
+    }
 
     showModal() {
         const { data, onSelect } = this.props;
         return (
-            <Modal>
+            <Modal closeModal={this.closeModal.bind(this)}>
                 {data && data.map((subdata, key) => {
                     return (
                         <View key={key} >
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 10, height: 15 },
         shadowOpacity: 0.2,
-        elevation: 10,
+        elevation: 5,
     },
     subCategoryView: {
         flexWrap: 'wrap', 
