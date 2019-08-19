@@ -52,15 +52,15 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
         let markers = {};
         if (dateMode == 'day' && modalDateStartCopy) {
             markers = {
-                [modalDateStartCopy.format('YYYY-MM-DD')]: { selected: true, color: '#99d7e0' },
+                [modalDateStartCopy.format('YYYY-MM-DD')]: { selected: true, selectedColor: '#58e87e' },
             }
         } else if (modalDateEndCopy && modalDateStartCopy){
             const start = modalDateStartCopy.format('YYYY-MM-DD');
             const end = modalDateEndCopy.format('YYYY-MM-DD');
 
             markers = {
-                [start]: { selected: true, startingDay: true, color: '#99d7e0' },
-                [end]: { selected: true, endingDay: true, color: '#99d7e0' }
+                [start]: { selected: true, startingDay: true, color: '#58e87e' },
+                [end]: { selected: true, endingDay: true, color: '#58e87e' }
             }
 
             var date = start;
@@ -68,7 +68,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
             while (end != date) {
                 date = modalDateStartCopy.add(i, 'day').format('YYYY-MM-DD').toString();
                 if (date != end) {
-                    markers[date] = { selected: true, startingDay: false, endingDay: false, color: '#99d7e0' };
+                    markers[date] = { selected: true, startingDay: false, endingDay: false, color: '#58e87e' };
                 }
             }
         }        
