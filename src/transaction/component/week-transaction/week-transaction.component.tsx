@@ -10,6 +10,8 @@ import NavigationService from '../../../shared/service/navigation/navigation.ser
 import moment from 'moment';
 import WeekSelector from 'react-native-week-selector';
 import Transaction from '../transaction/transaction.component';
+import { Calendar } from 'react-native-calendars';
+
 
 export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
@@ -33,25 +35,25 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
     }
 
     onWeekChanged(date) {
-        const dateStart = moment(date).startOf('isoWeek');
-        const dateEnd = moment(date).endOf('isoWeek');
+        const dateStart = date.clone();
+        const dateEnd = date.endOf('isoWeek');
         this.props.actions.changeWeek(dateStart, dateEnd);
     }
 
     render() {
         const { isInitialized, income, expense, balance, transactions } = this.props.state;
+        
         return (
             <View style={{ flex: 1 }}>
+                
                 {!isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
-                <View style={styles.section}>
-                    <WeekSelector
-                        dateContainerStyle={styles.date}
-                        dayFormat="DD"
-                        monthFormat="MMM"
-                        onWeekChanged={(date) =>this.onWeekChanged(date)}
-                    />
-                </View>
+                <DatePickerHeader
+                    dateStart={this.props.state.currentWeekStart}
+                    dateEnd={this.props.state.currentWeekEnd}
+                    changeDay={this.onWeekChanged.bind(this)}
+                    dateMode={'week'}>
+                </DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{ marginTop: 5 }}>
                     {transactions && transactions.map((data, key) => {

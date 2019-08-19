@@ -35,7 +35,7 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
 
     onMonthChanged(date) {
         date = moment(date);
-        const dateStart = moment(date).startOf('month');
+        const dateStart = moment(date);
         const dateEnd = moment(date).endOf('month');
         this.props.actions.changeMonth(dateStart, dateEnd);
     }
@@ -48,7 +48,8 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
                 {!isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader 
-                    date={this.props.state.currentMonthStart} 
+                    dateStart={this.props.state.currentMonthStart} 
+                    dateEnd={this.props.state.currentMonthEnd}
                     changeDay={(date) => this.onMonthChanged(date) } 
                     dateMode={'month'} 
                     dateFormat={'MM-YYYY'} >

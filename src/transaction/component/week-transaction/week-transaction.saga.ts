@@ -52,11 +52,10 @@ export function* getTransactionByDate() {
         const currentWeekEnd = yield select(selectors.getCurrentWeekEnd);
 
         const transactionsWeek = yield call(TransactionsService.getTransactionByDateRange, currentWeekStart, currentWeekEnd);
-        console.log(`[week-transaction][saga][getTransactionByDate]`, transactionsWeek);
         yield put(weekTransactionAction.setWeekTransactions(transactionsWeek));
         yield call(calculateBalance);
     } catch (e) {
-        console.log(`[error][week-transaction][saga][getTransactionByDate]>>> ${e}`);
+        console.log(`[error][week-transaction][saga][getTransactionByDateRange]>>> ${e}`);
     }
 }
 
