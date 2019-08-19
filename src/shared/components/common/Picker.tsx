@@ -86,7 +86,7 @@ export class CustomPicker extends Component<IPickerProps> {
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={I18n.t(value)}
+                        value={value ? I18n.t(value): ''}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}

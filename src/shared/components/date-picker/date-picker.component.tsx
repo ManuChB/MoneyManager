@@ -8,13 +8,6 @@ import { Button } from '../common/Button';
 
 export class DatePickerHeader extends Component<IDatePickerProps> {
 
-    /*componentWillUpdate() {
-        const { date, changeDay } = this.props;
-        if ( !date ) {
-            changeDay(moment())
-        }
-    }*/
-
     componentDidMount() {
         if (this.props.dateMode == 'day') {
             this.setState({ markingType: 'standard' });
@@ -88,44 +81,47 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
         const markers = this.getMarkers();
         return (
             <Modal>
-                <Calendar
-                    markedDates={markers}
-                    markingType={this.state.markingType}
-                    onDayPress={(day) => { console.log('selected day', day); this.changePickerDay(day) }}
-                    monthFormat={'MMMM yyyy'}
-                    onMonthChange={(month) => { console.log('month changed', month) }}
-                    firstDay={1}
-                    showWeekNumbers={false}
-                    onPressArrowLeft={substractMonth => substractMonth()}
-                    onPressArrowRight={addMonth => addMonth()}
-                    theme={{
-                        'stylesheet.day.period': {
-                            base: {
-                                overflow: 'hidden',
-                                height: 34,
-                                alignItems: 'center',
-                                width: 38,
+                <View style={{flex: 1 }}>
+                    <Calendar
+                        markedDates={markers}
+                        markingType={this.state.markingType}
+                        onDayPress={(day) => { console.log('selected day', day); this.changePickerDay(day) }}
+                        monthFormat={'MMMM yyyy'}
+                        onMonthChange={(month) => { console.log('month changed', month) }}
+                        firstDay={1}
+                        showWeekNumbers={false}
+                        onPressArrowLeft={substractMonth => substractMonth()}
+                        onPressArrowRight={addMonth => addMonth()}
+                        theme={{
+                            'stylesheet.day.period': {
+                                base: {
+                                    overflow: 'hidden',
+                                    height: 34,
+                                    alignItems: 'center',
+                                    width: 38,
+                                }
                             }
-                        }
-                    }}
+                        }}
 
-                />
-                <View style={{
-                    position: 'absolute',
-                    flexDirection: 'row',
-                    bottom: 0,
-                    marginBottom: 10
-                }}>
-                    <Button
-                        customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
-                        onPress={() => this.setState({ showModal: false })}
-                        label={'common.button.cancel'}>
-                    </Button>
-                    <Button
-                        customButtonStyle={{ flex: 1 }}
-                        onPress={() => { this.setState({ showModal: false }); changeDay(this.state.modalDateStart) }}
-                        label={'common.button.save'}>
-                    </Button>
+                    />
+                    <View style={{
+                        position: 'absolute',
+                        flexDirection: 'row',
+                        bottom: 0,
+                        marginBottom: 10
+                    }}>
+                        <Button
+                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
+                            onPress={() => this.setState({ showModal: false })}
+                            label={'common.button.cancel'}>
+                        </Button>
+                        <Button
+                            customButtonStyle={{ flex: 1 }}
+                            onPress={() => { this.setState({ showModal: false }); changeDay(this.state.modalDateStart) }}
+                            label={'common.button.save'}>
+                        </Button>
+                    </View>
+
                 </View>
             </Modal>
         )

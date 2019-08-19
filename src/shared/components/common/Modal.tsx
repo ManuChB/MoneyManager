@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 2,
     },
     modalStyle: {
-        backgroundColor: '#f4fcc2',
+        backgroundColor: 'white',
         width: '90%',
         height: '90%',
         shadowOpacity: 10,
