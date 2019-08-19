@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import { ILoginProp } from './login.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
@@ -19,7 +19,7 @@ export default class Login extends Component<ILoginProp> {
             case appConstants.loginMode.register:
                 view = {
                     buttonLabel: 'loginScreen.register',
-                    buttonOnPress: () => this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password),
+                    buttonOnPress: () => { Keyboard.dismiss(); this.props.actions.registerSubmit(this.props.state.userName, this.props.state.password); },
                     leftTextOnPress: () => {this.props.actions.setFormMode(appConstants.loginMode.logIn, this.setMode(appConstants.loginMode.logIn))},
                     leftTextLabel: 'loginScreen.alreadyRegistered',
                     rightTextOnPress: null,
@@ -29,7 +29,7 @@ export default class Login extends Component<ILoginProp> {
             case appConstants.loginMode.logIn:
                 view = {
                     buttonLabel: 'loginScreen.login',
-                    buttonOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
+                    buttonOnPress: () => { Keyboard.dismiss(); this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password); },
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.forgotPassword, this.setMode(appConstants.loginMode.forgotPassword)),
                     leftTextLabel: 'loginScreen.forgotPsw',
                     rightTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
@@ -39,10 +39,10 @@ export default class Login extends Component<ILoginProp> {
             case appConstants.loginMode.forgotPassword:
                 view = {
                     buttonLabel: 'loginScreen.recover',
-                    buttonOnPress: () => this.props.actions.recoverPassword(this.props.state.userName),
+                    buttonOnPress: () => { Keyboard.dismiss(); this.props.actions.recoverPassword(this.props.state.userName); },
                     leftTextOnPress: () => this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(appConstants.loginMode.register)),
                     leftTextLabel: 'loginScreen.newRegister',
-                    rightTextOnPress: () => this.props.actions.loginSubmit(this.props.state.userName, this.props.state.password),
+                    rightTextOnPress: () => { this.props.actions.setFormMode(appConstants.loginMode.logIn, this.setMode(appConstants.loginMode.logIn)) },
                     rightTextLabel: 'loginScreen.alreadyRegistered'
                 }
                 break;

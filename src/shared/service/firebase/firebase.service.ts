@@ -50,7 +50,9 @@ class FirebaseService {
 
     async getTransactionsByDate(date) {
         const uuid = await AsyncStorageService.getItem('USER_ID');
-
+        if( !uuid) {
+            return null;
+        }
         const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).where('uuid', '==', uuid ).get(); // "capital", "==", true
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
