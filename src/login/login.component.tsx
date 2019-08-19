@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard } from 'react-native';
+import { View, Text, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { ILoginProp } from './login.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
@@ -54,55 +54,57 @@ export default class Login extends Component<ILoginProp> {
     }
     render() {
         return (
-            <View style={{flex:1}}>
-                {this.props.state.showSpinner && <Spinner></Spinner>}
-                <Header ></Header>
-                <LinearGradient 
-                    start={{ x: 0.0, y: 0.2 }} 
-                    end={{ x: 0.75, y: 1.0 }}
-                    locations={[0, 0.5, 0.9]}
-                    colors={['#97A2C4', '#CFCD5B', '#350F90']} 
-                    style={styles.linearGradient}>
+            <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>
+                <View style={{ flex: 1 }} >
+                    {this.props.state.showSpinner && <Spinner></Spinner>}
+                    <Header ></Header>
+                    <LinearGradient 
+                        start={{ x: 0.0, y: 0.2 }} 
+                        end={{ x: 0.75, y: 1.0 }}
+                        locations={[0, 0.5, 0.9]}
+                        colors={['#97A2C4', '#CFCD5B', '#350F90']} 
+                        style={styles.linearGradient}>
 
-                <View style={styles.containerStyle}>
-                    <View style={styles.subContainerStyle}>
-                        <Input 
-                            label={'loginScreen.email'} 
-                            value={this.props.state.userName} 
-                            onChangeText={(text) => this.props.actions.loginSetUserName(text)}
-                            keyboard={'email-address'}
-                            capitalize={'none'}
-                            returnKeyType={"next"}
-                            onSubmitEditing={() => this.passwordInput.focus()}
-                            blurOnSubmit={false}
-                        />
-                        <Input 
-                            inputRef={ref => this.passwordInput = ref}
-                            label={'loginScreen.password'} 
-                            value={this.props.state.password} 
-                            secureTextEntry={true} 
-                            onChangeText={(text) => this.props.actions.loginSetPassword(text)}
-                            returnKeyType={"next"}
-                            blurOnSubmit={true}
-                        />
-                        <View style={styles.buttonContainerStyle}>
-                            <Button
-                                label={this.props.state.screenMode.buttonLabel}
-                                onPress={this.props.state.screenMode.buttonOnPress}
+                    <View style={styles.containerStyle}>
+                        <View style={styles.subContainerStyle}>
+                            <Input 
+                                label={'loginScreen.email'} 
+                                value={this.props.state.userName} 
+                                onChangeText={(text) => this.props.actions.loginSetUserName(text)}
+                                keyboard={'email-address'}
+                                capitalize={'none'}
+                                returnKeyType={"next"}
+                                onSubmitEditing={() => this.passwordInput.focus()}
+                                blurOnSubmit={false}
                             />
-                        </View >
-                        <Text style={styles.errorStyle}>{this.props.state.errorMessage}</Text>
-                    </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} ><Loc locKey={this.props.state.screenMode.leftTextLabel}></Loc></Text>
-                            {this.props.state.screenMode.rightTextLabel && 
-                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.rightTextOnPress} >
-                                    <Loc locKey={this.props.state.screenMode.rightTextLabel}></Loc>
-                                </Text>} 
+                            <Input 
+                                inputRef={ref => this.passwordInput = ref}
+                                label={'loginScreen.password'} 
+                                value={this.props.state.password} 
+                                secureTextEntry={true} 
+                                onChangeText={(text) => this.props.actions.loginSetPassword(text)}
+                                returnKeyType={"next"}
+                                blurOnSubmit={true}
+                            />
+                            <View style={styles.buttonContainerStyle}>
+                                <Button
+                                    label={this.props.state.screenMode.buttonLabel}
+                                    onPress={this.props.state.screenMode.buttonOnPress}
+                                />
+                            </View >
+                            <Text style={styles.errorStyle}>{this.props.state.errorMessage}</Text>
                         </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} ><Loc locKey={this.props.state.screenMode.leftTextLabel}></Loc></Text>
+                                {this.props.state.screenMode.rightTextLabel && 
+                                    <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.rightTextOnPress} >
+                                        <Loc locKey={this.props.state.screenMode.rightTextLabel}></Loc>
+                                    </Text>} 
+                            </View>
+                    </View>
+                    </LinearGradient>
                 </View>
-                </LinearGradient>
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 }
