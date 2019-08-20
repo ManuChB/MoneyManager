@@ -4,7 +4,7 @@ import { View, ActivityIndicator } from 'react-native';
 const Spinner: StatelessComponent = () => {
     return (
         <View style={styles.spinnerStyle} >
-            <ActivityIndicator size={'large'} />
+            <ActivityIndicator size={'large'} color="#0000ff"/>
         </View>
     );
 };
