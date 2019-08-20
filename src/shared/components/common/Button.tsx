@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { Loc } from 'react-native-redux-i18n';
+import _ from 'lodash';
 
 export class Button extends Component<IButtonProps> {
 
+    debouncedOnPress = () => {
+        this.props.onPress && this.props.onPress();
+    }
+
+
     render() {
-        const { onPress, label, buttonRef, customButtonStyle, customLabelStyle, disabled, dontTranslate } = this.props;
+        const { label, buttonRef, customButtonStyle, customLabelStyle, disabled, dontTranslate } = this.props;
         return (
             <TouchableOpacity 
-                onPress={onPress} 
+                onPress={ _.debounce(this.debouncedOnPress, 300, { leading: true, trailing: false }) } 
                 style={[styles.buttonStyle, customButtonStyle, disabled ? styles.disabled : null ]}
                 ref={buttonRef}
                 disabled={disabled}
