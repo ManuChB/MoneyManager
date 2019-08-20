@@ -49,15 +49,15 @@ const constants = {
 
     transactionIcons: {
         cash: { 
-            id: 1,
+            iconName: 'cash',
             value: require('../assets/images/cash-filled-64.png')
         } ,
         credit: {
-            id: 0,
+            iconName: 'card',
             value: require('../assets/images/credit-card-64.png')
         }, 
         default: {
-            id: 'DEFAULT',
+            iconName: 'DEFAULT',
             value: require('../assets/images/icons8-cash-filled-64.png')
         },
     }

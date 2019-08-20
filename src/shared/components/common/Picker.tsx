@@ -24,17 +24,17 @@ export class CustomPicker extends Component<IPickerProps> {
                         <View key={key} >
                             <View style={styles.categoryView} key={'view_'+key} >
                                 <Text style={styles.categoryText} key={'text_' + key}>
-                                    <Loc locKey={"categoriesIds." + subdata._uid} customizer={text => text.toUpperCase()} ></Loc>
+                                    <Loc locKey={"categoriesIds." + subdata.id} customizer={text => text.toUpperCase()} ></Loc>
                                 </Text>
                             </View>
                             <View style={styles.subCategoryView} key={'subview_'+key} >
                                 {Object.keys(subdata).map((key) => {
-                                    if(key !== '_uid'){
+                                    if(key !== 'id'){
                                         return (
                                             <TouchableOpacity
                                                 style={styles.subCategory}
                                                 key={'touch_'+subdata[key].id}
-                                                onPress={() => { this.setState({ showModal: false }); onSelect(subdata._uid, subdata[key]) }}>
+                                                onPress={() => { this.setState({ showModal: false }); onSelect(subdata[key].id, subdata[key]) }}>
                                                 <Text key={'touchtext_' + subdata[key].id} >
                                                     <Loc locKey={subdata[key].value}></Loc>
                                                 </Text>

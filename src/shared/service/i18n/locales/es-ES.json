@@ -77,7 +77,10 @@
         "category": "Categoría",
         "description": "Descripción",
         "income": "Ingreso",
-        "expense": "Gasto"
+        "expense": "Gasto",
+        "button":{
+            "newAccount": "Crear cuenta"
+        }
 
     },
     "reportScreen": {

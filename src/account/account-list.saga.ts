@@ -9,7 +9,7 @@ import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import * as selectors from './selectors';
-import TransactionsService from '../shared/service/transactions/transactions.service';
+import AccountService from '../shared/service/account/account.service';
 
 export default [
     takeLatest(ACCOUNT_LIST_INITIALIZE_START, initialize),
@@ -30,11 +30,7 @@ export function* initialize() {
 
 export function* getAccounts() {
     try {
-        const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
-        const accounts = yield call(FirebaseService.getAllFromCollectionWhithUid, appConstants.collection.accounts, uid);
-        const accountList = accounts.map(element => {
-            return element;
-        });
+        const accountList = yield call(AccountService.getAccounts);
         yield put(accountListAction.setAccounts(accountList));
         yield call(calculateBalance);
     } catch (e) {
@@ -59,11 +55,7 @@ export function* accountToDetail(action) {
 export function* saveNewAccount(action) {
     try {
         if (action.value.id.includes(appConstants.localId.account)) {
-            const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
-            const data = yield call(FirebaseService.addToCollection, appConstants.collection.accounts, action.value);
-            if (data.id) {
-                yield put(accountListAction.saveNewAccount({ ...action.value, id: data.id, uuid: uid }));
-            }
+            yield call(AccountService.newAccount, action.value);
         } else {
             yield call(updateAccount, action);
         }
@@ -79,7 +71,7 @@ export function* updateAccount(action) {
         if (action.value.id.includes(appConstants.localId.account)) {
             yield call(saveNewAccount, action);
         } else {
-            yield call(FirebaseService.updateDocumentInCollection, appConstants.collection.accounts, action.value);
+            AccountService.updateAccount(action.value);
             yield call(initialize);
         }
     } catch (e) {
@@ -90,7 +82,7 @@ export function* updateAccount(action) {
 export function* calculateBalance() {
     try {
         const accounts = yield select(selectors.getAccounts);
-        const { income, expense, balance } = TransactionsService.calculateBalance(accounts);
+        const { income, expense, balance } = AccountService.calculateBalance(accounts);
         yield put(accountListAction.setBalanceInfo(income, expense, balance))
     } catch (e) {
         console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);

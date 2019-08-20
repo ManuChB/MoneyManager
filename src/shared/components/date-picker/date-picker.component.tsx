@@ -85,7 +85,9 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                     <Calendar
                         markedDates={markers}
                         markingType={this.state.markingType}
-                        onDayPress={(day) => { console.log('selected day', day); this.changePickerDay(day) }}
+                        onDayPress={(day) => { console.log('selected day', day); this.changePickerDay(day); }}
+                        onLongDayPress={(day) => { console.log('selected long day', day); this.changePickerDay(day); }}
+
                         monthFormat={'MMMM yyyy'}
                         onMonthChange={(month) => { console.log('month changed', month) }}
                         firstDay={1}
@@ -118,7 +120,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                         <Button
                             customButtonStyle={{ flex: 1 }}
                             onPress={() => { this.setState({ showModal: false }); changeDay(this.state.modalDateStart) }}
-                            label={'common.button.save'}>
+                            label={'common.button.accept'}>
                         </Button>
                     </View>
 

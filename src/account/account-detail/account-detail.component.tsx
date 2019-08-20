@@ -16,7 +16,6 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
     }
     render() {
         const { account, onClose, onSave, currencyList, accountTypeList } = this.props.state;
-
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>

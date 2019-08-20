@@ -76,7 +76,10 @@
         "category": "Category",
         "description": "Description",
         "income": "Income",
-        "expense": "expense"
+        "expense": "expense",
+        "button": {
+            "newAccount": "new account"
+        }
     },
     "reportScreen": {
         "report": "Report"

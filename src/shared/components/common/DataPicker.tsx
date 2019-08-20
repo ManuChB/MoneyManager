@@ -32,6 +32,8 @@ export class DataPicker extends Component<IPickerProps> {
                             </View>
                         </TouchableOpacity>)
                 })}
+                {this.props.children}
+
             </Modal>
         )
     }
@@ -67,7 +69,7 @@ export class DataPicker extends Component<IPickerProps> {
             })
         };
         return (
-                <View style={styles.containerStyle} >
+            <View style={ styles.containerStyle } >
                     <Animated.Text style={labelStyle}>
                         <Loc locKey={label}></Loc>
                     </Animated.Text>

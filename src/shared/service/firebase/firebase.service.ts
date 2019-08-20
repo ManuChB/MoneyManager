@@ -49,11 +49,11 @@ class FirebaseService {
     }
 
     async getTransactionsByDate(date) {
-        const uuid = await AsyncStorageService.getItem('USER_ID');
-        if( !uuid) {
+        const uid = await AsyncStorageService.getItem('USER_ID');
+        if( !uid) {
             return null;
         }
-        const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).where('uuid', '==', uuid ).get(); // "capital", "==", true
+        const snapshot = await db.collection(appConstants.collection.transactions).where('date', '==', date).where('uid', '==', uid ).get(); // "capital", "==", true
         return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
             let account = doc.data().account;
             if (doc.data().account){
@@ -68,9 +68,9 @@ class FirebaseService {
     }
 
     async getTransactionsByDateRange(dateStart, datEnd) {
-        const uuid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem('USER_ID');
         const snapshot = await db.collection(appConstants.collection.transactions)
-            .where('uuid', '==', uuid)
+            .where('uid', '==', uid)
             .where('date', '>=', dateStart)
             .where('date', '<=', datEnd)
             .get();
@@ -90,16 +90,16 @@ class FirebaseService {
     async getAllFromCollection(collection) {
         const snapshot = await db.collection(collection).get();
         const data = snapshot.docs.map(doc => {
-            return {...doc.data(), _uid: doc.id};
+            return {...doc.data(), id: doc.id};
         });
 
         return data;
     }
 
-    async getAllFromCollectionWhithUid(collection, uuid) {
-        const snapshot = await db.collection(collection).where('uuid', '==', uuid).get();
+    async getAllFromCollectionWhithUid(collection, uid) {
+        const snapshot = await db.collection(collection).where('uid', '==', uid).get();
         const data = snapshot.docs.map(doc => {
-            return { ...doc.data(), _uid: doc.id };
+            return { ...doc.data(), id: doc.id };
         });
 
         return data;

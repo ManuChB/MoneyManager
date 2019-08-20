@@ -23,6 +23,7 @@ const accountListAction: IAccountListAction = {
     },
 
     setAccountToDetail(account, onSave) {
+        console.log('---------detail');
         return {
             type: SET_ACCOUNT_TO_DETAIL,
             value: {account, onSave}

@@ -14,6 +14,8 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
 
     componentWillMount() {
         const { data, onClose, onSave } = this.props.navigation.state.params;
+        console.log('NewTransactionScreen------componentWillMount---¡', _.isNil(data.isExpense), onClose, onSave);
+
         this.props.actions.newTransactionInitializeStart(
             {
                 data: { ...data, 

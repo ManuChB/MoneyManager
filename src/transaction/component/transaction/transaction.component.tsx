@@ -14,13 +14,13 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const getIcon = (image) => {
         var icon;
         switch (image) {
-            case appConstants.transactionIcons.cash.id:
+            case appConstants.transactionIcons.cash.iconName:
                 icon = appConstants.transactionIcons.cash.value;
                 break;
-            case appConstants.transactionIcons.credit.id:
+            case appConstants.transactionIcons.credit.iconName:
                 icon = appConstants.transactionIcons.credit.value;
                 break; 
-            case appConstants.transactionIcons.default.id:
+            case appConstants.transactionIcons.default.iconName:
                 icon = appConstants.transactionIcons.default.value;
                 break;
             default:
@@ -29,7 +29,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
         }
         return icon;
     }
-    const img = getIcon(account.type.id);
+    const img = getIcon(account.type.iconName);
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>

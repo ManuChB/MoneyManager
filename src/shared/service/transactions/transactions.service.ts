@@ -35,7 +35,7 @@ class TransactionService {
             if (transaction.id.includes(appConstants.localId.transaction)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
                 return await FirebaseService.addToCollection(appConstants.collection.transactions,
-                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uuid: uid });
+                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid });
             }
         } catch (e) {
             console.log(`[error][TransactionService][newTransaction]>>> ${e}`);
