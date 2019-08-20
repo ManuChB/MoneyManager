@@ -85,7 +85,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                     <Calendar
                         markedDates={markers}
                         markingType={this.state.markingType}
-                        onDayPress={(day) => { console.log('selected day', day); this.changePickerDay(day); }}
+                        onDayPress={(day) => { this.changePickerDay(day); }}
                         onLongDayPress={(day) => { console.log('selected long day', day); this.changePickerDay(day); }}
 
                         monthFormat={'MMMM yyyy'}

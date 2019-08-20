@@ -20,8 +20,6 @@ export default class  extends Component<ITransactionDetailProp> {
     }
 
     componentWillReceiveProps() {
-        console.log('----------componentWillReceiveProps', this.props.state.accounts);
-
         this.setState({ accounts: this.props.state.accounts });
     }
 
@@ -82,7 +80,7 @@ export default class  extends Component<ITransactionDetailProp> {
                             label={'newTransaction.account'}
                             value={data.account ? data.account.name: ''}
                             data={accounts}
-                            onSelect={(account) => { console.log('account', account); this.props.actions.changeData({ ...data, account }); } }>
+                            onSelect={(account) => this.props.actions.changeData({ ...data, account }) }>
                             <Button
                                 customButtonStyle={{ marginBottom: 20 }}
                             onPress={() => AccountService.accountToDetail({}, this.onSaveAccount.bind(this)) }
