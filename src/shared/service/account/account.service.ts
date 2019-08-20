@@ -48,14 +48,13 @@ class AccountService {
             if (account.id.includes(appConstants.localId.account)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
                 const data = await FirebaseService.addToCollection(appConstants.collection.accounts, {...account, uid: uid});
-                return {data, uid };
+                await _this.updateAccount({...account, id: data.id});
             }
             else{
-                return _this.updateAccount(account);
+                _this.updateAccount(account);
             }
         } catch (e) {
             console.log(`[error][AccountService][newAccount]>>> ${e}`);
-            return {}
         }
     }
 
@@ -66,10 +65,8 @@ class AccountService {
             } else {
                 await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
             }
-            return {}
         } catch (e) {
             console.log(`[error][accountService][updateAccount]>>> ${e}`);
-            return {}
         }
     }
 

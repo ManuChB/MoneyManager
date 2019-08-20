@@ -36,10 +36,9 @@ export default class  extends Component<ITransactionDetailProp> {
     }
 
     async onSaveAccount(account) {
-        AccountService.newAccount(account);
+        await AccountService.newAccount(account);
         NavigationService.navigateBack();
         const accountList = await AccountService.getAccounts();
-        console.log('----------accountlist', accountList);
         this.setState({accounts: accountList});
     }
     

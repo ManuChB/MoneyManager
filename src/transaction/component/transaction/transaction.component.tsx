@@ -11,7 +11,8 @@ import I18n, { Loc } from 'react-native-redux-i18n';
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
     
-    const getIcon = (image) => {
+    const getIcon = (account) => {
+        const image = account && account.type ? account.type.iconName : null;
         var icon;
         switch (image) {
             case appConstants.transactionIcons.cash.iconName:
@@ -29,7 +30,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
         }
         return icon;
     }
-    const img = getIcon(account.type.iconName);
+    const img = getIcon(account);
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
