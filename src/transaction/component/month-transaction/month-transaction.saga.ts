@@ -4,9 +4,7 @@ import _ from 'lodash';
 
 import monthTransactionAction from './month-transaction.action';
 import monthTransConstants from './month-transaction.constant';
-import appConstants from '../../../appConstants';
-import FirebaseService from '../../../shared/service/firebase/firebase.service';
-import NavigationService from '../../../shared/service/navigation/navigation.service';
+import moneyManagerAction from '../../../money-manager/money-manager.action';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 import * as selectors from './selectors';
 
@@ -23,6 +21,7 @@ export default [
 
 export function* initialize() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const date = new Date();
         const monthStart = moment(date).startOf('month');
         const monthEnd = moment(date).endOf('month');
@@ -30,8 +29,10 @@ export function* initialize() {
         yield put(monthTransactionAction.changeMonth(monthStart, monthEnd));
         yield call(getTransactionByDate);
         yield put(monthTransactionAction.monthTransactionInitializeFinish());
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][month-transaction][saga][initialize]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 
@@ -48,13 +49,16 @@ export function* calculateBalance() {
 export function* getTransactionByDate() {
     console.log(`[month-transaction][saga][getTransactionByDate]`);
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const currentMonthStart = yield select(selectors.getCurrentMonthStart);
         const currentMonthEnd = yield select(selectors.getCurrentMonthEnd);
         const transactionsMonth = yield call(TransactionsService.getTransactionByDateRange, currentMonthStart, currentMonthEnd);
         yield put(monthTransactionAction.setMonthTransactions(transactionsMonth));
         yield call(calculateBalance);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][month-transaction][saga][getTransactionByDate]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 

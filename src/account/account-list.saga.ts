@@ -1,6 +1,8 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects';
 
 import accountListAction from './account-list.action';
+import moneyManagerAction from '../money-manager/money-manager.action';
+
 import {
     ACCOUNT_LIST_INITIALIZE_START, SET_ACCOUNT_TO_DETAIL, SAVE_NEW_ACCOUNT
 } from './account-list.constant';
@@ -21,20 +23,26 @@ export default [
 
 export function* initialize() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         yield call(getAccounts);
         yield put(accountListAction.accountListInitializeFinish());
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][accountList][saga][initialize]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 
 export function* getAccounts() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const accountList = yield call(AccountService.getAccounts);
         yield put(accountListAction.setAccounts(accountList));
         yield call(calculateBalance);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][accountList][saga][getAccounts]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 

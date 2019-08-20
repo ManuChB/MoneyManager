@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { IMoneyManagerProp } from './money-manager.model';
-import { Input, Header } from '../shared/components/common';
+import { Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './money-manager.component.style';
 import { MainTabNavigation } from './component/mainTabNavigation';
@@ -13,7 +13,8 @@ import ReportScreen from '../report/report.screen';
 export default class MoneyManager extends Component<IMoneyManagerProp> {
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
+                {this.props.state.showSpinner && <Spinner></Spinner>}
                 <Header></Header>
                     {this.props.state.tabMode === appConstants.tabMode.account && <AccountListScreen></AccountListScreen>}
                     {this.props.state.tabMode === appConstants.tabMode.transaction && <TransactionListScreen></TransactionListScreen>}

@@ -55,7 +55,7 @@ export default class Login extends Component<ILoginProp> {
     render() {
         return (
             <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>
-                <View style={{ flex: 1 }} >
+                <View style={{ flex: 1 }} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
                     {this.props.state.showSpinner && <Spinner></Spinner>}
                     <Header ></Header>
                     <LinearGradient 

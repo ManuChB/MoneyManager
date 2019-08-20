@@ -41,11 +41,10 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
     }
 
     render() {
-        const { isInitialized, income, expense, balance, transactions } = this.props.state;
+        const { income, expense, balance, transactions } = this.props.state;
 
         return (
             <View style={{ flex: 1 }}>
-                {!isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader 
                     dateStart={this.props.state.currentMonthStart} 

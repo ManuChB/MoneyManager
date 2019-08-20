@@ -5,9 +5,7 @@ import _ from 'lodash';
 import dayTransactionAction from './day-transaction.action';
 import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, 
     SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION, CHANGE_DATE } from './day-transaction.constant';
-import appConstants from '../../../appConstants';
-import FirebaseService from '../../../shared/service/firebase/firebase.service';
-import NavigationService from '../../../shared/service/navigation/navigation.service';
+import moneyManagerAction from '../../../money-manager/money-manager.action';
 import * as selectors from './selectors';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 
@@ -24,12 +22,15 @@ export default [
 
 export function* initialize() {
     try {
-
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const day = yield select(selectors.getDayTransaction);
         yield call(getTransactionByDate, { value: day })
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
+
     }
 }
 
@@ -85,11 +86,13 @@ export function* updateAccountValue(transaction) {
 
 export function* getTransactionByDate(action) {
     try {
-
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const transactionsDay = yield call(TransactionsService.getTransactionByDate, action.value);
         yield put(dayTransactionAction.setDayTransactions(transactionsDay));
         yield call(calculateBalance);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }

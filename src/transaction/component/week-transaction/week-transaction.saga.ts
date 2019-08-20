@@ -7,9 +7,7 @@ import {
     WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_NEW_TRANSACTION,  WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, CHANGE_WEEK,
     SET_WEEK_TRANSACTION_TO_DETAIL, UPDATE_WEEK_TRANSACTION
 } from './week-transaction.constant';
-import appConstants from '../../../appConstants';
-import FirebaseService from '../../../shared/service/firebase/firebase.service';
-import NavigationService from '../../../shared/service/navigation/navigation.service';
+import moneyManagerAction from '../../../money-manager/money-manager.action';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 import * as selectors from './selectors';
 
@@ -33,6 +31,7 @@ export function* initialize() {
         yield put(weekTransactionAction.weekTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][week-transaction][saga][initialize]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 
@@ -48,14 +47,17 @@ export function* calculateBalance() {
 
 export function* getTransactionByDate() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         const currentWeekStart = yield select(selectors.getCurrentWeekStart);
         const currentWeekEnd = yield select(selectors.getCurrentWeekEnd);
 
         const transactionsWeek = yield call(TransactionsService.getTransactionByDateRange, currentWeekStart, currentWeekEnd);
         yield put(weekTransactionAction.setWeekTransactions(transactionsWeek));
         yield call(calculateBalance);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][week-transaction][saga][getTransactionByDateRange]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
 

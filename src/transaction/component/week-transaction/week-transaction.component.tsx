@@ -45,8 +45,6 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
         
         return (
             <View style={{ flex: 1 }}>
-                
-                {!isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader
                     dateStart={this.props.state.currentWeekStart}

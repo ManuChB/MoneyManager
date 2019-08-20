@@ -11,10 +11,13 @@ export interface IMoneyManagerAction {
     moneyManagerInitializeStart?: () => Action;
     moneyManagerInitializeFinish?: () => Action;
     moneyManagerTabModeChange?: (tabMode: string) => Action;
+    moneyManagerShowSpinner?: () => Action;
+    moneyManagerHideSpinner?: () => Action;
 
 }
 
 export interface IMoneyManagerState {
     isInitialized?: boolean;
     tabMode?: string;
+    showSpinner?: boolean;
 }

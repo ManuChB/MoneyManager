@@ -38,7 +38,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         const  { income, expense, balance, transactions } = this.props.state;
         return (
             <View style={{ flex: 1 }}>
-                {!this.props.state.isInitialized && <Spinner></Spinner>}
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader dateStart= {this.props.state.date} changeDay={this.props.actions.changeDay} dateMode={'day'} ></DatePickerHeader>
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
