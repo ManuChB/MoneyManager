@@ -3,9 +3,7 @@ import { put, takeLatest, call, select } from 'redux-saga/effects';
 import accountListAction from './account-list.action';
 import moneyManagerAction from '../money-manager/money-manager.action';
 
-import {
-    ACCOUNT_LIST_INITIALIZE_START, SET_ACCOUNT_TO_DETAIL, SAVE_NEW_ACCOUNT
-} from './account-list.constant';
+import accountListConstants from './account-list.constant';
 import FirebaseService from '../shared/service/firebase/firebase.service';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
@@ -14,9 +12,9 @@ import * as selectors from './selectors';
 import AccountService from '../shared/service/account/account.service';
 
 export default [
-    takeLatest(ACCOUNT_LIST_INITIALIZE_START, initialize),
-    takeLatest(SET_ACCOUNT_TO_DETAIL, accountToDetail),
-    takeLatest(SAVE_NEW_ACCOUNT, saveNewAccount)
+    takeLatest(accountListConstants.ACCOUNT_LIST_INITIALIZE_START, initialize),
+    takeLatest(accountListConstants.SET_ACCOUNT_TO_DETAIL, accountToDetail),
+    takeLatest(accountListConstants.SAVE_NEW_ACCOUNT, saveNewAccount)
 ];
 
 
@@ -93,6 +91,6 @@ export function* calculateBalance() {
         const { income, expense, balance } = AccountService.calculateBalance(accounts);
         yield put(accountListAction.setBalanceInfo(income, expense, balance))
     } catch (e) {
-        console.log(`[error][day-transaction][saga][calculateBalance]>>> ${e}`);
+        console.log(`[error][accountList][saga][calculateBalance]>>> ${e}`);
     }
 }

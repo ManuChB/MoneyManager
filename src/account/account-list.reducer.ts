@@ -1,4 +1,4 @@
-import { ACCOUNT_LIST_INITIALIZE_START, ACCOUNT_LIST_INITIALIZE_FINISH, SET_ACCOUNT_LIST, SET_ACCOUNTS_BALANCE_INFO } from './account-list.constant';
+import accountListConstants from './account-list.constant';
 import { AnyAction } from 'redux';
 import { IAccountListState } from './account-list.model';
 
@@ -12,22 +12,22 @@ export const initialState: IAccountListState = {
 
 export default function accountList(state: IAccountListState = initialState, action: AnyAction) {
     switch (action.type) {
-        case ACCOUNT_LIST_INITIALIZE_START:
+        case accountListConstants.ACCOUNT_LIST_INITIALIZE_START:
             return {
                 ...state,
                 isInitialized: false
             };
-        case ACCOUNT_LIST_INITIALIZE_FINISH:
+        case accountListConstants.ACCOUNT_LIST_INITIALIZE_FINISH:
             return {
                 ...state,
                 isInitialized: true
             };
-        case SET_ACCOUNT_LIST:
+        case accountListConstants.SET_ACCOUNT_LIST:
             return {
                 ...state,
                 accountList: action.value
             };
-        case SET_ACCOUNTS_BALANCE_INFO:
+        case accountListConstants.SET_ACCOUNTS_BALANCE_INFO:
             return {
                 ...state,
                 income: action.value.income,

@@ -60,6 +60,11 @@ const constants = {
             iconName: 'DEFAULT',
             value: require('../assets/images/icons8-cash-filled-64.png')
         },
+    },
+
+    swipeConstants: {
+        velocityThreshold: 0.1,
+        directionalOffsetThreshold: 10
     }
 }
 

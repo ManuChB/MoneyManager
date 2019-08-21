@@ -19,7 +19,7 @@ export class Button extends Component<IButtonProps> {
                 ref={buttonRef}
                 disabled={disabled}
             >
-                {label && <Text style={[styles.textStyle, customLabelStyle]}>
+                {!_.isNil(label) && <Text style={[styles.textStyle, customLabelStyle]}>
                     {dontTranslate ? label : i18n.t(label)}
                 </Text>}
                 {icon && <Image style={styles.imageStyle} source={icon} />}
