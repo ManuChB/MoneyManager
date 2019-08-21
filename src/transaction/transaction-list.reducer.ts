@@ -1,29 +1,59 @@
-import { TRANSACTION_LIST_INITIALIZE_FINISH, TRANSACTION_LIST_INITIALIZE_START, CHANGE_TIME_SCREEN } from './transaction-list.constant';
+import transactionListConstants from './transaction-list.constant';
 import { AnyAction } from 'redux';
 import { ITransactionListState } from './transaction-list.model';
 import appConstants from '../appConstants';
+import { ITransactionDataProp } from './component/transaction/transaction.component';
 
 export const initialState: ITransactionListState = {
     isInitialized: false,
-    timeMode: appConstants.timeMode.day
+    timeMode: appConstants.timeMode.day,
+    deleteMode: false,
+    toDeleteList: new Array<ITransactionDataProp>()
 };
 
 export default function transactionList(state: ITransactionListState = initialState, action: AnyAction) {
     switch (action.type) {
-        case TRANSACTION_LIST_INITIALIZE_FINISH:
+        case transactionListConstants.TRANSACTION_LIST_INITIALIZE_FINISH:
             return {
                 ...state,
                 isInitialized: false
             };
-        case TRANSACTION_LIST_INITIALIZE_START:
+        case transactionListConstants.TRANSACTION_LIST_INITIALIZE_START:
             return {
                 ...state,
                 isInitialized: true
             };
-        case CHANGE_TIME_SCREEN:
+        case transactionListConstants.CHANGE_TIME_SCREEN:
             return {
                 ...state,
                 timeMode: action.value
+            };
+        case transactionListConstants.TRANSACTION_LIST_ACTIVATE_DELETE_MODE:
+            return {
+                ...state,
+                deleteMode: true
+            };
+        case transactionListConstants.TRANSACTION_LIST_DESACTIVATE_DELETE_MODE:
+            return {
+                ...state,
+                deleteMode: false
+            };
+        case transactionListConstants.TRANSACTION_LIST_ADD_TO_DELETE_LIST:
+            return {
+                ...state,
+                toDeleteList: state.toDeleteList.push(action.value)
+            };
+        case transactionListConstants.TRANSACTION_LIST_REMOVE_FROM_DELETE_LIST:
+            return {
+                ...state,
+                toDeleteList: state.toDeleteList.filter(
+                    (transaction) => transaction.id !== action.value.id
+                )
+            };
+        case transactionListConstants.TRANSACTION_LIST_LONG_PRESS:
+
+            return {
+                ...state
             };
         default:
             return state

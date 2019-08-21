@@ -109,19 +109,28 @@ class TransactionService {
     }
 
     
-    async transactionToDetail(transaction, onSave) {
-    try {
-        await NavigationService.navigateTo(appConstants.routName.newTransaction,
-            {
-                data: transaction,
-                onClose: NavigationService.navigateBack,
-                onSave: onSave
-            }
-        );
-    } catch (e) {
-        console.log(`[error][transactionService][transactionToDetail]>>> ${e}`);
+    async transactionToDetail(transaction, onSave, onRemove) {
+        try {
+            await NavigationService.navigateTo(appConstants.routName.newTransaction,
+                {
+                    data: transaction,
+                    onClose: NavigationService.navigateBack,
+                    onSave: onSave,
+                    onRemove: onRemove
+                }
+            );
+        } catch (e) {
+            console.log(`[error][transactionService][transactionToDetail]>>> ${e}`);
+        }
     }
-}
+
+    async removeTransaction(transaction) {
+        try {
+            await FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
+        } catch (e) {
+            console.log(`[error][transactionService][transactionToDetail]>>> ${e}`);
+        }
+    }
 }
 
 export default new TransactionService();

@@ -1,69 +1,73 @@
-import { DAY_TRANSACTION_INITIALIZE_FINISH, DAY_TRANSACTION_INITIALIZE_START, 
-    CHANGE_DATE, SET_DAY_TRANSACTIONS, SAVE_NEW_TRANSACTION, SHOW_DETAIL_MODAL,
-    UPDATE_TRANSACTION, SET_TRANSACTION_TO_DETAIL, SET_BALANCE_INFO, 
-    REMOVE_TRANSACTION } from './day-transaction.constant';
+import dayTransactionsConstants from './day-transaction.constant';
 import { IDayTransactionAction } from './day-transaction.model';
+import dayTransactionConstant from './day-transaction.constant';
 
 const dayTransactionAction: IDayTransactionAction = {
     dayTransactionInitializeStart() {
         return {
-            type: DAY_TRANSACTION_INITIALIZE_START
+            type: dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_START
         }
     },
 
     dayTransactionInitializeFinish() {
         return {
-            type: DAY_TRANSACTION_INITIALIZE_FINISH
+            type: dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_FINISH
         }
     },
 
     changeDay(newDate) {
         return {
-            type: CHANGE_DATE,
+            type: dayTransactionsConstants.CHANGE_DATE,
             value: newDate
         }
     },
 
     setDayTransactions(transactions) {
         return {
-            type: SET_DAY_TRANSACTIONS,
+            type: dayTransactionsConstants.SET_DAY_TRANSACTIONS,
             value: transactions
         }
     },
 
     saveNewTransaction(transaction) {
         return {
-            type: SAVE_NEW_TRANSACTION,
+            type: dayTransactionsConstants.SAVE_NEW_TRANSACTION,
             value: transaction
         }
     },
     showDetailModal(showModal) {
         return {
-            type: SHOW_DETAIL_MODAL,
+            type: dayTransactionsConstants.SHOW_DETAIL_MODAL,
             value: showModal
         }
     },
     updateTransaction(transaction) {
         return {
-            type: UPDATE_TRANSACTION,
+            type: dayTransactionsConstants.UPDATE_TRANSACTION,
             value: transaction
         }
     },
-    setTransactionToDetail(transaction, onSave) {
+    setTransactionToDetail(transaction, onSave, onRemove) {
         return {
-            type: SET_TRANSACTION_TO_DETAIL,
-            value: {transaction, onSave}
+            type: dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL,
+            value: {transaction, onSave, onRemove}
         }
     },
     setBalanceInfo(income, expense, balance) {
         return {
-            type: SET_BALANCE_INFO,
+            type: dayTransactionsConstants.SET_BALANCE_INFO,
             value: { income, expense, balance }
+        }
+    },
+    longPress(transaction) {
+        return {
+            type: dayTransactionConstant.DAY_TRANSACTION_LONG_PRESS,
+            value: transaction
         }
     },
     removeTransaction(transaction) {
         return {
-            type: REMOVE_TRANSACTION,
+            type: dayTransactionConstant.REMOVE_TRANSACTION,
             value: transaction
         }
     }

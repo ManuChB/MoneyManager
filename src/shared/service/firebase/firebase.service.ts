@@ -138,6 +138,11 @@ class FirebaseService {
         //console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
         db.collection(collection).doc(data.id).update(data);
     }
+
+    async removeFromCollection(collection, data) {
+        //console.log(`[FirebaseService][removeFromCollection] ${collection} [data] ${data.id}`);
+        return await db.collection(collection).doc(data.id).delete();
+    }
 }
 
 export default new FirebaseService();

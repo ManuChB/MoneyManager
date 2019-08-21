@@ -1,7 +1,4 @@
-import {
-    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_INITIALIZE_FINISH, CHANGE_WEEK, SET_WEEK_TRANSACTIONS, SET_WEEK_BALANCE_INFO,
-    SET_WEEK_TRANSACTION_TO_DETAIL, UPDATE_WEEK_TRANSACTION
-} from './week-transaction.constant';
+import weekTransactionConstants from './week-transaction.constant';
 import { AnyAction } from 'redux';
 import { IWeekTransactionState } from './week-transaction.model';
 import appConstants from '../../../appConstants';
@@ -20,30 +17,30 @@ export const initialState: IWeekTransactionState = {
 export default function weekTransaction(state: IWeekTransactionState = initialState, action: AnyAction) {
 
     switch (action.type) {
-        case WEEK_TRANSACTION_INITIALIZE_START:
+        case weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START:
             return {
                 ...state,
                 isInitialized: false
             };
-        case WEEK_TRANSACTION_INITIALIZE_FINISH:
+        case weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_FINISH:
             return {
                 ...state,
                 isInitialized: true
             };
-        case CHANGE_WEEK:
+        case weekTransactionConstants.CHANGE_WEEK:
             return {
                 ...state,
                 currentWeekStart: action.value.weekStart,
                 currentWeekEnd: action.value.weekEnd,
                 isInitialized: false
             };
-        case SET_WEEK_TRANSACTIONS:
+        case weekTransactionConstants.SET_WEEK_TRANSACTIONS:
             return {
                 ...state,
                 transactions: action.value,
                 isInitialized: true
             };
-        case SET_WEEK_BALANCE_INFO:
+        case weekTransactionConstants.SET_WEEK_BALANCE_INFO:
             return {
                 ...state,
                 income: action.value.income,
@@ -51,18 +48,25 @@ export default function weekTransaction(state: IWeekTransactionState = initialSt
                 balance: action.value.balance,
                 isInitialized: true
             };
-        case UPDATE_WEEK_TRANSACTION:
+        case weekTransactionConstants.UPDATE_WEEK_TRANSACTION:
             return {
                 ...state,
                 transactions: state.transactions.map(
                     (transaction) => transaction.id === action.value.id ? action.value : transaction
                 )
             };
-        case SET_WEEK_TRANSACTION_TO_DETAIL:
+        case weekTransactionConstants.SET_WEEK_TRANSACTION_TO_DETAIL:
             return {
                 ...state,
                 transactionToDetail: action.value.transaction
             };
+        case weekTransactionConstants.WEEK_TRANSACTION_REMOVE_TRANSACTION:
+            return {
+                ...state,
+                transactions: state.transactions.filter(
+                    (transaction) => transaction.id !== action.value.id
+                )
+            }; 
         default:
             return state
     }

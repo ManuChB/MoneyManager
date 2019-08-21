@@ -13,12 +13,13 @@ export interface IMonthTransactionAction {
     monthTransactionInitializeStart?: () => Action;
     monthTransactionInitializeFinish?: () => Action;
     monthTransactionNewTransaction?: (transaction: ITransactionDataProp, monthStart: Moment, monthEnd: Moment) => Action;
-    monthTransactionSetTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
     setMonthTransactions?: (transactions: Array<ITransactionDataProp>) => Action;
     changeMonth?: (start: Moment, end: Moment) => Action;
     setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
     updateMonthTransaction?: (transaction: ITransactionDataProp) => Action;
-    setMonthTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
+    setMonthTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any, onRemove: any) => Action;
+    removeTransaction?: (transaction: ITransactionDataProp) => Action;
+
 }
 
 export interface IMonthTransactionState {

@@ -9,7 +9,8 @@ export const initialState: ITransactionDetailState = {
     onClose: null,
     onSave: null,
     categories: [],
-    accounts: []
+    accounts: [],
+    onRemove: null
 
 };
 
@@ -21,7 +22,8 @@ export default function newTransaction(state: ITransactionDetailState = initialS
                 isInitialized: true,
                 data: action.value.data,
                 onClose: action.value.onClose,
-                onSave: action.value.onSave
+                onSave: action.value.onSave,
+                onRemove: action.value.onRemove
             };
         case NEW_TRANSACTION_INITIALIZE_FINISH:
             return {

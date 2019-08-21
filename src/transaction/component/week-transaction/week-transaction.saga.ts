@@ -3,21 +3,18 @@ import moment from "moment";
 import _ from 'lodash';
 
 import weekTransactionAction from './week-transaction.action';
-import {
-    WEEK_TRANSACTION_INITIALIZE_START, WEEK_TRANSACTION_NEW_TRANSACTION,  WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, CHANGE_WEEK,
-    SET_WEEK_TRANSACTION_TO_DETAIL, UPDATE_WEEK_TRANSACTION
-} from './week-transaction.constant';
+import weekTransactionConstants from './week-transaction.constant';
 import moneyManagerAction from '../../../money-manager/money-manager.action';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 import * as selectors from './selectors';
 
 export default [
-    takeLatest(WEEK_TRANSACTION_INITIALIZE_START, initialize),
-    takeLatest(WEEK_TRANSACTION_NEW_TRANSACTION, newTransaction),
-    takeLatest(WEEK_TRANSACTION_SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(CHANGE_WEEK, getTransactionByDate),
-    takeLatest(SET_WEEK_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(UPDATE_WEEK_TRANSACTION, updateTransaction),
+    takeLatest(weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START, initialize),
+    takeLatest(weekTransactionConstants.WEEK_TRANSACTION_NEW_TRANSACTION, newTransaction),
+    takeLatest(weekTransactionConstants.CHANGE_WEEK, getTransactionByDate),
+    takeLatest(weekTransactionConstants.SET_WEEK_TRANSACTION_TO_DETAIL, transactionToDetail),
+    takeLatest(weekTransactionConstants.UPDATE_WEEK_TRANSACTION, updateTransaction),
+    takeLatest(weekTransactionConstants.WEEK_TRANSACTION_REMOVE_TRANSACTION, removeTransaction)
 ];
 
 
@@ -73,8 +70,8 @@ export function* newTransaction(action) {
 
 export function* transactionToDetail(action) {
     try {
-        const { transaction, onSave } = action.value;
-        yield call(TransactionsService.transactionToDetail, transaction, onSave);
+        const { transaction, onSave, onRemove } = action.value;
+        yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
 
     } catch (e) {
         console.log(`[error][week-transaction][saga][transactionToDetail]>>> ${e}`);
@@ -95,4 +92,12 @@ export function* updateTransaction(action) {
 }
 
 
+export function* removeTransaction(action) {
+    try {
+        yield call(TransactionsService.removeTransaction, action.value);
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
+    }
+}
 

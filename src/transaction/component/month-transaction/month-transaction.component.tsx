@@ -20,7 +20,7 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
     }
 
     onPressNewTransaction() {
-        this.props.actions.monthTransactionSetTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
+        this.props.actions.setMonthTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
     onUpdateTransaction(transaction) {
@@ -30,7 +30,12 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setMonthTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this));
+        this.props.actions.setMonthTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
+    }
+
+    onRemoveTransaction(transaction) {
+        this.props.actions.removeTransaction(transaction);
+        NavigationService.navigateBack();
     }
 
     onMonthChanged(date) {

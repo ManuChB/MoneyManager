@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
 import i18n from '../../service/i18n';
 import _ from 'lodash';
 
@@ -11,7 +11,7 @@ export class Button extends Component<IButtonProps> {
 
 
     render() {
-        const { label, buttonRef, customButtonStyle, customLabelStyle, disabled, dontTranslate } = this.props;
+        const { label, buttonRef, customButtonStyle, customLabelStyle, disabled, dontTranslate, icon } = this.props;
         return (
             <TouchableOpacity 
                 onPress={ _.debounce(this.debouncedOnPress, 300, { leading: true, trailing: false }) } 
@@ -19,9 +19,10 @@ export class Button extends Component<IButtonProps> {
                 ref={buttonRef}
                 disabled={disabled}
             >
-                <Text style={[styles.textStyle, customLabelStyle]}>
+                {label && <Text style={[styles.textStyle, customLabelStyle]}>
                     {dontTranslate ? label : i18n.t(label)}
-                </Text>
+                </Text>}
+                {icon && <Image style={styles.imageStyle} source={icon} />}
             </TouchableOpacity>
         )
     }
@@ -56,6 +57,11 @@ const styles = {
         backgroundColor: '#c2e8e3',
         borderColor: '#c2e8e3',
 
+    },
+    imageStyle: {
+        width: 20, 
+        height: 20,
+        tintColor: 'white'
     }
 };
 
@@ -66,6 +72,7 @@ export interface IButtonProps {
     onPress?: () => void,
     buttonRef?: (ref: string) => void,
     disabled?: boolean,
-    dontTranslate?: boolean
+    dontTranslate?: boolean,
+    icon?: any
 
 }

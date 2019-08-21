@@ -12,9 +12,16 @@ export interface ITransactionListAction {
     transactionListInitializeStart?: () => Action;
     transactionListInitializeFinish?: () => Action;
     changeTimeFormat?: (mode: string) => Action;
+    activateDeleteMode?: () => Action;
+    desactivateDeleteMode?: () => Action;
+    addTransactionToDeleteList?: (transaction: ITransactionDataProp) => Action;
+    removeTransactionFromDeleteList?: (transaction: ITransactionDataProp) => Action;
+    longPress?: (transaction: ITransactionDataProp) => Action;
 }
 
 export interface ITransactionListState {
     isInitialized?: boolean;
     timeMode?: string;
+    deleteMode?: boolean;
+    toDeleteList?: Array<ITransactionDataProp>;
 }

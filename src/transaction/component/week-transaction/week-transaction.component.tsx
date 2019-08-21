@@ -21,7 +21,7 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
     }
 
     onPressNewTransaction() {
-        this.props.actions.weekTransactionSetTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
+        this.props.actions.setWeekTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
     onUpdateTransaction(transaction) {
@@ -31,13 +31,19 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setWeekTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this));
+        this.props.actions.setWeekTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
     onWeekChanged(date) {
         const dateStart = date.clone();
         const dateEnd = date.endOf('isoWeek');
         this.props.actions.changeWeek(dateStart, dateEnd);
+    }
+
+    onRemoveTransaction(transaction) {
+        this.props.actions.removeTransaction(transaction);
+        NavigationService.navigateBack();
+
     }
 
     render() {

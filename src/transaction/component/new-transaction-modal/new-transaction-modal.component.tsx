@@ -41,7 +41,7 @@ export default class  extends Component<ITransactionDetailProp> {
     }
     
     render() {
-        const { data, onClose, onSave, categories, isInitialized } = this.props.state;
+        const { data, onClose, onSave, categories, onRemove } = this.props.state;
         const { accounts } = this.state;
         if (!data.date) { this.changeDay(moment().startOf('day')) }
         return (
@@ -52,6 +52,11 @@ export default class  extends Component<ITransactionDetailProp> {
                         dateStart={data.date } 
                         changeDay={this.changeDay.bind(this)}
                         dateMode={'day'} >
+                        { data.id && <Button
+                            customButtonStyle={styles.deleteButton}
+                            onPress={() => onRemove(data)}
+                            icon={require('../../../../assets/images/delete-bin-64.png')}>
+                        </Button>}
                     </DatePickerHeader>
                     <View style={{ flexDirection: 'row'}}>
                         <TouchableOpacity 
@@ -113,9 +118,9 @@ export default class  extends Component<ITransactionDetailProp> {
                         flexDirection: 'row',
                         bottom: 0, 
                         marginBottom: 20}}>
-                        <Button 
-                            customButtonStyle={{  flex: 1, borderColor: '#F38266', backgroundColor: '#F38266'}} 
-                            onPress={() => onClose()} 
+                        <Button
+                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
+                            onPress={() => onClose()}
                             label={'common.button.cancel'}>
                         </Button>
                         <Button 

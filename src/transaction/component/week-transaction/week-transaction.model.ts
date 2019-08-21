@@ -13,12 +13,12 @@ export interface IWeekTransactionAction {
     weekTransactionInitializeStart?: () => Action;
     weekTransactionInitializeFinish?: () => Action;
     weekTransactionNewTransaction?: (transaction: ITransactionDataProp, weekStart: Moment, WeekEnd: Moment) => Action;
-    weekTransactionSetTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
     setWeekTransactions?: (transactions: Array<ITransactionDataProp>) => Action;
     changeWeek?: (start: Moment, end: Moment) => Action;
     setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
     updateWeekTransaction?: (transaction: ITransactionDataProp) => Action;
-    setWeekTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any) => Action;
+    setWeekTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any, onRemove: any) => Action;
+    removeTransaction?: (transaction: ITransactionDataProp) => Action;
 }
 
 export interface IWeekTransactionState {

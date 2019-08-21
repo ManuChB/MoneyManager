@@ -22,17 +22,24 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
     onUpdateTransaction(transaction) {
         this.props.actions.updateTransaction(transaction);
         NavigationService.navigateBack();
+    }
 
+    onRemoveTransaction(transaction) {
+        this.props.actions.removeTransaction(transaction);
+        NavigationService.navigateBack();
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this) );
+        this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
     onPressNewTransaction() {
-        this.props.actions.setTransactionToDetail({}, this.onSaveNewTransaction.bind(this));
+        this.props.actions.setTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
+    onLongPress(data) {
+        this.props.actions.longPress(data);
+    }
 
     render() {
         const  { income, expense, balance, transactions } = this.props.state;
@@ -43,7 +50,14 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
                 <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
                     {transactions && transactions.map((data, key) =>{
-                        return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)
+                        return (<Transaction 
+                                    data={data} 
+                                    key={key} 
+                                    onPress={() => this.onPressTransaction(data)}
+                                    >
+                                    {/*onLongPress={() => this.onLongPress(data)}*/}
+                                </Transaction>
+                            )
                     })}
                     <View style={{ height: 80}}></View>
                 </ScrollView>

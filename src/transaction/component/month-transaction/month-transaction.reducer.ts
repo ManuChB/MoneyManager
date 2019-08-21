@@ -59,6 +59,13 @@ export default function monthTransaction(state: IMonthTransactionState = initial
                 ...state,
                 transactionToDetail: action.value.transaction
             };
+        case monthTransConstants.MONTH_TRANSACTION_REMOVE_TRANSACTION:
+            return {
+                ...state,
+                transactions: state.transactions.filter(
+                    (transaction) => transaction.id !== action.value.id
+                )
+            }; 
         default:
             return state
     }

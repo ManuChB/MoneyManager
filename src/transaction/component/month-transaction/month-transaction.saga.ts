@@ -11,10 +11,10 @@ import * as selectors from './selectors';
 export default [
     takeLatest(monthTransConstants.MONTH_TRANSACTION_INITIALIZE_START, initialize),
     takeLatest(monthTransConstants.MONTH_TRANSACTION_NEW_TRANSACTION, newTransaction),
-    takeLatest(monthTransConstants.MONTH_TRANSACTION_SET_TRANSACTION_TO_DETAIL, transactionToDetail),
     takeLatest(monthTransConstants.CHANGE_MONTH, getTransactionByDate),
     takeLatest(monthTransConstants.SET_MONTH_TRANSACTION_TO_DETAIL, transactionToDetail),
     takeLatest(monthTransConstants.UPDATE_MONTH_TRANSACTION, updateTransaction),
+    takeLatest(monthTransConstants.MONTH_TRANSACTION_REMOVE_TRANSACTION, removeTransaction)
 ];
 
 
@@ -74,8 +74,8 @@ export function* newTransaction(action) {
 
 export function* transactionToDetail(action) {
     try {
-        const { transaction, onSave } = action.value;
-        yield call(TransactionsService.transactionToDetail, transaction, onSave);
+        const { transaction, onSave, onRemove } = action.value;
+        yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
 
     } catch (e) {
         console.log(`[error][month-transaction][saga][transactionToDetail]>>> ${e}`);
@@ -95,5 +95,12 @@ export function* updateTransaction(action) {
     }
 }
 
-
+export function* removeTransaction(action) {
+    try {
+        yield call(TransactionsService.removeTransaction, action.value);
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
+    }
+}
 

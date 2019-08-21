@@ -1,21 +1,22 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects';
-import moment from "moment";
 import _ from 'lodash';
 
 import dayTransactionAction from './day-transaction.action';
-import { DAY_TRANSACTION_INITIALIZE_START, SAVE_NEW_TRANSACTION, 
-    SET_TRANSACTION_TO_DETAIL,UPDATE_TRANSACTION, CHANGE_DATE } from './day-transaction.constant';
+import dayTransactionsConstants from './day-transaction.constant';
 import moneyManagerAction from '../../../money-manager/money-manager.action';
 import * as selectors from './selectors';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
+import TransactionListActions from '../../transaction-list.action';
+import transactionListAction from '../../transaction-list.action';
 
 export default [
-    takeLatest(DAY_TRANSACTION_INITIALIZE_START, initialize),
-    takeLatest(SAVE_NEW_TRANSACTION, newTransaction),
-    takeLatest(SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(UPDATE_TRANSACTION, updateTransaction),
-    takeLatest(CHANGE_DATE, getTransactionByDate)
-
+    takeLatest(dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_START, initialize),
+    takeLatest(dayTransactionsConstants.SAVE_NEW_TRANSACTION, newTransaction),
+    takeLatest(dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL, transactionToDetail),
+    takeLatest(dayTransactionsConstants.UPDATE_TRANSACTION, updateTransaction),
+    takeLatest(dayTransactionsConstants.CHANGE_DATE, getTransactionByDate),
+    takeLatest(dayTransactionsConstants.DAY_TRANSACTION_LONG_PRESS, longPress),
+    takeLatest(dayTransactionsConstants.REMOVE_TRANSACTION, removeTransaction)
 ];
 
 
@@ -56,8 +57,10 @@ export function* newTransaction(action) {
 
 export function* transactionToDetail(action) {
     try {
-        const { transaction, onSave } = action.value;
-        yield call(TransactionsService.transactionToDetail, transaction, onSave);
+        const { transaction, onSave, onRemove } = action.value;
+        console.log(`[day-transaction][saga][newTransaction]>>> `, transaction);
+
+        yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
 
     } catch (e) {
         console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
@@ -94,5 +97,22 @@ export function* getTransactionByDate(action) {
     } catch (e) {
         console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
+    }
+}
+
+export function* longPress(action) {
+    try {
+        yield put(transactionListAction.longPress(action.value));
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][longPress]>>> ${e}`);
+    }
+}
+
+export function* removeTransaction(action) {
+    try {
+        yield call(TransactionsService.removeTransaction, action.value);
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }
 }

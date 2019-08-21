@@ -8,7 +8,7 @@ import { Moment } from 'moment';
 import { IAccountData } from '../../../account/account/account.model';
 import i18n from '../../../shared/service/i18n';
 
-const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
+const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
     const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
     
     const getIcon = (account) => {
@@ -33,7 +33,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress}) => {
     const img = getIcon(account);
 
     return (
-        <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
+        <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
             <View style={styles.dataViewStyle}>
                 <View style={{
                     flex: 1, justifyContent: 'center',
@@ -61,6 +61,8 @@ export default Transaction;
 export interface ITransactionProp {
     data: ITransactionDataProp;
     onPress: ()=> void;
+    onLongPress?: () => void;
+
     
 }
 

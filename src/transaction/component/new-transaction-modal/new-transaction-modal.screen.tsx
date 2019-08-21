@@ -12,10 +12,8 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
         super(props);
     }
 
-    componentWillMount() {
-        const { data, onClose, onSave } = this.props.navigation.state.params;
-        console.log('NewTransactionScreen------componentWillMount---¡', _.isNil(data.isExpense), onClose, onSave);
-
+    componentDidMount() {
+        const { data, onClose, onSave, onRemove } = this.props.navigation.state.params;
         this.props.actions.newTransactionInitializeStart(
             {
                 data: { ...data, 
@@ -24,7 +22,8 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
                         wasExpense: !_.isNil(data.isExpense) ? data.isExpense : null
                     },
                 onClose,
-                onSave 
+                onSave,
+                onRemove 
             });
     }
 

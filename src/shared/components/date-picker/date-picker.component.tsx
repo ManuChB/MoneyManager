@@ -158,6 +158,7 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
                         style={{ padding: 15 }}>
                         <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/right-50.png')} />
                     </TouchableOpacity>
+                    {this.props.children}
                 </View>
             </View>
         )
