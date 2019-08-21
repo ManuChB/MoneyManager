@@ -13,11 +13,12 @@ export interface IMoneyManagerAction {
     moneyManagerTabModeChange?: (tabMode: string) => Action;
     moneyManagerShowSpinner?: () => Action;
     moneyManagerHideSpinner?: () => Action;
-
+    moneyManagerSetLocale?: (locale: string) => Action;
 }
 
 export interface IMoneyManagerState {
     isInitialized?: boolean;
     tabMode?: string;
     showSpinner?: boolean;
+    locale?: string;
 }

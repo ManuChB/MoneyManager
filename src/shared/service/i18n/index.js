@@ -1,11 +1,29 @@
-import I18n  from 'react-native-redux-i18n';
 import locales from './locales';
 
- I18n.fallbacks = true;
- I18n.translations = locales;
+const config = {
+    i18n: null
+};
 
-export const languages = [
-    {
+class I18nService {
+
+    setI18n(i18n) {
+        config.i18n = i18n;
+        i18n.fallbacks = true;
+        i18n.translations = locales;
+    }
+
+    setLocale(locale){
+        config.i18n.locale = locale;
+    }
+
+    t(lable){
+        return config.i18n.t(lable);
+    }
+}
+
+export default new I18nService();
+
+export const languages = [{
         code: 'es-ES',
         name: 'language.esES'
     },
@@ -21,5 +39,3 @@ export const defaultLanguage = {
     code: 'en-UK',
     name: 'language.enUK'
 };
-
-export default I18n;

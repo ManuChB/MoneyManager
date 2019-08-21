@@ -4,15 +4,14 @@ import { ISettingsProp } from './settings.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import { LinearGradient } from 'expo-linear-gradient';
-import {languages } from '../shared/service/i18n';
-import { Loc, setLocale } from 'react-native-redux-i18n';
+import i18n, {languages } from '../shared/service/i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
 
 export default class Settings extends Component<ISettingsProp> {
 
     setLanguage(language) {
+        this.props.setLanguage(language.code);
         this.props.actions.settingsSetCurrentLanguage(language);
-        this.props.dispatch(setLocale(language.code));
     }
     
     logOut() {

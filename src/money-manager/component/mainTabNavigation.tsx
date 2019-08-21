@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { IMoneyManagerProp } from '../money-manager.model';
 import appConstants from '../../appConstants';
-import { Loc } from 'react-native-redux-i18n';
+import i18n from '../../shared/service/i18n';
 
 export class MainTabNavigation extends Component<IMoneyManagerProp> {
     isSelectedTab(tabMode: string) {
@@ -24,7 +24,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/transaction-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            <Loc locKey={'mainTabNav.transactions'}></Loc>
+                            {i18n.t('mainTabNav.transactions')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -35,7 +35,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/report-80.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            <Loc locKey={'mainTabNav.report'}></Loc>
+                            {i18n.t('mainTabNav.report')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -46,7 +46,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/account-50.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            <Loc locKey={'mainTabNav.accounts'}></Loc>
+                            {i18n.t('mainTabNav.accounts')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -57,7 +57,7 @@ export class MainTabNavigation extends Component<IMoneyManagerProp> {
                         <Image style={styles.image} source={require('../../../assets/images/settings-64.png')} />
                         <Text
                             style={styles.touchableTextStyle}>
-                            <Loc locKey={'mainTabNav.settings'}></Loc>
+                            {i18n.t('mainTabNav.settings')}
                         </Text>
                     </View>
                 </TouchableOpacity>

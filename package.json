@@ -70,7 +70,9 @@
   "dependencies": {
     "@expo/vector-icons": "^8.0.0",
     "expo": "^33.0.0",
+    "expo-localization": "^6.0.0",
     "firebase": "^5.7.0",
+    "i18n-js": "^3.3.0",
     "native-base": "^2.9.3",
     "react": "16.8.3",
     "react-native": "^0.59.8",
@@ -81,7 +83,6 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-firebase": "^5.1.1",
     "react-native-linear-gradient": "^2.5.3",
-    "react-native-redux-i18n": "^1.0.11",
     "react-native-router-flux": "^4.0.1",
     "react-native-scripts": "^2.0.1",
     "react-native-typescript-transformer": "^1.2.10",
@@ -93,7 +94,6 @@
     "redux-actions": "^2.2.1",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-logger": "^3.0.6",
-    "redux-react-native-i18n": "^1.2.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "typescript": "^3.2.2"

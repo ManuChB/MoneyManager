@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from '.';
-import I18n, { Loc } from 'react-native-redux-i18n';
+import i18n from '../../service/i18n';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -27,7 +27,7 @@ export class DataPicker extends Component<IPickerProps> {
                             onPress={() => { this.setState({ showModal: false }); onSelect(element) }}>
                             <View style={styles.categoryView} key={key} >
                                 <Text style={styles.categoryText} key={key}>
-                                    {dontTranslate ? element.name : <Loc locKey={element.name}></Loc>}
+                                    {dontTranslate ? element.name : i18n.t(element.name) }
                                 </Text>
                             </View>
                         </TouchableOpacity>)
@@ -71,13 +71,13 @@ export class DataPicker extends Component<IPickerProps> {
         return (
             <View style={ styles.containerStyle } >
                     <Animated.Text style={labelStyle}>
-                        <Loc locKey={label}></Loc>
+                        {i18n.t(label)} 
                     </Animated.Text>
                     <TextInput
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={value ? dontTranslate ? value : I18n.t(value): ''}
+                        value={value ? dontTranslate ? value : i18n.t(value): ''}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}

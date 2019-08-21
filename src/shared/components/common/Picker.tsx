@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from './Modal';
-import I18n, { Loc } from 'react-native-redux-i18n';
+import i18n from '../../service/i18n';
 
 export class CustomPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -24,7 +24,7 @@ export class CustomPicker extends Component<IPickerProps> {
                         <View key={key} >
                             <View style={styles.categoryView} key={'view_'+key} >
                                 <Text style={styles.categoryText} key={'text_' + key}>
-                                    <Loc locKey={"categoriesIds." + subdata.id} customizer={text => text.toUpperCase()} ></Loc>
+                                    {i18n.t("categoriesIds." + subdata.id)}
                                 </Text>
                             </View>
                             <View style={styles.subCategoryView} key={'subview_'+key} >
@@ -36,7 +36,7 @@ export class CustomPicker extends Component<IPickerProps> {
                                                 key={'touch_'+subdata[key].id}
                                                 onPress={() => { this.setState({ showModal: false }); onSelect(subdata[key].id, subdata[key]) }}>
                                                 <Text key={'touchtext_' + subdata[key].id} >
-                                                    <Loc locKey={subdata[key].value}></Loc>
+                                                    {i18n.t(subdata[key].value)}
                                                 </Text>
                                             </TouchableOpacity>)
                                     }
@@ -82,13 +82,13 @@ export class CustomPicker extends Component<IPickerProps> {
         return (
                 <View style={styles.containerStyle} >
                     <Animated.Text style={labelStyle}>
-                        <Loc locKey={label}></Loc>
+                        {i18n.t(label)}
                     </Animated.Text>
                     <TextInput
                         placeholder={placeHolder}
                         autoCorrect={false}
                         style={styles.inputStyle}
-                        value={value ? I18n.t(value): ''}
+                        value={value ? i18n.t(value): ''}
                         onChangeText={onSelect}
                         onFocus={() => this.setState({ showModal: true })}
                         onBlur={() => this.animate(value ? 1 : 0)}

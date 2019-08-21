@@ -9,8 +9,14 @@ import AccountListScreen from '../account/account-list.screen';
 import TransactionListScreen from '../transaction/transaction-list.screen';
 import SettingsScreen from '../settings/settings.screen';
 import ReportScreen from '../report/report.screen';
+import i18n from '../shared/service/i18n';
 
 export default class MoneyManager extends Component<IMoneyManagerProp> {
+    setLanguage(locale: string) {
+        i18n.setLocale(locale);
+        this.props.actions.moneyManagerSetLocale(locale);
+    }
+    
     render() {
         return (
             <View style={{ flex: 1 }} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
@@ -18,7 +24,7 @@ export default class MoneyManager extends Component<IMoneyManagerProp> {
                 <Header></Header>
                     {this.props.state.tabMode === appConstants.tabMode.account && <AccountListScreen></AccountListScreen>}
                     {this.props.state.tabMode === appConstants.tabMode.transaction && <TransactionListScreen></TransactionListScreen>}
-                    {this.props.state.tabMode === appConstants.tabMode.settings && <SettingsScreen></SettingsScreen>}
+                    {this.props.state.tabMode === appConstants.tabMode.settings && <SettingsScreen setLanguage={this.setLanguage.bind(this)}></SettingsScreen>}
                     {this.props.state.tabMode === appConstants.tabMode.report && <ReportScreen></ReportScreen>}
                 <MainTabNavigation {...this.props}></MainTabNavigation>
             </View>

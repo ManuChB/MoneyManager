@@ -6,7 +6,8 @@ import appConstants from '../appConstants';
 export const initialState: IMoneyManagerState = {
     isInitialized: false,
     tabMode: appConstants.tabMode.transaction,
-    showSpinner: false
+    showSpinner: false,
+    locale: null
 };
 
 export default function moneyManager(state: IMoneyManagerState = initialState, action: AnyAction) {
@@ -35,6 +36,11 @@ export default function moneyManager(state: IMoneyManagerState = initialState, a
             return {
                 ...state,
                 showSpinner: false
+            };
+        case moneyManagerConstants.MONEY_MANAGER_SET_LOCALE:
+            return {
+                ...state,
+                locale: action.value
             };
         default:
             return state

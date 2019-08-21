@@ -9,7 +9,7 @@ import styles from './new-transaction-modal.component.style';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
 import { DatePickerHeader}  from '../../../shared/components/date-picker/date-picker.component';
 import { DataPicker } from '../../../shared/components/common/DataPicker';
-import { Loc } from 'react-native-redux-i18n';
+import i18n from '../../../shared/service/i18n';
 import AccountService from '../../../shared/service/account/account.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 
@@ -58,14 +58,14 @@ export default class  extends Component<ITransactionDetailProp> {
                             style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: '#6ddbcc' }]} 
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: false })}>
                             <Text style={data.isExpense ? null : { color: 'white' }} >
-                                <Loc locKey={'newTransaction.income'}></Loc>
+                                {i18n.t('newTransaction.income')}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: '#F38266' }: null]}
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
                             <Text style={data.isExpense ? { color: 'white' } : null} >
-                                <Loc locKey={'newTransaction.expense'}></Loc>
+                                {i18n.t('newTransaction.expense')}
                             </Text>
                         </TouchableOpacity>
                     </View>

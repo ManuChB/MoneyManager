@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from 'react';
 import { Text, View } from 'react-native';
 import styles from './balance-info.component.style';
-import { Loc } from 'react-native-redux-i18n';
+import i18n from '../../../shared/service/i18n';
 
 const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, balance }) => {
 
@@ -9,7 +9,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
         <View style={styles.infoStyle}>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>
-                    <Loc locKey={'balanceInfo.income'}></Loc>
+                    {i18n.t('balanceInfo.income')}
                 </Text>
                 <Text style={[styles.valueStyle, { color: 'green' }]}>
                     {income ? income.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
@@ -17,7 +17,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
             </View>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>
-                    <Loc locKey={'balanceInfo.expense'}></Loc> 
+                    {i18n.t('balanceInfo.expense')}
                 </Text>
                 <Text style={[styles.valueStyle, { color: 'red' }]}>
                     {expense ? expense.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
@@ -25,7 +25,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
             </View>
             <View style={styles.textViewStyle}>
                 <Text style={styles.textStyle}>
-                    <Loc locKey={'balanceInfo.balance'}></Loc> 
+                    {i18n.t('balanceInfo.balance')}
                 </Text>
                 <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>
                     {balance ? balance.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 

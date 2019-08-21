@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { Loc } from 'react-native-redux-i18n';
+import i18n from '../../service/i18n';
 import _ from 'lodash';
 
 export class Button extends Component<IButtonProps> {
@@ -20,7 +20,7 @@ export class Button extends Component<IButtonProps> {
                 disabled={disabled}
             >
                 <Text style={[styles.textStyle, customLabelStyle]}>
-                    {dontTranslate ? label : <Loc locKey={label}></Loc>}
+                    {dontTranslate ? label : i18n.t(label)}
                 </Text>
             </TouchableOpacity>
         )

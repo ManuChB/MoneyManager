@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import appConstants from '../../../appConstants';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Loc } from 'react-native-redux-i18n';
+import i18n from '../../../shared/service/i18n';
 
 export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     isSelectedTab(timeMode: string) {
@@ -28,7 +28,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     onPress={() => changeTimeFormat(appConstants.timeMode.day) }>
                     <View style={styles.touchableViewStyle}>
                         <Text style={styles.touchableTextStyle}>
-                            <Loc locKey={'timeTab.day'}></Loc>
+                            {i18n.t('timeTab.day')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -37,7 +37,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     onPress={() => changeTimeFormat(appConstants.timeMode.week)}>
                     <View style={styles.touchableViewStyle}>
                         <Text style={styles.touchableTextStyle}>
-                            <Loc locKey={'timeTab.week'}></Loc>
+                            {i18n.t('timeTab.week')}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -46,7 +46,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                     onPress={() => changeTimeFormat(appConstants.timeMode.month)}>
                     <View style={styles.touchableViewStyle}>
                         <Text style={styles.touchableTextStyle}>
-                            <Loc locKey={'timeTab.month'}></Loc>
+                            {i18n.t('timeTab.month')}
                         </Text>
                     </View>
                 </TouchableOpacity>

@@ -4,11 +4,13 @@ import createSagaMiddleware from 'redux-saga';
 import { reactNavigationMiddleware } from '../NavigationState';
 import rootReducer from '../reducers';
 import rootSaga from '../saga';
-import {
+import i18nService, {
     languages, defaultLanguage
 } from '../shared/service/i18n';
-import { setLocale } from 'react-native-redux-i18n';
+import i18n from 'i18n-js';
+
 import * as Localization from 'expo-localization';
+
 
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 
@@ -32,9 +34,10 @@ export default () => {
     );
     sagaMiddleware.run(rootSaga);
 
+    i18nService.setI18n(i18n);
     AsyncStorageService.getItem('USER_LANGUAGE').then((uLanguage) => {
         if (uLanguage) {
-            store.dispatch(setLocale(uLanguage.code));
+            i18nService.setLocale(uLanguage.code);
         } else {
             const deviceLanguage = languages.filter(
                 function (language) {
@@ -42,7 +45,7 @@ export default () => {
                 }
             )[0];
             AsyncStorageService.setItem('USER_LANGUAGE', deviceLanguage || defaultLanguage);
-            store.dispatch(setLocale(deviceLanguage ? deviceLanguage.code : defaultLanguage.code));
+            i1i18nService.setLocale(deviceLanguage ? deviceLanguage.code : defaultLanguage.code);
         }
     });
     

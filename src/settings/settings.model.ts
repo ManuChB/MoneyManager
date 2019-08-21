@@ -6,6 +6,7 @@ export interface ISettingsProp {
     state?: ISettingsState;
     actions?: ISettingsAction;
     dispatch?: any;
+    setLanguage?: (locale: string) => void;
 }
 
 export interface ISettingsAction {

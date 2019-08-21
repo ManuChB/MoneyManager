@@ -5,7 +5,7 @@ import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './login.component.style';
 import { LinearGradient } from 'expo-linear-gradient';
-import I18n, { Loc } from 'react-native-redux-i18n';
+import i18n from '../shared/service/i18n';
 
 export default class Login extends Component<ILoginProp> {
 
@@ -95,10 +95,12 @@ export default class Login extends Component<ILoginProp> {
                             <Text style={styles.errorStyle}>{this.props.state.errorMessage}</Text>
                         </View>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} ><Loc locKey={this.props.state.screenMode.leftTextLabel}></Loc></Text>
+                                <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} >
+                                    {i18n.t(this.props.state.screenMode.leftTextLabel)}
+                                </Text>
                                 {this.props.state.screenMode.rightTextLabel && 
                                     <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.rightTextOnPress} >
-                                        <Loc locKey={this.props.state.screenMode.rightTextLabel}></Loc>
+                                        {i18n.t(this.props.state.screenMode.rightTextLabel)}
                                     </Text>} 
                             </View>
                     </View>

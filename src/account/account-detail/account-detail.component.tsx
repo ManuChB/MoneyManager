@@ -6,7 +6,6 @@ import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
 import _ from 'lodash';
 import { DataPicker } from '../../shared/components/common/DataPicker';
-import I18n, { Loc } from 'react-native-redux-i18n';
 
 export default class AccountDetail extends Component<IAccountDetailProp> {
 

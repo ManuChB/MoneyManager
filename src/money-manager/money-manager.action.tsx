@@ -31,6 +31,13 @@ const moneyManagerAction: IMoneyManagerAction = {
         return {
             type: moneyManagerConstans.MONEY_MANAGER_HIDE_SPINNER
         }
+    },
+
+    moneyManagerSetLocale(locale: string) {
+        return {
+            type: moneyManagerConstans.MONEY_MANAGER_SET_LOCALE,
+            value: locale
+        }
     }
 
 }
