@@ -17,12 +17,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
     render() {
         const { changeTimeFormat } = this.props;
         return (
-                <LinearGradient
-                    start={{ x: 0.0, y: 0.2 }}
-                    end={{ x: 0.75, y: 1.0 }}
-                    locations={[0, 0.5, 0.9]}
-                    colors={['#3D1C47C5', '#1C47C5', '#B93434']}
-                    style={styles.mainViewStyle}>
+            <View  style={styles.mainViewStyle}>
                 <TouchableOpacity
                     style={[styles.touchableStyle, this.isSelectedTab(appConstants.timeMode.day)]}
                     onPress={() => changeTimeFormat(appConstants.timeMode.day) }>
@@ -59,7 +54,7 @@ export class TimeTabNavigation extends Component<ITimeTabNavProp> {
                         </Text>
                     </View>
                 </TouchableOpacity>   */}
-                </LinearGradient>
+                </View>
         );
     }
 }
@@ -68,17 +63,16 @@ const styles = {
     mainViewStyle: {
         height: 50,
         flexDirection: 'row',
-        shadowOpacity: 0.6,
-        shadowOffset: { height: 4, width: 0 },
-
+        backgroundColor: 'white'
     },
     touchableStyle: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
-        
-        borderTopWidth: 1
+        backgroundColor: '#3ca8cf',
+        borderTopColor: '#1379a3',
+        borderTopWidth: 0 
     },
     touchableViewStyle: {
         alignItems: 'center',
@@ -87,14 +81,21 @@ const styles = {
     touchableTextStyle: {
         textAlign: 'center',
         color: 'white',
-        marginTop: 5
+        fontSize: 12,
+        fontWeight: 'bold',
     },
     linearGradient: {
         flex: 1
     },
     selectedTab: {
-        borderBottomColor: 'red',
-        borderBottomWidth: 5
+        borderBottomColor: '#2c809e',
+        borderBottomWidth: 5,
+        shadowOffset: {
+            width: 10,
+            height: 30,
+        },
+        shadowColor: 'black',
+        elevation: 30
     }
 
 };

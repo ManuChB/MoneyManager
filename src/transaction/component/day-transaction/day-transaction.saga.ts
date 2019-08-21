@@ -58,8 +58,6 @@ export function* newTransaction(action) {
 export function* transactionToDetail(action) {
     try {
         const { transaction, onSave, onRemove } = action.value;
-        console.log(`[day-transaction][saga][newTransaction]>>> `, transaction);
-
         yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
 
     } catch (e) {
