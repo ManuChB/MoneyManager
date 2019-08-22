@@ -17,7 +17,15 @@ export default class AccountList extends Component<IAccountListProp> {
     }
 
     onPressNewAccount() {
-        this.props.actions.setAccountToDetail({}, this.onSaveAccount.bind(this));
+        this.props.actions.setAccountToDetail({}, this.onSaveAccount.bind(this), this.onRemoveAccount.bind(this));
+    }
+
+    onPressAccount(account) {
+        this.props.actions.setAccountToDetail(account, this.onSaveAccount.bind(this), this.onRemoveAccount.bind(this))    }
+
+    onRemoveAccount(account) {
+        this.props.actions.removeAccount(account);
+        NavigationService.navigateBack();
     }
 
     render() {
@@ -29,7 +37,7 @@ export default class AccountList extends Component<IAccountListProp> {
                 <AddButton onPress={() => this.onPressNewAccount()}></AddButton>
                 <ScrollView>
                     {accountList.map((account, key) => {
-                        return (<Account key={key} data={account} onPress={() => this.props.actions.setAccountToDetail(account, this.onSaveAccount.bind(this)) } ></Account>)
+                        return (<Account key={key} data={account} onPress={() => this.onPressAccount(account) } ></Account>)
                     })}
                 </ScrollView>
             </View>

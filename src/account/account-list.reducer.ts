@@ -34,6 +34,13 @@ export default function accountList(state: IAccountListState = initialState, act
                 expense: action.value.expense,
                 balance: action.value.balance,
             };
+        case accountListConstants.REMOVE_ACCOUNT:
+            return {
+                ...state,
+                accountList: state.accountList.filter(
+                    (account) => account.id !== action.value.id
+                )
+            }; 
         default:
             return state
     }

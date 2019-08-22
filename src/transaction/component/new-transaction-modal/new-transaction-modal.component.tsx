@@ -79,7 +79,6 @@ export default class  extends Component<ITransactionDetailProp> {
                         value={data.subCategory ? data.subCategory.value : ''}
                         data={categories} 
                         onSelect={(categoryId, subCategory) =>{ 
-                            console.log('--------new-----', categoryId, subCategory);
                              this.props.actions.changeData({ ...data, categoryId, subCategory })}} >
                     </CategoryPicker>
                     <DataPicker

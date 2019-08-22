@@ -6,18 +6,30 @@ import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
 import _ from 'lodash';
 import { DataPicker } from '../../shared/components/common/DataPicker';
+import i18n from '../../shared/service/i18n';
 
 export default class AccountDetail extends Component<IAccountDetailProp> {
 
     checkEmpty() {
         return false;
-    
     }
-    render() {
-        const { account, onClose, onSave, currencyList, accountTypeList } = this.props.state;
+
+     render() {
+        const { account, onClose, onSave, currencyList, accountTypeList, onRemove } = this.props.state;
+        const newAccount = _.isEmpty(account) || !account.id;
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>
+                <View style={styles.headerStyle}>
+                    <Text style={styles.headerTextStyle}>
+                        {!newAccount ? i18n.t('accountDetail.updateAccount') : i18n.t('accountDetail.newAccount')}
+                    </Text>
+                    {!newAccount && <Button
+                        customButtonStyle={styles.deleteButton}
+                        onPress={() => onRemove(account)}
+                        icon={require('../../../assets/images/delete-bin-64.png')}>
+                    </Button>}
+                </View>
                 <DataPicker label={'accountDetail.type'}
                     value={account.type ? account.type.name : ''}
                     data={accountTypeList}

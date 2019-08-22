@@ -207,7 +207,7 @@ export interface IPickerProps {
     onBack?: () => void,
     showBackButton?: boolean,
     icon?: any,
-    customContainerStyle: any
+    customContainerStyle?: any
 
 }
 

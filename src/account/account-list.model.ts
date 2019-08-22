@@ -12,10 +12,10 @@ export interface IAccountListAction {
     accountListInitializeStart?: () => Action;
     accountListInitializeFinish?: () => Action;
     setAccounts?: (accounts: Array<IAccountData>) => Action;
-    setAccountToDetail?: (account: IAccountData, onSave: any) => Action;
+    setAccountToDetail?: (account: IAccountData, onSave: any, onRemove: any) => Action;
     saveNewAccount?: (account: IAccountData) => Action;
     setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
-
+    removeAccount?: (account: IAccountData) => Action;
 }
 
 export interface IAccountListState {

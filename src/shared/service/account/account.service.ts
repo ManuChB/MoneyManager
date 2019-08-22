@@ -72,18 +72,29 @@ class AccountService {
 
     
     async accountToDetail(account, onSave) {
-    try {
-        await NavigationService.navigateTo(appConstants.routName.accountDetail,
-            {
-                data: account,
-                onClose: NavigationService.navigateBack,
-                onSave: onSave
-            }
-        );
-    } catch (e) {
-        console.log(`[error][accountService][accountToDetail]>>> ${e}`);
+        try {
+            await NavigationService.navigateTo(appConstants.routName.accountDetail,
+                {
+                    data: account,
+                    onClose: NavigationService.navigateBack,
+                    onSave: onSave
+                }
+            );
+        } catch (e) {
+            console.log(`[error][accountService][accountToDetail]>>> ${e}`);
+        }
     }
-}
+
+
+    async removeAccount(account) {
+        try {
+            await FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
+        } catch (e) {
+            console.log(`[error][accountService][removeAccount]>>> ${e}`);
+        }
+    }
+
+
 }
 
 export default new AccountService();

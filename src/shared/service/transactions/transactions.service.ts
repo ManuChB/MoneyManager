@@ -128,7 +128,7 @@ class TransactionService {
         try {
             await FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
         } catch (e) {
-            console.log(`[error][transactionService][transactionToDetail]>>> ${e}`);
+            console.log(`[error][transactionService][removeTransaction]>>> ${e}`);
         }
     }
 }

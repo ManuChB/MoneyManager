@@ -4,7 +4,9 @@
         "name": "Nombre",
         "description": "Descripción",
         "value": "Valor",
-        "currency": "Moneda"
+        "currency": "Moneda",
+        "newAccount": "Crear cuenta",
+        "updateAccount": "Actualizar cuenta"
     },
     "accountTypes":{
         "cash": "Metalico",

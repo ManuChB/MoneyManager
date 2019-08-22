@@ -21,10 +21,10 @@ const accountListAction: IAccountListAction = {
         }
     },
 
-    setAccountToDetail(account, onSave) {
+    setAccountToDetail(account, onSave, onRemove) {
         return {
             type: accountListConstants.SET_ACCOUNT_TO_DETAIL,
-            value: {account, onSave}
+            value: {account, onSave, onRemove}
         }
     },
 
@@ -39,6 +39,13 @@ const accountListAction: IAccountListAction = {
         return {
             type: accountListConstants.SET_ACCOUNTS_BALANCE_INFO,
             value: { income, expense, balance }
+        }
+    },
+
+    removeAccount(transaction) {
+        return {
+            type: accountListConstants.REMOVE_ACCOUNT,
+            value: transaction
         }
     }
 }

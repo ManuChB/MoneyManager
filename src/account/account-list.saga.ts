@@ -14,7 +14,8 @@ import AccountService from '../shared/service/account/account.service';
 export default [
     takeLatest(accountListConstants.ACCOUNT_LIST_INITIALIZE_START, initialize),
     takeLatest(accountListConstants.SET_ACCOUNT_TO_DETAIL, accountToDetail),
-    takeLatest(accountListConstants.SAVE_NEW_ACCOUNT, saveNewAccount)
+    takeLatest(accountListConstants.SAVE_NEW_ACCOUNT, saveNewAccount),
+    takeLatest(accountListConstants.REMOVE_ACCOUNT, removeAccount)
 ];
 
 
@@ -50,7 +51,8 @@ export function* accountToDetail(action) {
             {
                 account: action.value.account,
                 onClose: NavigationService.navigateBack,
-                onSave: action.value.onSave
+                onSave: action.value.onSave,
+                onRemove: action.value.onRemove
             }
         );
     } catch (e) {
@@ -92,5 +94,14 @@ export function* calculateBalance() {
         yield put(accountListAction.setBalanceInfo(income, expense, balance))
     } catch (e) {
         console.log(`[error][accountList][saga][calculateBalance]>>> ${e}`);
+    }
+}
+
+export function* removeAccount(action) {
+    try {
+        yield call(AccountService.removeAccount, action.value);
+        yield call(calculateBalance);
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }
 }

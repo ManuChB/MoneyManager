@@ -1,15 +1,13 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 
 import accountDetailAction from './account-detail.action';
-import {
-    ACCOUNT_DETAIL_INITIALIZE_START
-} from './account-detail.constant';
+import accountDetailConstant from './account-detail.constant';
 import FirebaseService from '../../shared/service/firebase/firebase.service';
 import asyncStorageService from '../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../appConstants';
 
 export default [
-    takeLatest(ACCOUNT_DETAIL_INITIALIZE_START, initialize)
+    takeLatest(accountDetailConstant.ACCOUNT_DETAIL_INITIALIZE_START, initialize)
 ];
 
 
@@ -26,5 +24,4 @@ export function* initialize() {
         console.log(`[error][accountDetailAction][saga][initialize]>>> ${e}`);
     }
 }
-
 

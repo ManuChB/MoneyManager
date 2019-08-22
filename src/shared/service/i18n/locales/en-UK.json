@@ -4,7 +4,9 @@
         "name": "Name",
         "description": "Description",
         "value": "Value",
-        "currency": "Currency"
+        "currency": "Currency",
+        "newAccount": "New Account",
+        "updateAccount": "Update Account"
     },
     "accountTypes": {
         "cash": "Cash",
