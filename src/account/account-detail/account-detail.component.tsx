@@ -11,7 +11,8 @@ import i18n from '../../shared/service/i18n';
 export default class AccountDetail extends Component<IAccountDetailProp> {
 
     checkEmpty() {
-        return false;
+        const { account } = this.props.state;
+        return _.isEmpty(account) || !account.value || !account.currency || !account.name || !account.type;
     }
 
      render() {
@@ -57,7 +58,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     inputRef={ref => this.valueInput = ref}
                     label={'accountDetail.value'}
                     value={account.value ? account.value.toString() : null}
-                    onChangeText={(value) => this.props.actions.accountDetailDataChange({ ...account, value: parseFloat(value) })}
+                    onChangeText={(value) => this.props.actions.accountDetailDataChange({ ...account, value })}
                     returnKeyType={"next"}
                     keyboard={'numeric'}
                     blurOnSubmit={true}
@@ -81,7 +82,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     </Button>
                     <Button
                         customButtonStyle={{ flex: 1 }}
-                        onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account })}
+                        onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account, value: parseFloat(account.value.toString().replace(',', '.')) })}
                         label={'common.button.save'}
                         disabled={this.checkEmpty()}>
                     </Button>
