@@ -1,6 +1,7 @@
 {
   "expo": {
-    "sdkVersion": "33.0.0"
+    "sdkVersion": "33.0.0",
+    "orientation": "portrait"
   },
   "packagerOpts": {
     "assetExts": [
