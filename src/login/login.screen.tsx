@@ -12,7 +12,7 @@ export class LoginScreenComponent extends Component<ILoginProp, {}> {
     }
 
     componentDidMount() {
-        //this.props.actions.loginInitializeStart();
+        this.props.actions.loginInitializeStart();
     }
 
     static navigationOptions = {

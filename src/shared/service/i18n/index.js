@@ -25,11 +25,13 @@ export default new I18nService();
 
 export const languages = [{
         code: 'es-ES',
-        name: 'language.esES'
+        name: 'language.esES',
+        icon: require('../../../../assets/images/spain-flag-80.png')
     },
     {
         code: 'en-UK',
-        name: 'language.enUK'
+        name: 'language.enUK',
+        icon: require('../../../../assets/images/uk-flag-80.png')
     }
     /* ... */
     /* Other languages */

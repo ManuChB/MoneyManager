@@ -18,6 +18,8 @@ export interface ILoginAction {
     recoverPassword?: (userName: string) => Action;
     errorMessage?: (message: string) => Action;
     showSpinner?: (show: boolean) => Action;
+    loginSetCurrentLanguage?: (uLanguage: string) => Action;
+
 }
 
 export interface ILoginState {
@@ -28,6 +30,11 @@ export interface ILoginState {
     errorMessage?: string;
     screenMode?: IScreenModeState;
     showSpinner?: boolean;
+    currentLanguage?: {
+        name: string;
+        code: string;
+        icon: any;
+    }
 }
 
 export interface IScreenModeState {

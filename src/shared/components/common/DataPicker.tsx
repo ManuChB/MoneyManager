@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from '.';
 import i18n from '../../service/i18n';
-import { element } from 'prop-types';
+import _ from 'lodash';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -33,10 +33,12 @@ export class DataPicker extends Component<IPickerProps> {
                                 if(!noHideOnPress){ this.setState({ showModal: false }) }; 
                                 onSelect(element) 
                             }}>
-                            <View style={styles.categoryView} key={key} >
+                            <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between'}: null ]} key={key} >
+                                {element.icon && <Image style={styles.imageStyle} source={element.icon} /> }
                                 <Text style={styles.categoryText} key={key}>
                                     {dontTranslate ? element[field] : i18n.t(element[field]) }
                                 </Text>
+                                {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
                             </View>
                         </TouchableOpacity>)
                 })}
@@ -47,7 +49,7 @@ export class DataPicker extends Component<IPickerProps> {
     }
 
     showPicker() {
-        const { dontTranslate, onSelect, placeHolder, value, label } = this.props;
+        const { dontTranslate, onSelect, placeHolder, value, label, icon, customContainerStyle } = this.props;
         const conf = {
             labelFontSizeInactive: 16,
             labelFontSizeActive: 14,
@@ -76,25 +78,30 @@ export class DataPicker extends Component<IPickerProps> {
                 outputRange: [1, 1],
             })
         };
+
         return (
-            <View style={ styles.containerStyle } >
-                    <Animated.Text style={labelStyle}>
-                        {i18n.t(label)} 
-                    </Animated.Text>
-                    <TextInput
-                        placeholder={placeHolder}
-                        autoCorrect={false}
-                        style={styles.inputStyle}
-                        value={value ? dontTranslate ? value : i18n.t(value): ''}
-                        onChangeText={onSelect}
-                        onFocus={() => this.setState({ showModal: true })}
-                        onBlur={() => this.animate(value ? 1 : 0)}
-                        underlineColorAndroid="transparent"
-                    />
-                    <TouchableOpacity onPress={() => this.setState({ showModal: true })}>
-                        <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/down-50.png')} />
-                    </TouchableOpacity>
-                </View>
+            <View style={ [styles.containerStyle, customContainerStyle] } >
+                {_.isNil(icon) && <Animated.Text style={labelStyle}>
+                    {i18n.t(label)} 
+                </Animated.Text>}
+                {_.isNil(icon) && <TextInput
+                    placeholder={placeHolder}
+                    autoCorrect={false}
+                    style={styles.inputStyle}
+                    value={value ? dontTranslate ? value : i18n.t(value): ''}
+                    onChangeText={onSelect}
+                    onFocus={() => this.setState({ showModal: true })}
+                    onBlur={() => this.animate(value ? 1 : 0)}
+                    underlineColorAndroid="transparent"
+                />}
+                {_.isNil(icon) && <TouchableOpacity onPress={() => this.setState({ showModal: true })} >
+                    <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/down-50.png')} />
+                </TouchableOpacity>}
+                {icon && 
+                <TouchableOpacity onPress={() => this.setState({ showModal: true })} style={{ height:40 }}>
+                    <Image style={styles.imageStyle} source={icon} />
+                </TouchableOpacity>}
+            </View>
         )
     }
 
@@ -123,7 +130,7 @@ export class DataPicker extends Component<IPickerProps> {
 
 const styles = StyleSheet.create({
     categoryView: {
-        
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         height: '90%',
@@ -174,6 +181,12 @@ const styles = StyleSheet.create({
         height: 60,
         borderBottomWidth: 0,
         flexDirection: 'row'
+    },
+    imageStyle: {
+        width: 35,
+        height: 35,
+        marginLeft: 20,
+        marginRight: 20
     }
 });
 
@@ -192,7 +205,9 @@ export interface IPickerProps {
     noHideOnPress?: boolean,
     onclose?: () => void,
     onBack?: () => void,
-    showBackButton: boolean
+    showBackButton?: boolean,
+    icon?: any,
+    customContainerStyle: any
 
 }
 

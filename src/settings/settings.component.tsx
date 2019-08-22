@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { ISettingsProp } from './settings.model';
-import { Button, Input, Header, Spinner } from '../shared/components/common';
-import appConstants from '../appConstants';
-import { LinearGradient } from 'expo-linear-gradient';
-import i18n, {languages } from '../shared/service/i18n';
+import { Button } from '../shared/components/common';
+
+import {languages } from '../shared/service/i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
 
 export default class Settings extends Component<ISettingsProp> {

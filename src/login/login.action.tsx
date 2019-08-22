@@ -1,67 +1,72 @@
-import { LOGIN_INITIALIZE_FINISH, LOGIN_INITIALIZE_START, LOGIN_SET_PASSWORD, LOGIN_SET_USERNAME, LOGIN_MODE,
-    REGISTER_SUBMIT, LOGIN_SUBMIT, ERROR_MESSAGE, SHOW_SPINNER, RECOVER_PASSWORD } from './login.constant';
+import loginConstans from './login.constant';
 import { ILoginAction } from './login.model';
 
 const splashAction: ILoginAction = {
     loginInitializeStart() {
         return {
-            type: LOGIN_INITIALIZE_START
+            type: loginConstans.LOGIN_INITIALIZE_START
         }
     },
 
     loginInitializeFinish() {
         return {
-            type: LOGIN_INITIALIZE_FINISH
+            type: loginConstans.LOGIN_INITIALIZE_FINISH
         }
     },
 
     loginSetPassword(password) {
         return {
-            type: LOGIN_SET_PASSWORD,
+            type: loginConstans.LOGIN_SET_PASSWORD,
             value: password
         }
     },
 
     loginSetUserName(userName) {
         return {
-            type: LOGIN_SET_USERNAME,
+            type: loginConstans.LOGIN_SET_USERNAME,
             value: userName
         }
     },
     setFormMode(formMode, screenMode) {
         return {
-            type: LOGIN_MODE,
+            type: loginConstans.LOGIN_MODE,
             value: { formMode, screenMode }
         }
     },
     registerSubmit(userName, password) {
         return {
-            type: REGISTER_SUBMIT,
+            type: loginConstans.REGISTER_SUBMIT,
             value: { userName, password }
         }
     },
     loginSubmit(userName, password) {
         return {
-            type: LOGIN_SUBMIT,
+            type: loginConstans.LOGIN_SUBMIT,
             value: { userName, password }
         }
     },
     recoverPassword(userName) {
         return {
-            type: RECOVER_PASSWORD,
+            type: loginConstans.RECOVER_PASSWORD,
             value: { userName }
         }
     },
     errorMessage(error) {
         return {
-            type: ERROR_MESSAGE,
+            type: loginConstans.ERROR_MESSAGE,
             value: error
         }
     },
     showSpinner(show) {
         return {
-            type: SHOW_SPINNER,
+            type: loginConstans.SHOW_SPINNER,
             value: show
+        }
+    },
+    loginSetCurrentLanguage(uLanguage: string) {
+        return {
+            type: loginConstans.LOGIN_SET_CURRENT_LANGUAGE,
+            value: uLanguage
         }
     }
 }
