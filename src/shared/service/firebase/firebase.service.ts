@@ -34,7 +34,6 @@ class FirebaseService {
     async newUser(userName, password){
         const response = await firebase.auth().createUserWithEmailAndPassword(userName, password);
         await firebase.auth()
-
         return response;
     }
 

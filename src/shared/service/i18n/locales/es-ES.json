@@ -65,7 +65,12 @@
         "newRegister": "Nuevo aquí? \nRegístrate",
         "recover": "Recuperar",
         "email": "Correo",
-        "password": "Constraseña"
+        "password": "Constraseña",
+        "auth/invalid-email": "La dirección de correo tiene un formato incorrecto",
+        "auth/weak-password": "La constaseña deve tener 6 caracteres o mas",
+        "auth/email-already-in-use": "El correo ya esta en uso por otra cuenta ",
+        "auth/wrong-password": "Contraseña invalida",
+        "auth/user-not-found": "El usuario no existe."
     },
     "mainTabNav": {
         "transactions": "Transacciones",

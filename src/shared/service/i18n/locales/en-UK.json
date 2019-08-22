@@ -64,7 +64,12 @@
         "newRegister": "New here? \nSign Up",
         "recover": "Recover",
         "email": "E-Mail",
-        "password": "Password"
+        "password": "Password",
+        "auth/invalid-email": "The email address is badly formatted.",
+        "auth/weak-password": "The password must be 6 characters long or more.",
+        "auth/email-already-in-use": "The email address is already in use by another account.",
+        "auth/wrong-password": "The password is invalid.",
+        "auth/user-not-found": "There is no user record corresponding to this identifier."
     },
     "mainTabNav": {
         "transactions": "Transactions",

@@ -5,13 +5,15 @@ import NavigationService from '../shared/service/navigation/navigation.service';
 import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import appConstants from '../appConstants';
+import i18n from '../shared/service/i18n';
 
 export default [
     takeLatest(loginConstants.LOGIN_INITIALIZE_START, initialize),
     takeLatest(loginConstants.REGISTER_SUBMIT, registerNewUser),
     takeLatest(loginConstants.LOGIN_SUBMIT, logInUser),
     takeLatest(loginConstants.RECOVER_PASSWORD, recoverPassword),
-    takeLatest(loginConstants.LOGIN_SET_CURRENT_LANGUAGE, updateLanguage)
+    takeLatest(loginConstants.LOGIN_SET_CURRENT_LANGUAGE, updateLanguage),
+    takeLatest(loginConstans.LOGIN_MODE, loginModeChange)
 ];
 
 export function* initialize() {
@@ -36,9 +38,9 @@ export function* registerNewUser(action) {
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
 
     } catch (e) {
+        console.log(`[error][login][saga][registerNewUser]>>>`, e);
         yield put(loginAction.showSpinner(false));
-        yield put(loginAction.errorMessage(e.message));
-        console.log(`[error][login][saga][registerNewUser]>>> ${e}`);
+        yield put(loginAction.errorMessage(i18n.t("loginScreen." + e.code)));
     }
 }
 
@@ -55,7 +57,7 @@ export function* logInUser(action) {
     } catch (e) {
         yield put(loginAction.showSpinner(false));
         yield put(loginAction.errorMessage(e.message));
-        console.log(`[error][login][saga][logInUser]>>> ${e}`);
+        console.log(`[error][login][saga][logInUser]>>> `,e);
     }
 }
 
@@ -69,14 +71,24 @@ export function* recoverPassword(action) {
     } catch (e) {
         yield put(loginAction.showSpinner(false));
         yield put(loginAction.errorMessage(e.message));
-        console.log(`[error][login][saga][logInUser]>>> ${e}`);
+        console.log(`[error][login][saga][logInUser]>>> `, e);
     }
 }
 
 export function* updateLanguage(action) {
     try {
         yield call(AsyncStorageService.setItem, 'USER_LANGUAGE', action.value);
+        yield put(loginAction.errorMessage(''));
     } catch (e) {
-        console.log(`[error][login][saga][initialize]>>> ${e}`);
+        console.log(`[error][login][saga][initialize]>>> `, e);
+    }
+}
+
+
+export function* loginModeChange(action) {
+    try {
+        yield put(loginAction.errorMessage(''));
+    } catch (e) {
+        console.log(`[error][login][saga][initialize]>>> `, e);
     }
 }

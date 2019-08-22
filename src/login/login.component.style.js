@@ -4,13 +4,13 @@ const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
         justifyContent: 'center',
-        alignSelf: 'stretch',
-        paddingLeft: 15,
-        paddingRight: 15
+        alignSelf: 'stretch'
         //backgroundColor: 'rgba(179, 206, 249, 1)'
     },
     subContainerStyle: {
-        flex: 0.6,
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         borderRadius: 5,
         margin: 20
@@ -23,13 +23,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     buttonContainerStyle: {
-        flex: 1, 
         marginBottom: 50
     },
     errorStyle: { 
-        flex: 1,
         color: 'red',
+        marginTop:25,
         marginLeft: 25,
+        marginRight: 25,
+        minHeight: 50
     },
     linearGradient: {
         flex: 1
