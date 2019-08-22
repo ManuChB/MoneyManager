@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
-import { Button, Input, Header, CustomPicker } from '../../../shared/components/common';
+import { Button, Input, Header, CategoryPicker } from '../../../shared/components/common';
 import appConstants from '../../../appConstants';
 import styles from './new-transaction-modal.component.style';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
@@ -74,26 +74,26 @@ export default class  extends Component<ITransactionDetailProp> {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <CustomPicker 
+                    <CategoryPicker 
                         label={'newTransaction.category'}
                         value={data.subCategory ? data.subCategory.value : ''}
                         data={categories} 
-                        onSelect={(categoryId, subCategory) => this.props.actions.changeData({ ...data, categoryId, subCategory })}>
-                    </CustomPicker>
-                        <DataPicker
-                            dontTranslate={true}
-                            label={'newTransaction.account'}
-                            value={data.account ? data.account.name: ''}
-                            data={accounts}
-                            onSelect={(account) => this.props.actions.changeData({ ...data, account }) }>
-                            <Button
-                                customButtonStyle={{ marginBottom: 20 }}
-                            onPress={() => AccountService.accountToDetail({}, this.onSaveAccount.bind(this)) }
-                            label={'newTransaction.button.newAccount'}>
-                            </Button>
-                        </DataPicker>
-
-                        
+                        onSelect={(categoryId, subCategory) =>{ 
+                            console.log('--------new-----', categoryId, subCategory);
+                             this.props.actions.changeData({ ...data, categoryId, subCategory })}} >
+                    </CategoryPicker>
+                    <DataPicker
+                        dontTranslate={true}
+                        label={'newTransaction.account'}
+                        value={data.account ? data.account.name: ''}
+                        data={accounts}
+                        onSelect={(account) => this.props.actions.changeData({ ...data, account }) }>
+                        <Button
+                            customButtonStyle={{ marginBottom: 20 }}
+                        onPress={() => AccountService.accountToDetail({}, this.onSaveAccount.bind(this)) }
+                        label={'newTransaction.button.newAccount'}>
+                        </Button>
+                    </DataPicker>
                     <Input
                         inputRef={ref => this.descriptionInput = ref}
                         label={'newTransaction.description'}

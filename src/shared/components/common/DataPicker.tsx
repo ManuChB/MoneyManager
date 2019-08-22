@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
 import { Modal } from '.';
 import i18n from '../../service/i18n';
+import { element } from 'prop-types';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -13,21 +14,28 @@ export class DataPicker extends Component<IPickerProps> {
 
     closeModal(){
         this.setState({ showModal: false });
+        if (this.props.onclose) {
+            this.props.onclose();
+        }
     }
 
     showModal() {
-        const { data, onSelect, dontTranslate } = this.props;
+        const { data, onSelect, dontTranslate, fieldToShow, noHideOnPress, showBackButton, onBack } = this.props;
+        const field = fieldToShow || 'name';
         return (
-            <Modal closeModal={ this.closeModal.bind(this) }>
+            <Modal closeModal={this.closeModal.bind(this)} showBack={showBackButton} onBack={onBack} >
                 {data && data.map((element, key) => {
                     return (
                         <TouchableOpacity
                             style={styles.subCategory}
                             key={key}
-                            onPress={() => { this.setState({ showModal: false }); onSelect(element) }}>
+                            onPress={() => { 
+                                if(!noHideOnPress){ this.setState({ showModal: false }) }; 
+                                onSelect(element) 
+                            }}>
                             <View style={styles.categoryView} key={key} >
                                 <Text style={styles.categoryText} key={key}>
-                                    {dontTranslate ? element.name : i18n.t(element.name) }
+                                    {dontTranslate ? element[field] : i18n.t(element[field]) }
                                 </Text>
                             </View>
                         </TouchableOpacity>)
@@ -179,7 +187,12 @@ export interface IPickerProps {
     showModal?: boolean,
     placeHolder?: string,
     value?: string,
-    dontTranslate?: boolean
+    dontTranslate?: boolean,
+    fieldToShow?: string,
+    noHideOnPress?: boolean,
+    onclose?: () => void,
+    onBack?: () => void,
+    showBackButton: boolean
 
 }
 

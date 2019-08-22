@@ -4,18 +4,24 @@ import { Button } from './Button';
 
 export class Modal extends Component<IModalProp> {
     render() {
-        const { closeModal, hideClose } = this.props;
+        const { closeModal, hideClose, showBack, onBack } = this.props;
 
         return(
             <View style={styles.mainView}>
                 <View style={styles.screenBlocker}></View>
                 {!hideClose && <Button
-                    customButtonStyle={styles.customButtonStyle}
+                    customButtonStyle={[styles.customButtonStyle, styles.buttonRight]}
                     customLabelStyle={styles.customLabelStyle} onPress={() => closeModal()}
                     label={'X'}
                     dontTranslate={true}>
                 </Button>}
-                <ScrollView style={styles.modalStyle} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} showsVerticalScrollIndicator={false}>
+                {showBack && <Button
+                    customButtonStyle={[styles.customButtonStyle, styles.buttonLeft]}
+                    customLabelStyle={styles.customLabelStyle} onPress={() => onBack()}
+                    icon={require('../../../../assets/images/left-50.png')}
+                    dontTranslate={true}>
+                </Button>}
+                <ScrollView style={styles.modalStyle} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', marginTop: 35 }} showsVerticalScrollIndicator={false}>
                     
                     {this.props.children}
                 </ScrollView>
@@ -57,16 +63,27 @@ const styles = StyleSheet.create({
         height: 35,
         zIndex: 200,
         position: 'absolute',
-        right: '5%',
-        top: '5%',
         elevation: 5,
         marginLeft: 0,
         marginRight:0,
-        borderRadius: 0,
+        borderRadius: 0
+    },
+    buttonRight: {
+        right: '5%',
+        top: '5%',
         borderBottomLeftRadius: 5,
         borderTopRightRadius: 15,
-        borderColor: '#F38266', 
+        borderColor: '#F38266',
         backgroundColor: '#F38266'
+    },
+    buttonLeft: { 
+        left: '5%',
+        top: '5%', 
+        borderBottomRightRadius: 5,
+        borderTopLeftRadius: 15,
+        borderColor: '#d1db56',
+        backgroundColor: '#d1db56'
+    
     },
     customLabelStyle: {
         fontSize: 20,
@@ -80,6 +97,8 @@ const styles = StyleSheet.create({
 
 export interface IModalProp {
     closeModal?: () => void,
-    hideClose?: boolean
+    onBack?: () => void,
+    hideClose?: boolean,
+    showBack?: boolean
 }
 
