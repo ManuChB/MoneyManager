@@ -68,8 +68,8 @@ export default class Login extends Component<ILoginProp> {
                     <LinearGradient 
                         start={{ x: 0.0, y: 0.2 }} 
                         end={{ x: 0.75, y: 1.0 }}
-                        locations={[0, 0.5, 0.9]}
-                        colors={['#97A2C4', '#CFCD5B', '#350F90']} 
+                        locations={[0, 0.3, 0.7]}
+                        colors={['#58e8da', '#97A2C4', '#8362d1']} //['#97A2C4', '#CFCD5B', '#350F90']
                         style={styles.linearGradient}>
                         <DataPicker label={'settingsScreen.language'}
                             value={this.props.state.currentLanguage.name}
