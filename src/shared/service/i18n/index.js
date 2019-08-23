@@ -35,6 +35,10 @@ class I18nService {
     getShortLocale() {
         return config.shortLocale;
     }
+
+    getLocale() {
+        return config.locale;
+    }
 }
 
 export default new I18nService();

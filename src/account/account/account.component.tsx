@@ -4,7 +4,7 @@ import { IAccountProp } from './account.model';
 import { Input, Header } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account.component.style';
-
+import i18n from '../../shared/service/i18n';
 const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
     const { value, name, type, currency, description} = data;
 
@@ -19,7 +19,7 @@ const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
                     flex: 2, justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={styles.valueStyle}>{value ? value.toLocaleString('en-UK', { style: 'currency', currency: currency.name }) : 0}</Text>
+                    <Text style={styles.valueStyle}>{value ? value.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency.name }) : 0}</Text>
                 </View>
             </View>
         </TouchableOpacity>

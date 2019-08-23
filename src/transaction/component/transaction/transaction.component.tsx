@@ -49,7 +49,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
                         flex: 2, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                    <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>{value.toLocaleString('en-UK', { style: 'currency', currency: account ? account.currency.name : 'EUR' })}</Text>
+                    <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>{value.toLocaleString(i18n.getLocale(), { style: 'currency', currency: account ? account.currency.name : 'EUR' })}</Text>
                 </View>
             </View>
         </TouchableOpacity>

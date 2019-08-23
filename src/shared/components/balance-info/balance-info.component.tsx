@@ -12,7 +12,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t('balanceInfo.income')}
                 </Text>
                 <Text style={[styles.valueStyle, { color: 'green' }]}>
-                    {income ? income.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {income ? income.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -20,7 +20,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t('balanceInfo.expense')}
                 </Text>
                 <Text style={[styles.valueStyle, { color: 'red' }]}>
-                    {expense ? expense.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {expense ? expense.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -28,7 +28,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t('balanceInfo.balance')}
                 </Text>
                 <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>
-                    {balance ? balance.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {balance ? balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
                 </Text>
             </View>
         </View>
