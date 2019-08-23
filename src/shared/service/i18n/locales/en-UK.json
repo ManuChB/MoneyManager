@@ -12,6 +12,12 @@
         "cash": "Cash",
         "creditCard": "Credit card"
     },
+    "accountList": {
+        "globalBalance": "Global balance",
+        "assets": "ASSETS",
+        "liabilities": "LIABILITIES",
+        "balance": "BALANCE"
+    },
     "balanceInfo": {
         "income": "INCOME",
         "expense": "EXPENSE",

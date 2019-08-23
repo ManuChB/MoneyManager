@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { IAccountListProp } from './account-list.model';
 import BalanceInfo from '../shared/components/balance-info/balance-info.component';
 import { AddButton, Spinner } from '../shared/components/common';
@@ -7,6 +7,7 @@ import i18n from '../shared/service/i18n';
 import Account from './account/account.component';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
+import styles from './account-list.component.style';
 
 export default class AccountList extends Component<IAccountListProp> {
 
@@ -34,13 +35,26 @@ export default class AccountList extends Component<IAccountListProp> {
                 (balance) =>  balance.type && balance.type.name === accountTypeList.type.name
             )[0];
             return (
-                <View key={typekey}>
-                    <Text key={typekey}>{i18n.t(accountTypeList.type.name)}</Text>   
-                    {accountBalance && <BalanceInfo income={accountBalance.income} expense={accountBalance.expense} balance={accountBalance.balance} ></BalanceInfo>} 
+                <TouchableOpacity key={typekey} style={{marginBottom: 20}} onPress={() => {}}>
+                    <View style={styles.accountListTitle}>
+                        <Text key={typekey} style={{ color: 'white' }}>
+                            {i18n.t(accountTypeList.type.name).toUpperCase()}
+                        </Text>     
+                    </View>
+                      
+                    {accountBalance && <BalanceInfo 
+                        income={accountBalance.income} 
+                        expense={accountBalance.expense} 
+                        balance={accountBalance.balance}
+                        incLabel={'accountList.assets'}
+                        expLabel={'accountList.liabilities'}
+                        balLabel={'accountList.balance'}>
+
+                        </BalanceInfo>} 
                     {accountTypeList.data.map((account, key) => {
                         return (<Account key={typekey + "_" + key} data={account} onPress={() => this.onPressAccount(account)} ></Account>)
                     })}
-                </View>
+                </TouchableOpacity>
             )
         }
         else{
@@ -55,7 +69,26 @@ export default class AccountList extends Component<IAccountListProp> {
         )[0];
         return (
             <View style={{ flex: 1 }}>
-                <BalanceInfo income={balance.income} expense={balance.expense} balance={balance.balance} ></BalanceInfo>
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    elevation: 2,
+                    position: 'relative',
+                    backgroundColor: '#3ca8cf',
+                    height: 30
+                }}>
+                    <Text style={{color: 'white'}}>
+                        {i18n.t('accountList.globalBalance').toUpperCase()}
+                    </Text>
+                </View>
+                <BalanceInfo 
+                    income={balance.income} 
+                    expense={balance.expense} 
+                    balance={balance.balance} 
+                    incLabel={'accountList.assets'}  
+                    expLabel={'accountList.liabilities'} 
+                    balLabel={'accountList.balance'} >
+                </BalanceInfo>
                 <AddButton onPress={() => this.onPressNewAccount()}></AddButton>
                 <ScrollView>
                     {accountListByType.map((accountTypeList, typekey) => {
@@ -63,6 +96,7 @@ export default class AccountList extends Component<IAccountListProp> {
                             this.getAccountsFromTypeList(accountTypeList, typekey, accountsBalance)
                          )
                     })}
+                    <View style={{ height: 60 }}></View>
                 </ScrollView>
             </View>
         )

@@ -8,6 +8,12 @@
         "newAccount": "Crear cuenta",
         "updateAccount": "Actualizar cuenta"
     },
+    "accountList":{
+        "globalBalance": "Balance global",
+        "assets": "CAPITAL",
+        "liabilities": "DEUDA",
+        "balance": "BALANCE"
+    },
     "accountTypes":{
         "cash": "Metalico",
         "creditCard": "Tarjeta de credito"
