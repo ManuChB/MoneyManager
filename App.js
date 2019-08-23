@@ -3,7 +3,11 @@ import store from './src/store/configreStore';
 import NavigationState from './src/NavigationState';
 import { AppRegistry, View } from 'react-native';
 import { Provider } from 'react-redux';
-//import DeviceInfo from 'react-native-device-info';
+require('moment/locale/cs.js');
+require('moment/locale/es.js');
+require('moment/locale/fr.js');
+require('moment/locale/nl.js');
+
 
 /********TEMPORARL FIX START*/
 // Timer error in JSTimers

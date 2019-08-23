@@ -1,7 +1,12 @@
 import locales from './locales';
+import { LocaleConfig } from 'react-native-calendars';
+//import moment from 'moment/min/moment-with-locales';
+import moment from 'moment';
 
 const config = {
-    i18n: null
+    i18n: null,
+    locale: null,
+    shortLocale: null
 };
 
 class I18nService {
@@ -14,10 +19,21 @@ class I18nService {
 
     setLocale(locale){
         config.i18n.locale = locale;
+        config.locale = locale;
+        config.shortLocale = locale.split('-')[0];
+
+        moment.locale(locale.split('-')[0]);
+
+        LocaleConfig.locales[locale] = config.i18n.t('calendarLocaleConfig');
+        LocaleConfig.defaultLocale = locale;    
     }
 
     t(lable){
         return config.i18n.t(lable);
+    }
+
+    getShortLocale() {
+        return config.shortLocale;
     }
 }
 

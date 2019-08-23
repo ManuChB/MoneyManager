@@ -5,7 +5,7 @@ import moment, { Moment } from 'moment';
 import { Modal } from '../common/Modal';
 import { Calendar } from 'react-native-calendars';
 import { Button } from '../common/Button';
-
+import i18n from '../../../shared/service/i18n'
 export class DatePickerHeader extends Component<IDatePickerProps> {
 
     componentDidMount() {
@@ -165,26 +165,17 @@ export class DatePickerHeader extends Component<IDatePickerProps> {
     }
 
     getPickerText() {
-        const { dateStart, dateEnd, dateMode, dateFormat } = this.props;
+        const { dateStart, dateEnd, dateMode } = this.props;
+        const locale = i18n.getShortLocale();
         let text = 'No date';
         if(dateMode == 'day' && dateStart){
-            text = dateStart.format('DD MMM YYYY').toString();
+            text = moment(dateStart).locale(locale).format('DD MMM YYYY').toString();
         }
         else if(dateStart && dateEnd && dateMode == 'week'){
-            if (dateStart.year() == dateEnd.year() && dateStart.month() == dateEnd.month()){
-                text = dateStart.format('DD').toString() + " to " + dateEnd.format('DD MMM YYYY').toString();
-            }
-            else if (dateStart.year() == dateEnd.year() && dateStart.month() != dateEnd.month()) {
-                text = dateStart.format('DD MMM').toString() + " to " + dateEnd.format('DD MMM YYYY').toString();
-            }
-            else if(dateStart.year() != dateEnd.year()) {
-                text = dateStart.format('DD MMM YYYY').toString() + " to " + dateEnd.format('DD MMM YYYY').toString();
-            }
-            text = dateStart.format('DD MMM YYYY').toString() + "\n" + dateEnd.format('DD MMM YYYY').toString();
-
+            text = moment(dateStart).locale(locale).format('DD MMM YYYY').toString() + "\n" + moment(dateEnd).locale(locale).format('DD MMM YYYY').toString();
         }
         else if (dateStart && dateEnd && dateMode == 'month'){
-            text = dateStart.format('MMM YYYY').toString();
+            text = moment(dateStart).locale(locale).format('MMM YYYY').toString();
         }
         return text;
     }

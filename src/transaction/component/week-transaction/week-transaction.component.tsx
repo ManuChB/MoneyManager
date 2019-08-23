@@ -10,8 +10,6 @@ import NavigationService from '../../../shared/service/navigation/navigation.ser
 import moment from 'moment';
 import WeekSelector from 'react-native-week-selector';
 import Transaction from '../transaction/transaction.component';
-import { Calendar } from 'react-native-calendars';
-
 
 export default class WeekTransaction extends Component<IWeekTransactionProp> {
 

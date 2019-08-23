@@ -101,6 +101,12 @@
         "week": "Week",
         "month": "Month",
         "year": "Year"
+    },
+    "calendarLocaleConfig": {
+        "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", " December"],
+        "monthNamesShort": ["Jan.", "Feb.", "March", "April", "May", "June", "Jul.", "August", "Sept.", "Oct.", "Nov.", "Dec."],
+        "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "dayNamesShort": ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."],
+        "today": "Today"
     }
-    
 }
