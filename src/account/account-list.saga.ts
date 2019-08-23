@@ -37,12 +37,25 @@ export function* getAccounts() {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const accountList = yield call(AccountService.getAccounts);
         yield put(accountListAction.setAccounts(accountList));
+        const orderedAccountList = orderAccuntsByType(accountList);
+        yield put(accountListAction.setAccountsByType(orderedAccountList));
         yield call(calculateBalance);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][accountList][saga][getAccounts]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
+}
+
+export function orderAccuntsByType(accountList) {
+    let array = [];
+    appConstants.accountTypesArray.forEach(type => {
+        let arr = accountList.filter(
+            (account) => account.type.id == type.id
+        )
+        array.push({type, data: arr});
+    });
+    return array;    
 }
 
 export function* accountToDetail(action) {
@@ -89,9 +102,34 @@ export function* updateAccount(action) {
 
 export function* calculateBalance() {
     try {
-        const accounts = yield select(selectors.getAccounts);
+        const accounts = yield select(selectors.getAccounts); 
+        let balanceInfo = yield select(selectors.getBalanceInfo);
+        const accountListByType = yield select(selectors.getAccountListByType);
+
         const { income, expense, balance } = AccountService.calculateBalance(accounts);
-        yield put(accountListAction.setBalanceInfo(income, expense, balance))
+
+        if (balanceInfo.some(balance => balance.type === appConstants.accountTypesGeneral.name)) {
+            balanceInfo = balanceInfo.map(
+                (b) => b.type === appConstants.accountTypesGeneral.name ? { income, expense, balance, type: appConstants.accountTypesGeneral.name } : balance
+            )
+        }else{
+            balanceInfo.push({ income, expense, balance, type: appConstants.accountTypesGeneral.name })
+        }
+
+        yield accountListByType.map(accountList => {
+            if (accountList.data.length > 0){
+                const response = AccountService.calculateBalance(accountList.data);
+                if (balanceInfo.some(balance => balance.type === accountList.type)) {
+                    balanceInfo = balanceInfo.map(
+                        (balance) => balance.type === accountList.type ? { income: response.income, expense: response.expense, balance: response.balance, type: accountList.type } : balance
+                    )
+                } else {
+                    balanceInfo.push({ income: response.income, expense: response.expense, balance: response.balance, type: accountList.type })
+                }
+            }
+        });
+
+        yield put(accountListAction.setBalanceInfo(balanceInfo));        
     } catch (e) {
         console.log(`[error][accountList][saga][calculateBalance]>>> ${e}`);
     }
@@ -100,7 +138,7 @@ export function* calculateBalance() {
 export function* removeAccount(action) {
     try {
         yield call(AccountService.removeAccount, action.value);
-        yield call(calculateBalance);
+        yield call(initialize);
     } catch (e) {
         console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }

@@ -35,10 +35,10 @@ const accountListAction: IAccountListAction = {
         }
     },
     
-    setBalanceInfo(income, expense, balance) {
+    setBalanceInfo(accountsBalance) {
         return {
             type: accountListConstants.SET_ACCOUNTS_BALANCE_INFO,
-            value: { income, expense, balance }
+            value: accountsBalance
         }
     },
 
@@ -47,7 +47,14 @@ const accountListAction: IAccountListAction = {
             type: accountListConstants.REMOVE_ACCOUNT,
             value: transaction
         }
-    }
+    },
+
+    setAccountsByType(accounts) {
+        return {
+            type: accountListConstants.SET_ACCOUNT_LIST_BY_TYPE,
+            value: accounts
+        }
+    },
 }
 
 export default accountListAction;

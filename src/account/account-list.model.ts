@@ -14,15 +14,27 @@ export interface IAccountListAction {
     setAccounts?: (accounts: Array<IAccountData>) => Action;
     setAccountToDetail?: (account: IAccountData, onSave: any, onRemove: any) => Action;
     saveNewAccount?: (account: IAccountData) => Action;
-    setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
+    setBalanceInfo?: (accountsBalance: Array<IBalanceInfo>) => Action;
     removeAccount?: (account: IAccountData) => Action;
+    setAccountsByType?: (accountListByOrderType: Array<IAccountListByType>) => Action;
 }
 
 export interface IAccountListState {
     isInitialized?: boolean;
     accountList?: Array<IAccountData>;
     accountToDetail?: IAccountData;
-    income: Number;
-    expense: Number;
-    balance: Number;
+    accountsBalance?: Array<IBalanceInfo>;
+    accountListByType?: Array<IAccountListByType>;
+
+}
+export interface IBalanceInfo{
+        income: Number,
+        expense: Number,
+        balance: Number,
+        type: string
+    }
+
+export interface IAccountListByType { 
+    type: { name: string, id: string }, 
+    data: Array<IAccountData>
 }

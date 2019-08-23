@@ -65,6 +65,14 @@ const constants = {
     swipeConstants: {
         velocityThreshold: 0.1,
         directionalOffsetThreshold: 10
+    },
+
+    accountTypesArray: [
+        { name: "accountTypes.cash", id: "fh8BKRjjN30i7rZHUp5F"},
+        { name: "accountTypes.creditCard", id: "wkWaAmfS08vWJsGvrTTi"},
+    ],
+    accountTypesGeneral:{
+        name: "accountTypes.general"
     }
 }
 

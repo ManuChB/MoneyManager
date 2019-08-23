@@ -1,13 +1,18 @@
 import accountListConstants from './account-list.constant';
 import { AnyAction } from 'redux';
 import { IAccountListState } from './account-list.model';
+import appConstans from '../appConstants';
 
 export const initialState: IAccountListState = {
     isInitialized: false,
     accountList: [],
-    income: 0.00,
-    expense: 0.00,
-    balance: 0.00
+    accountsBalance: [{
+        income: 0.00,
+        expense: 0.00,
+        balance: 0.00,
+        type: appConstans.accountTypesGeneral.name
+    }],
+    accountListByType: []
 };
 
 export default function accountList(state: IAccountListState = initialState, action: AnyAction) {
@@ -30,9 +35,7 @@ export default function accountList(state: IAccountListState = initialState, act
         case accountListConstants.SET_ACCOUNTS_BALANCE_INFO:
             return {
                 ...state,
-                income: action.value.income,
-                expense: action.value.expense,
-                balance: action.value.balance,
+                accountsBalance: action.value
             };
         case accountListConstants.REMOVE_ACCOUNT:
             return {
@@ -40,7 +43,12 @@ export default function accountList(state: IAccountListState = initialState, act
                 accountList: state.accountList.filter(
                     (account) => account.id !== action.value.id
                 )
-            }; 
+            };
+        case accountListConstants.SET_ACCOUNT_LIST_BY_TYPE:
+            return {
+                ...state,
+                accountListByType: action.value
+            };
         default:
             return state
     }
