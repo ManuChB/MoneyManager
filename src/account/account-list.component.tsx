@@ -35,7 +35,7 @@ export default class AccountList extends Component<IAccountListProp> {
                 (balance) =>  balance.type && balance.type.name === accountTypeList.type.name
             )[0];
             return (
-                <TouchableOpacity key={typekey} style={{marginBottom: 20}} onPress={() => {}}>
+                <View key={typekey} style={{marginBottom: 20}}>
                     <View style={styles.accountListTitle}>
                         <Text key={typekey} style={{ color: 'white' }}>
                             {i18n.t(accountTypeList.type.name).toUpperCase()}
@@ -54,7 +54,7 @@ export default class AccountList extends Component<IAccountListProp> {
                     {accountTypeList.data.map((account, key) => {
                         return (<Account key={typekey + "_" + key} data={account} onPress={() => this.onPressAccount(account)} ></Account>)
                     })}
-                </TouchableOpacity>
+                </View>
             )
         }
         else{

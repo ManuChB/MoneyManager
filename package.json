@@ -70,6 +70,7 @@
   "dependencies": {
     "@expo/vector-icons": "^8.0.0",
     "expo": "^33.0.0",
+    "expo-ads-admob": "~5.0.1",
     "expo-localization": "^6.0.0",
     "firebase": "^5.7.0",
     "i18n-js": "^3.3.0",
