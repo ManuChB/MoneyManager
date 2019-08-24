@@ -24,6 +24,7 @@ export class DataPicker extends Component<IPickerProps> {
         const field = fieldToShow || 'name';
         return (
             <Modal closeModal={this.closeModal.bind(this)} showBack={showBackButton} onBack={onBack} >
+                <View style={{ marginBottom: 50}}>
                 {data && data.map((element, key) => {
                     return (
                         <TouchableOpacity
@@ -43,7 +44,7 @@ export class DataPicker extends Component<IPickerProps> {
                         </TouchableOpacity>)
                 })}
                 {this.props.children}
-
+                </View>
             </Modal>
         )
     }
