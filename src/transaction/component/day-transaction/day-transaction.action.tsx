@@ -70,6 +70,12 @@ const dayTransactionAction: IDayTransactionAction = {
             type: dayTransactionConstant.REMOVE_TRANSACTION,
             value: transaction
         }
+    },
+    dayTransSetUserCurrency(currency) {
+        return {
+            type: dayTransactionConstant.DAY_TRANSACTION_SET_USER_CURRENCY,
+            value: currency
+        }
     }
 
 }

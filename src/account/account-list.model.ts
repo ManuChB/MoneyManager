@@ -17,6 +17,8 @@ export interface IAccountListAction {
     setBalanceInfo?: (accountsBalance: Array<IBalanceInfo>) => Action;
     removeAccount?: (account: IAccountData) => Action;
     setAccountsByType?: (accountListByOrderType: Array<IAccountListByType>) => Action;
+    setUserCurrency?: (currency: any) => Action;
+
 }
 
 export interface IAccountListState {
@@ -25,6 +27,7 @@ export interface IAccountListState {
     accountToDetail?: IAccountData;
     accountsBalance?: Array<IBalanceInfo>;
     accountListByType?: Array<IAccountListByType>;
+    userCurrency?: any;
 
 }
 export interface IBalanceInfo{

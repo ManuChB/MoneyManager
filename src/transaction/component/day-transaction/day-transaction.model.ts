@@ -21,6 +21,7 @@ export interface IDayTransactionAction {
     setBalanceInfo?: (income: number, expense: number, balance: number) => Action;
     longPress?: (transaction: ITransactionDataProp) => Action;
     removeTransaction?: (transaction: ITransactionDataProp) => Action;
+    dayTransSetUserCurrency?: (currency: any) => Action;
 }
 
 export interface IDayTransactionState {
@@ -32,4 +33,5 @@ export interface IDayTransactionState {
     transactions: Array<ITransactionDataProp>;
     showDetailModal?: boolean;
     transactionToDetail?: ITransactionDataProp;
+    userCurrency: any;
 }

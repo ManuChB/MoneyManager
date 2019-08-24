@@ -100,7 +100,8 @@
     "settingsScreen": {
         "settings": "Settings",
         "language": "Language",
-        "logOut": "Log Out"
+        "logOut": "Log Out",
+        "mainCurrency": "Main currency"
     },
     "timeTab": {
         "day": "Day",

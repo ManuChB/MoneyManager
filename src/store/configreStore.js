@@ -7,6 +7,7 @@ import rootSaga from '../saga';
 import i18nService, {
     languages, defaultLanguage
 } from '../shared/service/i18n';
+import appConstants from '../appConstants';
 import i18n from 'i18n-js';
 
 import * as Localization from 'expo-localization';
@@ -35,7 +36,7 @@ export default () => {
     sagaMiddleware.run(rootSaga);
 
     i18nService.setI18n(i18n);
-    AsyncStorageService.getItem('USER_LANGUAGE').then((uLanguage) => {
+    AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_LANGUAGE).then((uLanguage) => {
         if (uLanguage) {
             i18nService.setLocale(uLanguage.code);
         } else {
@@ -44,7 +45,7 @@ export default () => {
                     return language.code == Localization.locale;
                 }
             )[0];
-            AsyncStorageService.setItem('USER_LANGUAGE', deviceLanguage || defaultLanguage);
+            AsyncStorageService.setItem(appConstants.asyncStorageItem.USER_LANGUAGE, deviceLanguage || defaultLanguage);
             i1i18nService.setLocale(deviceLanguage ? deviceLanguage.code : defaultLanguage.code);
         }
     });

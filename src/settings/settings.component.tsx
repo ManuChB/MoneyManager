@@ -25,6 +25,13 @@ export default class Settings extends Component<ISettingsProp> {
                     data={languages}
                     onSelect={(lang) => this.setLanguage(lang)}>
                 </DataPicker>
+                <DataPicker 
+                    dontTranslate={true}
+                    label={'settingsScreen.mainCurrency'}
+                    value={this.props.state.currency ? this.props.state.currency.name : ''}
+                    data={this.props.state.currencyList}
+                    onSelect={(currency) => this.props.actions.settingsSetCurrentCurrency(currency)}>
+                </DataPicker>
                 <View style={{
                     flex: 1,
                     justifyContent: 'flex-end',

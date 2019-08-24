@@ -8,7 +8,9 @@ export const initialState: ISettingsState = {
     currentLanguage: {
         name: null,
         code: null
-    }
+    },
+    currency: null,
+    currencyList: []
 
 };
 
@@ -28,6 +30,16 @@ export default function settings(state: ISettingsState = initialState, action: A
             return {
                 ...state,
                 currentLanguage: action.value
+            };
+        case settingsConstants.SETTINGS_SET_CURRENT_CURRRENCY:
+            return {
+                ...state,
+                currency: action.value
+            };
+        case settingsConstants.SETTINGS_SET_CURRRENCY_LIST:
+            return {
+                ...state,
+                currencyList: action.value
             };
 
         default:

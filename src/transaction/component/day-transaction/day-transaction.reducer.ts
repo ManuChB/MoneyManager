@@ -12,7 +12,8 @@ export const initialState: IDayTransactionState = {
     balance: 0.00,
     transactions: [],
     showDetailModal: false,
-    transactionToDetail: null
+    transactionToDetail: null,
+    userCurrency: null
 };
 
 export default function dayTransaction(state: IDayTransactionState = initialState, action: AnyAction) {
@@ -69,7 +70,12 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
                 transactions: state.transactions.filter(
                     (transaction) => transaction.id !== action.value.id
                 )
-            };          
+            };     
+        case dayTransactionsConstants.DAY_TRANSACTION_SET_USER_CURRENCY:
+            return {
+                ...state,
+                userCurrency: action.value
+            };     
         default:
             return state
     }

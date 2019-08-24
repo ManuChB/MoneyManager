@@ -42,12 +42,12 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
     }
 
     render() {
-        const  { income, expense, balance, transactions } = this.props.state;
+        const  { income, expense, balance, transactions, userCurrency } = this.props.state;
         return (
             <View style={{ flex: 1 }}>
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
                 <DatePickerHeader dateStart= {this.props.state.date} changeDay={this.props.actions.changeDay} dateMode={'day'} ></DatePickerHeader>
-                <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
+                <BalanceInfo income={income} expense={expense} balance={balance} currency={userCurrency} ></BalanceInfo>
                 <ScrollView style={{marginTop: 5}}>
                     {transactions && transactions.map((data, key) =>{
                         return (<Transaction 

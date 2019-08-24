@@ -7,6 +7,8 @@ import weekTransactionConstants from './week-transaction.constant';
 import moneyManagerAction from '../../../money-manager/money-manager.action';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 import * as selectors from './selectors';
+import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
+import appConstants from '../../../appConstants';
 
 export default [
     takeLatest(weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START, initialize),
@@ -25,6 +27,8 @@ export function* initialize() {
         const weekStart = moment(date).startOf('isoWeek');
         const weekEnd = moment(date).endOf('isoWeek');
         yield put(weekTransactionAction.changeWeek(weekStart, weekEnd));
+        const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+        yield put(weekTransactionAction.weekTransSetUserCurrency(uCurrency));
         yield put(weekTransactionAction.weekTransactionInitializeFinish());
     } catch (e) {
         console.log(`[error][week-transaction][saga][initialize]>>> ${e}`);

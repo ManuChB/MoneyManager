@@ -19,6 +19,18 @@ const settingsAction: ISettingsAction = {
             value: uLanguage
         }
     },
+    settingsSetCurrentCurrency(currency: any){
+        return {
+            type: settinsConstans.SETTINGS_SET_CURRENT_CURRRENCY,
+            value: currency
+        }
+    },
+    settingsSetCurrencyList(currencyList: Array<any>){
+        return {
+            type: settinsConstans.SETTINGS_SET_CURRRENCY_LIST,
+            value: currencyList
+        }
+    },
     logOut() {
         return {
             type: settinsConstans.SETTINGS_LOG_OUT

@@ -8,6 +8,8 @@ import * as selectors from './selectors';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
 import TransactionListActions from '../../transaction-list.action';
 import transactionListAction from '../../transaction-list.action';
+import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
+import appConstants from '../../../appConstants';
 
 export default [
     takeLatest(dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_START, initialize),
@@ -25,7 +27,9 @@ export function* initialize() {
     try {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const day = yield select(selectors.getDayTransaction);
-        yield call(getTransactionByDate, { value: day })
+        yield call(getTransactionByDate, { value: day });
+        const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+        yield put(dayTransactionAction.dayTransSetUserCurrency(uCurrency));
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {

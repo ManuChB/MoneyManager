@@ -55,6 +55,12 @@ const splashAction: IMonthTransactionAction = {
             type: monthTransConstants.MONTH_TRANSACTION_REMOVE_TRANSACTION,
             value: transaction
         }
+    },
+    monthTransSetUserCurrency(currency) {
+        return {
+            type: monthTransConstants.MONTH_TRANSACTION_SET_USER_CURRENCY,
+            value: currency
+        }
     }
 
 }

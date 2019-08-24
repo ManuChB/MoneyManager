@@ -13,6 +13,8 @@ export interface ISettingsAction {
     settingsInitializeStart?: () => Action;
     settingsInitializeFinish?: () => Action;
     settingsSetCurrentLanguage?: (uLanguage: string) => Action;
+    settingsSetCurrentCurrency?: (currency: string) => Action;
+    settingsSetCurrencyList?: (currencyList: Array<any>) => Action;
     logOut?: () => Action;
 }
 
@@ -21,7 +23,9 @@ export interface ISettingsState {
     currentLanguage?: {
         name: string;
         code: string;
-    }
+    },
+    currency?: any;
+    currencyList?: Array<any>;
 }
 
 export interface IScreenModeState {

@@ -45,7 +45,7 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
     }
 
     render() {
-        const { isInitialized, income, expense, balance, transactions } = this.props.state;
+        const { isInitialized, income, expense, balance, transactions, userCurrency } = this.props.state;
         
         return (
             <View style={{ flex: 1 }}>
@@ -56,7 +56,7 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
                     changeDay={this.onWeekChanged.bind(this)}
                     dateMode={'week'}>
                 </DatePickerHeader>
-                <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
+                <BalanceInfo income={income} expense={expense} balance={balance} currency={userCurrency} ></BalanceInfo>
                 <ScrollView style={{ marginTop: 5 }}>
                     {transactions && transactions.map((data, key) => {
                         return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)

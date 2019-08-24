@@ -12,7 +12,8 @@ export const initialState: IAccountListState = {
         balance: 0.00,
         type: appConstans.accountTypesGeneral.name
     }],
-    accountListByType: []
+    accountListByType: [],
+    userCurrency: null
 };
 
 export default function accountList(state: IAccountListState = initialState, action: AnyAction) {
@@ -48,6 +49,11 @@ export default function accountList(state: IAccountListState = initialState, act
             return {
                 ...state,
                 accountListByType: action.value
+            };
+        case accountListConstants.SET_USER_CURRENCY:
+            return {
+                ...state,
+                userCurrency: action.value
             };
         default:
             return state

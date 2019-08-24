@@ -44,7 +44,9 @@ const constants = {
     asyncStorageItem: {
         CATEGORIES: 'CATEGORIES',
         CURRENCIES: 'CURRENCIES',
-        ACCOUNT_TYPES: 'ACCOUNT_TYPES'
+        ACCOUNT_TYPES: 'ACCOUNT_TYPES',
+        USER_LANGUAGE: 'USER_LANGUAGE',
+        USER_CURRENCY: 'USER_CURRENCY'
     },
 
     transactionIcons: {

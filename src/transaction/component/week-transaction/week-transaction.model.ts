@@ -19,6 +19,8 @@ export interface IWeekTransactionAction {
     updateWeekTransaction?: (transaction: ITransactionDataProp) => Action;
     setWeekTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any, onRemove: any) => Action;
     removeTransaction?: (transaction: ITransactionDataProp) => Action;
+    weekTransSetUserCurrency?: (currency: any) => Action;
+}
 }
 
 export interface IWeekTransactionState {
@@ -29,4 +31,5 @@ export interface IWeekTransactionState {
     transactions: Array<ITransactionDataProp>;
     currentWeekStart: Moment;
     currentWeekEnd: Moment;
+    userCurrency: any;
 }

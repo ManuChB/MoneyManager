@@ -46,12 +46,16 @@ export default new I18nService();
 export const languages = [{
         code: 'es-ES',
         name: 'language.esES',
-        icon: require('../../../../assets/images/spain-flag-80.png')
+        icon: require('../../../../assets/images/spain-flag-80.png'),
+        currency: {name:'EUR'}
     },
     {
         code: 'en-UK',
         name: 'language.enUK',
-        icon: require('../../../../assets/images/uk-flag-80.png')
+        icon: require('../../../../assets/images/uk-flag-80.png'),
+        currency: {
+            name: 'GBP'
+        }
     }
     /* ... */
     /* Other languages */

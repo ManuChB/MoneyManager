@@ -55,6 +55,13 @@ const accountListAction: IAccountListAction = {
             value: accounts
         }
     },
+
+    setUserCurrency(currency) {
+        return {
+            type: accountListConstants.SET_USER_CURRENCY,
+            value: currency
+        }
+    }
 }
 
 export default accountListAction;

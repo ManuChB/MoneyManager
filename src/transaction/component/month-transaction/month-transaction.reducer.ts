@@ -10,7 +10,8 @@ export const initialState: IMonthTransactionState = {
     balance: 0,
     transactions: [],
     currentMonthStart: null,
-    currentMonthEnd: null
+    currentMonthEnd: null,
+    userCurrency: null
 };
 
 export default function monthTransaction(state: IMonthTransactionState = initialState, action: AnyAction) {
@@ -65,7 +66,12 @@ export default function monthTransaction(state: IMonthTransactionState = initial
                 transactions: state.transactions.filter(
                     (transaction) => transaction.id !== action.value.id
                 )
-            }; 
+            };
+        case monthTransConstants.MONTH_TRANSACTION_SET_USER_CURRENCY:
+            return {
+                ...state,
+                userCurrency: action.value
+            };  
         default:
             return state
     }

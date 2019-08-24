@@ -11,7 +11,8 @@ export const initialState: IWeekTransactionState = {
     balance: 0,
     transactions: [],
     currentWeekStart: null,
-    currentWeekEnd: null
+    currentWeekEnd: null,
+    userCurrency: null
 };
 
 export default function weekTransaction(state: IWeekTransactionState = initialState, action: AnyAction) {
@@ -66,7 +67,12 @@ export default function weekTransaction(state: IWeekTransactionState = initialSt
                 transactions: state.transactions.filter(
                     (transaction) => transaction.id !== action.value.id
                 )
-            }; 
+            };
+        case weekTransactionConstants.WEEK_TRANSACTION_SET_USER_CURRENCY:
+            return {
+                ...state,
+                userCurrency: action.value
+            };
         default:
             return state
     }

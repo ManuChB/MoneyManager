@@ -3,7 +3,8 @@ import { Text, View } from 'react-native';
 import styles from './balance-info.component.style';
 import i18n from '../../../shared/service/i18n';
 
-const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, balance, noLabels, incLabel, expLabel, balLabel }) => {
+const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, balance, noLabels, incLabel, expLabel, balLabel, currency }) => {
+
 
     return (
         <View style={styles.infoStyle}>
@@ -12,7 +13,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t(incLabel || 'balanceInfo.income')}
                 </Text>}
                 <Text style={[styles.valueStyle, { color: 'green' }]}>
-                    {income ? income.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {income ? income.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -20,7 +21,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t(expLabel || 'balanceInfo.expense')}
                 </Text>}
                 <Text style={[styles.valueStyle, { color: 'red' }]}>
-                    {expense ? expense.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {expense ? expense.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -28,7 +29,7 @@ const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, b
                     {i18n.t(balLabel || 'balanceInfo.balance')}
                 </Text>}
                 <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>
-                    {balance ? balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: 'EUR' }) : 0.00} 
+                    {balance ? balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
                 </Text>
             </View>
         </View>
@@ -43,5 +44,6 @@ export interface IBalanceInfoProps {
     incLabel?: string, 
     expLabel?: string, 
     balLabel?: string,
-    noLabels?: boolean
+    noLabels?: boolean,
+    currency?: any
 }

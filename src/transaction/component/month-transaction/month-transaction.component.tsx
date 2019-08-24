@@ -46,7 +46,7 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
     }
 
     render() {
-        const { income, expense, balance, transactions } = this.props.state;
+        const { income, expense, balance, transactions, userCurrency } = this.props.state;
 
         return (
             <View style={{ flex: 1 }}>
@@ -58,7 +58,7 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
                     dateMode={'month'} 
                     dateFormat={'MM-YYYY'} >
                 </DatePickerHeader>
-                <BalanceInfo income={income} expense={expense} balance={balance} ></BalanceInfo>
+                <BalanceInfo income={income} expense={expense} balance={balance} currency={userCurrency} ></BalanceInfo>
                 <ScrollView style={{ marginTop: 5 }}>
                     {transactions && transactions.map((data, key) => {
                         return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)

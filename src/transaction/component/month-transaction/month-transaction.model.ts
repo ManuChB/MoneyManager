@@ -19,7 +19,7 @@ export interface IMonthTransactionAction {
     updateMonthTransaction?: (transaction: ITransactionDataProp) => Action;
     setMonthTransactionToDetail?: (transaction: ITransactionDataProp, onSave: any, onRemove: any) => Action;
     removeTransaction?: (transaction: ITransactionDataProp) => Action;
-
+    monthTransSetUserCurrency?: (currency: any) => Action;
 }
 
 export interface IMonthTransactionState {
@@ -30,4 +30,5 @@ export interface IMonthTransactionState {
     transactions: Array<ITransactionDataProp>;
     currentMonthStart: Moment;
     currentMonthEnd: Moment;
+    userCurrency: any;
 }

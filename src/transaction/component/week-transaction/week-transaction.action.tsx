@@ -55,6 +55,12 @@ const weekTransactionAction: IWeekTransactionAction = {
             type: weekTransactionConstants.WEEK_TRANSACTION_REMOVE_TRANSACTION,
             value: transaction
         }
+    },
+    weekTransSetUserCurrency(currency) {
+        return {
+            type: weekTransactionConstants.WEEK_TRANSACTION_SET_USER_CURRENCY,
+            value: currency
+        }
     }
 }
 

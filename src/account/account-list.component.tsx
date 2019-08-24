@@ -48,8 +48,8 @@ export default class AccountList extends Component<IAccountListProp> {
                         balance={accountBalance.balance}
                         incLabel={'accountList.assets'}
                         expLabel={'accountList.liabilities'}
-                        balLabel={'accountList.balance'}>
-
+                        balLabel={'accountList.balance'}
+                        currency={this.props.state.userCurrency}>
                         </BalanceInfo>} 
                     {accountTypeList.data.map((account, key) => {
                         return (<Account key={typekey + "_" + key} data={account} onPress={() => this.onPressAccount(account)} ></Account>)
@@ -87,7 +87,8 @@ export default class AccountList extends Component<IAccountListProp> {
                     balance={balance.balance} 
                     incLabel={'accountList.assets'}  
                     expLabel={'accountList.liabilities'} 
-                    balLabel={'accountList.balance'} >
+                    balLabel={'accountList.balance'}
+                    currency={this.props.state.userCurrency} >
                 </BalanceInfo>
                 <AddButton onPress={() => this.onPressNewAccount()}></AddButton>
                 <ScrollView>

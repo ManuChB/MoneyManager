@@ -13,12 +13,12 @@ export default [
     takeLatest(loginConstants.LOGIN_SUBMIT, logInUser),
     takeLatest(loginConstants.RECOVER_PASSWORD, recoverPassword),
     takeLatest(loginConstants.LOGIN_SET_CURRENT_LANGUAGE, updateLanguage),
-    takeLatest(loginConstans.LOGIN_MODE, loginModeChange)
+    takeLatest(loginConstants.LOGIN_MODE, loginModeChange)
 ];
 
 export function* initialize() {
     try {
-        const uLanguage = yield call(AsyncStorageService.getItem, 'USER_LANGUAGE');
+        const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
         yield put(loginAction.loginSetCurrentLanguage(uLanguage));
 
         yield put(loginAction.loginInitializeFinish());
@@ -33,6 +33,7 @@ export function* registerNewUser(action) {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.newUser, userName, password);
         yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
+        yield call(setUserCurrency);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
@@ -50,6 +51,7 @@ export function* logInUser(action) {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
         yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
+        yield call(setUserCurrency);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
@@ -77,7 +79,7 @@ export function* recoverPassword(action) {
 
 export function* updateLanguage(action) {
     try {
-        yield call(AsyncStorageService.setItem, 'USER_LANGUAGE', action.value);
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_LANGUAGE, action.value);
         yield put(loginAction.errorMessage(''));
     } catch (e) {
         console.log(`[error][login][saga][initialize]>>> `, e);
@@ -91,4 +93,14 @@ export function* loginModeChange(action) {
     } catch (e) {
         console.log(`[error][login][saga][initialize]>>> `, e);
     }
+}
+
+export function* setUserCurrency() {
+    const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+    if(!uCurrency) {
+        const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, uLanguage.currency);
+
+    }
+    
 }
