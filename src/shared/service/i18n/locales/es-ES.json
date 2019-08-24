@@ -103,7 +103,29 @@
         "settings": "Configuración",
         "language": "Idioma",
         "logOut": "Cerrar Sesión",
-        "mainCurrency": "Moneda princial"
+        "mainCurrency": "Moneda princial",
+        "feedback": {
+            "label": "Contacto",
+            "subject": "Contacto",
+            "body": ""
+        },
+        "share": {
+            "label": "Compartir",
+            "message": "MoneyManager: le ayudamos a tener el control de sus finanzas",
+            "title": "Wow, ¿conoces esta aplicación?",
+            "dialogTitle": "Comparte MoneyManager"
+        },
+        "mistranslation": {
+            "label": "Error de traducción",
+            "subject": "Error de traducción",
+            "body": "Por favor indicanos cuál es el error que has encontrado"
+        },
+        "review": {
+            "label": "Deja tu opinión",
+            "subject": "",
+            "body": ""
+        }
+        
     },
     "timeTab": {
         "day": "Dia",

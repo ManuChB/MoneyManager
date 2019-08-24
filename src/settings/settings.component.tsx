@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Linking, Share  } from 'react-native';
+import qs from 'qs';
+
 import { ISettingsProp } from './settings.model';
 import { Button } from '../shared/components/common';
-
 import {languages } from '../shared/service/i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
+import i18n from '../shared/service/i18n';
+import styles from './settings.component.style';
 
 export default class Settings extends Component<ISettingsProp> {
 
@@ -15,6 +18,60 @@ export default class Settings extends Component<ISettingsProp> {
     
     logOut() {
         this.props.actions.logOut();
+    }
+
+    sendFeedback() {
+        const subject = 'settingsScreen.feedback.subject';
+        const body = 'settingsScreen.feedback.body';
+        this.sendEmail(subject, body);
+    }
+
+    sendMistranslation() {
+        const subject = 'settingsScreen.mistranslation.subject';
+        const body = 'settingsScreen.mistranslation.body';
+        this.sendEmail(subject, body);
+    }
+
+    async sendEmail(subject: string, body: string) {
+        try {
+            let url = `mailto:test@gmail.com`;
+            const query = qs.stringify({
+                subject: i18n.t(subject),
+                body: i18n.t(body)
+            });
+            if (query.length) {
+                url += `?${query}`;
+            }
+            const canOpen = await Linking.canOpenURL(url);
+            if (!canOpen) {
+                throw new Error('Provided URL can not be handled');
+            }
+            await Linking.openURL(url);
+        } catch (e) {
+            console.log(`[error][settings][][sendMail]>>> ${e}`);
+        }
+    }
+
+    share() {
+        
+        Share.share({
+            message: 'settingsScreen.share.message',
+            url: 'https://play.google.com/store/apps/details?id=com.supercell.clashroyale&hl=en',
+            title: 'settingsScreen.share.title'
+        }, {
+                // Android only:
+                dialogTitle: 'Share MoneyManager goodness',
+
+            })
+    }
+
+    async review() {
+        let url = `market://details?id=com.supercell.clashroyale`;
+        const canOpen = await Linking.canOpenURL(url);
+        if (!canOpen) {
+            throw new Error('Provided URL can not be handled');
+        }
+        await Linking.openURL(url);
     }
 
     render() {
@@ -32,10 +89,35 @@ export default class Settings extends Component<ISettingsProp> {
                     data={this.props.state.currencyList}
                     onSelect={(currency) => this.props.actions.settingsSetCurrentCurrency(currency)}>
                 </DataPicker>
-                <View style={{
-                    flex: 1,
-                    justifyContent: 'flex-end',
-                    marginBottom: 20}}>
+                <TouchableOpacity
+                    style={styles.feedback}
+                    onPress={() => this.sendFeedback()}>
+                    <Text style={styles.feedbackText} >
+                        {i18n.t('settingsScreen.feedback.label')}
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.feedback}
+                    onPress={() => { this.share() }}>
+                    <Text style={styles.feedbackText} >
+                        {i18n.t('settingsScreen.share.label')}
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.feedback}
+                    onPress={() => { this.sendMistranslation() }}>
+                    <Text style={styles.feedbackText} >
+                        {i18n.t('settingsScreen.mistranslation.label')}
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.feedback}
+                    onPress={() => { this.review() }}>
+                    <Text style={styles.feedbackText} >
+                        {i18n.t('settingsScreen.review.label')}
+                    </Text>
+                </TouchableOpacity>
+                <View style={styles.logOut}>
                     <Button
                         customButtonStyle={{
                             height: 50,

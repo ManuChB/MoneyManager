@@ -101,7 +101,28 @@
         "settings": "Settings",
         "language": "Language",
         "logOut": "Log Out",
-        "mainCurrency": "Main currency"
+        "mainCurrency": "Main currency",
+        "feedback": {
+            "label": "Feedback",
+            "subject": "Feedback",
+            "body": ""
+        },
+        "share": {
+            "label": "Share",
+            "message": "MoneyManager: we are helping you to have control of your finance",
+            "title": "Wow, did you know this awesome app?",
+            "dialogTitle": "Share MoneyManager goodness"
+        },
+        "mistranslation": {
+            "label": "Mistranslation/Typo",
+            "subject": "Mistranslation/Typo",
+            "body": "Please tell us what error you have found"
+        },
+        "review": {
+            "label": "Review",
+            "subject": "",
+            "body": ""
+        }
     },
     "timeTab": {
         "day": "Day",
