@@ -17,6 +17,7 @@ export interface ITransactionListAction {
     addTransactionToDeleteList?: (transaction: ITransactionDataProp) => Action;
     removeTransactionFromDeleteList?: (transaction: ITransactionDataProp) => Action;
     longPress?: (transaction: ITransactionDataProp) => Action;
+    setTransactionsByCategory?: (transactinList: any) => Action;
 }
 
 export interface ITransactionListState {
@@ -24,4 +25,5 @@ export interface ITransactionListState {
     timeMode?: string;
     deleteMode?: boolean;
     toDeleteList?: Array<ITransactionDataProp>;
+    transactionsByCategory?: any;
 }

@@ -9,6 +9,7 @@ import TransactionsService from '../../../shared/service/transactions/transactio
 import * as selectors from './selectors';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
+import transactionListAction from '../../transaction-list.action';
 
 export default [
     takeLatest(monthTransConstants.MONTH_TRANSACTION_INITIALIZE_START, initialize),
@@ -59,6 +60,8 @@ export function* getTransactionByDate() {
         const transactionsMonth = yield call(TransactionsService.getTransactionByDateRange, currentMonthStart, currentMonthEnd);
         yield put(monthTransactionAction.setMonthTransactions(transactionsMonth));
         yield call(calculateBalance);
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][month-transaction][saga][getTransactionByDate]>>> ${e}`);
@@ -103,6 +106,10 @@ export function* removeTransaction(action) {
     try {
         yield call(TransactionsService.removeTransaction, action.value);
         yield call(calculateBalance);
+        const transactions = yield select(selectors.getTransactions);
+        yield call(TransactionsService.orderTransactionByCategory, transactions);
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
     } catch (e) {
         console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }

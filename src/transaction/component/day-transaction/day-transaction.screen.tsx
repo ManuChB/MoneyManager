@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import DayTransaction from './day-transaction.component';
 import dayTransactionAction from './day-transaction.action';
+import transactionListAction from '../../transaction-list.action';
 import { IDayTransactionProp } from './day-transaction.model';
 
 export class DayTransactionScreenComponent extends Component<IDayTransactionProp, {}> {
@@ -27,12 +28,13 @@ export class DayTransactionScreenComponent extends Component<IDayTransactionProp
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.dayTransaction };
+    return { state: state.dayTransaction, transactionListState: state.transactionList };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(transactionListAction, dispatch),
             ...bindActionCreators<any>(dayTransactionAction, dispatch)
         }
     };

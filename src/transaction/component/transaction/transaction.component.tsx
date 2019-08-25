@@ -36,17 +36,17 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
         <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
             <View style={styles.dataViewStyle}>
                 <View style={{
-                    flex: 1, justifyContent: 'center',
+                    width:'15%', justifyContent: 'center',
                     alignItems: 'center' }}>
                     <Image style={{ width: 35, height: 35 }} source={img} />
-                    <Text>{account ? account.name : ''}</Text>
                 </View>
-                <View style={{ flex: 5 }}>
-                    <Text style={styles.textStyle}> {subCategory ? i18n.t(subCategory.value) : ''}</Text>
-                    <Text>{description}</Text>
+                <View style={{ width: '55%' }}>
+                    <Text > {subCategory ? i18n.t(subCategory.value).toUpperCase() : ''}</Text>
+                    <Text style={styles.textStyle}> {description}</Text>
+                    <Text> {account ? account.name : ''}</Text>
                 </View>
                 <View style={{
-                        flex: 2, justifyContent: 'center',
+                    width: '30%', justifyContent: 'center',
                         alignItems: 'center'
                     }}>
                     <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>

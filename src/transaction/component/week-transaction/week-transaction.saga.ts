@@ -9,6 +9,7 @@ import TransactionsService from '../../../shared/service/transactions/transactio
 import * as selectors from './selectors';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
+import transactionListAction from '../../transaction-list.action';
 
 export default [
     takeLatest(weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START, initialize),
@@ -54,6 +55,8 @@ export function* getTransactionByDate() {
 
         const transactionsWeek = yield call(TransactionsService.getTransactionByDateRange, currentWeekStart, currentWeekEnd);
         yield put(weekTransactionAction.setWeekTransactions(transactionsWeek));
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
         yield call(calculateBalance);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
@@ -85,8 +88,6 @@ export function* transactionToDetail(action) {
 
 export function* updateTransaction(action) {
     try {
-        console.log(`[week-transaction][saga][updateTransaction]>>>day ${action}`,action);
-
         yield call(TransactionsService.updateTransaction, action.value, action.date);
         yield call(getTransactionByDate, { value: action.date });
 
@@ -100,6 +101,10 @@ export function* removeTransaction(action) {
     try {
         yield call(TransactionsService.removeTransaction, action.value);
         yield call(calculateBalance);
+        const transactions = yield select(selectors.getTransactions);
+        yield call(TransactionsService.orderTransactionByCategory, transactions);
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
     } catch (e) {
         console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import { IWeekTransactionProp } from './week-transaction.model';
-import { Button, Spinner, AddButton } from '../../../shared/components/common';
+import { AddButton } from '../../../shared/components/common';
 import BalanceInfo from '../../../shared/components/balance-info/balance-info.component';
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
-import appConstants from '../../../appConstants';
 import styles from './week-transaction.component.style';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
-import moment from 'moment';
-import WeekSelector from 'react-native-week-selector';
+
 import Transaction from '../transaction/transaction.component';
+import i18n from '../../../shared/service/i18n';
 
 export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
@@ -44,9 +43,30 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
     }
 
+    getTransactionsOfCategory(transactions, key) {
+        const { userCurrency } = this.props.state;
+        const { balance } = transactions.balance;
+        if (transactions && transactions.data.length > 0){
+            return (
+                <View key={key}>
+                    <View style={styles.transListTitle}>
+                        <Text key={key} style={styles.categoryText}> {i18n.t('categoriesIds.' + transactions.category.id).toUpperCase()} </Text>
+                        <Text
+                            style={[styles.valueText, balance >= 0.00 ? { color: '#c2e8e3' } : { color: '#F38266' }]}>
+                            {transactions.balance.balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: userCurrency ? userCurrency.name : 'YPN' })}
+                        </Text>
+                    </View>
+                {transactions.data.map((tranaction, subkey) => {
+                    return (<Transaction data={tranaction} key={key + "_" + subkey} onPress={() => this.onPressTransaction(tranaction)}></Transaction>)
+                })}
+                </View>
+            )
+        }
+    }
     render() {
-        const { isInitialized, income, expense, balance, transactions, userCurrency } = this.props.state;
-        
+        const { income, expense, balance, userCurrency } = this.props.state;
+        const transactions =  this.props.transactionListState.transactionsByCategory;
+
         return (
             <View style={{ flex: 1 }}>
                 <AddButton onPress={() => this.onPressNewTransaction()}></AddButton>
@@ -59,7 +79,9 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
                 <BalanceInfo income={income} expense={expense} balance={balance} currency={userCurrency} ></BalanceInfo>
                 <ScrollView style={{ marginTop: 5 }}>
                     {transactions && transactions.map((data, key) => {
-                        return (<Transaction data={data} key={key} onPress={() => this.onPressTransaction(data)}></Transaction>)
+                        return (
+                            this.getTransactionsOfCategory(data, key)
+                        )
                     })}
                     <View style={{ height: 80 }}></View>
                 </ScrollView>

@@ -8,7 +8,8 @@ export const initialState: ITransactionListState = {
     isInitialized: false,
     timeMode: appConstants.timeMode.day,
     deleteMode: false,
-    toDeleteList: new Array<ITransactionDataProp>()
+    toDeleteList: new Array<ITransactionDataProp>(),
+    transactionsByCategory: []
 };
 
 export default function transactionList(state: ITransactionListState = initialState, action: AnyAction) {
@@ -55,6 +56,11 @@ export default function transactionList(state: ITransactionListState = initialSt
             return {
                 ...state
             };
+        case transactionListConstants.TRANSACTION_LIST_SET_LIST_BY_CATEGORY:
+            return {
+                ...state,
+                transactionsByCategory: action.value
+            }
         default:
             return state
     }

@@ -4,6 +4,7 @@ import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
+import moment from 'moment';
 
 let _this;
 class TransactionService {
@@ -49,7 +50,7 @@ class TransactionService {
             } else {
                 await _this.updateAccountValue(transaction);
                 await FirebaseService.updateDocumentInCollection(appConstants.collection.transactions,
-                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, oldValue: 0 });
+                    { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id, oldValue: 0 });
             }
         } catch (e) {
             console.log(`[error][transactionService][updateTransaction]>>> ${e}`);
@@ -61,7 +62,9 @@ class TransactionService {
         try {
             const toDate = date.toDate();
             toDate.setHours(0, 0, 0, 0);
-            return await FirebaseService.getTransactionsByDate(toDate);
+            const list = await FirebaseService.getTransactionsByDate(toDate);
+            await _this.orderTransactionByCategory(list);
+            return list;
 
         } catch (e) {
             console.log(`[error][transactionService][getTransactionByDate]>>> ${e}`);
@@ -74,13 +77,27 @@ class TransactionService {
             const toDateEnd = dateEnd.toDate();
             toDateStart.setHours(0, 0, 0, 0);
             toDateEnd.setHours(0, 0, 0, 0);
-            return await FirebaseService.getTransactionsByDateRange(toDateStart, toDateEnd);
-
+            const list = await FirebaseService.getTransactionsByDateRange(toDateStart, toDateEnd);
+            await _this.orderTransactionByCategory(list); 
+            return list;
         } catch (e) {
             console.log(`[error][transactionService][getTransactionByDateRange]>>> ${e}`);
         }
     }
 
+    async orderTransactionByCategory(list){
+        let array = [];
+        const categories = await AsyncStorageService.getItem(appConstants.asyncStorageItem.CATEGORIES);
+        categories.forEach(category => {
+            let arr = list.filter(
+                (transaction) => transaction.categoryId == category.id
+            )
+            const balance = _this.calculateBalance(arr);
+
+            array.push({ category, data: arr, balance });
+        });
+        await AsyncStorageService.setItem(appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY, array);
+    }
 
     async updateAccountValue(transaction) {
         try {

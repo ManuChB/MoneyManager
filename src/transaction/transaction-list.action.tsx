@@ -47,6 +47,12 @@ const transactionListAction: ITransactionListAction = {
             value: transaction
         }
     },
+    setTransactionsByCategory(transaction) {
+        return {
+            type: transactionListConstants.TRANSACTION_LIST_SET_LIST_BY_CATEGORY,
+            value: transaction
+        }
+    },
 
 }
 

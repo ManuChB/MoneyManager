@@ -6,7 +6,6 @@ import dayTransactionsConstants from './day-transaction.constant';
 import moneyManagerAction from '../../../money-manager/money-manager.action';
 import * as selectors from './selectors';
 import TransactionsService from '../../../shared/service/transactions/transactions.service';
-import TransactionListActions from '../../transaction-list.action';
 import transactionListAction from '../../transaction-list.action';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
@@ -94,6 +93,8 @@ export function* getTransactionByDate(action) {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const transactionsDay = yield call(TransactionsService.getTransactionByDate, action.value);
         yield put(dayTransactionAction.setDayTransactions(transactionsDay));
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
         yield call(calculateBalance);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
@@ -114,6 +115,10 @@ export function* removeTransaction(action) {
     try {
         yield call(TransactionsService.removeTransaction, action.value);
         yield call(calculateBalance);
+        const transactions = yield select(selectors.getTransactions);
+        yield call(TransactionsService.orderTransactionByCategory, transactions);
+        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
+        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
     } catch (e) {
         console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }

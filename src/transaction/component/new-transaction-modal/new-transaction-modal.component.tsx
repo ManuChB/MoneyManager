@@ -128,7 +128,7 @@ export default class  extends Component<ITransactionDetailProp> {
                                 onSave({ 
                                     id: _.uniqueId(appConstants.localId.transaction), 
                                     ...this.props.state.data, 
-                                    value: parseFloat(this.props.state.data.value.toString().replace(this.props.state.data.account.currency.name, "").replace(" ", "").replace(',', '.'))
+                                    value: Math.abs(parseFloat(this.props.state.data.value.toString().replace(this.props.state.data.account.currency.name, "").replace(" ", "").replace(',', '.')))
                                 });
                             }} 
                             label={'common.button.save'}

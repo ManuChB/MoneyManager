@@ -2,11 +2,13 @@ import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
 import { ITransactionDataProp } from '../transaction/transaction.component';
 import { Moment } from 'moment';
+import { ITransactionListState } from '../../transaction-list.model';
 
 export interface IMonthTransactionProp {
     navigation?: NavigationScreenProp<any, any>;
     state?: IMonthTransactionState;
     actions?: IMonthTransactionAction;
+    transactionListState?: ITransactionListState;
 }
 
 export interface IMonthTransactionAction {

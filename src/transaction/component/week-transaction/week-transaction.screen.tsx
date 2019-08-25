@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import WeekTransaction from './week-transaction.component';
 import weekTransactionAction from './week-transaction.action';
+import transactionListAction from '../../transaction-list.action';
 import { IWeekTransactionProp } from './week-transaction.model';
 
 export class WeekTransactionScreenComponent extends Component<IWeekTransactionProp, {}> {
@@ -27,12 +28,13 @@ export class WeekTransactionScreenComponent extends Component<IWeekTransactionPr
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.weekTransaction };
+    return { state: state.weekTransaction, transactionListState: state.transactionList };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(transactionListAction, dispatch),
             ...bindActionCreators<any>(weekTransactionAction, dispatch)
         }
     };
