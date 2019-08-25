@@ -19,32 +19,64 @@ export class DataPicker extends Component<IPickerProps> {
         }
     }
 
-    showModal() {
-        const { data, onSelect, dontTranslate, fieldToShow, noHideOnPress, showBackButton, onBack } = this.props;
+    normalMode() {
+        const { data, onSelect, dontTranslate, fieldToShow, noHideOnPress } = this.props;
         const field = fieldToShow || 'name';
         return (
-            <Modal closeModal={this.closeModal.bind(this)} showBack={showBackButton} onBack={onBack} >
-                <View style={{ marginBottom: 50}}>
+            <View style={{ marginBottom: 50 }}>
                 {data && data.map((element, key) => {
                     return (
                         <TouchableOpacity
                             style={styles.subCategory}
                             key={key}
-                            onPress={() => { 
-                                if(!noHideOnPress){ this.setState({ showModal: false }) }; 
-                                onSelect(element) 
+                            onPress={() => {
+                                if (!noHideOnPress) { this.setState({ showModal: false }) };
+                                onSelect(element)
                             }}>
-                            <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between'}: null ]} key={key} >
-                                {element.icon && <Image style={styles.imageStyle} source={element.icon} /> }
+                            <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between' } : null]} key={key} >
+                                {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
                                 <Text style={styles.categoryText} key={key}>
-                                    {dontTranslate ? element[field] : i18n.t(element[field]) }
+                                    {dontTranslate ? element[field] : i18n.t(element[field])}
                                 </Text>
                                 {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
                             </View>
                         </TouchableOpacity>)
                 })}
                 {this.props.children}
-                </View>
+            </View>
+        )
+    }
+
+    iconMode() {
+        const { data, onSelect, fieldToShow, noHideOnPress } = this.props;
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 50, alignItems: 'center',flexWrap: 'wrap'}}>
+                {data && data.map((element, key) => {
+                    return (
+                        <TouchableOpacity
+                            style={styles.iconModeTouch}
+                            key={key}
+                            onPress={() => {
+                                if (!noHideOnPress) { this.setState({ showModal: false }) };
+                                onSelect(element)
+                            }}>
+                            <View style={[styles.iconModeView]} key={key} >
+                                <Image style={styles.imageStyle} source={element.icon} />
+                            </View>
+                        </TouchableOpacity>
+                    )
+                })}
+                { this.props.children }
+            </View >
+        )
+    }
+
+    showModal() {
+        const { showBackButton, onBack, iconMode } = this.props;
+        return (
+            <Modal closeModal={this.closeModal.bind(this)} showBack={showBackButton} onBack={onBack} >
+                {iconMode && this.iconMode()}
+                {!iconMode && this.normalMode()}
             </Modal>
         )
     }
@@ -130,6 +162,29 @@ export class DataPicker extends Component<IPickerProps> {
 }
 
 const styles = StyleSheet.create({
+    iconModeView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 50,
+        width: 50,
+        backgroundColor: '#d5e1f0',
+        borderWidth: 0,
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.5,
+        elevation: 15,
+        borderRadius: 10
+    },
+    iconModeTouch: {
+        flexDirection: 'row',
+        paddingTop: 20,
+        paddingBottom: 20,
+        width: 50,
+        height: 50,
+        borderWidth: 0,
+        margin: 15
+
+    },
     categoryView: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -208,7 +263,7 @@ export interface IPickerProps {
     onBack?: () => void,
     showBackButton?: boolean,
     icon?: any,
-    customContainerStyle?: any
-
+    customContainerStyle?: any,
+    iconMode?: boolean
 }
 

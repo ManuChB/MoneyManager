@@ -11,26 +11,19 @@ import i18n from '../../../shared/service/i18n';
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
     const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
     
-    const getIcon = (account) => {
-        const image = account && account.type ? account.type.iconName : null;
-        var icon;
-        switch (image) {
-            case appConstants.transactionIcons.cash.iconName:
-                icon = appConstants.transactionIcons.cash.value;
-                break;
-            case appConstants.transactionIcons.credit.iconName:
-                icon = appConstants.transactionIcons.credit.value;
-                break; 
-            case appConstants.transactionIcons.default.iconName:
-                icon = appConstants.transactionIcons.default.value;
-                break;
-            default:
-                icon = appConstants.transactionIcons.default.value;
-                break;
+    const getIcon = (imageId) => {
+        if(!imageId){
+            return appConstants.defaultTransactionIcon.icon;
         }
-        return icon;
+        const icon = appConstants.transactionIcons.filter(
+            (i) => i.name === imageId.name
+        )[0];
+        if (!icon) {
+            return appConstants.defaultTransactionIcon.icon;
+        }
+        return icon.icon;
     }
-    const img = getIcon(account);
+    const img = getIcon(imageId);
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
@@ -73,7 +66,7 @@ export interface ITransactionDataProp {
     value?: number,
     oldValue?: number,
     account?: IAccountData,
-    imageId?: string,
+    imageId?: {name: string, icon: any},
     categoryId?: string,
     subCategory?: {id: number, value: string},
     description?: string

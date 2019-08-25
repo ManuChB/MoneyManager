@@ -13,7 +13,6 @@ export default [
 
 export function* initialize() {
     try {
-        console.log(`[splash][saga][initialize]`);
         yield call(FirebaseService.init);
         const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
         yield call(getEsentialData);

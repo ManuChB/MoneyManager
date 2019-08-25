@@ -50,19 +50,67 @@ const constants = {
         TRANSACTIONS_BY_CATEGORY: 'TRANSACTIONS_BY_CATEGORY'
     },
 
-    transactionIcons: {
-        cash: { 
-            iconName: 'cash',
-            value: require('../assets/images/cash-filled-64.png')
+    transactionIcons:[
+        { 
+            name: 'cash',
+            icon: require('../assets/images/cash-filled-64.png')
         } ,
-        credit: {
-            iconName: 'card',
-            value: require('../assets/images/credit-card-64.png')
+        {
+            name: 'card',
+            icon: require('../assets/images/credit-card-64.png')
         }, 
-        default: {
-            iconName: 'DEFAULT',
-            value: require('../assets/images/icons8-cash-filled-64.png')
+        {
+            name: 'DEFAULT',
+            icon: require('../assets/images/icons8-cash-filled-64.png')
+        }, {
+            name: 'cash',
+            icon: require('../assets/images/cash-filled-64.png')
         },
+        {
+            name: 'card',
+            icon: require('../assets/images/credit-card-64.png')
+        },
+        {
+            name: 'DEFAULT',
+            icon: require('../assets/images/icons8-cash-filled-64.png')
+        }, {
+            name: 'cash',
+            icon: require('../assets/images/cash-filled-64.png')
+        },
+        {
+            name: 'card',
+            icon: require('../assets/images/credit-card-64.png')
+        },
+        {
+            name: 'DEFAULT',
+            icon: require('../assets/images/icons8-cash-filled-64.png')
+        }, {
+            name: 'cash',
+            icon: require('../assets/images/cash-filled-64.png')
+        },
+        {
+            name: 'card',
+            icon: require('../assets/images/credit-card-64.png')
+        },
+        {
+            name: 'DEFAULT',
+            icon: require('../assets/images/icons8-cash-filled-64.png')
+        }, {
+            name: 'cash',
+            icon: require('../assets/images/cash-filled-64.png')
+        },
+        {
+            name: 'card',
+            icon: require('../assets/images/credit-card-64.png')
+        },
+        {
+            name: 'DEFAULT',
+            icon: require('../assets/images/icons8-cash-filled-64.png')
+        },
+    ],
+    defaultTransactionIcon: {
+        name: 'DEFAULT',
+        icon: require('../assets/images/icons8-cash-filled-64.png')
     },
 
     swipeConstants: {

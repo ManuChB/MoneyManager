@@ -111,7 +111,26 @@ export default class  extends Component<ITransactionDetailProp> {
                         keyboard={'numeric'}
                         blurOnSubmit={true}
                     />
-                
+                    <DataPicker
+                        iconMode={true}
+                        icon={data.imageId ? data.imageId.icon : appConstants.defaultTransactionIcon.icon}
+                        value={data.imageId ? data.imageId.name : ''}
+                        data={appConstants.transactionIcons}
+                        onSelect={(image) => this.props.actions.changeData({ ...data, imageId: image })}
+                        customContainerStyle={{
+                            justifyContent: 'center',
+                            alignItems: 'center', 
+                            backgroundColor: '#d5e1f0', 
+                            alignSelf: 'center',
+                            height: 50,
+                            width: 50,
+                            borderWidth: 0,
+                            shadowOffset: { width: 5, height: 5 },
+                            shadowOpacity: 0.5,
+                            elevation: 6,
+                            borderRadius: 10
+                        }}>
+                    </DataPicker>
                     <View style={{
                         position: 'absolute',
                         flexDirection: 'row',

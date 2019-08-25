@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '100%',
         height: '100%',
-        elevation: 4,
+        elevation: 20,
         position: 'absolute',
         zIndex: 100
     },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '90%',
         shadowOpacity: 10,
-        elevation: 5,
+        elevation: 25,
         position: 'absolute',
         borderRadius: 17
     },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         height: 35,
         zIndex: 200,
         position: 'absolute',
-        elevation: 5,
+        elevation: 25,
         marginLeft: 0,
         marginRight:0,
         borderRadius: 0
