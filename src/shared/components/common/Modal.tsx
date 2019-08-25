@@ -33,17 +33,17 @@ export class Modal extends Component<IModalProp> {
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
         width: '100%',
         height: '100%',
         elevation: 20,
         position: 'absolute',
-        zIndex: 100
+        zIndex: 100,
     },
     screenBlocker: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         width: '100%',
         height: '100%',
         position: 'absolute',

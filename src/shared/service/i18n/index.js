@@ -63,5 +63,8 @@ export const languages = [{
 
 export const defaultLanguage = {
     code: 'en-UK',
-    name: 'language.enUK'
+    name: 'language.enUK',
+    currency: {
+        name: 'GBP'
+    }
 };

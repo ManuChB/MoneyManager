@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { View, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Image } from 'react-native';
 import { ILoginProp } from './login.model';
 import { Button, Input, Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
@@ -62,7 +62,7 @@ export default class Login extends Component<ILoginProp> {
         return (
             
             <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>
-                <View style={{ flex: 1 }} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
+                <View style={{ flex: 1 ,backgroundColor: 'red'}} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
                     {this.props.state.showSpinner && <Spinner></Spinner>}
                     <Header ></Header>
                     <LinearGradient 
@@ -71,15 +71,17 @@ export default class Login extends Component<ILoginProp> {
                         locations={[0, 0.3, 0.7]}
                         colors={['#58e8da', '#97A2C4', '#8362d1']} //['#97A2C4', '#CFCD5B', '#350F90']
                         style={styles.linearGradient}>
-                        <ScrollView style={{ flex: 1 }}>
+                        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
                             <DataPicker label={'settingsScreen.language'}
-                                value={this.props.state.currentLanguage.name}
                                 icon={this.props.state.currentLanguage.icon}
                                 data={languages}
                                 onSelect={(lang) => this.setLanguage(lang)}
-                                customContainerStyle={{alignSelf: 'flex-end'}}>
+                                customContainerStyle={{ alignSelf: 'flex-end', height: '10%', marginTop: 0 }}>
                             </DataPicker>
                             <View style={styles.containerStyle}>
+                                <View>
+                                    <Image style={{ alignSelf: 'center', width: 125, height: 125 }} source={require('../../assets/images/money-box.png')} />
+                                </View>
                                 <View style={styles.subContainerStyle}>
                                     <Input 
                                         label={'loginScreen.email'} 
@@ -108,7 +110,7 @@ export default class Login extends Component<ILoginProp> {
                                         />
                                     </View >
                                 </View>
-                                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 0}}>
+                                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30}}>
                                     <Text style={styles.modelTextStyle} onPress={this.props.state.screenMode.leftTextOnPress} >
                                         {i18n.t(this.props.state.screenMode.leftTextLabel)}
                                     </Text>

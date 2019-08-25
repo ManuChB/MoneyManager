@@ -4,7 +4,7 @@ import styles from './balance-info.component.style';
 import i18n from '../../../shared/service/i18n';
 
 const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, balance, noLabels, incLabel, expLabel, balLabel, currency }) => {
-
+console.log('´´´´´´´', currency);
 
     return (
         <View style={styles.infoStyle}>

@@ -13,27 +13,28 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         borderRadius: 5,
-        margin: 20
+        margin: 20,
+        maxHeight: 350
 
     },
     infoTextStyle:{
         marginTop: 10,
-        marginBottom: 20,
+        marginBottom: 10,
         marginLeft: 25,
         flexDirection: 'row'
     },
     buttonContainerStyle: {
-        marginBottom: 50
+        marginBottom: 25
     },
     errorStyle: { 
         color: 'red',
-        marginTop:25,
-        marginLeft: 25,
+        marginTop:10,
+        marginLeft: 10,
         marginRight: 25,
-        minHeight: 50
+        minHeight: 30
     },
     linearGradient: {
-        flex: 1
+        flexGrow: 1
     },
     modelTextStyle: {
         color: 'white',
