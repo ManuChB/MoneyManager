@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         borderRadius: 5,
         margin: 20,
+        minHeight: 258.3,
         maxHeight: 350
 
     },
