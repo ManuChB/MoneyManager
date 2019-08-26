@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
     headerTextStyle: {
         color: 'black',
-        fontSize: 12
+        fontSize: 18,
+        textTransform: 'uppercase'
 
     }
 });

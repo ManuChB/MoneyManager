@@ -119,7 +119,7 @@ class TransactionService {
             else if (isExpense && !wasExpense) {
                 newValue = account.value - oldValue - value;
             }
-            await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, { ...account, value: newValue })
+            await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, { ...account, value: newValue.toFixed(2) })
         } catch (e) {
             console.log(`[error][TransactionService][updateAccountValue]>>> ${e}`);
         }

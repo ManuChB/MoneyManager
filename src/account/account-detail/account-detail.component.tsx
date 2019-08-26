@@ -82,7 +82,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                     </Button>
                     <Button
                         customButtonStyle={{ flex: 1 }}
-                        onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account, value: parseFloat(account.value.toString().replace(',', '.')) })}
+                        onPress={() => onSave({ id: _.uniqueId(appConstants.localId.account), ...account, value: parseFloat(account.value.toString().replace(',', '.')).toFixed(2) })}
                         label={'common.button.save'}
                         disabled={this.checkEmpty()}>
                     </Button>

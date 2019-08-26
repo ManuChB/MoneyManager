@@ -28,7 +28,6 @@ export function* initialize() {
         const day = yield select(selectors.getDayTransaction);
         yield call(getTransactionByDate, { value: day });
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
-        console.log('---------------day-----', uCurrency);
         yield put(dayTransactionAction.dayTransSetUserCurrency(uCurrency));
         yield put(dayTransactionAction.dayTransactionInitializeFinish());
         yield put(moneyManagerAction.moneyManagerHideSpinner());
