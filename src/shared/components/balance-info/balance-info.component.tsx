@@ -2,10 +2,9 @@ import React, { StatelessComponent } from 'react';
 import { Text, View } from 'react-native';
 import styles from './balance-info.component.style';
 import i18n from '../../../shared/service/i18n';
+import currencyFormatter from 'currency-formatter';
 
 const BalanceInfo: StatelessComponent<IBalanceInfoProps> = ({ income, expense, balance, noLabels, incLabel, expLabel, balLabel, currency }) => {
-console.log('´´´´´´´', currency);
-
     return (
         <View style={styles.infoStyle}>
             <View style={styles.textViewStyle}>
@@ -13,7 +12,7 @@ console.log('´´´´´´´', currency);
                     {i18n.t(incLabel || 'balanceInfo.income')}
                 </Text>}
                 <Text style={[styles.valueStyle, { color: 'green' }]}>
-                    {income ? income.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
+                    {income ? currencyFormatter.format(income, { code: currency ? currency.name : 'YPN', locale: i18n.getLocale() }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -21,7 +20,7 @@ console.log('´´´´´´´', currency);
                     {i18n.t(expLabel || 'balanceInfo.expense')}
                 </Text>}
                 <Text style={[styles.valueStyle, { color: 'red' }]}>
-                    {expense ? expense.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
+                    {expense ? currencyFormatter.format(expense, { code: currency ? currency.name : 'YPN', locale: i18n.getLocale() }) : 0.00} 
                 </Text>
             </View>
             <View style={styles.textViewStyle}>
@@ -29,7 +28,7 @@ console.log('´´´´´´´', currency);
                     {i18n.t(balLabel || 'balanceInfo.balance')}
                 </Text>}
                 <Text style={[styles.valueStyle, balance > 0 ? { color: 'green' } : { color: 'red' }]}>
-                    {balance ? balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency ? currency.name : 'YPN' }) : 0.00} 
+                    {balance ? currencyFormatter.format(balance, { code: currency ? currency.name : 'YPN', locale: i18n.getLocale() }) : 0.00} 
                 </Text>
             </View>
         </View>
@@ -38,9 +37,9 @@ console.log('´´´´´´´', currency);
 export default BalanceInfo;
 
 export interface IBalanceInfoProps {
-    income?: Number,
-    expense?: Number,
-    balance?: Number,
+    income?: number,
+    expense?: number,
+    balance?: number,
     incLabel?: string, 
     expLabel?: string, 
     balLabel?: string,

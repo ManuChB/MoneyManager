@@ -59,6 +59,7 @@ export default class Login extends Component<ILoginProp> {
         return view;
     }
     render() {
+        console.log('0ñññññññññ---------', this.props.state.currentLanguage);
         return (
             
             <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>

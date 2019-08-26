@@ -26,6 +26,7 @@ export function* initialize() {
         yield call(getAccounts);
         yield put(accountListAction.accountListInitializeFinish());
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+        console.log('---------------accc', uCurrency);
         yield put(accountListAction.setUserCurrency(uCurrency));
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {

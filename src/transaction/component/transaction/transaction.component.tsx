@@ -7,6 +7,7 @@ import AsyncStorageService from '../../../shared/service/async-storage/async-sto
 import { Moment } from 'moment';
 import { IAccountData } from '../../../account/account/account.model';
 import i18n from '../../../shared/service/i18n';
+import currencyFormatter from 'currency-formatter';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
     const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
@@ -43,7 +44,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
                         alignItems: 'center'
                     }}>
                     <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>
-                        {value.toLocaleString(i18n.getLocale(), { style: 'currency', currency: account ? account.currency.name : 'EUR' })}
+                        {currencyFormatter.format(value, { code: account ? account.currency.name : 'YPN', locale: i18n.getLocale() })}
                     </Text>
                 </View>
             </View>

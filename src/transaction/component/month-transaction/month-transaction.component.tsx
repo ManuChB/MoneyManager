@@ -9,6 +9,7 @@ import moment from 'moment';
 import Transaction from '../transaction/transaction.component';
 import { DatePickerHeader } from '../../../shared/components/date-picker/date-picker.component';
 import i18n from '../../../shared/service/i18n';
+import currencyFormatter from 'currency-formatter';
 
 
 export default class MonthTransaction extends Component<IMonthTransactionProp> {
@@ -54,7 +55,7 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
                         <Text key={key} style={styles.categoryText}> {i18n.t('categoriesIds.' + transactions.category.id).toUpperCase()} </Text>
                         <Text 
                             style={[styles.valueText, balance >= 0.00 ? { color: '#c2e8e3' } : { color: '#F38266' }]}> 
-                            {transactions.balance.balance.toLocaleString(i18n.getLocale(), { style: 'currency', currency: userCurrency ? userCurrency.name : 'YPN' })}
+                            {currencyFormatter.format(transactions.balance.balance, { code: userCurrency ? userCurrency.name : 'YPN', locale: i18n.getLocale() })}
                         </Text>
                     </View>
                     {transactions.data.map((tranaction, subkey) => {

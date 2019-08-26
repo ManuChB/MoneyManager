@@ -5,6 +5,8 @@ import { Input, Header } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account.component.style';
 import i18n from '../../shared/service/i18n';
+import currencyFormatter from 'currency-formatter';
+
 const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
     const { value, name, type, currency, description} = data;
 
@@ -21,7 +23,7 @@ const Account: StatelessComponent<IAccountProp> = ({data, onPress}) => {
                     alignItems: 'center'
                 }}>
                     <Text style={[styles.valueStyle, value > 0 ? { color: 'green' } : { color: 'red' }]}>
-                        {value ? value.toLocaleString(i18n.getLocale(), { style: 'currency', currency: currency.name, currencyDisplay:'symbol' }) : 0}
+                        {value ? currencyFormatter.format(value, { code: currency ? currency.name : 'YPN', locale: i18n.getLocale() }) : 0}
                     </Text>
                 </View>
             </View>

@@ -63,7 +63,8 @@ export const languages = [{
 
 export const defaultLanguage = {
     code: 'en-UK',
-    name: 'language.enUK',
+    name: 'language.enUK', 
+    icon: require('../../../../assets/images/uk-flag-80.png'),
     currency: {
         name: 'GBP'
     }

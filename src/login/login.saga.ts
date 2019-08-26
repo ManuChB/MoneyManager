@@ -19,6 +19,7 @@ export default [
 export function* initialize() {
     try {
         const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
+        console.log('--------ulaguage-----login', uLanguage);
         yield put(loginAction.loginSetCurrentLanguage(uLanguage));
 
         yield put(loginAction.loginInitializeFinish());
