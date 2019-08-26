@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
@@ -45,9 +45,9 @@ export default class  extends Component<ITransactionDetailProp> {
         const { accounts } = this.state;
         if (!data.date) { this.changeDay(moment().startOf('day')) }
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <Header></Header>
-                <View style={{ flex: 1 }}>
+                <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                     <DatePickerHeader 
                         dateStart={data.date } 
                         changeDay={this.changeDay.bind(this)}
@@ -58,16 +58,17 @@ export default class  extends Component<ITransactionDetailProp> {
                             icon={require('../../../../assets/images/delete-bin-64.png')}>
                         </Button>}
                     </DatePickerHeader>
-                    <View style={{ flexDirection: 'row'}}>
+                    <View style={{
+                        flexDirection: 'row'}}>
                         <TouchableOpacity 
-                            style={[styles.checkBoxStyle, data.isExpense ? null : { backgroundColor: '#6ddbcc' }]} 
+                            style={[styles.checkBoxStyle, {marginLeft: 10}, data.isExpense ? null : { backgroundColor: '#6ddbcc' }]} 
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: false })}>
                             <Text style={data.isExpense ? null : { color: 'white' }} >
                                 {i18n.t('newTransaction.income')}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
-                            style={[styles.checkBoxStyle, data.isExpense ? { backgroundColor: '#F38266' }: null]}
+                            style={[styles.checkBoxStyle, { marginRight: 10 }, data.isExpense ? { backgroundColor: '#F38266' }: null]}
                             onPress={() => this.props.actions.changeData({ ...data, isExpense: true })}>
                             <Text style={data.isExpense ? { color: 'white' } : null} >
                                 {i18n.t('newTransaction.expense')}
@@ -132,9 +133,10 @@ export default class  extends Component<ITransactionDetailProp> {
                         }}>
                     </DataPicker>
                     <View style={{
-                        position: 'absolute',
+                        justifyContent: 'flex-end',
                         flexDirection: 'row',
                         bottom: 0, 
+                        marginTop: 10,
                         marginBottom: 20}}>
                         <Button
                             customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
@@ -154,7 +156,7 @@ export default class  extends Component<ITransactionDetailProp> {
                             disabled={this.checkEmpty()}>
                         </Button>
                     </View>
-                </View>
+                </ScrollView>
             </View>
         )
     }

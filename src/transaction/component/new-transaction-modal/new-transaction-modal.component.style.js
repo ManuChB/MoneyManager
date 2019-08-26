@@ -32,7 +32,15 @@ const styles = StyleSheet.create({
         flex: 1, 
         height: 60, 
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 0,
+        shadowOffset: {
+            width: 5,
+            height: 5
+        },
+        shadowOpacity: 0.5,
+        elevation: 3,
+        borderRadius: 10
     },
     deleteButton: {
         position: 'absolute',
