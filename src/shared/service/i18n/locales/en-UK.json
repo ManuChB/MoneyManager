@@ -58,6 +58,9 @@
             "save": "Save"
         }
     },
+    "general": {
+        "noWifi": "Oops!! No Internet Connection Available"
+    },
     "language": {
         "esES": "Spanish",
         "enUK": "English"

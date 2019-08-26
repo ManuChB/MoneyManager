@@ -124,7 +124,8 @@ const constants = {
     ],
     accountTypesGeneral:{
         name: "accountTypes.general"
-    }
+    },
+    noWifiIcon: require('../assets/images/noWifi96.png')
 }
 
 export default constants;

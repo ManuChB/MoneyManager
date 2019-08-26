@@ -1,10 +1,17 @@
 import React, {StatelessComponent} from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
+import appConstants from '../../../appConstants';
 
-const Spinner: StatelessComponent = () => {
+const Spinner: StatelessComponent = ({conectionError}) => {
+    const wifi = appConstants.noWifiIcon;
     return (
         <View style={styles.spinnerStyle} >
-            <ActivityIndicator size={'large'} color="#0000ff"/>
+            {!conectionError && <ActivityIndicator size={'large'} color="#0000ff"/>} 
+            {conectionError && 
+                <Image 
+                style={{ alignSelf: 'center', width: 125, height: 125 }} 
+                source={wifi} />
+            }
         </View>
     );
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { NetInfo, View, Text } from 'react-native';
 import { IMoneyManagerProp } from './money-manager.model';
-import { Input, Header, Spinner } from '../shared/components/common';
+import { Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
 import styles from './money-manager.component.style';
 import { MainTabNavigation } from './component/mainTabNavigation';
@@ -16,11 +16,40 @@ export default class MoneyManager extends Component<IMoneyManagerProp> {
         i18n.setLocale(locale);
         this.props.actions.moneyManagerSetLocale(locale);
     }
-    
+    constructor(props) {
+        super(props);
+        this.state = { isConnected: true };
+    }
+    componentDidMount() {
+
+        NetInfo.isConnected.addEventListener(
+            "connectionChange",
+            this.handleConnectivityChange
+        );
+    }
+    componentWillUnmount() {
+        NetInfo.isConnected.removeEventListener(
+            "connectionChange",
+            this.handleConnectivityChange
+        );
+    }
+    handleConnectivityChange = isConnected => {
+        if (isConnected) {
+            this.setState({
+                isConnected
+            });
+        } else {
+            alert(i18n.t('general.noWifi'));
+            this.setState({
+                isConnected
+            });
+        }
+    };
     render() {
         return (
-            <View style={{ flex: 1 }} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
-                {this.props.state.showSpinner && <Spinner></Spinner>}
+            <View style={{ flex: 1 }} pointerEvents={(this.props.state.showSpinner || !this.state.isConnected) ? 'none' : 'auto'}>
+                {(this.props.state.showSpinner || !this.state.isConnected) && <Spinner conectionError={!this.state.isConnected}></Spinner>}
+                
                 <Header></Header>
                     {this.props.state.tabMode === appConstants.tabMode.account && <AccountListScreen></AccountListScreen>}
                     {this.props.state.tabMode === appConstants.tabMode.transaction && <TransactionListScreen></TransactionListScreen>}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Image } from 'react-native';
+import { View, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Image, NetInfo } from 'react-native';
 import { ILoginProp } from './login.model';
 import { Button, Input, Header, Spinner, KeyboardShift } from '../shared/components/common';
 import appConstants from '../appConstants';
@@ -9,11 +9,27 @@ import i18n, { languages } from '../shared/service/i18n';
 import {DataPicker} from '../shared/components/common/DataPicker';
 
 export default class Login extends Component<ILoginProp> {
-
+    constructor(props) {
+        super(props);
+        this.state = { isConnected: true };
+    }
     componentDidMount() {
         this.props.actions.setFormMode(appConstants.loginMode.register, this.setMode(this.props.state.formMode));
+        NetInfo.isConnected.addEventListener( "connectionChange", this.handleConnectivityChange );
     }
-
+    
+    componentWillUnmount() {
+        NetInfo.isConnected.removeEventListener( "connectionChange", this.handleConnectivityChange );
+    }
+    handleConnectivityChange = isConnected => {
+        if (isConnected) {
+            this.setState({ isConnected });
+        } else {
+            alert(i18n.t('general.noWifi'));
+            this.setState({ isConnected });
+        }
+    };
+    
     setLanguage(language) {
         i18n.setLocale(language.code);
         this.props.actions.loginSetCurrentLanguage(language);
@@ -62,8 +78,8 @@ export default class Login extends Component<ILoginProp> {
         return (
 
             <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>
-                <View style={{ flex: 1 ,backgroundColor: 'red'}} pointerEvents={this.props.state.showSpinner ? 'none' : 'auto'}>
-                    {this.props.state.showSpinner && <Spinner></Spinner>}
+                <View style={{ flex: 1, backgroundColor: 'red' }} pointerEvents={(this.props.state.showSpinner || !this.state.isConnected) ? 'none' : 'auto'}>
+                    {(this.props.state.showSpinner || !this.state.isConnected) && <Spinner conectionError={!this.state.isConnected}></Spinner>}
                     <Header ></Header>
                     <LinearGradient 
                         start={{ x: 0.0, y: 0.2 }} 

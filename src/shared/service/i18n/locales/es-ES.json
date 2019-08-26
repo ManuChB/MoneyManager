@@ -59,6 +59,9 @@
             "save": "Guardar"
         }
     },
+    "general":{
+        "noWifi": "Oops!! No hay conexión a inernet disponible"
+    },
     "language": {
         "esES": "Español",
         "enUK": "Inglés"
