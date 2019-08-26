@@ -113,11 +113,13 @@ export class DataPicker extends Component<IPickerProps> {
         };
 
         return (
-            <View style={ [styles.containerStyle, customContainerStyle] } >
+            <TouchableOpacity 
+                style={[styles.containerStyle, customContainerStyle]} 
+                onPress={() => this.setState({ showModal: true })} >
                 {_.isNil(icon) && <Animated.Text style={labelStyle}>
                     {i18n.t(label)} 
                 </Animated.Text>}
-                {_.isNil(icon) && <TextInput
+                {_.isNil(icon) && <Text
                     placeholder={placeHolder}
                     autoCorrect={false}
                     style={styles.inputStyle}
@@ -126,7 +128,7 @@ export class DataPicker extends Component<IPickerProps> {
                     onFocus={() => this.setState({ showModal: true })}
                     onBlur={() => this.animate(value ? 1 : 0)}
                     underlineColorAndroid="transparent"
-                />}
+                >{value ? dontTranslate ? value : i18n.t(value) : ''}</Text>}
                 {_.isNil(icon) && <TouchableOpacity onPress={() => this.setState({ showModal: true })} >
                     <Image style={{ width: 20, height: 20 }} source={require('../../../../assets/images/down-50.png')} />
                 </TouchableOpacity>}
@@ -134,7 +136,7 @@ export class DataPicker extends Component<IPickerProps> {
                 <TouchableOpacity onPress={() => this.setState({ showModal: true })} style={{ height:40 }}>
                     <Image style={styles.imageStyle} source={icon} />
                 </TouchableOpacity>}
-            </View>
+            </TouchableOpacity>
         )
     }
 
