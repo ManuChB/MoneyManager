@@ -13,12 +13,17 @@ class AccountService {
     }
     async getAccounts() {
         try {
-            const uid = await AsyncStorageService.getItem('USER_ID');
-            const accounts = await FirebaseService.getAllFromCollectionWhithUid(appConstants.collection.accounts, uid);
-            const accountList = accounts.map(element => {
-                return element;
-            });
-            return accountList;
+            //const uid = await AsyncStorageService.getItem('USER_ID');
+            //const accounts = await FirebaseService.getAllFromCollectionWhithUid(appConstants.collection.accounts, uid);
+            //await AsyncStorageService.removeItem(appConstants.asyncStorageItem.USER_ACCOUNTS);
+
+            const accounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS)
+            if(accounts) {
+                return accounts;
+            } else{
+                return [];
+            }
+            
         } catch (e) {
             console.log(`[error][AccountService][getAccounts]>>> ${e}`);
         }
@@ -48,7 +53,10 @@ class AccountService {
             if (account.id.includes(appConstants.localId.account)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
                 const data = await FirebaseService.addToCollection(appConstants.collection.accounts, {...account, uid: uid});
-                await _this.updateAccount({...account, id: data.id});
+                await _this.updateAccount({ ...account, id: data.id }, true);
+                let uAccounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS) || [];
+                uAccounts.push({ ...account, id: data.id, value: parseFloat(account.value) });
+                await AsyncStorageService.setItem(appConstants.asyncStorageItem.USER_ACCOUNTS, uAccounts );
             }
             else{
                 _this.updateAccount(account);
@@ -58,12 +66,20 @@ class AccountService {
         }
     }
 
-    async updateAccount(account) {
+    async updateAccount(account, noLocalUpdate?) {
         try {
             if (account.id.includes(appConstants.localId.account)) {
                 await _this.newAccount(account);
             } else {
-                await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
+                FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
+            }
+            if (!noLocalUpdate){
+                let uAccounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS) || [];
+                const updatedAccounts = uAccounts.map(
+                    (a) => a.id === account.id ? account : a
+                )
+                await AsyncStorageService.setItem(appConstants.asyncStorageItem.USER_ACCOUNTS, updatedAccounts);
+
             }
         } catch (e) {
             console.log(`[error][accountService][updateAccount]>>> ${e}`);

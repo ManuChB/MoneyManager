@@ -46,7 +46,6 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
     getTransactionsOfCategory(transactions, key) {
         const { userCurrency } = this.props.state;
-        console.log('---------kee------', userCurrency);
         const { balance } = transactions.balance;
         if (transactions && transactions.data.length > 0){
             return (

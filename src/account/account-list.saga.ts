@@ -26,7 +26,6 @@ export function* initialize() {
         yield call(getAccounts);
         yield put(accountListAction.accountListInitializeFinish());
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
-        console.log('---------------accc', uCurrency);
         yield put(accountListAction.setUserCurrency(uCurrency));
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
@@ -78,28 +77,18 @@ export function* accountToDetail(action) {
 
 export function* saveNewAccount(action) {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
         if (action.value.id.includes(appConstants.localId.account)) {
             yield call(AccountService.newAccount, action.value);
         } else {
-            yield call(updateAccount, action);
+            yield call(AccountService.updateAccount, action.value);
         }
         yield call(getAccounts);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][accountList][saga][saveNewAccount]>>> ${e}`);
-    }
-}
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
 
-
-export function* updateAccount(action) {
-    try {
-        if (action.value.id.includes(appConstants.localId.account)) {
-            yield call(saveNewAccount, action);
-        } else {
-            AccountService.updateAccount(action.value);
-            yield call(initialize);
-        }
-    } catch (e) {
-        console.log(`[error][accountList][saga][updateAccount]>>> ${e}`);
     }
 }
 
@@ -140,9 +129,14 @@ export function* calculateBalance() {
 
 export function* removeAccount(action) {
     try {
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
+        const accounts = yield select(selectors.getAccounts); 
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ACCOUNTS, accounts);
         yield call(AccountService.removeAccount, action.value);
         yield call(initialize);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
