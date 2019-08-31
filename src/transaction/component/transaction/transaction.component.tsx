@@ -55,7 +55,7 @@ export interface ITransactionDataProp {
     account?: IAccountData,
     imageIcon?: {id: number, name: string, icon: any},
     categoryId?: string,
-    subCategory?: {id: number, value: string},
+    subCategory?: {id: number, value: string, imageIcon:{id: number, name: string}},
     description?: string
     date?: Moment;
     isExpense?: boolean;

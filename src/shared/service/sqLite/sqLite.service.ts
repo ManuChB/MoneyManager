@@ -37,10 +37,13 @@ class SQLiteService {
                         category.id AS categoryId, 
                         category.name AS categoryName,
                         subCategory.id AS subCategoryId, 
-                        subCategory.value AS subCategoryValue
+                        subCategory.value AS subCategoryValue,
+                        imageIcon.name AS subCategoryIcon,
+                        imageIcon.id AS subCategoryIconId
                     FROM categorySubcategory
                     INNER JOIN category on category.id = categorySubcategory.categoryId
-                    INNER JOIN subCategory on subCategory.id = categorySubcategory.subCategoryId`,
+                    INNER JOIN subCategory on subCategory.id = categorySubcategory.subCategoryId
+                    INNER JOIN imageIcon on imageIcon.id = subCategory.imageIcon`,
                     [],
                     (tx, results) => {
                         const { rows } = results;
@@ -49,12 +52,12 @@ class SQLiteService {
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
                             if(data[row.categoryId]){
-                                data[row.categoryId].data.push({ id: row.subCategoryId, value: row.subCategoryValue })
+                                data[row.categoryId].data.push({ id: row.subCategoryId, value: row.subCategoryValue, imageIcon: { name: row.subCategoryIcon, id: row.subCategoryIconId } })
                             }else {
                                 data[row.categoryId] = { 
                                     id: row.categoryId, 
                                     name: row.categoryName, 
-                                    data: [{ id: row.subCategoryId, value: row.subCategoryValue }]
+                                    data: [{ id: row.subCategoryId, value: row.subCategoryValue, imageIcon: {name: row.subCategoryIcon, id: row.subCategoryIconId} }]
                                 };
 
                             }
@@ -178,7 +181,7 @@ class SQLiteService {
 
     async addTransaction(data) {
         const { account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon } = data;
-        const imageId = imageIcon ?`"${imageIcon.id}"` : "3";
+        const imageId = imageIcon ? `"${imageIcon.id}"` : `"${subCategory.imageIcon.id}"`;
         const desc = description ? `"${description}"` : null;
 
         const query = `INSERT INTO transactions (uid, accountId, date, categoryId, subCategoryId, value, oldValue, isExpense, wasExpense, imageIconId, description) 
@@ -332,7 +335,7 @@ class SQLiteService {
 
     async updateTransaction(transaction) {
         const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon, firebaseId } = transaction;
-        const imageId = imageIcon ? `"${imageIcon.id}"` : "3";
+        const imageId = imageIcon ? `"${imageIcon.id}"` : `"${subCategory.imageIcon.id}"`;
         const desc = description ? `"${description}"` : null;
 
         return new Promise((resolve, reject) => {

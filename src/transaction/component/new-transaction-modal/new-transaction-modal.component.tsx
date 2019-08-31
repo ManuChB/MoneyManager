@@ -21,7 +21,6 @@ export default class  extends Component<ITransactionDetailProp> {
 
     componentWillReceiveProps() {
         this.setState({ accounts: this.props.state.accounts });
-        if (!this.props.state.data.date) { this.changeDay(moment().startOf('day')) }
     }
 
 
@@ -43,6 +42,7 @@ export default class  extends Component<ITransactionDetailProp> {
     
     render() {
         const { data, onClose, onSave, categories, onRemove, icons } = this.props.state;
+        console.log('-------------render-------', data);
         const { accounts } = this.state;
         return (
             
@@ -117,7 +117,8 @@ export default class  extends Component<ITransactionDetailProp> {
                         />
                         <DataPicker
                             iconMode={true}
-                            icon={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name]  : appConstants.defaultTransactionIcon.icon}
+                                icon={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name] :
+                                    data.subCategory ? appConstants.transactionIcons[data.subCategory.imageIcon.name] : appConstants.defaultTransactionIcon.icon}
                             value={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name] : ''}
                             data={icons}
                                 onSelect={(image) => this.props.actions.changeData({ ...data, imageIcon: { ...image } })}
