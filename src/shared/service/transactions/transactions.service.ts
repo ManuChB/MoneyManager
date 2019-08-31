@@ -57,7 +57,6 @@ class TransactionService {
                 await _this.newTransaction(transaction);
             } else {
                 const trans = { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id };
-                console.log(`-------------------updateTransaction>>> `, transaction);
                 await _this.updateAccountValue(transaction);
                 await sqLiteService.updateTransaction(trans);
                 FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, trans);
@@ -130,7 +129,6 @@ class TransactionService {
             else if (isExpense && !wasExpense) {
                 newValue = account.value - oldValue - value;
             }
-            console.log(`-------------------updateAccountValue>>> `, transaction, newValue);
 
             await AccountService.updateAccount({ ...account, value: newValue.toFixed(2), uid: transaction.uid })
 

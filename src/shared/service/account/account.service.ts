@@ -62,7 +62,6 @@ class AccountService {
     }
 
     async updateAccount(account) {
-        console.log('---------updateaccount-----', account);
         try {
             if (account.id.toString().includes(appConstants.localId.account)) {
                 await _this.newAccount(account);

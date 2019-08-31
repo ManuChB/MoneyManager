@@ -21,6 +21,7 @@ export default class  extends Component<ITransactionDetailProp> {
 
     componentWillReceiveProps() {
         this.setState({ accounts: this.props.state.accounts });
+        if (!this.props.state.data.date) { this.changeDay(moment().startOf('day')) }
     }
 
 
@@ -43,7 +44,6 @@ export default class  extends Component<ITransactionDetailProp> {
     render() {
         const { data, onClose, onSave, categories, onRemove, icons } = this.props.state;
         const { accounts } = this.state;
-        if (!data.date) { this.changeDay(moment().startOf('day')) }
         return (
             
             <View style={{ flex: 1 }}>
