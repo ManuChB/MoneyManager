@@ -68,7 +68,7 @@ class SQLiteService {
 
 
     async getAllAccounts() {
-        const uid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
@@ -200,7 +200,7 @@ class SQLiteService {
 
 
     async getTransactionsByDate(day) {
-        const uid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
 
         const query = `SELECT 
                         transactions.id AS id,
@@ -265,7 +265,7 @@ class SQLiteService {
     }
 
     async getTransactionsByDateRange(dateStart, dateEnd) {
-        const uid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
 
         const query = `SELECT 
                         transactions.id AS id,

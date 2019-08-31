@@ -32,7 +32,7 @@ export function* registerNewUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.newUser, userName, password);
-        yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, response.user.uid);
         yield call(setUserCurrency);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
@@ -50,7 +50,7 @@ export function* logInUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
-        yield call(AsyncStorageService.setItem, 'USER_ID', response.user.uid);
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, response.user.uid);
         yield call(setUserCurrency);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));

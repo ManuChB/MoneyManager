@@ -48,7 +48,7 @@ class FirebaseService {
     }
 
     async getTransactionsByDate(date) {
-        const uid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
         if( !uid) {
             return null;
         }
@@ -67,7 +67,7 @@ class FirebaseService {
     }
 
     async getTransactionsByDateRange(dateStart, datEnd) {
-        const uid = await AsyncStorageService.getItem('USER_ID');
+        const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
         const snapshot = await db.collection(appConstants.collection.transactions)
             .where('uid', '==', uid)
             .where('date', '>=', dateStart)

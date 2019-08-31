@@ -48,7 +48,7 @@ class AccountService {
     async newAccount(account) {
         try {
             if (account.id.includes(appConstants.localId.account)) {
-                const uid = await AsyncStorageService.getItem('USER_ID');
+                const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
                 const insertId = await sqLiteService.addAccount({ ...account, uid: uid });
                 const item = await FirebaseService.addToCollection(appConstants.collection.accounts, { ...account, uid: uid, id: insertId });
                 await sqLiteService.updateAccount({ ...account, uid: uid, id: insertId, firebaseId: item.id });

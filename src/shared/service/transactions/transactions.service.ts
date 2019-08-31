@@ -38,7 +38,7 @@ class TransactionService {
     async newTransaction(transaction) {
         try {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
-                const uid = await AsyncStorageService.getItem('USER_ID');
+                const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
                 const trans = { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid }
                 const insertId = await sqLiteService.addTransaction(trans);
                 const item = await FirebaseService.addToCollection(appConstants.collection.transactions, { ...trans, id: insertId });

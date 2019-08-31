@@ -47,7 +47,8 @@ export function* updateCurrency(action) {
 
 export function* logOut() {
     try {
-        yield call(AsyncStorageService.removeItem, 'USER_ID');
+        yield call(AsyncStorageService.removeItem, appConstants.asyncStorageItem.USER_ID);
+        yield call(AsyncStorageService.removeItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
         yield call(NavigationService.navigateTo, appConstants.routName.login);
         yield put(moneyManagerAction.moneyManagerTabModeChange(appConstants.tabMode.transaction));
     } catch (e) {

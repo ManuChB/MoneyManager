@@ -23,7 +23,7 @@ export function* initialize() {
         yield call(SQLiteService.init)
         yield call(FirebaseService.init);
         yield call(setDefaultParams);
-        const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
+        const uid = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_ID);
         if(uid) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         }
