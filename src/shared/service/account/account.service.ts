@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { IAccountData } from '../../../account/account/account.model';
-//import FirebaseService from '../firebase/firebase.service';
+import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
@@ -50,7 +50,8 @@ class AccountService {
             if (account.id.includes(appConstants.localId.account)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
                 const insertId = await sqLiteService.addAccount({ ...account, uid: uid });
-                //FirebaseService.addToCollection(appConstants.collection.accounts, { ...account, uid: uid, id: insertId });
+                const item = await FirebaseService.addToCollection(appConstants.collection.accounts, { ...account, uid: uid, id: insertId });
+                await sqLiteService.updateAccount({ ...account, uid: uid, id: insertId, firebaseId: item.id });
             }
             else{
                 _this.updateAccount(account);
@@ -61,12 +62,13 @@ class AccountService {
     }
 
     async updateAccount(account) {
+        console.log('---------updateaccount-----', account);
         try {
             if (account.id.toString().includes(appConstants.localId.account)) {
                 await _this.newAccount(account);
             } else {
                 await sqLiteService.updateAccount(account);
-                //FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
+                FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
             }
         } catch (e) {
             console.log(`[error][accountService][updateAccount]>>> ${e}`);
@@ -91,12 +93,8 @@ class AccountService {
 
     async removeAccount(account) {
         try {
-            //await FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
-
+            FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
             await sqLiteService.removeAccount(account);
-
-
-
         } catch (e) {
             console.log(`[error][accountService][removeAccount]>>> ${e}`);
         }

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { ITransactionDataProp } from '../../../transaction/component/transaction/transaction.component';
-// import FirebaseService from '../firebase/firebase.service';
+import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
@@ -39,8 +39,11 @@ class TransactionService {
         try {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
-                await sqLiteService.addTransaction({ ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid })
-                // FirebaseService.addToCollection(appConstants.collection.transactions, { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid });
+                const trans = { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid }
+                const insertId = await sqLiteService.addTransaction(trans);
+                const item = await FirebaseService.addToCollection(appConstants.collection.transactions, { ...trans, id: insertId });
+                await sqLiteService.updateTransaction({ ...trans, id: insertId, firebaseId: item.id });
+                await _this.updateAccountValue({ ...transaction, uid: uid} );
             }
         } catch (e) {
             console.log(`[error][TransactionService][newTransaction]>>> ${e}`);
@@ -48,14 +51,16 @@ class TransactionService {
     }
 
     async updateTransaction(transaction, date) {
+
         try {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 await _this.newTransaction(transaction);
             } else {
+                const trans = { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id };
+                console.log(`-------------------updateTransaction>>> `, transaction);
                 await _this.updateAccountValue(transaction);
-                await sqLiteService.updateTransaction(transaction);
-                
-                // FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id, oldValue: 0 });
+                await sqLiteService.updateTransaction(trans);
+                FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, trans);
             }
         } catch (e) {
             console.log(`[error][transactionService][updateTransaction]>>> ${e}`);
@@ -125,7 +130,9 @@ class TransactionService {
             else if (isExpense && !wasExpense) {
                 newValue = account.value - oldValue - value;
             }
-            await AccountService.updateAccount({ ...account, value: newValue.toFixed(2) })
+            console.log(`-------------------updateAccountValue>>> `, transaction, newValue);
+
+            await AccountService.updateAccount({ ...account, value: newValue.toFixed(2), uid: transaction.uid })
 
         } catch (e) {
             console.log(`[error][TransactionService][updateAccountValue]>>> ${e}`);
@@ -151,7 +158,10 @@ class TransactionService {
     async removeTransaction(transaction) {
         try {
             await sqLiteService.removeTransaction(transaction);
-            // FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
+            const value = transaction.isExpense ? transaction.account.value + transaction.value : transaction.account.value - transaction.value;
+            AccountService.updateAccount({ ...transaction.account, value, uid: transaction.uid })
+
+            FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
         } catch (e) {
             console.log(`[error][transactionService][removeTransaction]>>> ${e}`);
         }

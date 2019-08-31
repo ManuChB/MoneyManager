@@ -78,6 +78,7 @@ class SQLiteService {
                         account.uid,
                         account.value,
                         account.description,
+                        account.firebaseId,
                         currency.id AS currencyId, 
                         currency.symbol AS currencySymbol, 
                         currency.name AS currencyName,
@@ -123,11 +124,11 @@ class SQLiteService {
 
 
     async updateAccount(account) {
-        const { id, name, uid, value, currency, type, description } = account;
+        const { id, name, uid, value, currency, type, description, firebaseId } = account;
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `UPDATE account SET name="${name}", value="${value}", currencyId="${currency.id}", typeId="${type.id}", description="${description}"
+                    `UPDATE account SET name="${name}", value="${value}", currencyId="${currency.id}", typeId="${type.id}", description="${description}", firebaseId="${firebaseId}"
                     WHERE id='${id}' AND uid='${uid}'`,
                     [],
                     (tx, results) => {
@@ -190,7 +191,7 @@ class SQLiteService {
                     query,
                     [],
                     (tx, results) => {
-                        resolve(results);
+                        resolve(results.insertId);
                     });
             },
                 (err) => { console.log(`[error][sqLite][service][addTransaction]>>> ${err}`) });
@@ -209,23 +210,28 @@ class SQLiteService {
                         transactions.value, 
                         oldValue, 
                         isExpense, 
-                        wasExpense, 
+                        wasExpense,
+                        transactions.firebaseId, 
                         transactions.description,
                         subCategory.id AS subCategoryId, 
                         subCategory.value AS subCategoryValue,
                         imageIcon.id AS imageIconId, 
                         imageIcon.name AS imageIconeName,
                         account.id AS account,
+                        account.firebaseId AS accountFirebaseid,
                         account.name AS accountName,
                         account.value AS accountValue,
                         account.description AS accountDescription,
                         currency.name AS accountCurrency,
-                        currency.id AS accountCurrencyId
+                        currency.id AS accountCurrencyId,
+                        accountType.id AS accountTypeId,
+                        accountType.name AS accountTypeName
                     FROM transactions
                     INNER JOIN account on account.id = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
                     INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
                     INNER JOIN currency on currency.id = account.currencyId
+                    INNER JOIN accountType on accountType.id = account.typeId
                     WHERE transactions.uid = '${uid}' AND date = date('${moment(day).format("YYYY-MM-DD")}')`;
 
         return new Promise((resolve, reject) => {
@@ -245,8 +251,9 @@ class SQLiteService {
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
                                 imageIcon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
-                                    id: row.account, name: row.accountName, value: row.accountValue, description: row.accountDescription, 
-                                    currency: {id: row.accountCurrencyId, name: row.accountCurrency} 
+                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, value: row.accountValue, description: row.accountDescription, 
+                                    currency: { id: row.accountCurrencyId, name: row.accountCurrency },
+                                    type: { id: row.accountTypeId, name: row.accountTypeName }
                                 }
                             });
                         }
@@ -269,24 +276,30 @@ class SQLiteService {
                         oldValue, 
                         isExpense, 
                         wasExpense, 
+                        transactions.firebaseId,
                         transactions.description,
                         subCategory.id AS subCategoryId, 
                         subCategory.value AS subCategoryValue,
                         imageIcon.id AS imageIconId, 
                         imageIcon.name AS imageIconeName,
                         account.id AS account,
+                        account.firebaseId AS accountFirebaseid,
                         account.name AS accountName,
                         account.value AS accountValue,
                         account.description AS accountDescription,
                         currency.name AS accountCurrency,
-                        currency.id AS accountCurrencyId
+                        currency.id AS accountCurrencyId,
+                        accountType.id AS accountTypeId,
+                        accountType.name AS accountTypeName
                     FROM transactions
                     INNER JOIN account on account.id = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
                     INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
                     INNER JOIN currency on currency.id = account.currencyId
+                    INNER JOIN accountType on accountType.id = account.typeId
                     WHERE transactions.uid = '${uid}' AND date >= date('${moment(dateStart).format("YYYY-MM-DD")}') AND date <= date('${moment(dateEnd).format("YYYY-MM-DD")}') `;
 
+                    
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
@@ -304,8 +317,9 @@ class SQLiteService {
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
                                 imageIcon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
-                                    id: row.account, name: row.accountName, value: row.accountValue, description: row.accountDescription,
-                                    currency: { id: row.accountCurrencyId, name: row.accountCurrency }
+                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, value: row.accountValue, description: row.accountDescription,
+                                    currency: { id: row.accountCurrencyId, name: row.accountCurrency },
+                                    type: { id: row.accountTypeId, name: row.accountTypeName }
                                 }
                             });
                         }
@@ -317,13 +331,18 @@ class SQLiteService {
     }
 
     async updateTransaction(transaction) {
-        const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon } = transaction;
+        console.log('-------------------updae-----', transaction);
+
+        const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon, firebaseId } = transaction;
+        const imageId = imageIcon ? `"${imageIcon.id}"` : "3";
+        const desc = description ? `"${description}"` : null;
 
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `UPDATE transactions SET accountId="${account.id}", categoryId="${categoryId}", date="${date}", isExpense="${isExpense ? 1 : 0}",
-                    oldValue="${oldValue}",subCategoryId="${subCategory.id}",value="${value}",wasExpense="${wasExpense ? 1 : 0}",description="${description}" , imageIconId="${imageIcon.id}"
+                    `UPDATE transactions SET accountId="${account}", categoryId="${categoryId}", date="${moment(date).format("YYYY-MM-DD")}", isExpense="${isExpense ? 1 : 0}",
+                    oldValue="${oldValue}",subCategoryId="${subCategory.id}",value="${value}",wasExpense="${wasExpense ? 1 : 0}",
+                    description=${desc} , imageIconId=${imageId}, firebaseId="${firebaseId}"
                     WHERE id="${id}" AND uid="${uid}"`,
                     [],
                     (tx, results) => {

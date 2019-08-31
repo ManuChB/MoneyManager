@@ -135,12 +135,12 @@ class FirebaseService {
 
     updateDocumentInCollection(collection, data) {
         //console.log(`[FirebaseService][addToCollection] ${collection} [data] ${data}`);
-        db.collection(collection).doc(data.id).update(data);
+        db.collection(collection).doc(data.firebaseId.toString()).update(data);
     }
 
     async removeFromCollection(collection, data) {
         //console.log(`[FirebaseService][removeFromCollection] ${collection} [data] ${data.id}`);
-        return await db.collection(collection).doc(data.id).delete();
+        return await db.collection(collection).doc(data.firebaseId).delete();
     }
 }
 
