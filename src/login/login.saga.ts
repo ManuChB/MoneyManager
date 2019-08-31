@@ -6,6 +6,9 @@ import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import appConstants from '../appConstants';
 import i18n from '../shared/service/i18n';
+import sqLiteService from '../shared/service/sqLite/sqLite.service';
+
+let pkg = require('../../package.json');
 
 export default [
     takeLatest(loginConstants.LOGIN_INITIALIZE_START, initialize),
@@ -32,8 +35,7 @@ export function* registerNewUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.newUser, userName, password);
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, response.user.uid);
-        yield call(setUserCurrency);
+        yield call(setUserData, response.user.uid, userName);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
@@ -50,8 +52,7 @@ export function* logInUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, response.user.uid);
-        yield call(setUserCurrency);
+        yield call(setUserData, response.user.uid, userName);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
         yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
@@ -103,4 +104,17 @@ export function* setUserCurrency() {
 
     }
     
+}
+
+export function* setUserData(uid, mail) {
+    const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+    const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
+    if (!uCurrency) {
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, uLanguage.currency);
+
+    }
+    yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, uid);
+    yield call(sqLiteService.addOrReplaceUser, { id: uid, mail, language: uLanguage.code, currency: uCurrency.name || uLanguage.currency, version: pkg.version });
+
+    const use= yield call(sqLiteService.getUser, { id: uid});
 }

@@ -331,8 +331,6 @@ class SQLiteService {
     }
 
     async updateTransaction(transaction) {
-        console.log('-------------------updae-----', transaction);
-
         const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon, firebaseId } = transaction;
         const imageId = imageIcon ? `"${imageIcon.id}"` : "3";
         const desc = description ? `"${description}"` : null;
@@ -367,9 +365,41 @@ class SQLiteService {
         });
     }
 
+    async addOrReplaceUser(user) {
+        const {id, mail, language, currency, version } = user;
+        return new Promise((resolve, reject) => {
+            config.db.transaction(tx => {
+                tx.executeSql(
+                    `INSERT OR REPLACE INTO user (id, mail, language, currency, version) VALUES (?,?,?,?,?)`,
+                    [id, mail, language, currency, version],
+                    (tx, results) => {
+                        resolve(results);
+                    });
+            },
+                (err) => { console.log(`[error][sqLite][service][addUser]>>> ${err}`) });
+        });
+    }
 
+    async getUser(user){
+        return new Promise((resolve, reject) => {
+            config.db.transaction(tx => {
+                tx.executeSql(
+                    `SELECT * FROM user WHERE id = "${user.id}"`,
+                    [],
+                    (tx, results) => {
+                        const { rows } = results;
+                        let data = [];
 
-   
+                        for (let i = 0; i < rows.length; i++) {
+                            const row = rows.item(i);
+                            data.push({ ...row });
+                        }
+                        resolve(data[0]);
+                    });
+            },
+                (err) => { console.log(`[error][sqLite][service][getUser]>>> ${err}`) });
+        });
+    }
 }
 
 export default new SQLiteService();
