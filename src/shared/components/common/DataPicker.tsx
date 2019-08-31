@@ -3,6 +3,7 @@ import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } 
 import { Modal } from '.';
 import i18n from '../../service/i18n';
 import _ from 'lodash';
+import appConstants from '../../../appConstants';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -25,22 +26,24 @@ export class DataPicker extends Component<IPickerProps> {
         return (
             <View style={{ marginBottom: 50 }}>
                 {data && data.map((element, key) => {
-                    return (
-                        <TouchableOpacity
-                            style={styles.subCategory}
-                            key={key}
-                            onPress={() => {
-                                if (!noHideOnPress) { this.setState({ showModal: false }) };
-                                onSelect(element)
-                            }}>
-                            <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between' } : null]} key={key} >
-                                {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
-                                <Text style={styles.categoryText} key={key}>
-                                    {dontTranslate ? element[field] : i18n.t(element[field])}
-                                </Text>
-                                {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
-                            </View>
-                        </TouchableOpacity>)
+                    if(!_.isNil(element)){
+                        return (
+                            <TouchableOpacity
+                                style={styles.subCategory}
+                                key={key}
+                                onPress={() => {
+                                    if (!noHideOnPress) { this.setState({ showModal: false }) };
+                                    onSelect(element)
+                                }}>
+                                <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between' } : null]} key={key} >
+                                    {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
+                                    <Text style={styles.categoryText} key={key}>
+                                        {dontTranslate ? element[field] : i18n.t(element[field])}
+                                    </Text>
+                                    {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
+                                </View>
+                            </TouchableOpacity>)
+                    }
                 })}
                 {this.props.children}
             </View>
@@ -61,7 +64,7 @@ export class DataPicker extends Component<IPickerProps> {
                                 onSelect(element)
                             }}>
                             <View style={[styles.iconModeView]} key={key} >
-                                <Image style={styles.imageStyle} source={element.icon} />
+                                <Image style={styles.imageStyle} source={appConstants.transactionIcons[element.name]} />
                             </View>
                         </TouchableOpacity>
                     )

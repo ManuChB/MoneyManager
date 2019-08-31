@@ -52,64 +52,22 @@ const constants = {
         USER_TRANSACTIONS: 'USER_TRANSACTIONS'
     },
 
-    transactionIcons:[
-        { 
-            name: 'cash',
-            icon: require('../assets/images/cash-filled-64.png')
-        } ,
-        {
-            name: 'card',
-            icon: require('../assets/images/credit-card-64.png')
-        }, 
-        {
-            name: 'DEFAULT',
-            icon: require('../assets/images/icons8-cash-filled-64.png')
-        }, {
-            name: 'cash',
-            icon: require('../assets/images/cash-filled-64.png')
-        },
-        {
-            name: 'card',
-            icon: require('../assets/images/credit-card-64.png')
-        },
-        {
-            name: 'DEFAULT',
-            icon: require('../assets/images/icons8-cash-filled-64.png')
-        }, {
-            name: 'cash',
-            icon: require('../assets/images/cash-filled-64.png')
-        },
-        {
-            name: 'card',
-            icon: require('../assets/images/credit-card-64.png')
-        },
-        {
-            name: 'DEFAULT',
-            icon: require('../assets/images/icons8-cash-filled-64.png')
-        }, {
-            name: 'cash',
-            icon: require('../assets/images/cash-filled-64.png')
-        },
-        {
-            name: 'card',
-            icon: require('../assets/images/credit-card-64.png')
-        },
-        {
-            name: 'DEFAULT',
-            icon: require('../assets/images/icons8-cash-filled-64.png')
-        }, {
-            name: 'cash',
-            icon: require('../assets/images/cash-filled-64.png')
-        },
-        {
-            name: 'card',
-            icon: require('../assets/images/credit-card-64.png')
-        },
-        {
-            name: 'DEFAULT',
-            icon: require('../assets/images/icons8-cash-filled-64.png')
-        },
-    ],
+    sqliteTable: {
+        account: 'account',
+        accountType: 'accountType',
+        category: 'category',
+        categorySubcategory: 'categorySubcategory',
+        currency: 'currency',
+        imageIcon: 'imageIcon',
+        subCategory: 'subCategory',
+        transactions: 'transactions'
+    },
+
+    transactionIcons:{
+        cash: require('../assets/images/cash-filled-64.png'),
+        card: require('../assets/images/credit-card-64.png'),
+        DEFAULT: require('../assets/images/icons8-cash-filled-64.png')
+    },
     defaultTransactionIcon: {
         name: 'DEFAULT',
         icon: require('../assets/images/icons8-cash-filled-64.png')
@@ -119,11 +77,6 @@ const constants = {
         velocityThreshold: 0.1,
         directionalOffsetThreshold: 10
     },
-
-    accountTypesArray: [
-        { name: "accountTypes.cash", id: "fh8BKRjjN30i7rZHUp5F"},
-        { name: "accountTypes.creditCard", id: "wkWaAmfS08vWJsGvrTTi"},
-    ],
     accountTypesGeneral:{
         name: "accountTypes.general"
     },

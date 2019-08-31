@@ -51,7 +51,7 @@ export default class WeekTransaction extends Component<IWeekTransactionProp> {
             return (
                 <View key={key}>
                     <View style={styles.transListTitle}>
-                        <Text key={key} style={styles.categoryText}> {i18n.t('categoriesIds.' + transactions.category.id).toUpperCase()} </Text>
+                        <Text key={key} style={styles.categoryText}> {i18n.t(transactions.category.name).toUpperCase()} </Text>
                         <Text
                             style={[styles.valueText, balance >= 0.00 ? { color: '#c2e8e3' } : { color: '#F38266' }]}>
                             {currencyFormatter.format(transactions.balance.balance, { code: userCurrency ? userCurrency.name : 'YPN', locale: i18n.getLocale() })}

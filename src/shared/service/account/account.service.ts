@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import { IAccountData } from '../../../account/account/account.model';
-import FirebaseService from '../firebase/firebase.service';
+//import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
 import { database } from 'firebase';
+import sqLiteService from '../sqLite/sqLite.service';
 
 let _this;
 class AccountService {
@@ -13,11 +14,7 @@ class AccountService {
     }
     async getAccounts() {
         try {
-            //const uid = await AsyncStorageService.getItem('USER_ID');
-            //const accounts = await FirebaseService.getAllFromCollectionWhithUid(appConstants.collection.accounts, uid);
-            //await AsyncStorageService.removeItem(appConstants.asyncStorageItem.USER_ACCOUNTS);
-
-            const accounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS)
+            const accounts = await sqLiteService.getAllAccounts();
             if(accounts) {
                 return accounts;
             } else{
@@ -52,11 +49,8 @@ class AccountService {
         try {
             if (account.id.includes(appConstants.localId.account)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
-                const data = await FirebaseService.addToCollection(appConstants.collection.accounts, {...account, uid: uid});
-                await _this.updateAccount({ ...account, id: data.id }, true);
-                let uAccounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS) || [];
-                uAccounts.push({ ...account, id: data.id, value: parseFloat(account.value) });
-                await AsyncStorageService.setItem(appConstants.asyncStorageItem.USER_ACCOUNTS, uAccounts );
+                const insertId = await sqLiteService.addAccount({ ...account, uid: uid });
+                //FirebaseService.addToCollection(appConstants.collection.accounts, { ...account, uid: uid, id: insertId });
             }
             else{
                 _this.updateAccount(account);
@@ -66,20 +60,13 @@ class AccountService {
         }
     }
 
-    async updateAccount(account, noLocalUpdate?) {
+    async updateAccount(account) {
         try {
-            if (account.id.includes(appConstants.localId.account)) {
+            if (account.id.toString().includes(appConstants.localId.account)) {
                 await _this.newAccount(account);
             } else {
-                FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
-            }
-            if (!noLocalUpdate){
-                let uAccounts = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ACCOUNTS) || [];
-                const updatedAccounts = uAccounts.map(
-                    (a) => a.id === account.id ? account : a
-                )
-                await AsyncStorageService.setItem(appConstants.asyncStorageItem.USER_ACCOUNTS, updatedAccounts);
-
+                await sqLiteService.updateAccount(account);
+                //FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
             }
         } catch (e) {
             console.log(`[error][accountService][updateAccount]>>> ${e}`);
@@ -104,7 +91,12 @@ class AccountService {
 
     async removeAccount(account) {
         try {
-            await FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
+            //await FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
+
+            await sqLiteService.removeAccount(account);
+
+
+
         } catch (e) {
             console.log(`[error][accountService][removeAccount]>>> ${e}`);
         }

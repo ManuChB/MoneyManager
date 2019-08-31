@@ -1,5 +1,5 @@
 import { NEW_TRANSACTION_INITIALIZE_FINISH, NEW_TRANSACTION_INITIALIZE_START, CHANGE_DATA, 
-    SET_CATEGORIES, NEW_TRANSACTION_SET_ACCOUNTS } from './new-transaction-modal.constant';
+    SET_CATEGORIES, NEW_TRANSACTION_SET_ACCOUNTS, NEW_TRANSACTION_SET_ICONS } from './new-transaction-modal.constant';
 import { ITransactionDetailAction } from './new-transaction-modal.model';
 
 const newTransactionAction: ITransactionDetailAction = {
@@ -34,6 +34,13 @@ const newTransactionAction: ITransactionDetailAction = {
         return {
             type: NEW_TRANSACTION_SET_ACCOUNTS,
             value: accounts
+        }
+    },
+
+    setIcons(icons) {
+        return {
+            type: NEW_TRANSACTION_SET_ICONS,
+            value: icons
         }
     }
 }

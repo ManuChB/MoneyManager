@@ -4,12 +4,12 @@ import accountListAction from './account-list.action';
 import moneyManagerAction from '../money-manager/money-manager.action';
 
 import accountListConstants from './account-list.constant';
-import FirebaseService from '../shared/service/firebase/firebase.service';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import * as selectors from './selectors';
 import AccountService from '../shared/service/account/account.service';
+import sqLiteService from '../shared/service/sqLite/sqLite.service';
 
 export default [
     takeLatest(accountListConstants.ACCOUNT_LIST_INITIALIZE_START, initialize),
@@ -24,9 +24,9 @@ export function* initialize() {
     try {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         yield call(getAccounts);
-        yield put(accountListAction.accountListInitializeFinish());
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
         yield put(accountListAction.setUserCurrency(uCurrency));
+        yield put(accountListAction.accountListInitializeFinish());
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][accountList][saga][initialize]>>> ${e}`);
@@ -39,7 +39,7 @@ export function* getAccounts() {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const accountList = yield call(AccountService.getAccounts);
         yield put(accountListAction.setAccounts(accountList));
-        const orderedAccountList = orderAccuntsByType(accountList);
+        const orderedAccountList = yield call(orderAccuntsByType, accountList);
         yield put(accountListAction.setAccountsByType(orderedAccountList));
         yield call(calculateBalance);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
@@ -49,9 +49,10 @@ export function* getAccounts() {
     }
 }
 
-export function orderAccuntsByType(accountList) {
+export function* orderAccuntsByType(accountList) {
+    const accountTypesArray = yield call(sqLiteService.getAllFrom, appConstants.sqliteTable.accountType);
     let array = [];
-    appConstants.accountTypesArray.forEach(type => {
+    accountTypesArray.forEach(type => {
         let arr = accountList.filter(
             (account) => account.type.id == type.id
         )
@@ -78,7 +79,7 @@ export function* accountToDetail(action) {
 export function* saveNewAccount(action) {
     try {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
-        if (action.value.id.includes(appConstants.localId.account)) {
+        if (action.value.id.toString().includes(appConstants.localId.account)) {
             yield call(AccountService.newAccount, action.value);
         } else {
             yield call(AccountService.updateAccount, action.value);
@@ -130,8 +131,6 @@ export function* calculateBalance() {
 export function* removeAccount(action) {
     try {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
-        const accounts = yield select(selectors.getAccounts); 
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ACCOUNTS, accounts);
         yield call(AccountService.removeAccount, action.value);
         yield call(initialize);
         yield put(moneyManagerAction.moneyManagerHideSpinner());

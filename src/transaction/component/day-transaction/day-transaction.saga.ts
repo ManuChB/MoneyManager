@@ -50,8 +50,10 @@ export function* calculateBalance() {
 
 export function* newTransaction(action) {
     try {
+        const day = yield select(selectors.getDayTransaction);
         const data = yield call(TransactionsService.newTransaction, action.value);
-        yield call(updateTransaction, {value:{ ...action.value, id: data.id }});
+        //yield call(updateTransaction, {value:{ ...action.value, id: data.id }});
+        yield call(getTransactionByDate, { value: day });
 
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);

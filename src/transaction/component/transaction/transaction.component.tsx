@@ -10,21 +10,7 @@ import i18n from '../../../shared/service/i18n';
 import currencyFormatter from 'currency-formatter';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
-    const { value, account, imageId, categoryId, subCategory, description, isExpense } = data;
-    
-    const getIcon = (imageId) => {
-        if(!imageId){
-            return appConstants.defaultTransactionIcon.icon;
-        }
-        const icon = appConstants.transactionIcons.filter(
-            (i) => i.name === imageId.name
-        )[0];
-        if (!icon) {
-            return appConstants.defaultTransactionIcon.icon;
-        }
-        return icon.icon;
-    }
-    const img = getIcon(imageId);
+    const { value, account, imageIcon, categoryId, subCategory, description, isExpense } = data;
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
@@ -32,19 +18,19 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
                 <View style={{
                     width:'15%', justifyContent: 'center',
                     alignItems: 'center' }}>
-                    <Image style={{ width: 35, height: 35 }} source={img} />
+                    <Image style={{ width: 35, height: 35 }} source={appConstants.transactionIcons[imageIcon.name]} />
                 </View>
                 <View style={{ width: '55%' }}>
                     <Text > {subCategory ? i18n.t(subCategory.value).toUpperCase() : ''}</Text>
                     <Text style={styles.textStyle}> {description}</Text>
-                    <Text> {account ? account.name : ''}</Text>
+                    <Text> {account && account.name ? account.name : ''}</Text>
                 </View>
                 <View style={{
                     width: '30%', justifyContent: 'center',
                         alignItems: 'center'
                     }}>
                     <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>
-                        {currencyFormatter.format(value, { code: account ? account.currency.name : 'YPN', locale: i18n.getLocale() })}
+                        {currencyFormatter.format(value, { code: account && account.currency ? account.currency.name : 'YPN', locale: i18n.getLocale() })}
                     </Text>
                 </View>
             </View>
@@ -67,7 +53,7 @@ export interface ITransactionDataProp {
     value?: number,
     oldValue?: number,
     account?: IAccountData,
-    imageId?: {name: string, icon: any},
+    imageIcon?: {id: number, name: string, icon: any},
     categoryId?: string,
     subCategory?: {id: number, value: string},
     description?: string

@@ -2,10 +2,10 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import settingsAction from './settings.action';
 import settingsConstants from './settings.constants';
 import NavigationService from '../shared/service/navigation/navigation.service';
-import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import appConstants from '../appConstants';
 import moneyManagerAction from '../money-manager/money-manager.action';
+import sqLiteService from '../shared/service/sqLite/sqLite.service';
 
 export default [
     takeLatest(settingsConstants.SETTINGS_INITIALIZE_START, initialize),
@@ -18,7 +18,7 @@ export function* initialize() {
     try {
         const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE );
         yield put(settingsAction.settingsSetCurrentLanguage(uLanguage));
-        const currencyList = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.CURRENCIES);
+        const currencyList = yield call(sqLiteService.getAllFrom, appConstants.sqliteTable.currency);
         yield put(settingsAction.settingsSetCurrencyList(currencyList));
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
         yield put(settingsAction.settingsSetCurrentCurrency(uCurrency));

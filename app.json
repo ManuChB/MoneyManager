@@ -1,7 +1,10 @@
 {
   "expo": {
     "sdkVersion": "33.0.0",
-    "orientation": "portrait"
+    "orientation": "portrait",
+      "packagerOpts": {
+        "assetExts": ["db"]
+      }
   },
   "packagerOpts": {
     "assetExts": [

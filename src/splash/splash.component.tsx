@@ -26,9 +26,7 @@ export default class Splash extends Component<ISplashProp> {
             this.setState({ isConnected });
         }
     };
-    componentWillMount() {
-        this.props.actions.initializeStart();
-    }
+
     render() {
         return(
             <LinearGradient

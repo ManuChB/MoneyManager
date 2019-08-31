@@ -44,9 +44,10 @@
             "investment": "Investment",
             "emergency": "Emergency",
             "retirement": "Retirement",
-            "vacation": "Vacation"
+            "vacation": "Vacation",
+            "others": "Others"
         }
-    }, "categoriesIds": {
+    }, "categoriesName": {
         "hausing": "Hausing",
         "income": "Income",
         "savings": "Savings"

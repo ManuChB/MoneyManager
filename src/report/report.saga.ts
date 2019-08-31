@@ -2,7 +2,6 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import reportAction from './report.action';
 import reportConstants from './report.constants';
 import NavigationService from '../shared/service/navigation/navigation.service';
-import FirebaseService from '../shared/service/firebase/firebase.service';
 import AsyncStorageService from '../shared/service/async-storage/async-storage.service';
 import appConstants from '../appConstants';
 

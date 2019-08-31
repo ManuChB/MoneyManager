@@ -26,7 +26,7 @@ class FirebaseService {
         if (!firebase.apps.length) {
             const appFirebase = await firebase.initializeApp(firebaseConfi);
             db = appFirebase.firestore();
-            const settings = {/* your settings... */  };
+            const settings = {/* your settings... */ timestampsInSnapshots: true };
             db.settings(settings);
         }        
     }
@@ -129,7 +129,7 @@ class FirebaseService {
 
     async addToCollection(collection, data) {
        // console.log('[FirebaseService][addToCollection]', collection,'[data]',data);
-        delete data.id;
+        //delete data.id;
         return await db.collection(collection).add(data);
     }
 

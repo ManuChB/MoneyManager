@@ -41,7 +41,7 @@ export default class  extends Component<ITransactionDetailProp> {
     }
     
     render() {
-        const { data, onClose, onSave, categories, onRemove } = this.props.state;
+        const { data, onClose, onSave, categories, onRemove, icons } = this.props.state;
         const { accounts } = this.state;
         if (!data.date) { this.changeDay(moment().startOf('day')) }
         return (
@@ -109,7 +109,7 @@ export default class  extends Component<ITransactionDetailProp> {
                         <Input
                             inputRef={ref => this.valueInput = ref}
                             label={'newTransaction.value'}
-                            value={data.value ? data.account ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
+                            value={data.value ? data.account && data.account.currency ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
                             onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account?data.account.currency.name:"", "").replace(" ", "") })}
                             returnKeyType={"next"}
                             keyboard={'numeric'}
@@ -117,10 +117,10 @@ export default class  extends Component<ITransactionDetailProp> {
                         />
                         <DataPicker
                             iconMode={true}
-                            icon={data.imageId ? data.imageId.icon : appConstants.defaultTransactionIcon.icon}
-                            value={data.imageId ? data.imageId.name : ''}
-                            data={appConstants.transactionIcons}
-                            onSelect={(image) => this.props.actions.changeData({ ...data, imageId: image })}
+                            icon={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name]  : appConstants.defaultTransactionIcon.icon}
+                            value={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name] : ''}
+                            data={icons}
+                                onSelect={(image) => this.props.actions.changeData({ ...data, imageIcon: { ...image } })}
                             customContainerStyle={{
                                 justifyContent: 'center',
                                 alignItems: 'center', 

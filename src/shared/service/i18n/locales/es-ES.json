@@ -44,10 +44,11 @@
             "investment": "Inversión",
             "emergency": "Emergencias",
             "retirement": "Jubilación",
-            "vacation": "Vacaciones"
+            "vacation": "Vacaciones",
+            "others": "Otros"
         }
     },
-    "categoriesIds":{
+    "categoriesName": {
         "hausing": "Hogar",
         "income": "Ingresos",
         "savings": "Ahorros"

@@ -29,9 +29,9 @@ export class CategoryPicker extends Component<IPickerProps> {
             <DataPicker
                 label={label}
                 value={value ? value : ''}
-                data={subCategory ? subCategory[0] : data}
+                data={subCategory ? subCategory.data : data}
                 onSelect={(data) => { this.onSelectedData(data) }}
-                fieldToShow={subCategory ? 'value' : 'id'}
+                fieldToShow={subCategory ? 'value' : 'name'}
                 noHideOnPress={!!!this.state.subCategory}
                 onclose={() => this.resetState()}
                 onBack={() => this.resetState()}

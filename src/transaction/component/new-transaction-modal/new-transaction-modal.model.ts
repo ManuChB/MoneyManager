@@ -15,6 +15,7 @@ export interface ITransactionDetailAction {
     changeData?: (data: ITransactionDataProp) => Action;
     setCategories?: (categories: Array<any>) => Action;
     setAccounts?: (accounts: Array<any>) => Action;
+    setIcons?: (icons: Array<any>) => Action;
 
 }
 
@@ -25,6 +26,7 @@ export interface ITransactionDetailState {
     onSave: (data: ITransactionDataProp) => void;
     categories?: Array<any>;
     accounts?: Array<IAccountData>;
+    icons?: Array<any>;
     onRemove: (data: ITransactionDataProp) => void;
 
 }

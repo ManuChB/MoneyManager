@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import { ITransactionDataProp } from '../../../transaction/component/transaction/transaction.component';
-import FirebaseService from '../firebase/firebase.service';
+// import FirebaseService from '../firebase/firebase.service';
 import appConstants from '../../../appConstants';
 import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
 import moment from 'moment';
+import sqLiteService from '../sqLite/sqLite.service';
+import AccountService from "../account/account.service";
 
 let _this;
 class TransactionService {
@@ -17,14 +19,16 @@ class TransactionService {
             var income = 0;
             var expense = 0;
             var balance = 0;
-            transactions.forEach(element => {
-                if (element.isExpense || element.value < 0.00) {
-                    expense += element.value;
-                } else {
-                    income += element.value;
-                }
-            });
-            balance = income - expense;
+            if(transactions.length > 0) {
+                transactions.forEach(element => {
+                    if (element.isExpense || element.value < 0.00) {
+                        expense += element.value;
+                    } else {
+                        income += element.value;
+                    }
+                });
+                balance = income - expense;
+            }
             return { income, expense, balance }
         } catch (e) {
             console.log(`[error][TransactionService][calculateBalance]>>> ${e}`);
@@ -33,10 +37,10 @@ class TransactionService {
 
     async newTransaction(transaction) {
         try {
-            if (transaction.id.includes(appConstants.localId.transaction)) {
+            if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 const uid = await AsyncStorageService.getItem('USER_ID');
-                return await FirebaseService.addToCollection(appConstants.collection.transactions,
-                    { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid });
+                await sqLiteService.addTransaction({ ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid })
+                // FirebaseService.addToCollection(appConstants.collection.transactions, { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid });
             }
         } catch (e) {
             console.log(`[error][TransactionService][newTransaction]>>> ${e}`);
@@ -45,12 +49,13 @@ class TransactionService {
 
     async updateTransaction(transaction, date) {
         try {
-            if (transaction.id.includes(appConstants.localId.transaction)) {
+            if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 await _this.newTransaction(transaction);
             } else {
                 await _this.updateAccountValue(transaction);
-                await FirebaseService.updateDocumentInCollection(appConstants.collection.transactions,
-                    { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id, oldValue: 0 });
+                await sqLiteService.updateTransaction(transaction);
+                
+                // FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id, oldValue: 0 });
             }
         } catch (e) {
             console.log(`[error][transactionService][updateTransaction]>>> ${e}`);
@@ -62,10 +67,9 @@ class TransactionService {
         try {
             const toDate = date.toDate();
             toDate.setHours(0, 0, 0, 0);
-            const list = await FirebaseService.getTransactionsByDate(toDate);
+            const list = await sqLiteService.getTransactionsByDate(toDate);
             await _this.orderTransactionByCategory(list);
             return list;
-
         } catch (e) {
             console.log(`[error][transactionService][getTransactionByDate]>>> ${e}`);
         }
@@ -77,7 +81,7 @@ class TransactionService {
             const toDateEnd = dateEnd.toDate();
             toDateStart.setHours(0, 0, 0, 0);
             toDateEnd.setHours(0, 0, 0, 0);
-            const list = await FirebaseService.getTransactionsByDateRange(toDateStart, toDateEnd);
+            const list = await sqLiteService.getTransactionsByDateRange(toDateStart, toDateEnd);
             await _this.orderTransactionByCategory(list); 
             return list;
         } catch (e) {
@@ -87,15 +91,17 @@ class TransactionService {
 
     async orderTransactionByCategory(list){
         let array = [];
-        const categories = await AsyncStorageService.getItem(appConstants.asyncStorageItem.CATEGORIES);
-        categories.forEach(category => {
-            let arr = list.filter(
-                (transaction) => transaction.categoryId == category.id
-            )
-            const balance = _this.calculateBalance(arr);
+        if(list.length > 0){
+            const categories = await sqLiteService.getAllCategories();
+            categories.forEach(category => {
+                let arr = list.filter(
+                    (transaction) => transaction.categoryId == category.id
+                )
+                const balance = _this.calculateBalance(arr);
 
-            array.push({ category, data: arr, balance });
-        });
+                array.push({ category, data: arr, balance });
+            });
+        }
         await AsyncStorageService.setItem(appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY, array);
     }
 
@@ -119,7 +125,8 @@ class TransactionService {
             else if (isExpense && !wasExpense) {
                 newValue = account.value - oldValue - value;
             }
-            await FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, { ...account, value: newValue.toFixed(2) })
+            await AccountService.updateAccount({ ...account, value: newValue.toFixed(2) })
+
         } catch (e) {
             console.log(`[error][TransactionService][updateAccountValue]>>> ${e}`);
         }
@@ -143,7 +150,8 @@ class TransactionService {
 
     async removeTransaction(transaction) {
         try {
-            await FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
+            await sqLiteService.removeTransaction(transaction);
+            // FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
         } catch (e) {
             console.log(`[error][transactionService][removeTransaction]>>> ${e}`);
         }

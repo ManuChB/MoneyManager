@@ -11,6 +11,7 @@ import i18nService, {
 import i18n from 'i18n-js';
 
 import * as Localization from 'expo-localization';
+import SQLiteService from '../shared/service/sqLite/sqLite.service';
 
 export default [
     takeLatest(INITIALIZE_START, initialize)
@@ -19,10 +20,10 @@ export default [
 
 export function* initialize() {
     try {
+        yield call(SQLiteService.init)
         yield call(FirebaseService.init);
         yield call(setDefaultParams);
         const uid = yield call(AsyncStorageService.getItem, 'USER_ID');
-        yield call(getEsentialData);
         if(uid) {
             yield call(NavigationService.navigateTo, appConstants.routName.moneyManager);
         }
@@ -57,25 +58,5 @@ export function* setDefaultParams() {
 
 
 }
-function* getEsentialData() {
-    console.log(`[splash][saga][getEsentialData]`);
 
-    const cat = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.CATEGORIES);
-    const cur = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.CURRENCIES);
-    const acc = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.ACCOUNT_TYPES);
-    if(!cat  || !cur || !acc){ 
-        const categories = yield call(FirebaseService.getAllFromCollection, appConstants.collection.categories);
-        const currencies = yield call(FirebaseService.getAllFromCollection, appConstants.collection.currency);
-        const accountTypes = yield call(FirebaseService.getAllFromCollection, appConstants.collection.accountTypes);
-        console.log('--------------categories-------', categories)
-        console.log('--------------currencies-------', currencies)
-        console.log('--------------accountTypes-------', accountTypes)
-
-        yield all([
-            call(AsyncStorageService.setItem, appConstants.asyncStorageItem.CATEGORIES, categories),
-            call(AsyncStorageService.setItem, appConstants.asyncStorageItem.CURRENCIES, currencies),
-            call(AsyncStorageService.setItem, appConstants.asyncStorageItem.ACCOUNT_TYPES, accountTypes)
-        ]);
-    }
-}
 
