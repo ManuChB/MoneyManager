@@ -52,7 +52,6 @@ export function* calculateBalance() {
 }
 
 export function* getTransactionByDate() {
-    console.log(`[month-transaction][saga][getTransactionByDate]`);
     try {
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const currentMonthStart = yield select(selectors.getCurrentMonthStart);

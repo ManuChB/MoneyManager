@@ -81,7 +81,11 @@ const constants = {
     accountTypesGeneral:{
         name: "accountTypes.general"
     },
-    noWifiIcon: require('../assets/images/noWifi96.png')
+    noWifiIcon: require('../assets/images/noWifi96.png'),
+    reportMode: {
+        income: 'income',
+        expenses: 'expenses'
+    }
 }
 
 export default constants;

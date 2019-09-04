@@ -103,6 +103,18 @@
     "reportScreen": {
         "report": "Resumen"
     },
+    "reportMode": {
+        "incomes": "Ingresos",
+        "expenses": "Gastos",
+        "totalExLabel": "Gasto total en este periodo: ",
+        "totalInLabel": "Ingresos totales en este periodo: ",
+        "barLabels":{
+            "income": "BENEFICIOS",
+            "expense": "GASTOS",
+            "balance": "BALANCE"
+        }
+        
+    },
     "settingsScreen": {
         "settings": "Configuración",
         "language": "Idioma",

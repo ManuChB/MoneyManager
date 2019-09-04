@@ -42,7 +42,6 @@ export default class  extends Component<ITransactionDetailProp> {
     
     render() {
         const { data, onClose, onSave, categories, onRemove, icons } = this.props.state;
-        console.log('-------------render-------', data);
         const { accounts } = this.state;
         return (
             

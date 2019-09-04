@@ -101,6 +101,17 @@
     "reportScreen": {
         "report": "Report"
     },
+    "reportMode": {
+        "incomes": "Incomes",
+        "expenses": "Expenses",
+        "totalExLabel": "Total expense in this period: ",
+        "totalInLabel": "Total income in this period: ",
+        "barLabels": {
+            "income": "INCOME",
+            "expense": "EXPENSE",
+            "balance": "BALANCE"
+        }
+    },
     "settingsScreen": {
         "settings": "Settings",
         "language": "Language",
