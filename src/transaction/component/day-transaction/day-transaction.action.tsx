@@ -35,12 +35,6 @@ const dayTransactionAction: IDayTransactionAction = {
             value: transaction
         }
     },
-    showDetailModal(showModal) {
-        return {
-            type: dayTransactionsConstants.SHOW_DETAIL_MODAL,
-            value: showModal
-        }
-    },
     updateTransaction(transaction) {
         return {
             type: dayTransactionsConstants.UPDATE_TRANSACTION,
@@ -57,12 +51,6 @@ const dayTransactionAction: IDayTransactionAction = {
         return {
             type: dayTransactionsConstants.SET_BALANCE_INFO,
             value: { income, expense, balance }
-        }
-    },
-    longPress(transaction) {
-        return {
-            type: dayTransactionConstant.DAY_TRANSACTION_LONG_PRESS,
-            value: transaction
         }
     },
     removeTransaction(transaction) {

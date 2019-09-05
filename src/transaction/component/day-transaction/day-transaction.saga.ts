@@ -16,7 +16,6 @@ export default [
     takeLatest(dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL, transactionToDetail),
     takeLatest(dayTransactionsConstants.UPDATE_TRANSACTION, updateTransaction),
     takeLatest(dayTransactionsConstants.CHANGE_DATE, getTransactionByDate),
-    takeLatest(dayTransactionsConstants.DAY_TRANSACTION_LONG_PRESS, longPress),
     takeLatest(dayTransactionsConstants.REMOVE_TRANSACTION, removeTransaction)
 ];
 
@@ -52,9 +51,7 @@ export function* newTransaction(action) {
     try {
         const day = yield select(selectors.getDayTransaction);
         const data = yield call(TransactionsService.newTransaction, action.value);
-        //yield call(updateTransaction, {value:{ ...action.value, id: data.id }});
         yield call(getTransactionByDate, { value: day });
-
     } catch (e) {
         console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
     }
@@ -64,7 +61,6 @@ export function* transactionToDetail(action) {
     try {
         const { transaction, onSave, onRemove } = action.value;
         yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
-
     } catch (e) {
         console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
     }
@@ -102,14 +98,6 @@ export function* getTransactionByDate(action) {
     } catch (e) {
         console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
-    }
-}
-
-export function* longPress(action) {
-    try {
-        yield put(transactionListAction.longPress(action.value));
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][longPress]>>> ${e}`);
     }
 }
 

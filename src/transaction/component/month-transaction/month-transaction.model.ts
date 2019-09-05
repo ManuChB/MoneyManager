@@ -26,9 +26,9 @@ export interface IMonthTransactionAction {
 
 export interface IMonthTransactionState {
     isInitialized?: boolean;
-    income: Number;
-    expense: Number;
-    balance: Number;
+    income: number;
+    expense: number;
+    balance: number;
     transactions: Array<ITransactionDataProp>;
     currentMonthStart: Moment;
     currentMonthEnd: Moment;

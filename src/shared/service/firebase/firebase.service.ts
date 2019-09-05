@@ -26,7 +26,7 @@ class FirebaseService {
         if (!firebase.apps.length) {
             const appFirebase = await firebase.initializeApp(firebaseConfi);
             db = appFirebase.firestore();
-            const settings = {/* your settings... */ timestampsInSnapshots: true };
+            const settings = {/* your settings... */ };
             db.settings(settings);
         }        
     }

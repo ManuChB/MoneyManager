@@ -36,10 +36,6 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
         this.props.actions.setTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
     }
 
-    onLongPress(data) {
-        this.props.actions.longPress(data);
-    }
-
     getTransactionsOfCategory(transactions, key) {
         const { userCurrency } = this.props.state;
         const { balance } = transactions.balance;

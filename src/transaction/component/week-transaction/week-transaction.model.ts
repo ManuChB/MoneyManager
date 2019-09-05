@@ -27,9 +27,9 @@ export interface IWeekTransactionAction {
 
 export interface IWeekTransactionState {
     isInitialized?: boolean;
-    income: Number;
-    expense: Number;
-    balance: Number;
+    income: number;
+    expense: number;
+    balance: number;
     transactions: Array<ITransactionDataProp>;
     currentWeekStart: Moment;
     currentWeekEnd: Moment;

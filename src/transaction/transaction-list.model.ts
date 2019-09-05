@@ -16,7 +16,6 @@ export interface ITransactionListAction {
     desactivateDeleteMode?: () => Action;
     addTransactionToDeleteList?: (transaction: ITransactionDataProp) => Action;
     removeTransactionFromDeleteList?: (transaction: ITransactionDataProp) => Action;
-    longPress?: (transaction: ITransactionDataProp) => Action;
     setTransactionsByCategory?: (transactinList: any) => Action;
 }
 

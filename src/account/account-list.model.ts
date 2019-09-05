@@ -31,9 +31,9 @@ export interface IAccountListState {
 
 }
 export interface IBalanceInfo{
-        income: Number,
-        expense: Number,
-        balance: Number,
+        income: number,
+        expense: number,
+        balance: number,
         type: string
     }
 

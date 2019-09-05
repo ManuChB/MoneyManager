@@ -11,7 +11,6 @@ export const initialState: IDayTransactionState = {
     expense: 0.00,
     balance: 0.00,
     transactions: [],
-    showDetailModal: false,
     transactionToDetail: null,
     userCurrency: null
 };
@@ -38,12 +37,6 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
             return {
                 ...state,
                 transactions: action.value
-            };
-        case dayTransactionsConstants.SHOW_DETAIL_MODAL:
-            return {
-                ...state,
-                showDetailModal: action.value
-
             };
         case dayTransactionsConstants.UPDATE_TRANSACTION:
             return {
