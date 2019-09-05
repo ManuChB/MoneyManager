@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text } from 'react-native';
 import Report from './report.component';
 import reportAction from './report.action';
 import { IReportProp } from './report.model';
+import transactionListAction from '../transaction/transaction-list.action';
 
 export class ReportScreenComponent extends Component<IReportProp, {}> {
     constructor(props: any) {
@@ -33,6 +33,7 @@ function mapStateToProps(state: any) {
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(transactionListAction, dispatch),
             ...bindActionCreators<any>(reportAction, dispatch)
         }
     };

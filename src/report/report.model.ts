@@ -1,11 +1,12 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
 import { Moment }  from 'moment';
+import { ITransactionListAction } from '../transaction/transaction-list.model';
 
 export interface IReportProp {
     navigation?: NavigationScreenProp<any, any>;
     state?: IReportState;
-    actions?: IReportAction;
+    actions?: IReportAction & ITransactionListAction;
 }
 
 export interface IReportAction {

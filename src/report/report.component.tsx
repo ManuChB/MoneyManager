@@ -30,15 +30,19 @@ export default class Report extends Component<IReportProp> {
         this.props.actions.reportChangeDate(dateStart, dateEnd);
     }
 
+    onPressTransaction(transactionToShow) {
+        this.props.actions.setTransactionToDetail(transactionToShow, this.props.actions.reportInitializeStart.bind(this));
+    }
+
     getSelectedSliceTrans(transactions, showIncome) {
         
             return transactions.map((transaction, key) => {
                 if (transaction.category.name == this.props.state.selectedSlice || showIncome) {
                     return transaction.data.map((t, skey) => {
                         if (t.isExpense && !showIncome){
-                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(transaction)}></Transaction>)
+                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
                         } else if (!t.isExpense && showIncome){
-                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(transaction)}></Transaction>)
+                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
                         }
                     })
                 }
@@ -46,12 +50,6 @@ export default class Report extends Component<IReportProp> {
         
         
     }
-
-    onPressTransaction(transactionToShow) {
-    //    this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this));
-
-
-}
 
     getChartMode() {
         const { transactions, selectedSlice, stadistics, totalIncome, totalExpense, uCurrency } = this.props.state;
