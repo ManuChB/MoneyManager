@@ -17,6 +17,7 @@ export interface ITransactionListAction {
     addTransactionToDeleteList?: (transaction: ITransactionDataProp) => Action;
     removeTransactionFromDeleteList?: (transaction: ITransactionDataProp) => Action;
     setTransactionsByCategory?: (transactinList: any) => Action;
+    setTransactionToDetail?: (transaction: ITransactionDataProp, getTransactions: any) => Action;
 }
 
 export interface ITransactionListState {

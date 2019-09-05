@@ -13,35 +13,18 @@ import currencyFormatter from 'currency-formatter';
 
 export default class WeekTransaction extends Component<IWeekTransactionProp> {
 
-    onSaveNewTransaction(transaction) {
-        this.props.actions.weekTransactionNewTransaction(transaction, this.props.state.currentWeekStart, this.props.state.currentWeekEnd);
-        NavigationService.navigateBack();
-    }
-
     onPressNewTransaction() {
-        this.props.actions.setWeekTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
-    }
-
-    onUpdateTransaction(transaction) {
-        this.props.actions.updateWeekTransaction(transaction);
-        NavigationService.navigateBack();
-
+        this.props.actions.setTransactionToDetail({}, this.props.actions.weekTransactionInitializeStart.bind(this));
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setWeekTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
+        this.props.actions.setTransactionToDetail(transactionToShow, this.props.actions.weekTransactionInitializeStart.bind(this));
     }
 
     onWeekChanged(date) {
         const dateStart = date.clone();
         const dateEnd = date.endOf('isoWeek');
         this.props.actions.changeWeek(dateStart, dateEnd);
-    }
-
-    onRemoveTransaction(transaction) {
-        this.props.actions.removeTransaction(transaction);
-        NavigationService.navigateBack();
-
     }
 
     getTransactionsOfCategory(transactions, key) {

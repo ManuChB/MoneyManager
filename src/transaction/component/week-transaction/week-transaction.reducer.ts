@@ -49,25 +49,6 @@ export default function weekTransaction(state: IWeekTransactionState = initialSt
                 balance: action.value.balance,
                 isInitialized: true
             };
-        case weekTransactionConstants.UPDATE_WEEK_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.map(
-                    (transaction) => transaction.id === action.value.id ? action.value : transaction
-                )
-            };
-        case weekTransactionConstants.SET_WEEK_TRANSACTION_TO_DETAIL:
-            return {
-                ...state,
-                transactionToDetail: action.value.transaction
-            };
-        case weekTransactionConstants.WEEK_TRANSACTION_REMOVE_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.filter(
-                    (transaction) => transaction.id !== action.value.id
-                )
-            };
         case weekTransactionConstants.WEEK_TRANSACTION_SET_USER_CURRENCY:
             return {
                 ...state,

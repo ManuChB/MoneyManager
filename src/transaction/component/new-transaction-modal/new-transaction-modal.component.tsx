@@ -39,9 +39,27 @@ export default class  extends Component<ITransactionDetailProp> {
         const accountList = await AccountService.getAccounts();
         this.setState({accounts: accountList});
     }
-    
+
+    async remove() {
+        const { data, onRemove, getTransactions } = this.props.state;
+        NavigationService.navigateBack();
+        await onRemove(data);
+        getTransactions();
+    }
+    async save() {
+        const { data, onSave, getTransactions } = this.props.state;
+        NavigationService.navigateBack();
+        await onSave({
+            id: _.uniqueId(appConstants.localId.transaction),
+            ...data,
+            value: Math.abs(parseFloat(data.value.toString().replace(data.account.currency.name, "").replace(" ", "").replace(',', '.')))
+        });
+        getTransactions();
+    }
+
+
     render() {
-        const { data, onClose, onSave, categories, onRemove, icons } = this.props.state;
+        const { data, onClose, categories, icons } = this.props.state;
         const { accounts } = this.state;
         return (
             
@@ -56,7 +74,7 @@ export default class  extends Component<ITransactionDetailProp> {
                             dateMode={'day'} >
                             { data.id && <Button
                                 customButtonStyle={styles.deleteButton}
-                                onPress={() => onRemove(data)}
+                                    onPress={() => this.remove()}
                                 icon={require('../../../../assets/images/delete-bin-64.png')}>
                             </Button>}
                         </DatePickerHeader>
@@ -148,13 +166,7 @@ export default class  extends Component<ITransactionDetailProp> {
                             </Button>
                             <Button 
                                 customButtonStyle={{ flex: 1 }} 
-                                onPress={() => {
-                                    onSave({ 
-                                        id: _.uniqueId(appConstants.localId.transaction), 
-                                        ...this.props.state.data, 
-                                        value: Math.abs(parseFloat(this.props.state.data.value.toString().replace(this.props.state.data.account.currency.name, "").replace(" ", "").replace(',', '.')))
-                                    });
-                                }} 
+                                onPress={() => this.save()} 
                                 label={'common.button.save'}
                                 disabled={this.checkEmpty()}>
                             </Button>

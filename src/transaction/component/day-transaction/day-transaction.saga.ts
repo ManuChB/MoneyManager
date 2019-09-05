@@ -12,11 +12,7 @@ import appConstants from '../../../appConstants';
 
 export default [
     takeLatest(dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_START, initialize),
-    takeLatest(dayTransactionsConstants.SAVE_NEW_TRANSACTION, newTransaction),
-    takeLatest(dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(dayTransactionsConstants.UPDATE_TRANSACTION, updateTransaction),
     takeLatest(dayTransactionsConstants.CHANGE_DATE, getTransactionByDate),
-    takeLatest(dayTransactionsConstants.REMOVE_TRANSACTION, removeTransaction)
 ];
 
 
@@ -47,37 +43,6 @@ export function* calculateBalance() {
     }
 }
 
-export function* newTransaction(action) {
-    try {
-        const day = yield select(selectors.getDayTransaction);
-        const data = yield call(TransactionsService.newTransaction, action.value);
-        yield call(getTransactionByDate, { value: day });
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][newTransaction]>>> ${e}`);
-    }
-}
-
-export function* transactionToDetail(action) {
-    try {
-        const { transaction, onSave, onRemove } = action.value;
-        yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][transactionToDetail]>>> ${e}`);
-    }
-}
-
-
-export function* updateTransaction(action) {
-    try {
-        const day = yield select(selectors.getDayTransaction);
-        yield call(TransactionsService.updateTransaction, action.value, day);
-        yield call(getTransactionByDate, { value: day });
-        
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][updateTransaction]>>> ${e}`);
-    }
-}
-
 export function* updateAccountValue(transaction) {
     try {
         yield call(TransactionsService.updateAccountValue, transaction);
@@ -98,18 +63,5 @@ export function* getTransactionByDate(action) {
     } catch (e) {
         console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
-    }
-}
-
-export function* removeTransaction(action) {
-    try {
-        yield call(TransactionsService.removeTransaction, action.value);
-        yield call(calculateBalance);
-        const transactions = yield select(selectors.getTransactions);
-        yield call(TransactionsService.orderTransactionByCategory, transactions);
-        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
-        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
     }
 }

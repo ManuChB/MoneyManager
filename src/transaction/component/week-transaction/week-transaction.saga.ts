@@ -13,11 +13,7 @@ import transactionListAction from '../../transaction-list.action';
 
 export default [
     takeLatest(weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START, initialize),
-    takeLatest(weekTransactionConstants.WEEK_TRANSACTION_NEW_TRANSACTION, newTransaction),
-    takeLatest(weekTransactionConstants.CHANGE_WEEK, getTransactionByDate),
-    takeLatest(weekTransactionConstants.SET_WEEK_TRANSACTION_TO_DETAIL, transactionToDetail),
-    takeLatest(weekTransactionConstants.UPDATE_WEEK_TRANSACTION, updateTransaction),
-    takeLatest(weekTransactionConstants.WEEK_TRANSACTION_REMOVE_TRANSACTION, removeTransaction)
+    takeLatest(weekTransactionConstants.CHANGE_WEEK, getTransactionByDate)
 ];
 
 
@@ -64,49 +60,3 @@ export function* getTransactionByDate() {
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }
-
-export function* newTransaction(action) {
-    try {
-        const data = yield call(TransactionsService.newTransaction, action.value.transaction);
-        yield call(getTransactionByDate, action);
-
-    } catch (e) {
-        console.log(`[error][week-transaction][saga][newTransaction]>>> ${e}`);
-    }
-}
-
-export function* transactionToDetail(action) {
-    try {
-        const { transaction, onSave, onRemove } = action.value;
-        yield call(TransactionsService.transactionToDetail, transaction, onSave, onRemove);
-
-    } catch (e) {
-        console.log(`[error][week-transaction][saga][transactionToDetail]>>> ${e}`);
-    }
-}
-
-
-export function* updateTransaction(action) {
-    try {
-        yield call(TransactionsService.updateTransaction, action.value, action.date);
-        yield call(getTransactionByDate, { value: action.date });
-
-    } catch (e) {
-        console.log(`[error][week-transaction][saga][updateTransaction]>>> ${e}`);
-    }
-}
-
-
-export function* removeTransaction(action) {
-    try {
-        yield call(TransactionsService.removeTransaction, action.value);
-        yield call(calculateBalance);
-        const transactions = yield select(selectors.getTransactions);
-        yield call(TransactionsService.orderTransactionByCategory, transactions);
-        const tByCategory = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
-        yield put(transactionListAction.setTransactionsByCategory(tByCategory));
-    } catch (e) {
-        console.log(`[error][day-transaction][saga][removeTransaction]>>> ${e}`);
-    }
-}
-

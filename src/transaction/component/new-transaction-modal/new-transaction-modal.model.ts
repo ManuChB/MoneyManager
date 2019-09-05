@@ -28,5 +28,6 @@ export interface ITransactionDetailState {
     accounts?: Array<IAccountData>;
     icons?: Array<any>;
     onRemove: (data: ITransactionDataProp) => void;
+    getTransactions: () => void;
 
 }

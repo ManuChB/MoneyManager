@@ -48,24 +48,10 @@ export default function monthTransaction(state: IMonthTransactionState = initial
                 balance: action.value.balance,
                 isInitialized: true
             };
-        case monthTransConstants.UPDATE_MONTH_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.map(
-                    (transaction) => transaction.id === action.value.id ? action.value : transaction
-                )
-            };
         case monthTransConstants.SET_MONTH_TRANSACTION_TO_DETAIL:
             return {
                 ...state,
                 transactionToDetail: action.value.transaction
-            };
-        case monthTransConstants.MONTH_TRANSACTION_REMOVE_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.filter(
-                    (transaction) => transaction.id !== action.value.id
-                )
             };
         case monthTransConstants.MONTH_TRANSACTION_SET_USER_CURRENCY:
             return {

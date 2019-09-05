@@ -28,35 +28,10 @@ const dayTransactionAction: IDayTransactionAction = {
             value: transactions
         }
     },
-
-    saveNewTransaction(transaction) {
-        return {
-            type: dayTransactionsConstants.SAVE_NEW_TRANSACTION,
-            value: transaction
-        }
-    },
-    updateTransaction(transaction) {
-        return {
-            type: dayTransactionsConstants.UPDATE_TRANSACTION,
-            value: transaction
-        }
-    },
-    setTransactionToDetail(transaction, onSave, onRemove) {
-        return {
-            type: dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL,
-            value: {transaction, onSave, onRemove}
-        }
-    },
     setBalanceInfo(income, expense, balance) {
         return {
             type: dayTransactionsConstants.SET_BALANCE_INFO,
             value: { income, expense, balance }
-        }
-    },
-    removeTransaction(transaction) {
-        return {
-            type: dayTransactionConstant.REMOVE_TRANSACTION,
-            value: transaction
         }
     },
     dayTransSetUserCurrency(currency) {

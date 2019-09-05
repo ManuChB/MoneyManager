@@ -10,30 +10,16 @@ import Transaction from '../transaction/transaction.component';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
 import i18n from '../../../shared/service/i18n';
 import currencyFormatter from 'currency-formatter';
+import transactionListAction from '../../transaction-list.action';
 
 export default class DayTransaction extends Component<IDayTransactionProp> {
-    
-    onSaveNewTransaction(transaction) {
-        this.props.actions.saveNewTransaction(transaction);
-        NavigationService.navigateBack();
-    }
-
-    onUpdateTransaction(transaction) {
-        this.props.actions.updateTransaction(transaction);
-        NavigationService.navigateBack();
-    }
-
-    onRemoveTransaction(transaction) {
-        this.props.actions.removeTransaction(transaction);
-        NavigationService.navigateBack();
-    }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
+        this.props.actions.setTransactionToDetail(transactionToShow, this.props.actions.dayTransactionInitializeStart.bind(this));
     }
 
     onPressNewTransaction() {
-        this.props.actions.setTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
+        this.props.actions.setTransactionToDetail({}, this.props.actions.dayTransactionInitializeStart.bind(this));
     }
 
     getTransactionsOfCategory(transactions, key) {

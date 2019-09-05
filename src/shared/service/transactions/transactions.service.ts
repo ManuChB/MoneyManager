@@ -50,7 +50,7 @@ class TransactionService {
         }
     }
 
-    async updateTransaction(transaction, date) {
+    async updateTransaction(transaction) {
 
         try {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
@@ -138,14 +138,15 @@ class TransactionService {
     }
 
     
-    async transactionToDetail(transaction, onSave, onRemove) {
+    async transactionToDetail(transaction, getTransactions) {
         try {
             await NavigationService.navigateTo(appConstants.routName.newTransaction,
                 {
                     data: transaction,
                     onClose: NavigationService.navigateBack,
-                    onSave: onSave,
-                    onRemove: onRemove
+                    onSave: _.isEmpty(transaction) ? _this.newTransaction : _this.updateTransaction,
+                    onRemove: _this.removeTransaction,
+                    getTransactions: getTransactions
                 }
             );
         } catch (e) {

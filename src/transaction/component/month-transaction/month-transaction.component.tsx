@@ -14,28 +14,12 @@ import currencyFormatter from 'currency-formatter';
 
 export default class MonthTransaction extends Component<IMonthTransactionProp> {
 
-    onSaveNewTransaction(transaction) {
-        this.props.actions.monthTransactionNewTransaction(transaction, this.props.state.currentMonthStart, this.props.state.currentMonthEnd);
-        NavigationService.navigateBack();
-    }
-
     onPressNewTransaction() {
-        this.props.actions.setMonthTransactionToDetail({}, this.onSaveNewTransaction.bind(this), this.onRemoveTransaction.bind(this) );
-    }
-
-    onUpdateTransaction(transaction) {
-        this.props.actions.updateMonthTransaction(transaction);
-        NavigationService.navigateBack();
-
+        this.props.actions.setTransactionToDetail({}, this.props.actions.monthTransactionInitializeStart.bind(this));
     }
 
     onPressTransaction(transactionToShow) {
-        this.props.actions.setMonthTransactionToDetail(transactionToShow, this.onUpdateTransaction.bind(this), this.onRemoveTransaction.bind(this) );
-    }
-
-    onRemoveTransaction(transaction) {
-        this.props.actions.removeTransaction(transaction);
-        NavigationService.navigateBack();
+        this.props.actions.setTransactionToDetail(transactionToShow, this.props.actions.monthTransactionInitializeStart.bind(this));
     }
 
     onMonthChanged(date) {

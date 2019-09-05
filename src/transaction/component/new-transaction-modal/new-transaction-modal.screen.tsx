@@ -13,7 +13,8 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
     }
 
     componentDidMount() {
-        const { data, onClose, onSave, onRemove } = this.props.navigation.state.params;
+        const { data, onClose, onSave, onRemove, getTransactions } = this.props.navigation.state.params;
+
         this.props.actions.newTransactionInitializeStart(
             {
                 data: { ...data, 
@@ -24,7 +25,8 @@ export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> 
                     },
                 onClose,
                 onSave,
-                onRemove 
+                onRemove,
+                getTransactions 
             });
     }
 

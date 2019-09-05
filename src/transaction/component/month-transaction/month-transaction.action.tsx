@@ -13,12 +13,6 @@ const splashAction: IMonthTransactionAction = {
             type: monthTransConstants.MONTH_TRANSACTION_INITIALIZE_FINISH
         }
     },
-    monthTransactionNewTransaction(transaction, monthStart, monthEnd) {
-        return {
-            type: monthTransConstants.MONTH_TRANSACTION_NEW_TRANSACTION,
-            value: { transaction, monthStart, monthEnd }
-        }
-    },
     changeMonth(monthStart, monthEnd) {
         return {
             type: monthTransConstants.CHANGE_MONTH,
@@ -36,24 +30,6 @@ const splashAction: IMonthTransactionAction = {
         return {
             type: monthTransConstants.SET_MONTH_BALANCE_INFO,
             value: { income, expense, balance }
-        }
-    },
-    updateMonthTransaction(transaction) {
-        return {
-            type: monthTransConstants.UPDATE_MONTH_TRANSACTION,
-            value: transaction
-        }
-    },
-    setMonthTransactionToDetail(transaction, onSave, onRemove) {
-        return {
-            type: monthTransConstants.SET_MONTH_TRANSACTION_TO_DETAIL,
-            value: { transaction, onSave, onRemove }
-        }
-    },
-    removeTransaction(transaction) {
-        return {
-            type: monthTransConstants.MONTH_TRANSACTION_REMOVE_TRANSACTION,
-            value: transaction
         }
     },
     monthTransSetUserCurrency(currency) {

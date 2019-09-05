@@ -11,7 +11,6 @@ export const initialState: IDayTransactionState = {
     expense: 0.00,
     balance: 0.00,
     transactions: [],
-    transactionToDetail: null,
     userCurrency: null
 };
 
@@ -38,32 +37,13 @@ export default function dayTransaction(state: IDayTransactionState = initialStat
                 ...state,
                 transactions: action.value
             };
-        case dayTransactionsConstants.UPDATE_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.map(
-                    (transaction) => transaction.id === action.value.id ? action.value : transaction
-                )
-            };
-        case dayTransactionsConstants.SET_TRANSACTION_TO_DETAIL:
-            return {
-                ...state,
-                transactionToDetail: action.value.transaction
-            };
         case dayTransactionsConstants.SET_BALANCE_INFO:
             return {
                 ...state,
                 income: action.value.income,
                 expense: action.value.expense,
                 balance: action.value.balance,
-            };
-        case dayTransactionsConstants.REMOVE_TRANSACTION:
-            return {
-                ...state,
-                transactions: state.transactions.filter(
-                    (transaction) => transaction.id !== action.value.id
-                )
-            };     
+            };    
         case dayTransactionsConstants.DAY_TRANSACTION_SET_USER_CURRENCY:
             return {
                 ...state,

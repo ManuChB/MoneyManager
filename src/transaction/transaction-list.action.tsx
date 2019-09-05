@@ -47,7 +47,12 @@ const transactionListAction: ITransactionListAction = {
             value: transaction
         }
     },
-
+    setTransactionToDetail(transaction, getTransactions) {
+        return {
+            type: transactionListConstants.SET_TRANSACTION_TO_DETAIL,
+            value: { transaction, getTransactions}
+        }
+    },
 }
 
 export default transactionListAction;
