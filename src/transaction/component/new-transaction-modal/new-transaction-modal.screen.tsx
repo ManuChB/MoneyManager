@@ -6,6 +6,7 @@ import moment from 'moment';
 import TransactionDetail from './new-transaction-modal.component';
 import { ITransactionDetailProp } from './new-transaction-modal.model';
 import newTransactionAction from './new-transaction-modal.action';
+import moneyManagerAction from '../../../money-manager/money-manager.action';
 
 export class NewTransactionScreen extends Component<ITransactionDetailProp, {}> {
     constructor(props: any) {
@@ -45,6 +46,7 @@ function mapStateToProps(state: any) {
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(moneyManagerAction, dispatch),
             ...bindActionCreators<any>(newTransactionAction, dispatch)
         }
     };

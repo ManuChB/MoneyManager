@@ -42,12 +42,14 @@ export default class  extends Component<ITransactionDetailProp> {
 
     async remove() {
         const { data, onRemove, getTransactions } = this.props.state;
+        this.props.actions.moneyManagerShowSpinner();
         NavigationService.navigateBack();
         await onRemove(data);
         getTransactions();
     }
     async save() {
         const { data, onSave, getTransactions } = this.props.state;
+        this.props.actions.moneyManagerShowSpinner();
         NavigationService.navigateBack();
         await onSave({
             id: _.uniqueId(appConstants.localId.transaction),
