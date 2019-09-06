@@ -30,7 +30,8 @@ export default class  extends Component<ITransactionDetailProp> {
 
     checkEmpty() {
         const {data} = this.props.state;
-        return _.isEmpty(data) || !data.value || !data.account || !data.subCategory;
+        const value = data.value ? Math.abs(parseFloat(data.value.toString().replace(data.account.currency.name, "").replace(" ", "").replace(',', '.'))) : null;
+        return _.isEmpty(data) || !data.value || _.isNaN(value) || !_.isNumber(value) || !data.account || !data.subCategory;
     }
 
     async onSaveAccount(account) {

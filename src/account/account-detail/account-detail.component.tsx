@@ -12,7 +12,8 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
 
     checkEmpty() {
         const { account } = this.props.state;
-        return _.isEmpty(account) || !account.value || !account.currency || !account.name || !account.type;
+        const isNumber = account && account.value && _.isNumber(parseFloat(account.value.toString()))
+        return _.isEmpty(account) || !account.value || _.isNaN(account.value) || !isNumber || !account.currency || !account.name || !account.type;
     }
 
      render() {
@@ -60,7 +61,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                         <Input
                             inputRef={ref => this.valueInput = ref}
                             label={'accountDetail.value'}
-                            value={account.value ? account.value.toString() : null}
+                            value={(account && account.value) ? account.value.toString() : null}
                             onChangeText={(value) => this.props.actions.accountDetailDataChange({ ...account, value })}
                             returnKeyType={"next"}
                             keyboard={'numeric'}

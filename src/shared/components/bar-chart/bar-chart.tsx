@@ -11,7 +11,8 @@ export default class Bar extends Component<IBarChartProps> {
 
     render() {
         const  {income, expense, currency } = this.props;
-        const data = [income, expense, income - expense]
+        const data = [income, expense, income - expense];
+        console.log('-----------', data);
         const labs = ['reportMode.barLabels.income', 'reportMode.barLabels.expense', 'reportMode.barLabels.balance']
 
         const contentInset = { top: 10, bottom: 10 }

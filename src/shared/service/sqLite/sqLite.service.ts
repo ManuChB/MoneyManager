@@ -4,6 +4,7 @@ import AsyncStorageService from '../async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
 import { Asset } from 'expo-asset';
 import * as FileSystem from 'expo-file-system';
+import _ from 'lodash';
 const config = { db: null };
 
 let _this;
@@ -99,6 +100,7 @@ class SQLiteService {
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
                             data.push({ ...row, 
+                                value: _.isNumber(row.value) ? row.value : "0.00", 
                                 currency:{id: row.currencyId, name: row.currencyName, symbol: row.currencySymbol}, 
                                 type: {id: row.accountTypeId, name: row.accountTypeName, iconName: row.accountTypeIconName} 
                             });
@@ -112,11 +114,12 @@ class SQLiteService {
 
     async addAccount(account) {
         const { name, uid, value, currency, type, description } = account;
+        const desc = description ? description : null;
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
                     'INSERT INTO account (name, uid, value, currencyId, typeId, description) VALUES (?,?,?,?,?,?)',
-                    [name, uid, value, currency.id, type.id, description],
+                    [name, uid, value, currency.id, type.id, desc],
                     (tx, results) => {
                         resolve(results.insertId);
                     });
@@ -128,10 +131,11 @@ class SQLiteService {
 
     async updateAccount(account) {
         const { id, name, uid, value, currency, type, description, firebaseId } = account;
+        const desc = description ? `"${description}"` : null;
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `UPDATE account SET name="${name}", value="${value}", currencyId="${currency.id}", typeId="${type.id}", description="${description}", firebaseId="${firebaseId}"
+                    `UPDATE account SET name="${name}", value="${value}", currencyId="${currency.id}", typeId="${type.id}", description=${desc}, firebaseId="${firebaseId}"
                     WHERE id='${id}' AND uid='${uid}'`,
                     [],
                     (tx, results) => {
@@ -249,12 +253,15 @@ class SQLiteService {
                             const row = rows.item(i);
                             data.push({
                                 ...row,
+                                value: _.isNumber(row.value) ? row.value : 0.00,
                                 isExpense: row.isExpense === 1 ? true : false,
                                 wasExpense: row.wasExpense === 1 ? true : false,
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
                                 imageIcon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
-                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, value: row.accountValue, description: row.accountDescription, 
+                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, 
+                                    value: _.isNumber(row.accountValue) ? row.accountValue : 0.00, 
+                                    description: row.accountDescription, 
                                     currency: { id: row.accountCurrencyId, name: row.accountCurrency },
                                     type: { id: row.accountTypeId, name: row.accountTypeName }
                                 }
@@ -315,12 +322,15 @@ class SQLiteService {
                             const row = rows.item(i);
                             data.push({
                                 ...row,
+                                value: _.isNumber(row.value) ? row.value : 0.00,
                                 isExpense: row.isExpense === 1 ? true : false,
                                 wasExpense: row.wasExpense === 1 ? true : false,
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
                                 imageIcon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
-                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, value: row.accountValue, description: row.accountDescription,
+                                    id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName,
+                                    value: _.isNumber(row.accountValue) ? row.accountValue : 0.00,
+                                    description: row.accountDescription,
                                     currency: { id: row.accountCurrencyId, name: row.accountCurrency },
                                     type: { id: row.accountTypeId, name: row.accountTypeName }
                                 }

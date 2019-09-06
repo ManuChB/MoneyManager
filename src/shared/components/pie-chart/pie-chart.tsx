@@ -37,104 +37,50 @@ export default class Pie extends Component<IPieChartProps> {
             if (a.length == 0) { this.props.onSelectSlice(data[0].key)}
         }
 
-        const fontSize = 20;
-
-
-        const Labels = ({ slices }) => {
-
-            return slices.map((slice, index) => {
-                if (slice && slice.value > 0) {
-                    const { labelCentroid, pieCentroid, data } = slice;
-                    return (
-                    <G key={index}>
-                        <Line
-                            x1={labelCentroid[0]}
-                            y1={labelCentroid[1]}
-                            x2={pieCentroid[0]}
-                            y2={pieCentroid[1]}
-                            stroke={data.svg.fill}
-                        />
-                        <Text
-                            fill="black"
-                            fontFamily="Helvetica"
-                            fontWeight="bold"
-                            fontSize={fontSize}
-                                textAnchor="middle"
-                            x={labelCentroid[0]}
-                            y={labelCentroid[1]}
-                            height={fontSize}
-                            dy={fontSize * -0.25}
-                        >
-                            <TSpan x={labelCentroid[0]}>
-                                
-                            </TSpan>
-                                <TSpan x={labelCentroid[0]} dy={labelCentroid[1]}>
-                                
-                            </TSpan>
-                        </Text>
-                            <Text 
-                                fill="black"
-                                fontFamily="Helvetica"
-                                fontWeight="bold"
-                                fontSize={fontSize}
-                                textAnchor="middle"
-                                y={labelCentroid[1]} 
-                                dx={labelCentroid[0]}
-                                height={fontSize}
-                                dy={fontSize * -0.25}>
-                                <TSpan x="15">{i18n.t(data.key)}</TSpan>
-                                <TSpan x={labelCentroid[0] + 15} dy="15">
-                                    {data.value + "%"}
-                                </TSpan>
-                            </Text>
-                    </G>
-                    )
-                }
-            })
-        }
         return (
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-            <PieChart
-                    style={{ flex: 2 }}
-                    data={data}
-                    spacing={0}
-                    outerRadius={'100%'}
-                    innerRadius={'15%'}
-                    >
-            </PieChart>
-            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-                {this.getSliceInfo(data)}
+            <View style={styles.mainView}>
+                <PieChart
+                        style={styles.pieChart}
+                        data={data}
+                        spacing={0}
+                        outerRadius={'100%'}
+                        innerRadius={'15%'}
+                        >
+                </PieChart>
+                <View style={styles.sliceInfo}>
+                    {this.getSliceInfo(data)}
+                </View>
+                    {data.length == 0 && <RNText> No data </RNText>}
             </View>
-                {data.length == 0 && <RNText> No data </RNText>}
-        </View>
-        )
-    }
+            )
+        }
   
     getSliceInfo(data){
         return data.map((elem, index) => {
-                return (
-                    <TouchableOpacity 
-                        key={index} 
-                        style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'  }} 
-                        onPress={() => this.props.onSelectSlice(elem.key)}
-                    >
-                        <Svg width="45" height="20">
-                            <Rect
-                                x="25"
-                                y="5"
-                                width="15"
-                                height="15"
-                                fill={elem.svg.fill}
-                                strokeWidth="1"
-                                stroke="black"
-                            />
-                        </Svg>
-                        <RNText key={index} style={{ fontWeight: this.props.selectedSlice === elem.key ? 'bold' : null}}>{i18n.t(elem.key) +" " + elem.value + "%" }</RNText>
-                    </TouchableOpacity>
-                )
+            return (
+                <TouchableOpacity 
+                    key={index} 
+                    style={styles.sliceInfoTouchabel} 
+                    onPress={() => this.props.onSelectSlice(elem.key)}
+                >
+                    <Svg width="20" height="20">
+                        <Rect
+                            x="5"
+                            y="5"
+                            width="15"
+                            height="15"
+                            fill={elem.svg.fill}
+                            strokeWidth="1"
+                            stroke="black"
+                        />
+                    </Svg>
+                    <RNText key={index} style={[styles.sliceText, { fontWeight: this.props.selectedSlice === elem.key ? 'bold' : null}]}>
+                        {i18n.t(elem.key) +" " + elem.value + "%" }
+                    </RNText>
+                </TouchableOpacity>
+            )
         })
     }
-
     
 }
 
@@ -144,3 +90,45 @@ export interface IPieChartProps {
     data?: Array<any>,
     showIncome?: boolean
 }
+
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+
+const styles = EStyleSheet.create({
+    mainView: { 
+        flex: 1, 
+        flexDirection: 'row' 
+    },
+    pieChart: { 
+        flex: 2 
+    },
+    sliceInfo: {
+        flex: 1, 
+        flexDirection: 'column', 
+        alignItems: 'flex-start', 
+        justifyContent: 'center' 
+    },
+    sliceInfoTouchabel: { 
+        marginTop: 20, 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'center' 
+    },
+    sliceText: {
+        marginLeft: 10
+    },
+    '@media (max-width: 350)': {
+
+        pieChart: {
+            flex:1.3,
+        },
+        sliceInfoTouchabel: {
+            marginTop: 0,
+            justifyContent: 'flex-start' 
+        },
+        sliceInfo: {
+            flexDirection: 'column',
+            justifyContent: 'center',
+        }
+    }
+});
