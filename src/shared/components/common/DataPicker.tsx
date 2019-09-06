@@ -229,7 +229,6 @@ const styles = StyleSheet.create({
         width: '90%',
         lineHeight: 25,
         fontSize: 20,
-        paddingBottom: 5,
         paddingLeft: 0,
         color: '#414141',
         borderBottomWidth: 1,

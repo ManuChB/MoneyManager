@@ -88,7 +88,6 @@ const styles = {
         height: 25,
         lineHeight: 25,
         fontSize: 20,
-        paddingBottom: 5,
         paddingLeft: 0,
         color: '#414141',
         borderBottomWidth: 1,
