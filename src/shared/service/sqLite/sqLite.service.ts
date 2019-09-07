@@ -53,12 +53,13 @@ class SQLiteService {
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
                             if(data[row.categoryId]){
-                                data[row.categoryId].data.push({ id: row.subCategoryId, value: row.subCategoryValue, imageIcon: { name: row.subCategoryIcon, id: row.subCategoryIconId } })
+                                data[row.categoryId].data.push({ id: row.subCategoryId, value: row.subCategoryValue, icon: { name: row.subCategoryIcon, id: row.subCategoryIconId } })
                             }else {
                                 data[row.categoryId] = { 
                                     id: row.categoryId, 
                                     name: row.categoryName, 
-                                    data: [{ id: row.subCategoryId, value: row.subCategoryValue, imageIcon: {name: row.subCategoryIcon, id: row.subCategoryIconId} }]
+                                    data: [{ id: row.subCategoryId, value: row.subCategoryValue, icon: {name: row.subCategoryIcon, id: row.subCategoryIconId} }],
+                                    icon: {name: row.categoryName.split('.')[1]}
                                 };
 
                             }
@@ -184,8 +185,8 @@ class SQLiteService {
 
 
     async addTransaction(data) {
-        const { account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon } = data;
-        const imageId = imageIcon ? `"${imageIcon.id}"` : `"${subCategory.imageIcon.id}"`;
+        const { account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon } = data;
+        const imageId = icon ? `"${icon.id}"` : `"${subCategory.icon.id}"`;
         const desc = description ? `"${description}"` : null;
 
         const query = `INSERT INTO transactions (uid, accountId, date, categoryId, subCategoryId, value, oldValue, isExpense, wasExpense, imageIconId, description) 
@@ -257,7 +258,7 @@ class SQLiteService {
                                 isExpense: row.isExpense === 1 ? true : false,
                                 wasExpense: row.wasExpense === 1 ? true : false,
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
-                                imageIcon: { id: row.imageIconId, name: row.imageIconeName },
+                                icon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
                                     id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName, 
                                     value: _.isNumber(row.accountValue) ? row.accountValue : 0.00, 
@@ -326,7 +327,7 @@ class SQLiteService {
                                 isExpense: row.isExpense === 1 ? true : false,
                                 wasExpense: row.wasExpense === 1 ? true : false,
                                 subCategory: { id: row.subCategoryId, value: row.subCategoryValue },
-                                imageIcon: { id: row.imageIconId, name: row.imageIconeName },
+                                icon: { id: row.imageIconId, name: row.imageIconeName },
                                 account: {
                                     id: row.account, firebaseId: row.accountFirebaseid, name: row.accountName,
                                     value: _.isNumber(row.accountValue) ? row.accountValue : 0.00,
@@ -344,8 +345,8 @@ class SQLiteService {
     }
 
     async updateTransaction(transaction) {
-        const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, imageIcon, firebaseId } = transaction;
-        const imageId = imageIcon ? `"${imageIcon.id}"` : `"${subCategory.imageIcon.id}"`;
+        const { id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon, firebaseId } = transaction;
+        const imageId = icon ? `"${icon.id}"` : `"${subCategory.icon.id}"`;
         const desc = description ? `"${description}"` : null;
 
         return new Promise((resolve, reject) => {

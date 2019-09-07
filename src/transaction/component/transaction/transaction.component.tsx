@@ -10,7 +10,7 @@ import i18n from '../../../shared/service/i18n';
 import currencyFormatter from 'currency-formatter';
 
 const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
-    const { value, account, imageIcon, categoryId, subCategory, description, isExpense } = data;
+    const { value, account, icon, categoryId, subCategory, description, isExpense } = data;
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
@@ -18,7 +18,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
                 <View style={{
                     width:'15%', justifyContent: 'center',
                     alignItems: 'center' }}>
-                    <Image style={{ width: 35, height: 35 }} source={appConstants.transactionIcons[imageIcon.name]} />
+                    <Image style={{ width: 35, height: 35 }} source={appConstants.transactionIcons[icon.name]} />
                 </View>
                 <View style={{ width: '55%' }}>
                     <Text > {subCategory ? i18n.t(subCategory.value).toUpperCase() : ''}</Text>
@@ -53,9 +53,9 @@ export interface ITransactionDataProp {
     value?: number,
     oldValue?: number,
     account?: IAccountData,
-    imageIcon?: {id: number, name: string, icon: any},
+    icon?: {id: number, name: string, icon: any},
     categoryId?: string,
-    subCategory?: {id: number, value: string, imageIcon:{id: number, name: string}},
+    subCategory?: { id: number, value: string, icon:{id: number, name: string}},
     description?: string
     date?: Moment;
     isExpense?: boolean;

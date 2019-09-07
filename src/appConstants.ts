@@ -182,7 +182,10 @@ const constants = {
         noDeductible: require('../assets/images/icons8-company-50.png'),
         deductible: require('../assets/images/icons8-organization-50.png'),
         taxes: require('../assets/images/icons8-tax-50.png'),
-        refund: require('../assets/images/get-cash-64.png'), 
+        refund: require('../assets/images/get-cash-64.png'),
+        
+        spanish: require('../assets/images/spain-flag-80.png'),
+        english: require('../assets/images/uk-flag-80.png'),
 
 
         DEFAULT: require('../assets/images/icons8-cash-filled-64.png')
@@ -191,7 +194,8 @@ const constants = {
         name: 'DEFAULT',
         icon: require('../assets/images/icons8-cash-filled-64.png')
     },
-
+    languageIcon: {
+    },
     swipeConstants: {
         velocityThreshold: 0.1,
         directionalOffsetThreshold: 10

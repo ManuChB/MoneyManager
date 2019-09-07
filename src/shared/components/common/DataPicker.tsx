@@ -36,11 +36,11 @@ export class DataPicker extends Component<IPickerProps> {
                                     onSelect(element)
                                 }}>
                                 <View style={[styles.categoryView, element.icon ? { justifyContent: 'space-between' } : null]} key={key} >
-                                    {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
+                                    {element.icon && <Image style={styles.imageStyle} source={appConstants.transactionIcons[element.icon.name]} />}
                                     <Text style={styles.categoryText} key={key}>
                                         {dontTranslate ? element[field] : i18n.t(element[field])}
                                     </Text>
-                                    {element.icon && <Image style={styles.imageStyle} source={element.icon} />}
+                                    {element.icon && <Image style={styles.imageStyle} source={appConstants.transactionIcons[element.icon.name]} />}
                                 </View>
                             </TouchableOpacity>)
                     }

@@ -135,13 +135,13 @@ export default class  extends Component<ITransactionDetailProp> {
                             keyboard={'numeric'}
                             blurOnSubmit={true}
                         />
-                        <DataPicker
+                        {false && <DataPicker
                             iconMode={true}
-                                icon={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name] :
-                                    data.subCategory ? appConstants.transactionIcons[data.subCategory.imageIcon.name] : appConstants.defaultTransactionIcon.icon}
-                            value={data.imageIcon ? appConstants.transactionIcons[data.imageIcon.name] : ''}
+                                icon={data.icon ? appConstants.transactionIcons[data.icon.name] :
+                                    data.subCategory ? appConstants.transactionIcons[data.subCategory.icon.name] : appConstants.defaultTransactionIcon.icon}
+                                value={data.icon ? appConstants.transactionIcons[data.icon.name] : ''}
                             data={icons}
-                                onSelect={(image) => this.props.actions.changeData({ ...data, imageIcon: { ...image } })}
+                                onSelect={(image) => this.props.actions.changeData({ ...data, icon: { ...image } })}
                             customContainerStyle={{
                                 justifyContent: 'center',
                                 alignItems: 'center', 
@@ -155,7 +155,7 @@ export default class  extends Component<ITransactionDetailProp> {
                                 elevation: 6,
                                 borderRadius: 10
                             }}>
-                        </DataPicker>
+                        </DataPicker>}
                         <View style={{
                             justifyContent: 'flex-end',
                             flexDirection: 'row',
