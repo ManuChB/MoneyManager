@@ -19,7 +19,7 @@ export default class Pie extends Component<IPieChartProps> {
                 value: showIncome ? elem.percentTotalIncome : elem.percentTotalExpense,
                 svg: { fill: colors[index] },
                 arc: {
-                    outerRadius: 75 + (selectedSlice === elem.name ? 20 : 0) + '%', padAngle: selectedSlice === elem.name ? 0 : 0.02
+                    outerRadius: 75 + (selectedSlice === elem.name ? 5 : 0) + '%', padAngle: selectedSlice === elem.name ? 0 : 0.02
                 },
                 onPress: () => this.props.onSelectSlice(elem.name),
                 amount: showIncome ? elem.percentTotalIncome : elem.percentTotalExpense
@@ -44,7 +44,7 @@ export default class Pie extends Component<IPieChartProps> {
                         data={data}
                         spacing={0}
                         outerRadius={'100%'}
-                        innerRadius={'15%'}
+                        innerRadius={'45%'}
                         >
                 </PieChart>
                 <View style={styles.sliceInfo}>

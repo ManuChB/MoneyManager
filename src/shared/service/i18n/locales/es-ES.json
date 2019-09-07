@@ -15,43 +15,165 @@
         "balance": "BALANCE"
     },
     "accountTypes":{
-        "cash": "Metalico",
-        "creditCard": "Tarjeta de credito"
+        "cash": "Efectivo",
+        "creditCard": "Tarjeta de crédito"
     },
     "balanceInfo": {
         "income": "BENEFICIOS",
         "expense": "GASTOS",
         "balance": "BALANCE"
     },
-    "categories":{
-        "hausing":{
-            "furnishing": "Muebles",
-            "appliance": "Electrodomésticos",
-            "insurance": "Seguro",
-            "mortgage": "Hipoteca",
-            "rent": "Alquiler",
-            "taxes": "Inpuestos",
-            "others": "Otros"
+    "categories": {
+        "utilities": {
+            "water": "Agua",
+            "trash": "Basura",
+            "sewer": "Alcantarillado",
+            "phone": "Télefono",
+            "other": "Otro",
+            "internet": "Internet",
+            "gas": "Gas",
+            "electricity": "Electricidad",
+            "cable": "Cable"
         },
-        "income": {
-            "dividend": "Dividendos",
-            "gift": "Regalo",
-            "interest": "Intereses",
-            "wage": "Salario",
-            "others": "Otros"
+        "transportation": {
+            "vehicle": "Vehçículo",
+            "registration": "Registo",
+            "publicTransport": "Transporte público",
+            "other": "Otro",
+            "license": "Licencia",
+            "insurance": "Seguro",
+            "fuel": "Combustible"
+        },
+        "subscriptions": {
+            "video": "Video",
+            "software": "Software",
+            "other": "Otro",
+            "music": "Música",
+            "magazine": "Revista",
+            "game": "Videojuego"
         },
         "savings": {
             "investment": "Inversión",
-            "emergency": "Emergencias",
+            "emergency": "Emergencia",
             "retirement": "Jubilación",
             "vacation": "Vacaciones",
-            "others": "Otros"
+            "others": "Otro",
+            "taxes": "Impuestos",
+            "studies": "Estudios",
+            "car": "Coche"
+        },
+        "obligations": {
+            "taxes": "Impuestos",
+            "studentLoan": "Préstamo estudios",
+            "other": "Otro",
+            "loan": "Préstamo",
+            "legal": "Legal",
+            "creditCard": "Tarjeta de crédito",
+            "alimony": "Pensión alimetária"
+        },
+        "income": {
+            "dividend": "Dividendo",
+            "gift": "Regalo",
+            "interest": "Interés",
+            "wage": "Salario",
+            "others": "Otro",
+            "tips": "Propinas",
+            "rent": "Alquiler",
+            "financialAid": "Ayuda financiera",
+            "refund": "Reembolso"
+        },
+        "health": {
+            "veterinarian": "Veterinario",
+            "other": "Otro",
+            "medicine": "Medicamento",
+            "lifeInsurance": "Seguro de vida",
+            "insurance": "Seguro",
+            "doctor": "Doctor"
+        },
+        "hausing": {
+            "furnishing": "Mobiliario",
+            "appliance": "Electrodoméstico",
+            "insurance": "Seguro",
+            "mortgage": "Hipoteca",
+            "rent": "Alquiler",
+            "taxes": "Impuestos",
+            "others": "Otro",
+            "maintenace": "Mantenimiento",
+            "garden": "Jardín",
+            "improvement": "Mejora"
+        },
+        "gifts": {
+            "religious": "Religioso",
+            "other": "Otro",
+            "gift": "Regalo",
+            "christmas": "Navidad",
+            "charity": "Caridad"
+        },
+        "food": {
+            "takeAway": "A domicilio",
+            "pet": "Mascota",
+            "other": "Otro",
+            "groceries": "Comida",
+            "diningOut": "Restaurante"
+        },
+        "entertainment": {
+            "vacation": "Vacaciones",
+            "sports": "Deporte",
+            "rental": "Alquiler vacacional",
+            "photo": "Foto",
+            "party": "Fiesta",
+            "other": "Otro",
+            "music": "Música",
+            "movie": "Cine",
+            "hobbies": "Hobby",
+            "games": "Videojuego",
+            "gadget": "Gadget",
+            "electronic": "Electrónica",
+            "dvd": "Blu-Ray/DVD",
+            "concert": "Concierto",
+            "book": "Libro"
+        },
+        "daily": {
+            "personal": "Personal",
+            "other": "Otro",
+            "miscellaneous": "Miscelánea",
+            "laundry": "Lavandería",
+            "education": "Educación",
+            "clothing": "Ropa",
+            "cleaning": "Limpieza",
+            "barber": "Peluquería"
+        },
+        "children": {
+            "toys": "Juguete",
+            "supplies": "Suministros",
+            "school": "Colegio",
+            "other": "Otro",
+            "medical": "Salud",
+            "lunch": "Almuerzo",
+            "lesson": "Actividades",
+            "clothing": "Ropa",
+            "babysitting": "Canguro"
+        },
+        "business": {
+            "other": "Otro",
+            "noDeductible": "No deducible",
+            "deductible": "Deducible"
         }
-    },
-    "categoriesName": {
+    }, "categoriesName": {
         "hausing": "Hogar",
         "income": "Ingresos",
-        "savings": "Ahorros"
+        "savings": "Ahorros",
+        "gifts": "Regalos",
+        "utilities": "Facturas",
+        "food": "Alimentación",
+        "transportation": "Transporte",
+        "health": "Salud",
+        "daily": "Diario",
+        "children": "Niños",
+        "obligations": "Obligaciones",
+        "business": "Negocio",
+        "entertainment": "Entretenimiento",
+        "subscriptions": "Suscrpciones"
     },
     "common": {
         "button": {
@@ -61,24 +183,24 @@
         }
     },
     "general":{
-        "noWifi": "Oops!! No hay conexión a inernet disponible"
+        "noWifi": "¡Vaya! No hay conexión a inernet disponible"
     },
     "language": {
         "esES": "Español",
         "enUK": "Inglés"
     },
     "loginScreen": {
-        "register": "Registrar",
-        "alreadyRegistered": "Ya registrado? \nEntrar",
-        "login": "Entrar",
-        "forgotPsw": "Contraseña olvidada? \nRecuperar",
-        "newRegister": "Nuevo aquí? \nRegístrate",
+        "register": "Registrarse",
+        "alreadyRegistered": "¿Ya registrado? \nIniciar sesión",
+        "login": "Iniciar sesión",
+        "forgotPsw": "¿Olvidó su contraseña? \nRecuperar",
+        "newRegister": "¿Nuevo aquí? \nRegístrate",
         "recover": "Recuperar",
         "email": "Correo",
         "password": "Constraseña",
         "auth/invalid-email": "La dirección de correo tiene un formato incorrecto",
-        "auth/weak-password": "La constaseña deve tener 6 caracteres o mas",
-        "auth/email-already-in-use": "El correo ya esta en uso por otra cuenta ",
+        "auth/weak-password": "La constaseña debe tener 6 caracteres o mas",
+        "auth/email-already-in-use": "El correo ya está en uso por otra cuenta ",
         "auth/wrong-password": "Contraseña invalida",
         "auth/user-not-found": "El usuario no existe."
     },
@@ -106,8 +228,8 @@
     "reportMode": {
         "incomes": "Ingresos",
         "expenses": "Gastos",
-        "totalExLabel": "Gasto total en este periodo: ",
-        "totalInLabel": "Ingresos totales en este periodo: ",
+        "totalExLabel": "Gastos totales en este período: ",
+        "totalInLabel": "Ingresos totales en este período: ",
         "barLabels":{
             "income": "BENEFICIOS",
             "expense": "GASTOS",
@@ -121,14 +243,14 @@
         "logOut": "Cerrar Sesión",
         "mainCurrency": "Moneda princial",
         "feedback": {
-            "label": "Contacto",
-            "subject": "Contacto",
+            "label": "Comentarios",
+            "subject": "Comentarios",
             "body": ""
         },
         "share": {
             "label": "Compartir",
             "message": "MoneyManager: le ayudamos a tener el control de sus finanzas",
-            "title": "Wow, ¿conoces esta aplicación?",
+            "title": "Wow, ¿conocías esta increíble aplicación?",
             "dialogTitle": "Comparte MoneyManager"
         },
         "mistranslation": {
@@ -144,7 +266,7 @@
         
     },
     "timeTab": {
-        "day": "Dia",
+        "day": "Día",
         "week": "Semana",
         "month": "Mes",
         "year": "Año"

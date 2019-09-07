@@ -8,15 +8,15 @@
         "newAccount": "New Account",
         "updateAccount": "Update Account"
     },
-    "accountTypes": {
-        "cash": "Cash",
-        "creditCard": "Credit card"
-    },
     "accountList": {
         "globalBalance": "Global balance",
         "assets": "ASSETS",
         "liabilities": "LIABILITIES",
         "balance": "BALANCE"
+    },
+    "accountTypes": {
+        "cash": "Cash",
+        "creditCard": "Credit card"
     },
     "balanceInfo": {
         "income": "INCOME",
@@ -24,6 +24,72 @@
         "balance": "BALANCE"
     },
     "categories": {
+        "utilities": {
+            "water": "Water",
+            "trash": "Trash",
+            "sewer": "Sewer",
+            "phone": "Phone",
+            "other": "Other",
+            "internet": "Internet",
+            "gas": "Gas",
+            "electricity": "Electricity",
+            "cable": "Cable"
+        },
+        "transportation": {
+            "vehicle": "Vehicle",
+            "registration": "Registration",
+            "publicTransport": "Public Transport",
+            "other": "Other",
+            "license": "License",
+            "insurance": "Insurance",
+            "fuel": "Fuel"
+        },
+        "subscriptions": {
+            "video": "Video",
+            "software": "Software",
+            "other": "Other",
+            "music": "Music",
+            "magazine": "Magazine",
+            "game": "Videogame"
+        },
+        "savings": {
+            "investment": "Investment",
+            "emergency": "Emergency",
+            "retirement": "Retirement",
+            "vacation": "Vacation",
+            "others": "Other",
+            "taxes": "Taxes",
+            "studies": "Studies",
+            "car": "Car"
+        },
+        "obligations": {
+            "taxes": "Taxes",
+            "studentLoan": "Student loan",
+            "other": "Other",
+            "loan": "Loan",
+            "legal": "Legal",
+            "creditCard": "Credit card",
+            "alimony": "Alimony"
+        },
+        "income": {
+            "dividend": "Dividend",
+            "gift": "Gift",
+            "interest": "Interest",
+            "wage": "Wage",
+            "others": "Other",
+            "tips": "Tips",
+            "rent": "Rent",
+            "financialAid": "Financial aid",
+            "refund": "Refund"
+        },
+        "health": {
+            "veterinarian": "Veterinarian",
+            "other":"Other",
+            "medicine": "Medicine",
+            "lifeInsurance": "Life insurance",
+            "insurance": "Insurance",
+            "doctor": "Doctor"
+        },
         "hausing": {
             "furnishing": "Furnishing",
             "appliance": "Appliance",
@@ -31,26 +97,83 @@
             "mortgage": "Mortgage",
             "rent": "Rent",
             "taxes": "Taxes",
-            "others": "Others"
+            "others": "Other",
+            "maintenace": "Maintenace",
+            "garden": "Garden",
+            "improvement": "Improvement"
         },
-        "income": {
-            "dividend": "Dividend",
+        "gifts": {
+            "religious": "Religious",
+            "other":"Other",
             "gift": "Gift",
-            "interest": "Interest",
-            "wage": "Wage",
-            "others": "Others"
+            "christmas": "Christmas",
+            "charity": "Charity"
         },
-        "savings": {
-            "investment": "Investment",
-            "emergency": "Emergency",
-            "retirement": "Retirement",
+        "food": {
+            "takeAway": "Delivery",
+            "pet": "Pet",
+            "other": "Other",
+            "groceries": "Groceries",
+            "diningOut": "Dining out"
+        },
+        "entertainment": {
             "vacation": "Vacation",
-            "others": "Others"
+            "sports": "Sport",
+            "rental": "Vacational rental",
+            "photo": "Photo",
+            "party": "Party",
+            "other": "Other",
+            "music": "Music",
+            "movie": "Movie",
+            "hobbies": "Hobby",
+            "games": "Game",
+            "gadget": "Gadget",
+            "electronic": "Electronic",
+            "dvd": "Blu-Ray/DVD",
+            "concert": "Concert",
+            "book": "Book"
+        },
+        "daily": {
+            "personal": "Personal",
+            "other":"Other",
+            "miscellaneous": "Miscellaneous",
+            "laundry": "Laundry",
+            "education": "Education",
+            "clothing": "Clothing",
+            "cleaning": "Cleaning",
+            "barber": "Barber"
+        },
+        "children": {
+            "toys": "Toy",
+            "supplies": "Supplies",
+            "school": "School",
+            "other": "Other",
+            "medical": "Medical",
+            "lunch": "Lunch",
+            "lesson": "Lesson",
+            "clothing":"Clothing",
+            "babysitting": "Babysitting"
+        },
+        "business": {
+            "other":"Other",
+            "noDeductible": "No deductible",
+            "deductible": "Deductible"
         }
     }, "categoriesName": {
         "hausing": "Hausing",
         "income": "Income",
-        "savings": "Savings"
+        "savings": "Savings",
+        "gifts": "Gifts",
+        "utilities": "Utilities",
+        "food": "Food",
+        "transportation": "Transportation",
+        "health": "Health",
+        "daily": "Daily",
+        "children": "Children",
+        "obligations": "Obligations",
+        "business": "Business",
+        "entertainment": "Entertainment",
+        "subscriptions": "Subscriptions"
     },
     "common": {
         "button": {
