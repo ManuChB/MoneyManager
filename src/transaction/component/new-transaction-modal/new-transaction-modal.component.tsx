@@ -28,9 +28,16 @@ export default class  extends Component<ITransactionDetailProp> {
         this.props.actions.changeData({ ...this.props.state.data, date: date.startOf('day') })
     }
 
+    changeValue(value: string){
+        const { data } = this.props.state;
+        const currency = (data.account && data.account.currency) ?data.account.currency.name : "";
+        this.props.actions.changeData({ ...data, value: parseFloat(value.replace(currency, "").replace(" ", "")) })
+    }
+
     checkEmpty() {
         const {data} = this.props.state;
-        const value = data.value ? Math.abs(parseFloat(data.value.toString().replace(data.account.currency.name, "").replace(" ", "").replace(',', '.'))) : null;
+        const currency = data.account && data.account.currency ? data.account.currency.name: '';
+        const value = data.value ? Math.abs(parseFloat(data.value.toString().replace(currency, "").replace(" ", "").replace(',', '.'))) : null;
         return _.isEmpty(data) || !data.value || _.isNaN(value) || !_.isNumber(value) || !data.account || !data.subCategory;
     }
 
@@ -129,8 +136,8 @@ export default class  extends Component<ITransactionDetailProp> {
                         <Input
                             inputRef={ref => this.valueInput = ref}
                             label={'newTransaction.value'}
-                            value={data.value ? data.account && data.account.currency ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
-                            onChangeText={(value) => this.props.actions.changeData({ ...data, value: value.replace(data.account?data.account.currency.name:"", "").replace(" ", "") })}
+                            value={data.value ? (data.account && data.account.currency) ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
+                            onChangeText={(value) => this.changeValue(value)}
                             returnKeyType={"next"}
                             keyboard={'numeric'}
                             blurOnSubmit={true}
