@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import i18n from '../../service/i18n';
-import { Text as RNText, TouchableOpacity } from 'react-native';
-import { BarChart, Grid, YAxis } from 'react-native-svg-charts'
-import { Svg, G, Line, Text, TSpan, Rect } from 'react-native-svg'
+import { BarChart, Grid } from 'react-native-svg-charts'
+import { Text } from 'react-native-svg'
 import currencyFormatter from 'currency-formatter';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default class Bar extends Component<IBarChartProps> {
 
@@ -22,8 +22,9 @@ export default class Bar extends Component<IBarChartProps> {
                     key={index}
                     x={value > CUT_OFF ? x(0) + 10 : x(value) + 10}
                     y={y(index) + (bandwidth / 2)}
-                    fontSize={14}
-                    fill={value > CUT_OFF ? 'black' : 'red'}
+                    fontSize="15"
+                    fontWeight="bold"
+                    fill={value > CUT_OFF ? 'black' : '#ed0239'}
                     alignmentBaseline={'middle'}
                 >
                     {i18n.t(labs[index]).toUpperCase() + ": " + currencyFormatter.format(value, { code: currency ? currency : 'YPN', locale: i18n.getLocale() } ) }
@@ -32,9 +33,9 @@ export default class Bar extends Component<IBarChartProps> {
         )
 
         return (
-            <View style={{ flexDirection: 'row', flex: 1, margin: 20 }}>
+            <View style={styles.main}>
                 <BarChart
-                    style={{ flex: 3, marginLeft: 8 }}
+                    style={styles.bar}
                     data={data}
                     horizontal={true}
                     svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
@@ -42,7 +43,6 @@ export default class Bar extends Component<IBarChartProps> {
                     spacing={0.2}
                     gridMin={0}
                 >
-                    <Grid direction={Grid.Direction.VERTICAL} />
                     <Labels />
                 </BarChart>
             </View>
@@ -55,3 +55,15 @@ export interface IBarChartProps {
     expense?: number,
     currency?: string
 }
+
+const styles = EStyleSheet.create({
+    main: { 
+        flexDirection: 'row', 
+        flex: 1, 
+        margin: 20 
+    },
+    bar: { 
+        flex: 3, 
+        marginLeft: 8 
+    }
+});

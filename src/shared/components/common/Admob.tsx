@@ -10,13 +10,16 @@ import {
 
 const AdMob = (props) => (
     <View style={{
-        position: "absolute",
-        bottom: 0, width: '100%'}}>
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        bottom: 0
+    }}>
         <AdMobBanner
             style={{
-                
+                alignSelf: 'center',
+                flex: 1
             }}
-            bannerSize="fullBanner"
             adUnitID="ca-app-pub-5759535791118818/9478438613" // Test ID, Replace with your-admob-unit-id
             testDeviceID="EMULATOR" />
     </View>

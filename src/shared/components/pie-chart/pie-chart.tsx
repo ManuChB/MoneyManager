@@ -4,6 +4,7 @@ import i18n from '../../service/i18n';
 import { Text as RNText, TouchableOpacity } from 'react-native';
 import { PieChart } from 'react-native-svg-charts'
 import { Svg, G, Line, Text, TSpan, Rect } from 'react-native-svg'
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default class Pie extends Component<IPieChartProps> {
 
@@ -39,18 +40,20 @@ export default class Pie extends Component<IPieChartProps> {
 
         return (
             <View style={styles.mainView}>
-                <PieChart
+                {data.length > 0 && <PieChart
                         style={styles.pieChart}
                         data={data}
                         spacing={0}
                         outerRadius={'100%'}
                         innerRadius={'45%'}
                         >
-                </PieChart>
-                <View style={styles.sliceInfo}>
+                </PieChart>}
+                {data.length > 0 && <View style={styles.sliceInfo}>
                     {this.getSliceInfo(data)}
-                </View>
-                    {data.length == 0 && <RNText> No data </RNText>}
+                </View>}
+                {data.length == 0 && <View style={styles.noData}>
+                    <RNText style={styles.noDataText} > No data available </RNText> 
+                </View>}
             </View>
             )
         }
@@ -91,9 +94,6 @@ export interface IPieChartProps {
     showIncome?: boolean
 }
 
-import EStyleSheet from 'react-native-extended-stylesheet';
-
-
 const styles = EStyleSheet.create({
     mainView: { 
         flex: 1, 
@@ -117,6 +117,14 @@ const styles = EStyleSheet.create({
     sliceText: {
         marginLeft: 10
     },
+    noData: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    noDataText:{
+        fontSize: '1.5rem'
+    },
     '@media (max-width: 350)': {
 
         pieChart: {
@@ -129,6 +137,9 @@ const styles = EStyleSheet.create({
         sliceInfo: {
             flexDirection: 'column',
             justifyContent: 'center',
-        }
+        },
+        noDataText: {
+            fontSize: '1.2rem'
+        },
     }
 });

@@ -12,7 +12,6 @@ import moment from 'moment';
 import { AdMob } from '../shared/components/common';
 import currencyFormatter from 'currency-formatter';
 
-
 export default class Report extends Component<IReportProp> {
 
     isSelectedTab(reportMode: string) {
@@ -35,18 +34,20 @@ export default class Report extends Component<IReportProp> {
     }
 
     getSelectedSliceTrans(transactions, showIncome) {
-        
-            return transactions.map((transaction, key) => {
-                if (transaction.category.name == this.props.state.selectedSlice || showIncome) {
-                    return transaction.data.map((t, skey) => {
-                        if (t.isExpense && !showIncome){
-                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
-                        } else if (!t.isExpense && showIncome){
-                            return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
-                        }
-                    })
-                }
-            })
+        if(transactions.length == 0) {
+            return (<View style={{ flex: 1 }}></View>)
+        }
+        return transactions.map((transaction, key) => {
+            if (transaction.category.name == this.props.state.selectedSlice || showIncome) {
+                return transaction.data.map((t, skey) => {
+                    if (t.isExpense && !showIncome){
+                        return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
+                    } else if (!t.isExpense && showIncome){
+                        return (<Transaction data={t} key={key + "_" + skey} onPress={() => this.onPressTransaction(t)}></Transaction>)
+                    }
+                })
+            }
+        })
         
         
     }
@@ -70,8 +71,9 @@ export default class Report extends Component<IReportProp> {
                             {currencyFormatter.format(totalExpense, { code: uCurrency ? uCurrency : 'YPN', locale: i18n.getLocale() })}
                         </Text>
                     </View>
-                    <ScrollView style={{ flex: 1 }}>
+                    <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                         {this.getSelectedSliceTrans(transactions, false)}
+                        <AdMob></AdMob>
                     </ScrollView>
                 </View>
             )
@@ -90,8 +92,9 @@ export default class Report extends Component<IReportProp> {
                             {currencyFormatter.format(totalIncome, { code: uCurrency ? uCurrency : 'YPN', locale: i18n.getLocale() })}
                         </Text>
                     </View>
-                    <ScrollView style={{ flex: 1 }}>
+                    <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                         {this.getSelectedSliceTrans(transactions, true)}
+                        <AdMob></AdMob>
                     </ScrollView>
                 </View>
             )
@@ -101,7 +104,7 @@ export default class Report extends Component<IReportProp> {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: "#fff"}}>
-                <View style={{flex:1, marginBottom: 60 }}>
+                <View style={{flex:1 }}>
                     <View style={styles.mainViewStyle}>
                         <TouchableOpacity
                             style={[styles.touchableStyle, this.isSelectedTab(appConstants.reportMode.income)]}
@@ -130,7 +133,6 @@ export default class Report extends Component<IReportProp> {
                     </DatePickerHeader>
                     {this.getChartMode()}
                 </View>
-                <AdMob></AdMob>
             </View>
         )
     }
