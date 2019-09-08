@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     logOut: {
         flex: 1,
         justifyContent: 'flex-end',
-        marginBottom: 20
+        paddingTop: 20,
+        paddingBottom: 20
     },
     feedback: {
         backgroundColor: 'white',

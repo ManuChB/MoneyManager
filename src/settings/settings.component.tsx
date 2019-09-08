@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Linking, Share  } from 'react-native';
+import { View, Text, TouchableOpacity, Linking, Share, ScrollView  } from 'react-native';
 import qs from 'qs';
 
 import { ISettingsProp } from './settings.model';
@@ -76,7 +76,7 @@ export default class Settings extends Component<ISettingsProp> {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                 <DataPicker label={'settingsScreen.language'}
                     value={this.props.state.currentLanguage.name}
                     data={languages}
@@ -127,10 +127,10 @@ export default class Settings extends Component<ISettingsProp> {
                         label={'settingsScreen.logOut'}>
                     </Button>
                 </View>
-                <View style={{ bottom: 0, height: 50}}>
-                    <AdMob type={'publisher'}></AdMob>
+                <View style={{ bottom: 0, height: 90}}>
+                    <AdMob type={'banner'}></AdMob>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
