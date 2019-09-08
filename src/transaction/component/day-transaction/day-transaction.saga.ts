@@ -15,10 +15,9 @@ export default [
     takeLatest(dayTransactionsConstants.CHANGE_DATE, getTransactionByDate),
 ];
 
-
-
 export function* initialize() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowInterstitialAd());
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const day = yield select(selectors.getDayTransaction);
         yield call(getTransactionByDate, { value: day });

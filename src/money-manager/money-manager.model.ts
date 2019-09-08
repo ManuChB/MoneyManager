@@ -14,6 +14,7 @@ export interface IMoneyManagerAction {
     moneyManagerShowSpinner?: () => Action;
     moneyManagerHideSpinner?: () => Action;
     moneyManagerSetLocale?: (locale: string) => Action;
+    moneyManagerShowInterstitialAd?: () => Action;
 }
 
 export interface IMoneyManagerState {

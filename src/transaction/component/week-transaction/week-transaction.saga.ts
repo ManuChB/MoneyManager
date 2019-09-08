@@ -20,6 +20,7 @@ export default [
 
 export function* initialize() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowInterstitialAd());
         const date = new Date();
         const weekStart = moment(date).startOf('isoWeek');
         const weekEnd = moment(date).endOf('isoWeek');

@@ -5,11 +5,11 @@ import { Button } from './Button';
 export class AddButton extends Component<IAddButtonProps> {
 
     render() {
-        const { onPress } = this.props;
+        const { onPress, customButtonStyle, customLabelStyle } = this.props;
         return (
             <Button
-                customButtonStyle={styles.customButtonStyle}
-                customLabelStyle={styles.customLabelStyle} onPress={onPress}
+                customButtonStyle={[styles.buttonStyle, customButtonStyle]}
+                customLabelStyle={[styles.labelStyle, customLabelStyle]} onPress={onPress}
                 label={'+'}
                 dontTranslate={true}>
             </Button>
@@ -19,14 +19,14 @@ export class AddButton extends Component<IAddButtonProps> {
 }
 
 const styles = StyleSheet.create({
-    customButtonStyle: {
+    buttonStyle: {
         width: 60,
         position: 'absolute',
         bottom: 10,
         right: 10,
         zIndex: 100
     },
-    customLabelStyle: {
+    labelStyle: {
         fontSize: 50,
         fontWeight: '900',
         textAlign: 'center',

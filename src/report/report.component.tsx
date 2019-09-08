@@ -73,7 +73,7 @@ export default class Report extends Component<IReportProp> {
                     </View>
                     <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                         {this.getSelectedSliceTrans(transactions, false)}
-                        <AdMob></AdMob>
+                        <AdMob type={'banner'}></AdMob>
                     </ScrollView>
                 </View>
             )
@@ -94,7 +94,7 @@ export default class Report extends Component<IReportProp> {
                     </View>
                     <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                         {this.getSelectedSliceTrans(transactions, true)}
-                        <AdMob></AdMob>
+                        <AdMob type={'publisher'}></AdMob>
                     </ScrollView>
                 </View>
             )

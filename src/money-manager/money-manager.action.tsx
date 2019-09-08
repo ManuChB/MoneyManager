@@ -38,6 +38,12 @@ const moneyManagerAction: IMoneyManagerAction = {
             type: moneyManagerConstans.MONEY_MANAGER_SET_LOCALE,
             value: locale
         }
+    },
+
+    moneyManagerShowInterstitialAd() {
+        return {
+            type: moneyManagerConstans.MONEY_MANAGER_SHOW_INTERSTITIAL_AD
+        }
     }
 
 }

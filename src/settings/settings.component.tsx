@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Linking, Share  } from 'react-native';
 import qs from 'qs';
 
 import { ISettingsProp } from './settings.model';
-import { Button } from '../shared/components/common';
+import { Button, AdMob } from '../shared/components/common';
 import {languages } from '../shared/service/i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
 import i18n from '../shared/service/i18n';
@@ -126,6 +126,9 @@ export default class Settings extends Component<ISettingsProp> {
                         onPress={() => this.logOut()}
                         label={'settingsScreen.logOut'}>
                     </Button>
+                </View>
+                <View style={{ bottom: 0, height: 50}}>
+                    <AdMob type={'publisher'}></AdMob>
                 </View>
             </View>
         )

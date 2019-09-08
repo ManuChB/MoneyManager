@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { IAccountListProp } from './account-list.model';
 import BalanceInfo from '../shared/components/balance-info/balance-info.component';
-import { AddButton, Spinner } from '../shared/components/common';
+import { AddButton, AdMob } from '../shared/components/common';
 import i18n from '../shared/service/i18n';
 import Account from './account/account.component';
 import NavigationService from '../shared/service/navigation/navigation.service';
@@ -64,11 +64,13 @@ export default class AccountList extends Component<IAccountListProp> {
 
     render() {
         const { accountsBalance, accountListByType } = this.props.state;
+        const rand = Math.random() * (100);
         const balance = accountsBalance.filter(
             (balance) => balance.type === appConstants.accountTypesGeneral.name
         )[0];
         return (
             <View style={{ flex: 1 }}>
+
                 <View style={{
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -90,14 +92,16 @@ export default class AccountList extends Component<IAccountListProp> {
                     balLabel={'accountList.balance'}
                     currency={this.props.state.userCurrency} >
                 </BalanceInfo>
-                <AddButton onPress={() => this.onPressNewAccount()}></AddButton>
-                <ScrollView>
+                <AddButton onPress={() => this.onPressNewAccount()} customButtonStyle={rand>50 ? {bottom: 100}: {} }></AddButton>
+
+                <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                     {accountListByType.map((accountTypeList, typekey) => {
                         return (
                             this.getAccountsFromTypeList(accountTypeList, typekey, accountsBalance)
                          )
                     })}
                     <View style={{ height: 60 }}></View>
+                    {false && rand > 50 && <AdMob type={'banner'}></AdMob>}
                 </ScrollView>
             </View>
         )

@@ -20,6 +20,8 @@ export default [
 
 export function* initialize() {
     try {
+        yield put(moneyManagerAction.moneyManagerShowInterstitialAd());
+
         yield put(moneyManagerAction.moneyManagerShowSpinner());
         const date = new Date();
         const monthStart = moment(date).startOf('month');

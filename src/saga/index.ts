@@ -10,6 +10,8 @@ import monthTransactionSaga from '../transaction/component/month-transaction/mon
 import settingsSaga from '../settings/settings.saga';
 import reportSaga from '../report/report.saga';
 import transactionListSaga from '../transaction/transaction-list.saga';
+import moneyManagerSaga from '../money-manager/money-manager.saga';
+
 export default function* rootSaga() {
     yield all([
         ...splashSaga,
@@ -22,6 +24,7 @@ export default function* rootSaga() {
         ...monthTransactionSaga,
         ...settingsSaga,
         ...reportSaga,
-        ...transactionListSaga
+        ...transactionListSaga,
+        ...moneyManagerSaga
     ]);
 }
