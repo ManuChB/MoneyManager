@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import i18n from '../../service/i18n';
-import { Text as RNText, TouchableOpacity } from 'react-native';
+import { Text as RNText, TouchableOpacity, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-svg-charts'
 import { Svg, G, Line, Text, TSpan, Rect } from 'react-native-svg'
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -11,7 +11,11 @@ export default class Pie extends Component<IPieChartProps> {
 
     render() {
         const { selectedSlice, showIncome } = this.props;
-        const colors = ['#600080', '#9900cc', '#c61aff', '#d966ff', '#ecb3ff']
+        const colors = ['#3f0154','#600080', '#9900cc', '#c61aff', 
+            '#d966ff', '#ecb3ff', '#98b8f5',
+            '#5a91fa', '#226bf5', '#0442b8',
+            '#04ba90', '#20f7c6', '#7cf7db',
+            '#027057']
         const slices = this.props.data.map((elem, index) => {
 
         if ((elem.percentTotalExpense > 0 && !showIncome) || (showIncome && elem.percentTotalIncome > 0)) {
@@ -44,13 +48,13 @@ export default class Pie extends Component<IPieChartProps> {
                         style={styles.pieChart}
                         data={data}
                         spacing={0}
-                        outerRadius={'100%'}
-                        innerRadius={'45%'}
+                        outerRadius={'120%'}
+                        innerRadius={'55%'}
                         >
                 </PieChart>}
-                {data.length > 0 && <View style={styles.sliceInfo}>
+                {data.length > 0 && <ScrollView style={styles.sliceInfo} contentContainerStyle={styles.sliceInfoContainer}>
                     {this.getSliceInfo(data)}
-                </View>}
+                </ScrollView>}
                 {data.length == 0 && <View style={styles.noData}>
                     <RNText style={styles.noDataText} > No data available </RNText> 
                 </View>}
@@ -59,6 +63,7 @@ export default class Pie extends Component<IPieChartProps> {
         }
   
     getSliceInfo(data){
+        data.sort((a, b) => (a.value > b.value) ? -1 : 1)
         return data.map((elem, index) => {
             return (
                 <TouchableOpacity 
@@ -100,19 +105,23 @@ const styles = EStyleSheet.create({
         flexDirection: 'row' 
     },
     pieChart: { 
-        flex: 2 
+        flex: 1.5
     },
     sliceInfo: {
         flex: 1, 
         flexDirection: 'column', 
-        alignItems: 'flex-start', 
-        justifyContent: 'center' 
+        alignSelf: 'center',
+        
+    },
+    sliceInfoContainer: {
+        alignItems: 'flex-start',
+        justifyContent: 'center',
     },
     sliceInfoTouchabel: { 
-        marginTop: 20, 
+        marginTop: 20,
         flexDirection: 'row', 
         alignItems: 'center', 
-        justifyContent: 'center' 
+        justifyContent: 'center'
     },
     sliceText: {
         marginLeft: 10
@@ -134,7 +143,7 @@ const styles = EStyleSheet.create({
             marginTop: 0,
             justifyContent: 'flex-start' 
         },
-        sliceInfo: {
+        sliceInfoContainer: {
             flexDirection: 'column',
             justifyContent: 'center',
         },
