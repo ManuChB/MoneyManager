@@ -4,6 +4,7 @@ import { Modal } from '.';
 import i18n from '../../service/i18n';
 import _ from 'lodash';
 import appConstants from '../../../appConstants';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export class DataPicker extends Component<IPickerProps> {
     _animatedIsFocused = new Animated.Value(0);
@@ -166,7 +167,7 @@ export class DataPicker extends Component<IPickerProps> {
     }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     iconModeView: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         color: 'white',
-        fontSize: 25,
+        fontSize: '1.7rem',
         textShadowColor: 'black',
         textShadowOffset: { width: 1, height: 4 },
         textShadowRadius: 0
@@ -247,6 +248,12 @@ const styles = StyleSheet.create({
         height: 35,
         marginLeft: 20,
         marginRight: 20
+    },
+    '@media (max-width: 350)': {
+
+        categoryText: {
+            fontSize: '0.9rem'
+        },
     }
 });
 

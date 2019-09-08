@@ -81,7 +81,7 @@
             "alimony": "Alimony"
         },
         "income": {
-            "dividend": "Dividend",
+            "dividends": "Dividends",
             "gift": "Gift",
             "interest": "Interest",
             "wage": "Wage",

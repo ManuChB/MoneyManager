@@ -12,12 +12,12 @@ import {
     AdMobRewarded
 } from 'expo-ads-admob';
 export default [
-    takeLatest(moneyManagerConstans.MONEY_MANAGER_SHOW_INTERSTITIAL_AD, initialize)
+    takeLatest(moneyManagerConstans.MONEY_MANAGER_SHOW_INTERSTITIAL_AD, showAd)
 ];
 
 
 
-export function* initialize() {
+export function* showAd() {
     try {
         const rand = Math.random() * (100);
         if(rand > 80){
@@ -30,7 +30,7 @@ export function* initialize() {
         }
         
     } catch (e) {
-        console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
+        console.log(`[error][money-manager][saga][showAd]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }

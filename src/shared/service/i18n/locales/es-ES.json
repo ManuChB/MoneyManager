@@ -81,7 +81,7 @@
             "alimony": "Pensión alimetária"
         },
         "income": {
-            "dividend": "Dividendo",
+            "dividends": "Dividendos",
             "gift": "Regalo",
             "interest": "Interés",
             "wage": "Salario",
@@ -153,7 +153,7 @@
             "barber": "Peluquería"
         },
         "children": {
-            "toys": "Juguete",
+            "toys": "Juguetes",
             "supplies": "Suministros",
             "school": "Colegio",
             "other": "Otro",
@@ -178,7 +178,7 @@
         "transportation": "Transporte",
         "health": "Salud",
         "daily": "Diario",
-        "children": "Niños",
+        "children": "Hijos",
         "obligations": "Obligaciones",
         "business": "Negocio",
         "entertainment": "Entretenimiento",

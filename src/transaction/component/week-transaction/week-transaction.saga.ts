@@ -10,6 +10,7 @@ import * as selectors from './selectors';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
 import transactionListAction from '../../transaction-list.action';
+import { AdMobInterstitial } from 'expo-ads-admob';
 
 export default [
     takeLatest(weekTransactionConstants.WEEK_TRANSACTION_INITIALIZE_START, initialize),
@@ -20,7 +21,8 @@ export default [
 
 export function* initialize() {
     try {
-        yield put(moneyManagerAction.moneyManagerShowInterstitialAd());
+        yield put(moneyManagerAction.moneyManagerShowSpinner());
+        yield call(showInterstitialAd);
         const date = new Date();
         const weekStart = moment(date).startOf('isoWeek');
         const weekEnd = moment(date).endOf('isoWeek');
@@ -28,6 +30,7 @@ export function* initialize() {
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
         yield put(weekTransactionAction.weekTransSetUserCurrency(uCurrency));
         yield put(weekTransactionAction.weekTransactionInitializeFinish());
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][week-transaction][saga][initialize]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
@@ -58,6 +61,25 @@ export function* getTransactionByDate() {
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][week-transaction][saga][getTransactionByDateRange]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
+    }
+}
+
+
+export function* showInterstitialAd() {
+    try {
+        const rand = Math.random() * (100);
+        if (rand > 80) {
+            yield put(moneyManagerAction.moneyManagerShowSpinner());
+            AdMobInterstitial.setAdUnitID('ca-app-pub-5759535791118818/6182743744'); // Test ID, Replace with your-admob-unit-id
+            AdMobInterstitial.setTestDeviceID('EMULATOR');
+            yield call(AdMobInterstitial.requestAdAsync);
+            yield call(AdMobInterstitial.showAdAsync);
+            yield put(moneyManagerAction.moneyManagerHideSpinner());
+        }
+
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }

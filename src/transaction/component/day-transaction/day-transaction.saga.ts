@@ -9,6 +9,7 @@ import TransactionsService from '../../../shared/service/transactions/transactio
 import transactionListAction from '../../transaction-list.action';
 import AsyncStorageService from '../../../shared/service/async-storage/async-storage.service';
 import appConstants from '../../../appConstants';
+import { AdMobInterstitial } from 'expo-ads-admob';
 
 export default [
     takeLatest(dayTransactionsConstants.DAY_TRANSACTION_INITIALIZE_START, initialize),
@@ -17,8 +18,8 @@ export default [
 
 export function* initialize() {
     try {
-        yield put(moneyManagerAction.moneyManagerShowInterstitialAd());
         yield put(moneyManagerAction.moneyManagerShowSpinner());
+        yield call(showInterstitialAd);
         const day = yield select(selectors.getDayTransaction);
         yield call(getTransactionByDate, { value: day });
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
@@ -61,6 +62,24 @@ export function* getTransactionByDate(action) {
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     } catch (e) {
         console.log(`[error][day-transaction][saga][getTransactionByDate]>>> ${e}`);
+        yield put(moneyManagerAction.moneyManagerHideSpinner());
+    }
+}
+
+export function* showInterstitialAd() {
+    try {
+        const rand = Math.random() * (100);
+        if (rand > 80) {
+            yield put(moneyManagerAction.moneyManagerShowSpinner());
+            AdMobInterstitial.setAdUnitID('ca-app-pub-5759535791118818/6182743744'); // Test ID, Replace with your-admob-unit-id
+            AdMobInterstitial.setTestDeviceID('EMULATOR');
+            yield call(AdMobInterstitial.requestAdAsync);
+            yield call(AdMobInterstitial.showAdAsync);
+            yield put(moneyManagerAction.moneyManagerHideSpinner());
+        }
+
+    } catch (e) {
+        console.log(`[error][day-transaction][saga][initialize]>>> ${e}`);
         yield put(moneyManagerAction.moneyManagerHideSpinner());
     }
 }

@@ -92,7 +92,7 @@ export default class AccountList extends Component<IAccountListProp> {
                     balLabel={'accountList.balance'}
                     currency={this.props.state.userCurrency} >
                 </BalanceInfo>
-                <AddButton onPress={() => this.onPressNewAccount()} customButtonStyle={rand>50 ? {bottom: 100}: {} }></AddButton>
+                <AddButton onPress={() => this.onPressNewAccount()} customButtonStyle={ {} }></AddButton>
 
                 <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                     {accountListByType.map((accountTypeList, typekey) => {
