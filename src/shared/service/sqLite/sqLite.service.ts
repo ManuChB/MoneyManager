@@ -102,7 +102,11 @@ class SQLiteService {
                             const row = rows.item(i);
                             data.push({ ...row, 
                                 value: _.isNumber(row.value) ? row.value : "0.00", 
-                                currency:{id: row.currencyId, name: row.currencyName, symbol: row.currencySymbol}, 
+                                currency: { id: row.currencyId, 
+                                    name: row.currencyName, 
+                                    symbol: row.currencySymbol, 
+                                    nameWithSymbol: row.currencyName + ` (${row.currencySymbol})`
+                                }, 
                                 type: {id: row.accountTypeId, name: row.accountTypeName, iconName: row.accountTypeIconName} 
                             });
                         }
@@ -183,6 +187,33 @@ class SQLiteService {
         });
     }
 
+    async getAllCurrency() {
+        return new Promise((resolve, reject) => {
+            config.db.transaction(tx => {
+                tx.executeSql(
+                    `SELECT 
+                        c.id,
+                        c.name,
+                        c.symbol, 
+                        i.id AS iconId, 
+                        i.name AS iconName 
+                    FROM currency c
+                    INNER JOIN imageIcon i ON i.id = c.icon`,
+                    [],
+                    (tx, results) => {
+                        const { rows } = results;
+                        let data = [];
+
+                        for (let i = 0; i < rows.length; i++) {
+                            const row = rows.item(i);
+                            data.push({ ...row, nameWithSymbol: row.name +` (${row.symbol})`, icon: {id: row.iconId, name: row.iconName} });
+                        }
+                        resolve(data);
+                    });
+            },
+                (err) => { console.log(`[error][sqLite][service][getAllFromCurrency]>>> ${err}`) });
+        });
+    }
 
     async addTransaction(data) {
         const { account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon } = data;

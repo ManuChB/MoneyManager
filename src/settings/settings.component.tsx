@@ -85,7 +85,8 @@ export default class Settings extends Component<ISettingsProp> {
                 <DataPicker 
                     dontTranslate={true}
                     label={'settingsScreen.mainCurrency'}
-                    value={this.props.state.currency ? this.props.state.currency.name : ''}
+                    value={this.props.state.currency ? this.props.state.currency.nameWithSymbol : ''}
+                    fieldToShow={'nameWithSymbol'}
                     data={this.props.state.currencyList}
                     onSelect={(currency) => this.props.actions.settingsSetCurrentCurrency(currency)}>
                 </DataPicker>

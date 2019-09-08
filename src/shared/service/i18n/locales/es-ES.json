@@ -16,7 +16,16 @@
     },
     "accountTypes":{
         "cash": "Efectivo",
-        "creditCard": "Tarjeta de crédito"
+        "creditCard": "Tarjeta de crédito",
+        "bank": "Banco",
+        "debit": "Tarjeta de débito",
+        "prepaid": "Tarjeta prepago",
+        "inverstment": "Inversión",
+        "saving": "Ahorro",
+        "loan": "Préstamo",
+        "assurance": "Seguro",
+        "overdraft": "Deuda",
+        "other": "Otro"
     },
     "balanceInfo": {
         "income": "BENEFICIOS",

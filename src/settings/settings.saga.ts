@@ -18,7 +18,7 @@ export function* initialize() {
     try {
         const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE );
         yield put(settingsAction.settingsSetCurrentLanguage(uLanguage));
-        const currencyList = yield call(sqLiteService.getAllFrom, appConstants.sqliteTable.currency);
+        const currencyList = yield call(sqLiteService.getAllCurrency);
         yield put(settingsAction.settingsSetCurrencyList(currencyList));
         const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
         yield put(settingsAction.settingsSetCurrentCurrency(uCurrency));

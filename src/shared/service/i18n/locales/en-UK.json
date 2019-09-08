@@ -16,7 +16,16 @@
     },
     "accountTypes": {
         "cash": "Cash",
-        "creditCard": "Credit card"
+        "creditCard": "Credit card",
+        "bank": "Bank",
+        "debit": "Debit card",
+        "prepaid": "Prepaid card",
+        "inverstment": "Inverstment",
+        "saving": "Saving",
+        "loan": "Loan",
+        "assurance": "Assurance",
+        "overdraft": "Overdraft",
+        "other": "Other"
     },
     "balanceInfo": {
         "income": "INCOME",

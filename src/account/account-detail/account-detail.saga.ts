@@ -13,7 +13,7 @@ export default [
 
 export function* initialize() {
     try {
-        const currencyList = yield call(sqLiteService.getAllFrom, appConstants.sqliteTable.currency);
+        const currencyList = yield call(sqLiteService.getAllCurrency);
         const accountTypeList = yield call(sqLiteService.getAllFrom, appConstants.sqliteTable.accountType);
         yield put(accountDetailAction.setPickersData(currencyList, accountTypeList));
 

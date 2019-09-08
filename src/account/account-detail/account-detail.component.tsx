@@ -69,9 +69,10 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                         />
                         <DataPicker label={'accountDetail.currency'}
                             dontTranslate={true}
-                            value={account.currency ? account.currency.name : ''}
+                            value={account.currency ? account.currency.nameWithSymbol : ''}
+                            fieldToShow={'nameWithSymbol'}
                             data={currencyList}
-                            onSelect={(currency) => this.props.actions.accountDetailDataChange({ ...account, currency })}>
+                            onSelect={(currency) => this.props.actions.accountDetailDataChange({ ...account, currency }) }>
                         </DataPicker>
                             <View style={{
                                 justifyContent: 'flex-end',
