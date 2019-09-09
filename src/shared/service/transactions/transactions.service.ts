@@ -22,9 +22,10 @@ class TransactionService {
             if(transactions.length > 0) {
                 transactions.forEach(element => {
                     if (element.isExpense || element.value < 0.00) {
-                        expense += element.value;
+
+                        expense += element.rateValue ? element.rateValue : element.value;
                     } else {
-                        income += element.value;
+                        income += element.rateValue ? element.rateValue : element.value;
                     }
                 });
                 balance = income - expense;

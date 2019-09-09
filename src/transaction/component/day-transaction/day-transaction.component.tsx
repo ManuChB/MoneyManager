@@ -36,7 +36,12 @@ export default class DayTransaction extends Component<IDayTransactionProp> {
                         </Text>
                     </View>
                     {transactions.data.map((tranaction, subkey) => {
-                        return (<Transaction data={tranaction} key={key + "_" + subkey} onPress={() => this.onPressTransaction(tranaction)}></Transaction>)
+                        return (<Transaction 
+                            data={tranaction} 
+                            key={key + "_" + subkey} 
+                            onPress={() => this.onPressTransaction(tranaction)} 
+                            currency={userCurrency}>
+                        </Transaction>)
                     })}
                 </View>
             )

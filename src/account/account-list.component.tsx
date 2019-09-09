@@ -52,7 +52,12 @@ export default class AccountList extends Component<IAccountListProp> {
                         currency={this.props.state.userCurrency}>
                         </BalanceInfo>} 
                     {accountTypeList.data.map((account, key) => {
-                        return (<Account key={typekey + "_" + key} data={account} onPress={() => this.onPressAccount(account)} ></Account>)
+                        return (<Account 
+                            key={typekey + "_" + key} 
+                            data={account} 
+                            onPress={() => this.onPressAccount(account)}
+                            uCurrency={this.props.state.userCurrency} >
+                            </Account>)
                     })}
                 </View>
             )

@@ -50,7 +50,8 @@ const constants = {
         TRANSACTIONS_BY_CATEGORY: 'TRANSACTIONS_BY_CATEGORY',
         USER_ACCOUNTS: 'USER_ACCOUNTS',
         USER_TRANSACTIONS: 'USER_TRANSACTIONS',
-        USER_ID: 'USER_ID'
+        USER_ID: 'USER_ID',
+        RATES: 'RATES'
     },
 
     sqliteTable: {

@@ -9,8 +9,8 @@ import { IAccountData } from '../../../account/account/account.model';
 import i18n from '../../../shared/service/i18n';
 import currencyFormatter from 'currency-formatter';
 
-const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLongPress}) => {
-    const { value, account, icon, categoryId, subCategory, description, isExpense } = data;
+const Transaction: StatelessComponent<ITransactionProp> = ({ data, onPress, onLongPress, currency}) => {
+    const { value, account, icon, categoryId, subCategory, description, isExpense, rateValue } = data;
 
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress} onLongPress={onLongPress}>
@@ -32,6 +32,9 @@ const Transaction: StatelessComponent<ITransactionProp> = ({data, onPress, onLon
                     <Text style={[styles.valueStyle, isExpense ? styles.expense : styles.income]}>
                         {currencyFormatter.format(value, { code: account && account.currency ? account.currency.name : 'YPN', locale: i18n.getLocale() })}
                     </Text>
+                    {rateValue && <Text style={[styles.valueRateStyle]}>
+                        {currencyFormatter.format(rateValue, { code: currency ? currency.name: 'YPN', locale: i18n.getLocale() })}
+                    </Text>}
                 </View>
             </View>
         </TouchableOpacity>
@@ -44,20 +47,20 @@ export interface ITransactionProp {
     data: ITransactionDataProp;
     onPress: ()=> void;
     onLongPress?: () => void;
-
-    
+    currency?: any;
 }
 
 export interface ITransactionDataProp {
     id?: string;
-    value?: number,
-    oldValue?: number,
-    account?: IAccountData,
-    icon?: {id: number, name: string, icon: any},
-    categoryId?: string,
-    subCategory?: { id: number, value: string, icon:{id: number, name: string}},
-    description?: string
+    value?: number;
+    oldValue?: number;
+    account?: IAccountData;
+    icon?: { id: number, name: string, icon: any };
+    categoryId?: string;
+    subCategory?: { id: number, value: string, icon: { id: number, name: string } };
+    description?: string;
     date?: Moment;
     isExpense?: boolean;
     wasExpense?: boolean;
+    rateValue?: number;
 }

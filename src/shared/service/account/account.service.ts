@@ -33,9 +33,9 @@ class AccountService {
             var balance = 0;
             accounts.forEach(element => {
                 if (element.value < 0.00) {
-                    expense += element.value;
+                    expense += element.rateValue ? element.rateValue : element.value;
                 } else {
-                    income += element.value;
+                    income += element.rateValue ? element.rateValue : element.value;
                 }
             });
             balance = income + expense;

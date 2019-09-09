@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600'
     },
+    valueRateStyle: {
+        color: 'grey',
+        fontSize: 12,
+        fontWeight: '600'
+    },
     textStyle: {
         borderBottomWidth: 1,
         borderBottomColor: '#d3d3d3'

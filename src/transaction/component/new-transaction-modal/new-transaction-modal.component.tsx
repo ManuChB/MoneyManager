@@ -30,8 +30,8 @@ export default class  extends Component<ITransactionDetailProp> {
 
     changeValue(value: string){
         const { data } = this.props.state;
-        const currency = (data.account && data.account.currency) ?data.account.currency.name : "";
-        this.props.actions.changeData({ ...data, value: parseFloat(value.replace(currency, "").replace(" ", "")) })
+        const currency = (data.account && data.account.currency) ? data.account.currency.name : "";
+        this.props.actions.changeData({ ...data, value: value.replace(currency, "").replace(" ", "") })
     }
 
     checkEmpty() {
@@ -136,7 +136,7 @@ export default class  extends Component<ITransactionDetailProp> {
                         <Input
                             inputRef={ref => this.valueInput = ref}
                             label={'newTransaction.value'}
-                            value={data.value ? (data.account && data.account.currency) ? data.account.currency.symbol + " " + data.value.toString() : data.value.toString() : ""}
+                            value={data.value ? (data.account && data.account.currency) ? data.account.currency.name + " " + data.value.toString() : data.value.toString() : ""}
                             onChangeText={(value) => this.changeValue(value)}
                             returnKeyType={"next"}
                             keyboard={'numeric'}

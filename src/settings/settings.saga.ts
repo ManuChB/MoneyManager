@@ -6,6 +6,7 @@ import AsyncStorageService from '../shared/service/async-storage/async-storage.s
 import appConstants from '../appConstants';
 import moneyManagerAction from '../money-manager/money-manager.action';
 import sqLiteService from '../shared/service/sqLite/sqLite.service';
+import axios from 'axios';
 
 export default [
     takeLatest(settingsConstants.SETTINGS_INITIALIZE_START, initialize),
@@ -40,6 +41,8 @@ export function* updateLanguage(action) {
 export function* updateCurrency(action) {
     try {
         yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, action.value);
+        const rates = yield call(getRatesFromAPI, action.value.name)
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.RATES, rates);
     } catch (e) {
         console.log(`[error][settings][saga][updateCurrency]>>> ${e}`);
     }
@@ -57,3 +60,15 @@ export function* logOut() {
 
 }
 
+
+function getRatesFromAPI(currency) {
+    return axios.get(
+        `http://api.openrates.io/latest?base=${currency}`
+    )
+        .then(response => {
+            return response.data.rates;
+        })
+        .catch(error => {
+            console.log(`[error][settings][saga][getRatesFromAPI]>>> ${error}`);
+        });
+}

@@ -74,6 +74,9 @@ class SQLiteService {
 
     async getAllAccounts() {
         const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
+        const uCurrency = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_CURRENCY);
+        const rates = await AsyncStorageService.getItem(appConstants.asyncStorageItem.RATES);
+
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
@@ -100,6 +103,7 @@ class SQLiteService {
                         let data = [];
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
+                            const rateValue = row.currencyName != uCurrency.name ? (_.isNumber(row.value) ? row.value : 0.00) / rates[row.currencyName] : null;
                             data.push({ ...row, 
                                 value: _.isNumber(row.value) ? row.value : "0.00", 
                                 currency: { id: row.currencyId, 
@@ -107,7 +111,8 @@ class SQLiteService {
                                     symbol: row.currencySymbol, 
                                     nameWithSymbol: row.currencyName + ` (${row.currencySymbol})`
                                 }, 
-                                type: {id: row.accountTypeId, name: row.accountTypeName, iconName: row.accountTypeIconName} 
+                                type: {id: row.accountTypeId, name: row.accountTypeName, iconName: row.accountTypeIconName} ,
+                                rateValue
                             });
                         }
                         resolve(data);
@@ -240,6 +245,8 @@ class SQLiteService {
 
     async getTransactionsByDate(day) {
         const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
+        const uCurrency = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_CURRENCY);
+        const rates = await AsyncStorageService.getItem(appConstants.asyncStorageItem.RATES);
 
         const query = `SELECT 
                         transactions.id AS id,
@@ -283,6 +290,7 @@ class SQLiteService {
                         let data = [];
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
+                            const rateValue = row.accountCurrency != uCurrency.name ? (_.isNumber(row.value) ? row.value : 0.00) / rates[row.accountCurrency] : null;
                             data.push({
                                 ...row,
                                 value: _.isNumber(row.value) ? row.value : 0.00,
@@ -296,7 +304,8 @@ class SQLiteService {
                                     description: row.accountDescription, 
                                     currency: { id: row.accountCurrencyId, name: row.accountCurrency },
                                     type: { id: row.accountTypeId, name: row.accountTypeName }
-                                }
+                                },
+                                rateValue
                             });
                         }
                         resolve(data);
@@ -308,6 +317,8 @@ class SQLiteService {
 
     async getTransactionsByDateRange(dateStart, dateEnd) {
         const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
+        const uCurrency = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_CURRENCY);
+        const rates = await AsyncStorageService.getItem(appConstants.asyncStorageItem.RATES);
 
         const query = `SELECT 
                         transactions.id AS id,
@@ -352,6 +363,8 @@ class SQLiteService {
                         let data = [];
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
+                            const rateValue = row.accountCurrency != uCurrency.name ? (_.isNumber(row.value) ? row.value : 0.00) / rates[row.accountCurrency] : null;
+
                             data.push({
                                 ...row,
                                 value: _.isNumber(row.value) ? row.value : 0.00,
@@ -365,7 +378,8 @@ class SQLiteService {
                                     description: row.accountDescription,
                                     currency: { id: row.accountCurrencyId, name: row.accountCurrency },
                                     type: { id: row.accountTypeId, name: row.accountTypeName }
-                                }
+                                },
+                                rateValue
                             });
                         }
                         resolve(data);

@@ -29,4 +29,5 @@ export interface IAccountData {
     description?: string;
     type?: {id: string, name: string, iconName: string};
     currency?: { id: string, name: string, nameWithSymbol: string };
+    rateValue?: number;
 }

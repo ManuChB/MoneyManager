@@ -12,6 +12,7 @@ import i18n from 'i18n-js';
 
 import * as Localization from 'expo-localization';
 import SQLiteService from '../shared/service/sqLite/sqLite.service';
+import axios from 'axios';
 
 export default [
     takeLatest(INITIALIZE_START, initialize)
@@ -37,26 +38,43 @@ export function* initialize() {
 }
 
 export function* setDefaultParams() {
-    i18nService.setI18n(i18n);
-    const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
-    if (uLanguage) {
-        i18nService.setLocale(uLanguage.code);
-    } else {
-        const deviceLanguage = languages.filter(
-            function (language) {
-                return language.code == Localization.locale;
-            }
-        )[0];
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_LANGUAGE, deviceLanguage || defaultLanguage);
-        i18nService.setLocale(deviceLanguage ? deviceLanguage.code : defaultLanguage.code);
+    try {
+        i18nService.setI18n(i18n);
+        const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
+        if (uLanguage) {
+            i18nService.setLocale(uLanguage.code);
+        } else {
+            const deviceLanguage = languages.filter(
+                function (language) {
+                    return language.code == Localization.locale;
+                }
+            )[0];
+            yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_LANGUAGE, deviceLanguage || defaultLanguage);
+            i18nService.setLocale(deviceLanguage ? deviceLanguage.code : defaultLanguage.code);
+        }
+        const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
+        if(!uCurrency) {
+            yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, defaultLanguage.currency);
+        }
+        const currency = uCurrency.name || defaultLanguage.currency.name;
+        const rates = yield call(getRatesFromAPI, currency)
+        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.RATES, rates);
+    } catch (e) {
+        console.log(`[error][splash][saga][setDefaultParams]>>> ${e}`);
     }
-    const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
-    if(!uCurrency) {
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, defaultLanguage.currency);
-
-    }
-
-
 }
 
+
+function getRatesFromAPI(currency) {
+    return axios.get(
+        `http://api.openrates.io/latest?base=${currency}`
+    )
+        .then(response => {
+            return response.data.rates;
+
+        })
+        .catch(error => {
+            console.log(`[error][splash][saga][getRatesFromAPI]>>> ${error}`);
+        });
+}
 

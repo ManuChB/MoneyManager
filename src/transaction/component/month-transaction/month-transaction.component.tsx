@@ -43,7 +43,12 @@ export default class MonthTransaction extends Component<IMonthTransactionProp> {
                         </Text>
                     </View>
                     {transactions.data.map((tranaction, subkey) => {
-                        return (<Transaction data={tranaction} key={key + "_" + subkey} onPress={() => this.onPressTransaction(tranaction)}></Transaction>)
+                        return (<Transaction 
+                            data={tranaction} 
+                            key={key + "_" + subkey} 
+                            onPress={() => this.onPressTransaction(tranaction)}
+                            currency={userCurrency}>
+                            </Transaction>)
                     })}
                 </View>
             )
