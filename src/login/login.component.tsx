@@ -76,7 +76,6 @@ export default class Login extends Component<ILoginProp> {
     }
     render() {
         return (
-
             <TouchableWithoutFeedback style={{flex:1}} onPress={()=> Keyboard.dismiss()}>
                 <View style={{ flex: 1, backgroundColor: 'red' }} pointerEvents={(this.props.state.showSpinner || !this.state.isConnected) ? 'none' : 'auto'}>
                     {(this.props.state.showSpinner || !this.state.isConnected) && <Spinner conectionError={!this.state.isConnected}></Spinner>}

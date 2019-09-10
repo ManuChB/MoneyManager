@@ -115,7 +115,6 @@ export class DataPicker extends Component<IPickerProps> {
                 outputRange: [1, 1],
             })
         };
-
         return (
             <TouchableOpacity 
                 style={[styles.containerStyle, customContainerStyle]} 
@@ -138,7 +137,7 @@ export class DataPicker extends Component<IPickerProps> {
                 </TouchableOpacity>}
                 {icon && 
                 <TouchableOpacity onPress={() => this.setState({ showModal: true })} style={{ height:40 }}>
-                    <Image style={styles.imageStyle} source={icon} />
+                    <Image style={styles.imageStyle} source={appConstants.transactionIcons[icon.name]} />
                 </TouchableOpacity>}
             </TouchableOpacity>
         )
