@@ -115,6 +115,7 @@ class SQLiteService {
                                 rateValue
                             });
                         }
+                        _this.updateUserLastLogin(uid);
                         resolve(data);
                     });
             },
@@ -123,13 +124,15 @@ class SQLiteService {
     }
 
     async addAccount(account) {
-        const { name, uid, value, currency, type, description } = account;
+        const { name, uid, value, currency, type, description, firebaseId } = account;
         const desc = description ? description : null;
+        const firebase = firebaseId || null;
+
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    'INSERT INTO account (name, uid, value, currencyId, typeId, description) VALUES (?,?,?,?,?,?)',
-                    [name, uid, value, currency.id, type.id, desc],
+                    'INSERT OR REPLACE INTO account (name, uid, value, currencyId, typeId, description, firebaseId) VALUES (?,?,?,?,?,?,?)',
+                    [name, uid, value, currency.id, type.id, desc, firebase],
                     (tx, results) => {
                         resolve(results.insertId);
                     });
@@ -221,14 +224,24 @@ class SQLiteService {
     }
 
     async addTransaction(data) {
-        const { account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon } = data;
+        const {id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon, firebaseId } = data;
+        let query = null;
+        
         const imageId = icon ? `"${icon.id}"` : `"${subCategory.icon.id}"`;
         const desc = description ? `"${description}"` : null;
+        const firebase = firebaseId ? `"${firebaseId}"` : null;
 
-        const query = `INSERT INTO transactions (uid, accountId, date, categoryId, subCategoryId, value, oldValue, isExpense, wasExpense, imageIconId, description) 
-        VALUES ("${uid}","${account}","${moment(date).format("YYYY-MM-DD")}","${categoryId}","${subCategory.id}","${value}","${oldValue}",
-                "${isExpense ? 1 : 0}","${wasExpense ? 1 : 0}",${imageId}, ${desc}
-        )`;
+        if (id.toString().includes(appConstants.localId.transaction)) {
+            query = `INSERT OR REPLACE INTO transactions (uid, accountId, date, categoryId, subCategoryId, value, oldValue, isExpense, wasExpense, imageIconId, description, firebaseId) 
+            VALUES ("${uid}","${account}","${moment(date).format("YYYY-MM-DD")}","${categoryId}","${subCategory.id}","${value}","${oldValue}",
+                    "${isExpense ? 1 : 0}","${wasExpense ? 1 : 0}",${imageId}, ${desc}, ${firebase}
+            )`;
+        } else {
+            query = `INSERT OR REPLACE INTO transactions (id, uid, accountId, date, categoryId, subCategoryId, value, oldValue, isExpense, wasExpense, imageIconId, description, firebaseId) 
+            VALUES ("${id}", "${uid}","${account}","${moment(date).format("YYYY-MM-DD")}","${categoryId}","${subCategory.id}","${value}","${oldValue}",
+                    "${isExpense ? 1 : 0}","${wasExpense ? 1 : 0}",${imageId}, ${desc}, ${firebase}
+            )`;
+        }
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
@@ -273,7 +286,7 @@ class SQLiteService {
                         accountType.id AS accountTypeId,
                         accountType.name AS accountTypeName
                     FROM transactions
-                    INNER JOIN account on account.id = transactions.accountId
+                    INNER JOIN account on account.firebaseId = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
                     INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
                     INNER JOIN currency on currency.id = account.currencyId
@@ -308,6 +321,7 @@ class SQLiteService {
                                 rateValue
                             });
                         }
+                        _this.updateUserLastLogin(uid);
                         resolve(data);
                     });
             },
@@ -345,7 +359,7 @@ class SQLiteService {
                         accountType.id AS accountTypeId,
                         accountType.name AS accountTypeName
                     FROM transactions
-                    INNER JOIN account on account.id = transactions.accountId
+                    INNER JOIN account on account.firebaseId = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
                     INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
                     INNER JOIN currency on currency.id = account.currencyId
@@ -382,6 +396,7 @@ class SQLiteService {
                                 rateValue
                             });
                         }
+                        _this.updateUserLastLogin(uid);
                         resolve(data);
                     });
             },
@@ -425,12 +440,12 @@ class SQLiteService {
     }
 
     async addOrReplaceUser(user) {
-        const {id, mail, language, currency, version } = user;
+        const { id, mail, language, currency, version, lastLogIn } = user;
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `INSERT OR REPLACE INTO user (id, mail, language, currency, version) VALUES (?,?,?,?,?)`,
-                    [id, mail, language, currency, version],
+                    `INSERT OR REPLACE INTO user (id, mail, language, currency, version, lastLogIn) VALUES (?,?,?,?,?,?)`,
+                    [id, mail, language, currency, version, lastLogIn],
                     (tx, results) => {
                         resolve(results);
                     });
@@ -439,16 +454,28 @@ class SQLiteService {
         });
     }
 
-    async getUser(user){
+    async updateUserLastLogin(uid) {
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `SELECT * FROM user WHERE id = "${user.id}"`,
+                    `UPDATE user SET lastLogIn="${moment().toString()}" WHERE id="${uid}"`,
+                    (tx, results) => {
+                        resolve(results);
+                    });
+            },
+                (err) => { console.log(`[error][sqLite][service][updateUserLastLogin]>>> ${err}`) });
+        });
+    }
+
+    async getUser(userId){
+        return new Promise((resolve, reject) => {
+            config.db.transaction(tx => {
+                tx.executeSql(
+                    `SELECT * FROM user WHERE id = "${userId}"`,
                     [],
                     (tx, results) => {
                         const { rows } = results;
                         let data = [];
-
                         for (let i = 0; i < rows.length; i++) {
                             const row = rows.item(i);
                             data.push({ ...row });

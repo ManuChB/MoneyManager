@@ -65,7 +65,23 @@ class FirebaseService {
         }));
 
     }
+    async getTransactionsAfterDate(date, uid) {
+        const d = new Date(date);
+        const snapshot = await db.collection(appConstants.collection.transactions).where('updateDate', '>', d).where('uid', '==', uid).get(); // "capital", "==", true
+        return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
+            return { ...doc.data(), date: moment.unix(doc.data().date.seconds), firebaseId: doc.id };
+        }));
 
+    }
+
+    async getAccountsAfterDate(date, uid) {
+        const d = new Date(date);
+        const snapshot = await db.collection(appConstants.collection.accounts).where('updateDate', '>', d).where('uid', '==', uid).get(); // "capital", "==", true
+        return await Promise.all(snapshot.docs.map(async (doc): Promise<any> => {
+            return { ...doc.data(), firebaseId: doc.id };
+        }));
+
+    }
     async getTransactionsByDateRange(dateStart, datEnd) {
         const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
         const snapshot = await db.collection(appConstants.collection.transactions)
@@ -140,7 +156,9 @@ class FirebaseService {
 
     async removeFromCollection(collection, data) {
         //console.log(`[FirebaseService][removeFromCollection] ${collection} [data] ${data.id}`);
-        return await db.collection(collection).doc(data.firebaseId).delete();
+        //return await db.collection(collection).doc(data.firebaseId).delete();
+        db.collection(collection).doc(data.firebaseId.toString()).update({...data, deleted: true} );
+
     }
 }
 

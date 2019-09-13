@@ -1,4 +1,4 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 import loginAction from './login.action';
 import loginConstants from './login.constant';
 import NavigationService from '../shared/service/navigation/navigation.service';
@@ -7,6 +7,7 @@ import AsyncStorageService from '../shared/service/async-storage/async-storage.s
 import appConstants from '../appConstants';
 import i18n from '../shared/service/i18n';
 import sqLiteService from '../shared/service/sqLite/sqLite.service';
+import moment from 'moment';
 
 let pkg = require('../../package.json');
 
@@ -52,6 +53,7 @@ export function* logInUser(action) {
     try {
         yield put(loginAction.showSpinner(true));
         const response = yield call(FirebaseService.logIn, userName, password);
+        yield call(syncDataWithFirebase, response.user.uid);
         yield call(setUserData, response.user.uid, userName);
         yield put(loginAction.errorMessage(''));
         yield put(loginAction.showSpinner(false));
@@ -114,7 +116,58 @@ export function* setUserData(uid, mail) {
 
     }
     yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_ID, uid);
-    yield call(sqLiteService.addOrReplaceUser, { id: uid, mail, language: uLanguage.code, currency: uCurrency.name || uLanguage.currency, version: pkg.version });
+    yield call(sqLiteService.addOrReplaceUser, { id: uid, mail, language: uLanguage.code, currency: uCurrency.name || uLanguage.currency, version: pkg.version, lastLogIn: moment().toString() });
+}
 
-    const use= yield call(sqLiteService.getUser, { id: uid});
+
+function* syncDataWithFirebase(uid) {
+    try {
+        const user = yield call(sqLiteService.getUser, uid);
+        const date = user && user.lastLogIn ? user.lastLogIn : new Date(0); 
+        const dataAccounts = yield call(FirebaseService.getAccountsAfterDate, date, uid);
+        yield all(dataAccounts.map(e => {
+            if (e.deleted == true) {
+                return call(sqLiteService.removeAccount, { id: e.id, uid: e.uid });
+            } else {
+                const elem = {
+                    id: e.id,
+                    name: e.name,
+                    uid: e.uid,
+                    value: e.value,
+                    currency: e.currency,
+                    type: e.type,
+                    description: e.description,
+                    firebaseId: e.firebaseId
+                };
+                return call(sqLiteService.addAccount, elem);
+            }
+        }))
+        const data = yield call(FirebaseService.getTransactionsAfterDate, date, uid);
+
+        yield all(data.map(e => {
+            if (e.deleted == true) {
+                return call(sqLiteService.removeTransaction, { id: e.id, uid: e.uid });
+            } else {
+                const elem = {
+                    id: e.id,
+                    account: e.account,
+                    categoryId: e.categoryId,
+                    date: moment(e.date).format("YYYY-MM-DD"),
+                    isExpense: e.isExpense,
+                    oldValue: e.oldValue,
+                    subCategory: e.subCategory,
+                    uid: e.uid,
+                    value: e.value,
+                    wasExpense: e.wasExpense,
+                    description: e.description,
+                    icon: null,
+                    firebaseId: e.id
+                };
+                return call(sqLiteService.addTransaction, elem);
+            }
+        }))
+        call(sqLiteService.updateUserLastLogin, uid);
+    } catch (e) {
+        console.log(`[error][splash][login][syncDataWithFirebase]>>> ${e}`);
+    }
 }

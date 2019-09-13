@@ -6,6 +6,7 @@ import NavigationService from '../navigation/navigation.service';
 import AsyncStorageService from '../async-storage/async-storage.service';
 import { database } from 'firebase';
 import sqLiteService from '../sqLite/sqLite.service';
+import moment from 'moment';
 
 let _this;
 class AccountService {
@@ -50,7 +51,14 @@ class AccountService {
             if (account.id.includes(appConstants.localId.account)) {
                 const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
                 const insertId = await sqLiteService.addAccount({ ...account, uid: uid });
-                const item = await FirebaseService.addToCollection(appConstants.collection.accounts, { ...account, uid: uid, id: insertId });
+                const item = await FirebaseService.addToCollection(
+                    appConstants.collection.accounts, 
+                    { ...account, 
+                        uid: uid, 
+                        id: insertId, 
+                        updateDate: new Date()
+                    }
+                );
                 await sqLiteService.updateAccount({ ...account, uid: uid, id: insertId, firebaseId: item.id });
             }
             else{
@@ -67,7 +75,10 @@ class AccountService {
                 await _this.newAccount(account);
             } else {
                 await sqLiteService.updateAccount(account);
-                FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, account);
+                FirebaseService.updateDocumentInCollection(appConstants.collection.accounts, 
+                    {...account,
+                    updateDate: new Date()}
+                );
             }
         } catch (e) {
             console.log(`[error][accountService][updateAccount]>>> ${e}`);
@@ -92,7 +103,10 @@ class AccountService {
 
     async removeAccount(account) {
         try {
-            FirebaseService.removeFromCollection(appConstants.collection.accounts, account);
+            FirebaseService.removeFromCollection(appConstants.collection.accounts, {
+                ...account,
+                updateDate: new Date()
+            });
             await sqLiteService.removeAccount(account);
         } catch (e) {
             console.log(`[error][accountService][removeAccount]>>> ${e}`);

@@ -216,6 +216,8 @@ const constants = {
         icon: require('../assets/images/icons8-cash-filled-64.png')
     },
     languageIcon: {
+        spanish: require('../assets/images/spain-flag-80.png'),
+        english: require('../assets/images/uk-flag-80.png'),
     },
     swipeConstants: {
         velocityThreshold: 0.1,

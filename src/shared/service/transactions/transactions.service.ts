@@ -40,9 +40,9 @@ class TransactionService {
         try {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 const uid = await AsyncStorageService.getItem(appConstants.asyncStorageItem.USER_ID);
-                const trans = { ...transaction, date: transaction.date.toDate(), account: transaction.account.id, uid: uid }
+                const trans = { ...transaction, date: transaction.date.toDate(), account: transaction.account.firebaseId, uid: uid }
                 const insertId = await sqLiteService.addTransaction(trans);
-                const item = await FirebaseService.addToCollection(appConstants.collection.transactions, { ...trans, id: insertId });
+                const item = await FirebaseService.addToCollection(appConstants.collection.transactions, { ...trans, id: insertId, updateDate: new Date()  });
                 await sqLiteService.updateTransaction({ ...trans, id: insertId, firebaseId: item.id });
                 await _this.updateAccountValue({ ...transaction, uid: uid} );
             }
@@ -57,10 +57,10 @@ class TransactionService {
             if (transaction.id.toString().includes(appConstants.localId.transaction)) {
                 await _this.newTransaction(transaction);
             } else {
-                const trans = { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.id };
+                const trans = { ...transaction, date: moment(transaction.date).toDate(), account: transaction.account.firebaseId };
                 await _this.updateAccountValue(transaction);
                 await sqLiteService.updateTransaction(trans);
-                FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, trans);
+                FirebaseService.updateDocumentInCollection(appConstants.collection.transactions, { ...trans, updateDate: new Date()});
             }
         } catch (e) {
             console.log(`[error][transactionService][updateTransaction]>>> ${e}`);
@@ -161,7 +161,7 @@ class TransactionService {
             const value = transaction.isExpense ? transaction.account.value + transaction.value : transaction.account.value - transaction.value;
             AccountService.updateAccount({ ...transaction.account, value, uid: transaction.uid })
 
-            FirebaseService.removeFromCollection(appConstants.collection.transactions, transaction);
+            FirebaseService.removeFromCollection(appConstants.collection.transactions, { ...transaction, updateDate: new Date() } );
         } catch (e) {
             console.log(`[error][transactionService][removeTransaction]>>> ${e}`);
         }
