@@ -13,6 +13,8 @@ export interface IAccountDetailAction {
     accountDetailInitializeFinish?: () => Action;
     accountDetailDataChange?: (account: IAccountData) => Action;
     setPickersData?: (currencyList: Array<{ id: number, name: string }>, accountTypeList: Array<{ id: number, name: string }>) => Action;
+    accountDetailShowDeleteModal?: () => Action;
+    accountDetailHideDeleteModal?: () => Action;
 
 }
 
@@ -24,5 +26,6 @@ export interface IAccountDetailState {
     onRemove: (data: IAccountData) => void;
     currencyList?: Array<{id: number, name: string}>;
     accountTypeList?: Array<{ id: number, name: string }>;
+    showDeleteModal?: boolean;
 
 }

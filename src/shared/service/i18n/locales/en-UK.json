@@ -6,7 +6,8 @@
         "value": "Value",
         "currency": "Currency",
         "newAccount": "New Account",
-        "updateAccount": "Update Account"
+        "updateAccount": "Update Account",
+        "deleteAccount": "By deleting the account all associated transactions will also be deleted. Are you sure you want to continue?"
     },
     "accountList": {
         "globalBalance": "Global balance",

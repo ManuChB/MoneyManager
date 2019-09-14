@@ -6,7 +6,8 @@
         "value": "Valor",
         "currency": "Moneda",
         "newAccount": "Crear cuenta",
-        "updateAccount": "Actualizar cuenta"
+        "updateAccount": "Actualizar cuenta",
+        "deleteAccount": "Al eliminar la cuenta, también se eliminarán todas las transacciones asociadas. Estás seguro de que quieres continuar?"
     },
     "accountList":{
         "globalBalance": "Balance global",

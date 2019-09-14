@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Image } from 'react-native';
 import { IAccountDetailProp } from './account-detail.model';
-import { Header, Button, Input, KeyboardShift } from '../../shared/components/common';
+import { Header, Button, Input, KeyboardShift, Modal } from '../../shared/components/common';
 import appConstants from '../../appConstants';
 import styles from './account-detail.component.style';
 import _ from 'lodash';
@@ -17,11 +17,31 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
     }
 
      render() {
-        const { account, onClose, onSave, currencyList, accountTypeList, onRemove } = this.props.state;
+         const { account, onClose, onSave, currencyList, accountTypeList, onRemove, showDeleteModal } = this.props.state;
         const newAccount = _.isEmpty(account) || !account.id;
         return (
             <View style={{ flex: 1 }}>
                 <Header></Header>
+                {showDeleteModal && <Modal
+                    closeModal={this.props.actions.accountDetailHideDeleteModal.bind(this)}
+                    customModal={styles.deleteModalCustom}
+                    customButton={styles.deleteModalButton}>
+                    <Image style={styles.deleteModalIcon} source={require('../../../assets/images/alert-100.png')} />
+
+                    <Text style={styles.deleteModalText}> {i18n.t('accountDetail.deleteAccount')}</Text>
+                    <View style={styles.deleteModalView}>
+                        <Button
+                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
+                            onPress={() => { onRemove(account); this.props.actions.accountDetailHideDeleteModal(); }}
+                            label={'common.button.delete'}>
+                        </Button>
+                        <Button
+                            customButtonStyle={{ flex: 1 }}
+                            onPress={() => this.props.actions.accountDetailHideDeleteModal()}
+                            label={'common.button.cancel'}>
+                        </Button>
+                    </View>
+                </Modal>}
                 <KeyboardShift hasHeader={true}>
                     {() => (
                     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
@@ -31,7 +51,7 @@ export default class AccountDetail extends Component<IAccountDetailProp> {
                             </Text>
                             {!newAccount && <Button
                                 customButtonStyle={styles.deleteButton}
-                                onPress={() => onRemove(account)}
+                                onPress={() =>this.props.actions.accountDetailShowDeleteModal()}
                                 icon={require('../../../assets/images/delete-bin-64.png')}>
                             </Button>}
                         </View>

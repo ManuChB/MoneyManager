@@ -82,21 +82,8 @@ export default class  extends Component<ITransactionDetailProp> {
                     customButton={styles.deleteModalButton}>
                     <Image style={styles.deleteModalIcon} source={require('../../../../assets/images/alert-100.png')} />
 
-                    <Text style={{
-                        flex: 1,
-                        fontSize: 16,
-                        fontWeight: '600',
-                        margin: 30,
-                        justifyContent: 'center',
-                        alignSelf: 'center',
-                    }}> {i18n.t('newTransaction.confirmDelete')}</Text>
-                    <View style={{
-                        justifyContent: 'flex-end',
-                        flexDirection: 'row',
-                        bottom: 0,
-                        marginTop: 10,
-                        marginBottom: 20
-                    }}>
+                    <Text style={styles.deleteModalText}>{i18n.t('newTransaction.confirmDelete')}</Text>
+                    <View style={styles.deleteModalView}>
                         <Button
                             customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
                             onPress={() => { this.remove(); this.props.actions.newTransactionHideDeleteModal();  }}

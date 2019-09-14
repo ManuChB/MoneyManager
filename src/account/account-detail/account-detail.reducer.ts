@@ -9,7 +9,8 @@ export const initialState: IAccountDetailState = {
     onSave: null,
     onRemove: null,
     currencyList: [],
-    accountTypeList: []
+    accountTypeList: [],
+    showDeleteModal: false
 };
 
 export default function accountDetail(state: IAccountDetailState = initialState, action: AnyAction) {
@@ -38,6 +39,16 @@ export default function accountDetail(state: IAccountDetailState = initialState,
                 ...state,
                 currencyList: action.value.currencyList,
                 accountTypeList: action.value.accountTypeList
+            };
+        case accountDetailConstant.ACCOUNT_DETAIL_SHOW_DELETE_MODAL:
+            return {
+                ...state,
+                showDeleteModal: true
+            };
+        case accountDetailConstant.ACCOUNT_DETAIL_HIDE_DELETE_MODAL:
+            return {
+                ...state,
+                showDeleteModal: false
             };
         default:
             return state

@@ -1,8 +1,6 @@
-import {
-    StyleSheet
-} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     deleteButton: {
         position: 'absolute',
         right: '3%',
@@ -33,6 +31,44 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textTransform: 'uppercase'
 
+    },
+    deleteModalIcon: {
+        alignSelf: 'center',
+        width: 100,
+        height: 100
+    },
+    deleteModalCustom: {
+        height: '45%'
+    },
+    deleteModalButton: {
+        top: '27.5%'
+    },
+    deleteModalText: {
+        flex: 1,
+        fontSize: 16,
+        fontWeight: '600',
+        margin: 30,
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    deleteModalView: {
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        bottom: 0,
+        marginTop: 10,
+        marginBottom: 20
+    },
+    '@media (max-width: 350)': {
+        deleteModalCustom: {
+            height: '60%'
+        },
+        deleteModalText: {
+            margin: 10,
+            marginTop: 0
+        },
+        deleteModalButton: {
+            top: '20%'
+        },
     }
 });
 

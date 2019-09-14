@@ -27,9 +27,20 @@ const accountDetailAction: IAccountDetailAction = {
             type: accountDetailConstant.ACCOUNT_DETAIL_SET_PICKER_DATA,
             value: { currencyList, accountTypeList}
         }
+    },
+
+    accountDetailShowDeleteModal() {
+        return {
+            type: accountDetailConstant.ACCOUNT_DETAIL_SHOW_DELETE_MODAL
+        }
+    },
+
+    accountDetailHideDeleteModal() {
+        return {
+            type: accountDetailConstant.ACCOUNT_DETAIL_HIDE_DELETE_MODAL
+        }
     }
-
-
+    
 }
 
 export default accountDetailAction;
