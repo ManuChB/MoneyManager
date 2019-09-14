@@ -4,24 +4,24 @@ import { Button } from './Button';
 
 export class Modal extends Component<IModalProp> {
     render() {
-        const { closeModal, hideClose, showBack, onBack } = this.props;
+        const { closeModal, hideClose, showBack, onBack, customModal, customButton } = this.props;
 
         return(
             <View style={styles.mainView}>
                 <View style={styles.screenBlocker}></View>
                 {!hideClose && <Button
-                    customButtonStyle={[styles.customButtonStyle, styles.buttonRight]}
+                    customButtonStyle={[styles.customButtonStyle, styles.buttonRight, customButton]}
                     customLabelStyle={styles.customLabelStyle} onPress={() => closeModal()}
                     label={'X'}
                     dontTranslate={true}>
                 </Button>}
                 {showBack && <Button
-                    customButtonStyle={[styles.customButtonStyle, styles.buttonLeft]}
+                    customButtonStyle={[styles.customButtonStyle, styles.buttonLeft, customButton]}
                     customLabelStyle={styles.customLabelStyle} onPress={() => onBack()}
                     icon={require('../../../../assets/images/left-50.png')}
                     dontTranslate={true}>
                 </Button>}
-                <ScrollView style={styles.modalStyle} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', marginTop: 35 }} showsVerticalScrollIndicator={false}>
+                <ScrollView style={[styles.modalStyle, customModal]} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', marginTop: 35 }} showsVerticalScrollIndicator={false}>
                     
                     {this.props.children}
                 </ScrollView>
@@ -99,6 +99,8 @@ export interface IModalProp {
     closeModal?: () => void,
     onBack?: () => void,
     hideClose?: boolean,
-    showBack?: boolean
+    showBack?: boolean,
+    customModal?: StyleSheet,
+    customButton?: StyleSheet,
 }
 

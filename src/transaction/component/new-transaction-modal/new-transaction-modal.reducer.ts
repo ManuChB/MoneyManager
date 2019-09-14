@@ -1,5 +1,4 @@
-import { NEW_TRANSACTION_INITIALIZE_START, NEW_TRANSACTION_INITIALIZE_FINISH, CHANGE_DATA, 
-    SET_CATEGORIES, NEW_TRANSACTION_SET_ACCOUNTS, NEW_TRANSACTION_SET_ICONS } from './new-transaction-modal.constant';
+import newTransactionConstants from './new-transaction-modal.constant';
 import { AnyAction } from 'redux';
 import { ITransactionDetailState } from './new-transaction-modal.model';
 
@@ -12,13 +11,14 @@ export const initialState: ITransactionDetailState = {
     accounts: [],
     onRemove: null,
     icons: [],
-    getTransactions: null
+    getTransactions: null,
+    showDeleteModal: false
 
 };
 
 export default function newTransaction(state: ITransactionDetailState = initialState, action: AnyAction) {
     switch (action.type) {
-        case NEW_TRANSACTION_INITIALIZE_START:
+        case newTransactionConstants.NEW_TRANSACTION_INITIALIZE_START:
             return {
                 ...state,
                 isInitialized: true,
@@ -28,30 +28,40 @@ export default function newTransaction(state: ITransactionDetailState = initialS
                 onRemove: action.value.onRemove,
                 getTransactions: action.value.getTransactions
             };
-        case NEW_TRANSACTION_INITIALIZE_FINISH:
+        case newTransactionConstants.NEW_TRANSACTION_INITIALIZE_FINISH:
             return {
                 ...state,
                 isInitialized: true
             };
-        case CHANGE_DATA:
+        case newTransactionConstants.CHANGE_DATA:
             return {
                 ...state,
                 data: action.value
             };
-        case SET_CATEGORIES:
+        case newTransactionConstants.SET_CATEGORIES:
             return {
                 ...state,
                 categories: action.value
             };
-        case NEW_TRANSACTION_SET_ACCOUNTS:
+        case newTransactionConstants.NEW_TRANSACTION_SET_ACCOUNTS:
             return {
                 ...state,
                 accounts: action.value
             };
-        case NEW_TRANSACTION_SET_ICONS:
+        case newTransactionConstants.NEW_TRANSACTION_SET_ICONS:
             return {
                 ...state,
                 icons: action.value
+            };
+        case newTransactionConstants.NEW_TRANSACTION_SHOW_DELETE_MODAL:
+            return {
+                ...state,
+                showDeleteModal: true
+            };
+        case newTransactionConstants.NEW_TRANSACTION_HIDE_DELETE_MODAL:
+            return {
+                ...state,
+                showDeleteModal: false
             };
         default:
             return state

@@ -1,11 +1,11 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import dayTransactionAction from './new-transaction-modal.action';
-import { NEW_TRANSACTION_INITIALIZE_START } from './new-transaction-modal.constant';
+import newTransactionConstants from './new-transaction-modal.constant';
 import appConstants from '../../../appConstants';
 import sqLiteService from '../../../shared/service/sqLite/sqLite.service';
 
 export default [
-    takeLatest(NEW_TRANSACTION_INITIALIZE_START, initialize),
+    takeLatest(newTransactionConstants.NEW_TRANSACTION_INITIALIZE_START, initialize),
 
 ];
 

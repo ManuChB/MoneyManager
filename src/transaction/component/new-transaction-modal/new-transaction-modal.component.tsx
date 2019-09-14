@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import moment, { Moment } from 'moment';
 import _ from 'lodash';
 
@@ -12,6 +12,7 @@ import { DataPicker } from '../../../shared/components/common/DataPicker';
 import i18n from '../../../shared/service/i18n';
 import AccountService from '../../../shared/service/account/account.service';
 import NavigationService from '../../../shared/service/navigation/navigation.service';
+import { Modal } from '../../../shared/components/common/Modal';
 
 export default class  extends Component<ITransactionDetailProp> {
     constructor(props){
@@ -69,12 +70,45 @@ export default class  extends Component<ITransactionDetailProp> {
 
 
     render() {
-        const { data, onClose, categories, icons } = this.props.state;
+        const { data, onClose, categories, icons, showDeleteModal } = this.props.state;
         const { accounts } = this.state;
         return (
             
             <View style={{ flex: 1 }}>
                 <Header></Header>
+                {showDeleteModal && <Modal 
+                    closeModal={this.props.actions.newTransactionHideDeleteModal.bind(this)} 
+                    customModal={styles.deleteModalCustom}
+                    customButton={styles.deleteModalButton}>
+                    <Image style={styles.deleteModalIcon} source={require('../../../../assets/images/alert-100.png')} />
+
+                    <Text style={{
+                        flex: 1,
+                        fontSize: 16,
+                        fontWeight: '600',
+                        margin: 30,
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                    }}> {i18n.t('newTransaction.confirmDelete')}</Text>
+                    <View style={{
+                        justifyContent: 'flex-end',
+                        flexDirection: 'row',
+                        bottom: 0,
+                        marginTop: 10,
+                        marginBottom: 20
+                    }}>
+                        <Button
+                            customButtonStyle={{ flex: 1, borderColor: '#F38266', backgroundColor: '#F38266' }}
+                            onPress={() => { this.remove(); this.props.actions.newTransactionHideDeleteModal();  }}
+                            label={'common.button.delete'}>
+                        </Button>
+                        <Button
+                            customButtonStyle={{ flex: 1 }}
+                            onPress={() => this.props.actions.newTransactionHideDeleteModal()}
+                            label={'common.button.cancel'}>
+                        </Button>
+                    </View>
+                </Modal>}
                 <KeyboardShift hasHeader={true}>
                     {() => (
                     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
@@ -84,7 +118,7 @@ export default class  extends Component<ITransactionDetailProp> {
                             dateMode={'day'} >
                             { data.id && <Button
                                 customButtonStyle={styles.deleteButton}
-                                    onPress={() => this.remove()}
+                                    onPress={() => this.props.actions.newTransactionShowDeleteModal() } 
                                 icon={require('../../../../assets/images/delete-bin-64.png')}>
                             </Button>}
                         </DatePickerHeader>

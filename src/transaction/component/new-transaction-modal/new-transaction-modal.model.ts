@@ -17,7 +17,8 @@ export interface ITransactionDetailAction {
     setCategories?: (categories: Array<any>) => Action;
     setAccounts?: (accounts: Array<any>) => Action;
     setIcons?: (icons: Array<any>) => Action;
-
+    newTransactionShowDeleteModal?: () => Action;
+    newTransactionHideDeleteModal?: () => Action;
 }
 
 export interface ITransactionDetailState {
@@ -30,5 +31,5 @@ export interface ITransactionDetailState {
     icons?: Array<any>;
     onRemove: (data: ITransactionDataProp) => void;
     getTransactions: () => void;
-
+    showDeleteModal?: boolean;
 }

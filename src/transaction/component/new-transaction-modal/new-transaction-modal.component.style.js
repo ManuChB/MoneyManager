@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     mainView: {
         flex: 1,
         justifyContent: 'center',
@@ -51,6 +51,25 @@ const styles = StyleSheet.create({
         width: '10%',
         borderColor: '#ed0239',
         backgroundColor: '#ed0239'
+    },
+    deleteModalIcon: {
+        alignSelf: 'center',
+        width: 100,
+        height: 100
+    },
+    deleteModalCustom: {
+        height: '40%'
+    },
+    deleteModalButton: {
+        top: '30%'
+    },
+    '@media (max-width: 350)': {
+        deleteModalCustom: {
+            height: '60%'
+        },
+        deleteModalButton: {
+            top: '20%'
+        },
     }
 });
 

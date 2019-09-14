@@ -188,7 +188,8 @@
         "button": {
             "cancel": "Cancelar",
             "accept": "Aceptar",
-            "save": "Guardar"
+            "save": "Guardar",
+            "delete": "Eliminar"
         }
     },
     "general":{
@@ -228,7 +229,8 @@
         "expense": "Gasto",
         "button":{
             "newAccount": "Crear cuenta"
-        }
+        },
+        "confirmDelete": "¿Estás seguro que quieres eliminar esta transacción?"
 
     },
     "reportScreen": {

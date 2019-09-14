@@ -188,7 +188,8 @@
         "button": {
             "cancel": "Cancel",
             "accept": "Accept",
-            "save": "Save"
+            "save": "Save",
+            "delete": "Delete"
         }
     },
     "general": {
@@ -228,7 +229,8 @@
         "expense": "expense",
         "button": {
             "newAccount": "new account"
-        }
+        },
+        "confirmDelete": "Are you sure you want to delete this transaction?"
     },
     "reportScreen": {
         "report": "Report"
