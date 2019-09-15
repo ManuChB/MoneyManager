@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import moment from 'moment';
-
 import { ITransactionListProp } from './transaction-list.model';
-import { Button } from '../shared/components/common';
 import appConstants from '../appConstants';
-import styles from './transaction-list.component.style';
 import { TimeTabNavigation } from './component/timeTabNavigation/timeTabNavigation';
 import DayTransactionScreen from './component/day-transaction/day-transaction.screen';
 import MonthTransactionScreen from './component/month-transaction/month-transaction.screen';
 import WeekTransactionScreen from './component/week-transaction/week-transaction.screen';
 import YearTransactionScreen from './component/year-transaction/year-transaction.screen';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default class TransactionList extends Component<ITransactionListProp> {
+    onSwipeLeft(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.report);
+    }
 
     setTimeMode() {
         let mode;
@@ -40,10 +39,12 @@ export default class TransactionList extends Component<ITransactionListProp> {
     render() {
         const { state: {timeMode }, actions:{changeTimeFormat}} = this.props;
         return (
-            <View style={{ flex: 1 }}>                
+            <GestureRecognizer 
+                style={{ flex: 1 }} 
+                onSwipeLeft={(state) => this.onSwipeLeft(state)}>                
                 <TimeTabNavigation timeMode={timeMode} changeTimeFormat={changeTimeFormat}></TimeTabNavigation>                
                 {this.setTimeMode()}               
-            </View>
+            </GestureRecognizer>
         )
     }
 }

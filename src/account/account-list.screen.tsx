@@ -5,6 +5,7 @@ import { Text, View, ScrollView } from 'react-native';
 import AccountList from './account-list.component';
 import  accountListAction from './account-list.action';
 import { IAccountListProp } from './account-list.model';
+import moneyManagerAction from '../money-manager/money-manager.action';
 
 export class AccountListScreenComponent extends Component<IAccountListProp, {}> {
     constructor(props: any) {
@@ -27,12 +28,13 @@ export class AccountListScreenComponent extends Component<IAccountListProp, {}> 
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.accountList };
+    return { state: {...state.accountList, ...state.moneyManager} };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(moneyManagerAction, dispatch),
             ...bindActionCreators<any>(accountListAction, dispatch)
         }
     };

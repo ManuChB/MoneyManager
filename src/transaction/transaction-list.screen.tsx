@@ -5,6 +5,7 @@ import { Text, View } from 'react-native';
 import TransactionList from './transaction-list.component';
 import  transactionListAction from './transaction-list.action';
 import { ITransactionListProp } from './transaction-list.model';
+import moneyManagerAction from '../money-manager/money-manager.action';
 
 export class TransactionListScreenComponent extends Component<ITransactionListProp, {}> {
     constructor(props: any) {
@@ -27,12 +28,13 @@ export class TransactionListScreenComponent extends Component<ITransactionListPr
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.transactionList };
+    return { state: {...state.transactionList, ...state.moneyManager} };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         actions: {
+            ...bindActionCreators<any>(moneyManagerAction, dispatch),
             ...bindActionCreators<any>(transactionListAction, dispatch)
         }
     };

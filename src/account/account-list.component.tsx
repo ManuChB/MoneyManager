@@ -8,9 +8,17 @@ import Account from './account/account.component';
 import NavigationService from '../shared/service/navigation/navigation.service';
 import appConstants from '../appConstants';
 import styles from './account-list.component.style';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default class AccountList extends Component<IAccountListProp> {
 
+    onSwipeLeft(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.settings);
+    }
+
+    onSwipeRight(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.report);
+    }
 
     onSaveAccount(account) {
         this.props.actions.saveNewAccount(account);
@@ -74,8 +82,10 @@ export default class AccountList extends Component<IAccountListProp> {
             (balance) => balance.type === appConstants.accountTypesGeneral.name
         )[0];
         return (
-            <View style={{ flex: 1 }}>
-
+            <GestureRecognizer
+                onSwipeLeft={(state) => this.onSwipeLeft(state)}
+                onSwipeRight={(state) => this.onSwipeRight(state)}
+                 style={{ flex: 1 }}>
                 <View style={{
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -108,7 +118,7 @@ export default class AccountList extends Component<IAccountListProp> {
                     <View style={{ height: 60 }}></View>
                     {false && rand > 50 && <AdMob type={'banner'}></AdMob>}
                 </ScrollView>
-            </View>
+            </GestureRecognizer>
         )
     }
 }

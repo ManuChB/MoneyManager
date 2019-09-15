@@ -5,6 +5,7 @@ import { Text } from 'react-native';
 import Settings from './settings.component';
 import settingsAction from './settings.action';
 import { ISettingsProp } from './settings.model';
+import moneyManagerAction from '../money-manager/money-manager.action';
 
 export class SettingsScreenComponent extends Component<ISettingsProp, {}> {
     constructor(props: any) {
@@ -27,13 +28,14 @@ export class SettingsScreenComponent extends Component<ISettingsProp, {}> {
 }
 
 function mapStateToProps(state: any) {
-    return { state: state.settings };
+    return { state: {...state.settings, ...state.moneyManager} };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
         dispatch: dispatch,
         actions: {
+            ...bindActionCreators<any>(moneyManagerAction, dispatch),
             ...bindActionCreators<any>(settingsAction, dispatch)
         }
     };

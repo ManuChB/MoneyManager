@@ -1,11 +1,12 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
 import { ITransactionDataProp } from './component/transaction/transaction.component';
+import { IMoneyManagerAction } from '../money-manager/money-manager.model';
 
 export interface ITransactionListProp {
     navigation?: NavigationScreenProp<any, any>;
     state?: ITransactionListState;
-    actions?: ITransactionListAction;
+    actions?: ITransactionListAction & IMoneyManagerAction;
 }
 
 export interface ITransactionListAction {

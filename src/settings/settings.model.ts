@@ -1,10 +1,11 @@
 import { Action } from 'redux';
 import { NavigationScreenProp } from 'react-navigation';
+import { IMoneyManagerAction } from '../money-manager/money-manager.model';
 
 export interface ISettingsProp {
     navigation?: NavigationScreenProp<any, any>;
     state?: ISettingsState;
-    actions?: ISettingsAction;
+    actions?: ISettingsAction & IMoneyManagerAction;
     dispatch?: any;
     setLanguage?: (locale: string) => void;
 }

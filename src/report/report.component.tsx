@@ -11,8 +11,17 @@ import Transaction from '../transaction/component/transaction/transaction.compon
 import moment from 'moment';
 import { AdMob } from '../shared/components/common';
 import currencyFormatter from 'currency-formatter';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default class Report extends Component<IReportProp> {
+    
+    onSwipeLeft(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account);
+    } 
+    
+    onSwipeRight(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.transaction);
+    }
 
     isSelectedTab(reportMode: string) {
         if (this.props.state.reportMode === reportMode) {
@@ -114,7 +123,10 @@ export default class Report extends Component<IReportProp> {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: "#fff"}}>
+            <GestureRecognizer
+                onSwipeLeft={(state) => this.onSwipeLeft(state)}
+                onSwipeRight={(state) => this.onSwipeRight(state)}
+                 style={{ flex: 1, backgroundColor: "#fff"}}>
                 <View style={{flex:1 }}>
                     <View style={styles.mainViewStyle}>
                         <TouchableOpacity
@@ -144,7 +156,7 @@ export default class Report extends Component<IReportProp> {
                     </DatePickerHeader>
                     {this.getChartMode()}
                 </View>
-            </View>
+            </GestureRecognizer>
         )
     }
 }

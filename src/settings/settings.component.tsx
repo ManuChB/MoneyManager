@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Linking, Share, ScrollView  } from 'react-native';
 import qs from 'qs';
-
+import appConstants from '../appConstants';
 import { ISettingsProp } from './settings.model';
 import { Button, AdMob } from '../shared/components/common';
 import {languages } from '../shared/service/i18n';
 import { DataPicker } from '../shared/components/common/DataPicker';
 import i18n from '../shared/service/i18n';
 import styles from './settings.component.style';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default class Settings extends Component<ISettingsProp> {
 
@@ -74,8 +75,15 @@ export default class Settings extends Component<ISettingsProp> {
         await Linking.openURL(url);
     }
 
+    onSwipeRight(gestureState) {
+        this.props.actions.moneyManagerTabModeChange(appConstants.tabMode.account);
+    }
+
     render() {
         return (
+            <GestureRecognizer
+                style={{ flex: 1 }}
+                onSwipeRight={(state) => this.onSwipeRight(state)}>
             <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
                 <DataPicker label={'settingsScreen.language'}
                     value={this.props.state.currentLanguage.name}
@@ -131,6 +139,7 @@ export default class Settings extends Component<ISettingsProp> {
                     <AdMob type={'banner'}></AdMob>
                 </View>
             </ScrollView>
+            </GestureRecognizer>
         )
     }
 }
