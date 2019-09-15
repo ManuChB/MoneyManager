@@ -14,19 +14,28 @@ class SQLiteService {
     }
     async init() {
         AsyncStorageService.removeItem(appConstants.asyncStorageItem.TRANSACTIONS_BY_CATEGORY);
-       /* await FileSystem.deleteAsync(
-             `${FileSystem.documentDirectory}SQLite`
+        /*try{
+         await FileSystem.deleteAsync(
+            `${FileSystem.documentDirectory}SQLite`
         );
-*/
+        }catch(e){
+            console.log(`[error][sqLite][service][removeItem]>>>`, e);
+
+        }*/
+       
+
         const folder = await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}SQLite`);
+        console.log(`[error][sqLite][service][folder]>>>`, folder);
         if(!folder.exists) {
             await FileSystem.makeDirectoryAsync(`${FileSystem.documentDirectory}SQLite`);
+        
+            await FileSystem.downloadAsync(
+                Asset.fromModule(require('../../../../assets/moneyManager.db')).uri,
+                `${FileSystem.documentDirectory}SQLite/moneyManager.db`
+            );
         }
-        await FileSystem.downloadAsync(
-            Asset.fromModule(require('../../../../assets/moneyManager.db')).uri,
-            `${FileSystem.documentDirectory}SQLite/moneyManager.db`
-        );
         config.db = SQLite.openDatabase("moneyManager.db");
+        console.log(`[error][sqLite][service][openDatabase]>>>`, config.db);
     }
 
     async getAllCategories() {
@@ -480,6 +489,7 @@ class SQLiteService {
                             const row = rows.item(i);
                             data.push({ ...row });
                         }
+                        console.log('---------user---------', data[0]);
                         resolve(data[0]);
                     });
             },

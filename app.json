@@ -1,10 +1,24 @@
 {
   "expo": {
+    "name": "Money Manager",
+    "slug": "money-manager",
+    "privacy": "unlisted",
     "sdkVersion": "33.0.0",
+    "version": "0.5.0",
+    "platforms": [
+      "android"
+    ],
     "orientation": "portrait",
-      "packagerOpts": {
-        "assetExts": ["db"]
-      }
+    "icon": "./assets/images/money-box-64.png",
+    "android": {
+      "package": "com.moneymanager.moneymanager"
+    },
+    "packagerOpts": {
+      "assetExts": [
+        "db"
+      ]
+    },
+    "description": ""
   },
   "packagerOpts": {
     "assetExts": [

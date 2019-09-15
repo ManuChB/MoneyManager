@@ -122,7 +122,7 @@ function* syncDataWithFirebase(uid) {
                     wasExpense: e.wasExpense,
                     description: e.description,
                     icon: null,
-                    firebaseId: e.id
+                    firebaseId: e.firebaseId
                 };
                 return call(sqLiteService.addTransaction, elem);
             }
