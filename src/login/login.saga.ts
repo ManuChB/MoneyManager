@@ -98,16 +98,6 @@ export function* loginModeChange(action) {
     }
 }
 
-export function* setUserCurrency() {
-    const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
-    if(!uCurrency) {
-        const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);
-        yield call(AsyncStorageService.setItem, appConstants.asyncStorageItem.USER_CURRENCY, uLanguage.currency);
-
-    }
-    
-}
-
 export function* setUserData(uid, mail) {
     const uCurrency = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_CURRENCY);
     const uLanguage = yield call(AsyncStorageService.getItem, appConstants.asyncStorageItem.USER_LANGUAGE);

@@ -49,7 +49,10 @@ export const languages = [{
         icon: {
             name: 'spanish'
         },
-        currency: {name:'EUR'}
+        currency: {
+            name: 'EUR',
+            nameWithSymbol: 'EUR (€)'
+        }
     },
     {
         code: 'en-UK',
@@ -58,7 +61,8 @@ export const languages = [{
             name: 'english'
         },
         currency: {
-            name: 'GBP'
+            name: 'GBP',
+            nameWithSymbol: 'GBP (£)'
         }
     }
     /* ... */
@@ -72,6 +76,7 @@ export const defaultLanguage = {
         name: 'english'
     },
     currency: {
-        name: 'GBP'
+        name: 'GBP',
+        nameWithSymbol: 'GBP (£)'
     }
 };
