@@ -18,7 +18,11 @@
         "db"
       ]
     },
-    "description": ""
+    "description": "",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover"
+    }
   },
   "packagerOpts": {
     "assetExts": [

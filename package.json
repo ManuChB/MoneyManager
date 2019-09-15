@@ -63,7 +63,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "test": "jest",
-    "cleanAll": "rm -rf node_modules && rm -rf package-lock.json && npm install"
+    "cleanAll": "rm -rf node_modules && rm -rf package-lock.json && npm install",
+    "apk": "expo build:android -t apk"
   },
   "jest": {
     "preset": "jest-expo"

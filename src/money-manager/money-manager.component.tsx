@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo, View, Text } from 'react-native';
+import { NetInfo, View, BackHandler } from 'react-native';
 import { IMoneyManagerProp } from './money-manager.model';
 import { Header, Spinner } from '../shared/components/common';
 import appConstants from '../appConstants';
@@ -10,6 +10,7 @@ import TransactionListScreen from '../transaction/transaction-list.screen';
 import SettingsScreen from '../settings/settings.screen';
 import ReportScreen from '../report/report.screen';
 import i18n from '../shared/service/i18n';
+import navigationService from '../shared/service/navigation/navigation.service';
 
 export default class MoneyManager extends Component<IMoneyManagerProp> {
     setLanguage(locale: string) {
@@ -21,7 +22,7 @@ export default class MoneyManager extends Component<IMoneyManagerProp> {
         this.state = { isConnected: true };
     }
     componentDidMount() {
-
+ //       BackHandler.addEventListener('hardwareBackPress', this.handleHardareBackPress);
         NetInfo.isConnected.addEventListener(
             "connectionChange",
             this.handleConnectivityChange
@@ -32,7 +33,16 @@ export default class MoneyManager extends Component<IMoneyManagerProp> {
             "connectionChange",
             this.handleConnectivityChange
         );
+ //       BackHandler.removeEventListener("hardwareBackPress", this.handleHardareBackPress);
+
     }
+
+    // handleHardareBackPress() {
+    //     console.log('---------handle back');
+    //     navigationService.navigateBack();
+    //     return true;
+    // }
+
     handleConnectivityChange = isConnected => {
         if (isConnected) {
             this.setState({
