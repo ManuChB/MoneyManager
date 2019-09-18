@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     dataViewStyle: {
         flex: 1,
         flexDirection: 'row',
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
     valueStyle: {
         color: 'black',
-        fontSize: 16,
+        fontSize: '1rem',
         fontWeight: '600'
     },
     valueRateStyle: {
@@ -44,8 +44,15 @@ const styles = StyleSheet.create({
     },
     income: {
         color: 'green'
+    },
+    '@media (max-width: 350)': {
+        valueStyle: {
+            fontSize: '0.8rem',
+        },
+        valueRateStyle: {
+            fontSize: '0.7rem',
+        }
     }
-
 })
 
 export default styles;

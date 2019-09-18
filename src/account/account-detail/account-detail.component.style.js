@@ -58,6 +58,17 @@ const styles = EStyleSheet.create({
         marginTop: 10,
         marginBottom: 20
     },
+    '@media (max-width: 750)': {
+        deleteModalCustom: {
+            height: '55%'
+        },
+        deleteModalText: {
+            margin: 20
+        },
+        deleteModalButton: {
+            top: '22.5%'
+        },
+    },
     '@media (max-width: 350)': {
         deleteModalCustom: {
             height: '60%'

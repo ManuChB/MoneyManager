@@ -219,7 +219,7 @@ const styles = EStyleSheet.create({
     },
     categoryText: {
         color: 'white',
-        fontSize: '1.7rem',
+        fontSize: '1.35rem',
         textShadowColor: 'black',
         textShadowOffset: { width: 1, height: 4 },
         textShadowRadius: 0
@@ -248,8 +248,12 @@ const styles = EStyleSheet.create({
         marginLeft: 20,
         marginRight: 20
     },
+    '@media (max-width: 400)': {
+        categoryText: {
+            fontSize: '1.0rem'
+        },
+    },
     '@media (max-width: 350)': {
-
         categoryText: {
             fontSize: '0.9rem'
         },

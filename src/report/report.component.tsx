@@ -44,7 +44,6 @@ export default class Report extends Component<IReportProp> {
 
     getSelectedSliceTrans(transactions, showIncome) {
         const { uCurrency } = this.props.state;
-
         if(transactions.length == 0) {
             return (<View style={{ flex: 1 }}></View>)
         }
@@ -56,13 +55,13 @@ export default class Report extends Component<IReportProp> {
                             data={t} 
                             key={key + "_" + skey} 
                             onPress={() => this.onPressTransaction(t)}
-                            currency={uCurrency}></Transaction>)
+                            currency={{name:uCurrency}}></Transaction>)
                     } else if (!t.isExpense && showIncome){
                         return (<Transaction 
                             data={t} 
                             key={key + "_" + skey} 
                             onPress={() => this.onPressTransaction(t)}
-                            currency={uCurrency}>
+                            currency={{ name: uCurrency }}>
                             </Transaction>)
                     }
                 })

@@ -19,6 +19,7 @@ export interface IAccountState {
 export interface IAccountProp {
     data: IAccountData;
     onPress: () => void;
+    uCurrency?: any;
 
 }
 

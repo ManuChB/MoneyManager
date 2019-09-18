@@ -13,15 +13,11 @@ const Account: StatelessComponent<IAccountProp> = ({data, onPress, uCurrency}) =
     return (
         <TouchableOpacity style={styles.infoStyle} onPress={onPress}>
             <View style={styles.dataViewStyle}>
-                <View style={ { width: '35%', justifyContent: 'center', alignItems: 'center'} }>
+                <View style={ styles.name }>
                     <Text>{name }</Text>
                 </View>
-                <View style={{ width: '30%' }}></View>
-                <View style={{
-                    width: '35%', 
-                     justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
+                <View style={styles.space}></View>
+                <View style={styles.mainView}>
                     <Text style={[styles.valueStyle, value > 0 ? { color: 'green' } : { color: 'red' }]}>
                         {value ? currencyFormatter.format(value, { code: currency ? currency.name : 'YPN', locale: i18n.getLocale() }) : 0}
                     </Text>

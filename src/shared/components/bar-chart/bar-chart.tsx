@@ -24,7 +24,7 @@ export default class Bar extends Component<IBarChartProps> {
                     y={y(index) + (bandwidth / 2)}
                     fontSize="15"
                     fontWeight="bold"
-                    fill={value > CUT_OFF ? 'black' : '#ed0239'}
+                    fill={value > CUT_OFF ? 'black' : '#F38266'}
                     alignmentBaseline={'middle'}
                 >
                     {i18n.t(labs[index]).toUpperCase() + ": " + currencyFormatter.format(value, { code: currency ? currency : 'YPN', locale: i18n.getLocale() } ) }

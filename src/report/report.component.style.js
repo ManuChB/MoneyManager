@@ -59,13 +59,22 @@ const styles = EStyleSheet.create({
         marginRight: 10,
         color: '#61615e'
     },
-    '@media (max-width: 350)': {
-        
+    '@media (max-width: 750)': {
+
         totalText: {
             fontSize: '0.9rem'
         },
         valueText: {
             fontSize: '0.9rem'
+        },
+    },
+    '@media (max-width: 350)': {
+        
+        totalText: {
+            fontSize: '0.7rem'
+        },
+        valueText: {
+            fontSize: '0.7rem'
         },
     }
 });
