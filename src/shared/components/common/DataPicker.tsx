@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, Animated, TextInput, Image } from 'react-native';
-import { Modal } from '.';
+import { Modal } from './Modal';
 import i18n from '../../service/i18n';
 import _ from 'lodash';
 import appConstants from '../../../appConstants';

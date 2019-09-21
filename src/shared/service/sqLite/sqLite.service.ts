@@ -22,10 +22,8 @@ class SQLiteService {
             console.log(`[error][sqLite][service][removeItem]>>>`, e);
 
         }*/
-       
 
         const folder = await FileSystem.getInfoAsync(`${FileSystem.documentDirectory}SQLite`);
-        console.log(`[error][sqLite][service][folder]>>>`, folder);
         if(!folder.exists) {
             await FileSystem.makeDirectoryAsync(`${FileSystem.documentDirectory}SQLite`);
         
@@ -35,7 +33,6 @@ class SQLiteService {
             );
         }
         config.db = SQLite.openDatabase("moneyManager.db");
-        console.log(`[error][sqLite][service][openDatabase]>>>`, config.db);
     }
 
     async getAllCategories() {
@@ -502,7 +499,6 @@ class SQLiteService {
                             const row = rows.item(i);
                             data.push({ ...row });
                         }
-                        console.log('---------user---------', data[0]);
                         resolve(data[0]);
                     });
             },
