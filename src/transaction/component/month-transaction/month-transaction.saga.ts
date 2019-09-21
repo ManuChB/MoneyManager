@@ -70,7 +70,7 @@ export function* getTransactionByDate() {
 export function* showInterstitialAd() {
     try {
         const rand = Math.random() * (100);
-        if (rand > 100) {
+        if (rand > 80) {
             yield put(moneyManagerAction.moneyManagerShowSpinner());
             AdMobInterstitial.setAdUnitID('ca-app-pub-5759535791118818/6182743744'); // Test ID, Replace with your-admob-unit-id
             AdMobInterstitial.setTestDeviceID('EMULATOR');

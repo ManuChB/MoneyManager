@@ -19,7 +19,7 @@ class TransactionService {
             var income = 0;
             var expense = 0;
             var balance = 0;
-            if(transactions.length > 0) {
+            if(transactions && transactions.length > 0) {
                 transactions.forEach(element => {
                     if (element.isExpense || element.value < 0.00) {
 
