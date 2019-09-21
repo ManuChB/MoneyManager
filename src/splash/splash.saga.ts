@@ -89,7 +89,7 @@ function* syncDataWithFirebase(uid) {
 
         yield all(dataAccounts.map(e => {
             if(e.deleted == true){
-                return call(sqLiteService.removeAccount, {id: e.id , uid: e.uid});
+                return call(sqLiteService.removeAccount, { id: e.id, firebaseId: e.firebaseId, uid: e.uid });
             }else {
                 const elem = {
                     id: e.id,
@@ -104,10 +104,10 @@ function* syncDataWithFirebase(uid) {
                 return call(sqLiteService.addAccount, elem);
             }
         }))
-        const data = yield call(FirebaseService.getTransactionsAfterDate,user.lastLogIn ,uid);
+        const data = yield call(FirebaseService.getTransactionsAfterDate, user.lastLogIn, uid);
         yield all(data.map(e => {
             if (e.deleted == true) {
-                return call(sqLiteService.removeTransaction, { id: e.id, uid: e.uid });
+                return call(sqLiteService.removeTransaction, { id: e.id, firebaseId: e.firebaseId, uid: e.uid });
             } else {
                 const elem = {
                     id: e.id,
@@ -121,7 +121,7 @@ function* syncDataWithFirebase(uid) {
                     value: e.value,
                     wasExpense: e.wasExpense,
                     description: e.description,
-                    icon: null,
+                    icon: { id: e.imageIconId},
                     firebaseId: e.firebaseId
                 };
                 return call(sqLiteService.addTransaction, elem);

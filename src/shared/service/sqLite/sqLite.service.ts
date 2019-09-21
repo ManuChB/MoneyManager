@@ -169,11 +169,17 @@ class SQLiteService {
     }
 
     async removeAccount(account) {
-        const { id, uid } = account;
+        const { id, firebaseId, uid } = account;
+        let query = '';
+        if (firebaseId) {
+            query = `DELETE FROM account WHERE firebaseId='${firebaseId}' AND uid='${uid}'`;
+        }else {
+            query = `DELETE FROM account WHERE id='${id}' AND uid='${uid}'`
+        }
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `DELETE FROM account WHERE id='${id}' AND uid='${uid}'`,
+                    query,
                     [],
                     (tx, results) => {
                         resolve(results);
@@ -236,7 +242,7 @@ class SQLiteService {
         const {id, account, categoryId, date, isExpense, oldValue, subCategory, uid, value, wasExpense, description, icon, firebaseId } = data;
         let query = null;
         
-        const imageId = icon ? `"${icon.id}"` : `"${subCategory.icon.id}"`;
+        const imageId = (icon && icon.id) ? `"${icon.id}"` : `"${subCategory.icon.id}"`;
         const desc = description ? `"${description}"` : null;
         const firebase = firebaseId ? `"${firebaseId}"` : null;
 
@@ -435,10 +441,17 @@ class SQLiteService {
     }
 
     async removeTransaction(transaction) {
+        const {id, firebaseId, uid} = transaction;
+        let query = '';
+        if (firebaseId) {
+            query = `DELETE FROM transactions WHERE firebaseId='${firebaseId}' AND uid='${uid}'`;
+        } else {
+            query = `DELETE FROM transactions WHERE id="${id}" AND uid="${uid}"`
+        }
         return new Promise((resolve, reject) => {
             config.db.transaction(tx => {
                 tx.executeSql(
-                    `DELETE FROM transactions WHERE id="${transaction.id}" AND uid="${transaction.uid}"`,
+                    query,
                     [],
                     (tx, results) => {
                         resolve(results);
