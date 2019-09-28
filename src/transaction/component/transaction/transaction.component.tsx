@@ -18,7 +18,7 @@ const Transaction: StatelessComponent<ITransactionProp> = ({ data, onPress, onLo
                 <View style={{
                     width:'15%', justifyContent: 'center',
                     alignItems: 'center' }}>
-                    <Image style={{ width: 35, height: 35 }} source={appConstants.transactionIcons[icon.name]} />
+                    <Image style={{ width: 35, height: 35 }} source={appConstants.transactionIcons[subCategory.icon ? subCategory.icon.name: icon.name]} />
                 </View>
                 <View style={{ width: '55%' }}>
                     <Text > {subCategory ? i18n.t(subCategory.value).toUpperCase() : ''}</Text>

@@ -300,7 +300,7 @@ class SQLiteService {
                     FROM transactions
                     INNER JOIN account on account.firebaseId = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
-                    INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
+                    INNER JOIN imageIcon on imageIcon.id = subCategory.imageIcon
                     INNER JOIN currency on currency.id = account.currencyId
                     INNER JOIN accountType on accountType.id = account.typeId
                     WHERE transactions.uid = '${uid}' AND date = date('${moment(day).format("YYYY-MM-DD")}')`;
@@ -373,7 +373,7 @@ class SQLiteService {
                     FROM transactions
                     INNER JOIN account on account.firebaseId = transactions.accountId
                     INNER JOIN subCategory on subCategory.id = transactions.subCategoryId
-                    INNER JOIN imageIcon on imageIcon.id = transactions.imageIconId
+                    INNER JOIN imageIcon on imageIcon.id = subCategory.imageIcon
                     INNER JOIN currency on currency.id = account.currencyId
                     INNER JOIN accountType on accountType.id = account.typeId
                     WHERE transactions.uid = '${uid}' AND date >= date('${moment(dateStart).format("YYYY-MM-DD")}') AND date <= date('${moment(dateEnd).format("YYYY-MM-DD")}') `;
