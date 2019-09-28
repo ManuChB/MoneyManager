@@ -259,9 +259,9 @@
         },
         "share": {
             "label": "Share",
-            "message": "MoneyManager: we are helping you to have control of your finance",
+            "message": "Expense Traker: we are helping you to have control of your finance",
             "title": "Wow, did you know this awesome app?",
-            "dialogTitle": "Share MoneyManager goodness"
+            "dialogTitle": "Share Expense Traker goodness"
         },
         "mistranslation": {
             "label": "Mistranslation/Typo",

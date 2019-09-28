@@ -261,9 +261,9 @@
         },
         "share": {
             "label": "Compartir",
-            "message": "MoneyManager: le ayudamos a tener el control de sus finanzas",
+            "message": "Expense Traker: le ayudamos a tener el control de sus finanzas",
             "title": "Wow, ¿conocías esta increíble aplicación?",
-            "dialogTitle": "Comparte MoneyManager"
+            "dialogTitle": "Comparte Expense Traker"
         },
         "mistranslation": {
             "label": "Error de traducción",

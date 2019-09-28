@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo } from 'react-native';;
+import { NetInfo, Image } from 'react-native';;
 import { ISplashProp } from './splash.model';
 import { Spinner } from '../shared/components/common/Spinner';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -29,7 +29,14 @@ export default class Splash extends Component<ISplashProp> {
 
     render() {
         return(
-            <LinearGradient
+
+            <Image style={{ alignSelf: 'center', width: '100%', height: '100%' }} source={require('../../assets/splash2.png')} />
+        )  
+    }
+}
+
+/*
+<LinearGradient
                 start={{ x: 0.0, y: 0.2 }}
                 end={{ x: 0.75, y: 1.0 }}
                 locations={[0, 0.3, 0.7]}
@@ -38,7 +45,4 @@ export default class Splash extends Component<ISplashProp> {
                 {(this.props.state.isInitialized || !this.state.isConnected) && <Spinner conectionError={!this.state.isConnected}></Spinner>}
 
             </LinearGradient>
-            
-        )  
-    }
-}
+            */

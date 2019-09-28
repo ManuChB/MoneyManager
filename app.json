@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "Money Manager",
-    "slug": "money-manager",
+    "name": "Expense Tracker",
+    "slug": "expense-tracker",
     "privacy": "unlisted",
     "sdkVersion": "33.0.0",
-    "version": "0.5.0",
+    "version": "0.9.0",
     "platforms": [
       "android"
     ],
     "orientation": "portrait",
-    "icon": "./assets/images/money-box-64.png",
+    "icon": "./assets/finance.png",
     "android": {
       "package": "com.moneymanager.moneymanager"
     },
@@ -20,7 +20,7 @@
     },
     "description": "",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash2.png",
       "resizeMode": "cover"
     }
   },

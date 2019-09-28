@@ -109,13 +109,13 @@ export default class AccountList extends Component<IAccountListProp> {
                 </BalanceInfo>
                 <AddButton onPress={() => this.onPressNewAccount()} customButtonStyle={ {} }></AddButton>
 
-                <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
+                <ScrollView style={{ flex: 1, heigth: '100%' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', marginTop: 20 }}>
                     {accountListByType.map((accountTypeList, typekey) => {
                         return (
                             this.getAccountsFromTypeList(accountTypeList, typekey, accountsBalance)
                          )
                     })}
-                    <View style={{ height: 60 }}></View>
+                    <View style={{ height: 80 }}></View>
                     {false && rand > 50 && <AdMob type={'banner'}></AdMob>}
                 </ScrollView>
             </GestureRecognizer>

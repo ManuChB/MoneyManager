@@ -97,7 +97,7 @@ export default class Login extends Component<ILoginProp> {
                                 </DataPicker>
                                 <View style={styles.containerStyle}>
                                     <View>
-                                        <Image style={{ alignSelf: 'center', width: 125, height: 125 }} source={require('../../assets/images/money-box.png')} />
+                                        <Image style={{ alignSelf: 'center', width: 125, height: 111 }} source={require('../../assets/Untitled.png')} />
                                     </View>
                                     <View style={styles.subContainerStyle}>
                                         <Input 

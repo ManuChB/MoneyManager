@@ -35,7 +35,7 @@ export default class Settings extends Component<ISettingsProp> {
 
     async sendEmail(subject: string, body: string) {
         try {
-            let url = `mailto:test@gmail.com`;
+            let url = `mailto:expense.tracker.contact@gmail.com`;
             const query = qs.stringify({
                 subject: i18n.t(subject),
                 body: i18n.t(body)
@@ -56,9 +56,9 @@ export default class Settings extends Component<ISettingsProp> {
     share() {
         
         Share.share({
-            message: 'settingsScreen.share.message',
+            message: i18n.t('settingsScreen.share.message'),
             url: 'https://play.google.com/store/apps/details?id=com.supercell.clashroyale&hl=en',
-            title: 'settingsScreen.share.title'
+                title: i18n.t('settingsScreen.share.title')
         }, {
                 // Android only:
                 dialogTitle: 'Share MoneyManager goodness',
@@ -105,13 +105,13 @@ export default class Settings extends Component<ISettingsProp> {
                         {i18n.t('settingsScreen.feedback.label')}
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {false && <TouchableOpacity
                     style={styles.feedback}
                     onPress={() => { this.share() }}>
                     <Text style={styles.feedbackText} >
                         {i18n.t('settingsScreen.share.label')}
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <TouchableOpacity
                     style={styles.feedback}
                     onPress={() => { this.sendMistranslation() }}>
@@ -119,13 +119,13 @@ export default class Settings extends Component<ISettingsProp> {
                         {i18n.t('settingsScreen.mistranslation.label')}
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                    {false && <TouchableOpacity
                     style={styles.feedback}
                     onPress={() => { this.review() }}>
                     <Text style={styles.feedbackText} >
                         {i18n.t('settingsScreen.review.label')}
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <View style={styles.logOut}>
                     <Button
                         customButtonStyle={{
